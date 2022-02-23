@@ -16,6 +16,14 @@ namespace tests
         void test() override;
     };
 
+    class VectorTestAt
+        :public SimpleTest
+    {
+    public: 
+        VectorTestAt();
+        void test() override;
+    };
+
     /// <summary>
     /// Zahrna v sebe vsetky testy, ktore testuju vektor.
     /// </summary>

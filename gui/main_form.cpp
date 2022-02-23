@@ -29,7 +29,7 @@ void main(array<String^>^)
 	// Registracia testov:
 
 	// TODO 01: Vector
-	//tests.emplace_back(new tests::VectorTestOverall());
+	tests.emplace_back(new tests::VectorTestOverall());
 
 	// TODO 02: Array
 	//tests.emplace_back(new tests::ArrayTestOverall());

@@ -53,10 +53,10 @@ namespace structures
 		}
 		else
 		{
-			Vector& otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovateæ na structure a Vector* je pointer, ak sa nepodarÌ pretypovaù tak vratÌ NULL
-			if (&otherVector != nullptr)
+			Vector* otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovateæ na structure a Vector* je pointer, ak sa nepodarÌ pretypovaù tak vratÌ NULL
+			if (otherVector != nullptr)
 			{
-				return  size_ = otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) = 0;
+				return size_ == otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) == 0;
 			}
 
 			else
@@ -73,8 +73,7 @@ namespace structures
 
 	byte& Vector::at(int index)
 	{
-		//TODO 01: Vector
-		throw std::runtime_error("Vector::at: Not implemented yet.");
+		return *getBytePointer(index);
 	}
 
 	void Vector::copy(Vector& src, int srcStartIndex, Vector& dest, int destStartIndex, int length)
