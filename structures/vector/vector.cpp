@@ -85,7 +85,7 @@ namespace structures
 
 	byte* Vector::getBytePointer(int index)
 	{
-		//TODO 01: Vector
-		throw std::runtime_error("Vector::getBytePointer: Not implemented yet.");
+		Utils::rangeCheckExcept(index, size_, "Invalid index!");   // toto je trieda ktorú spravili na unize pre nás, aby sme stále to isté neprogramovali
+		return reinterpret_cast<byte*>(memory_) + index;
 	}
 }
