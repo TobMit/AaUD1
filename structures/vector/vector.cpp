@@ -21,7 +21,10 @@ namespace structures
 
 	Vector::~Vector()
 	{
-		//TODO 01: Vector
+		free(memory_); // vymaûe d·ta z memory
+		memory_ = nullptr;
+		size_ = 0;
+		//aby sa nestalo, ûe by som neskÙr pristupoval k vymazanÈmu objektu, tak je to lepöie si prekryù, inak to bude fungovaù dobre
 	}
 
 	size_t Vector::size()
