@@ -34,8 +34,15 @@ namespace structures
 
 	Structure& Vector::assign(Structure& other)
 	{
-		//TODO 01: Vector
-		throw std::runtime_error("Vector::assign: Not implemented yet.");
+		if (this != &other) { // overuejem, èi sa nesnaím prideli sám seba, sebe (ak sa chápem xD)
+			Vector& otherVector = dynamic_cast<Vector&>(other); //dynamic cast vráti to èo je v hranatıch zátvorkách
+			// keby to pretypovávame v zátvorkách, tak to je static cast, je to èítate¾nejšie, a robí viacej kontrol
+			// a potom pri refaktoringu sa ¾ahšie dá vyh¾ada
+			size_ = otherVector.size_;
+			memory_ = realloc(memory_, size_); //aby nám pôvodnı smerník po realokovaní ukazoval na novı repsektíve správny
+		}
+
+		return *this;  //vraciam samého seba, pretoe som uravoval samého seba.
 	}
 
 	bool Vector::equals(Structure& other)
