@@ -47,8 +47,23 @@ namespace structures
 
 	bool Vector::equals(Structure& other)
 	{
-		//TODO 01: Vector
-		throw std::runtime_error("Vector::equals: Not implemented yet.");
+		if (this == &other)
+		{
+			return true;
+		}
+		else
+		{
+			Vector& otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovate¾ na structure a Vector* je pointer, ak sa nepodarí pretypova tak vratí NULL
+			if (&otherVector != nullptr)
+			{
+				return  size_ = otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) = 0;
+			}
+
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 	byte& Vector::operator[](int index)
