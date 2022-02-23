@@ -35,6 +35,16 @@ namespace tests
         structures::Vector* testVector = new structures::Vector(10);
 
         SimpleTest::assertTrue(testVector->size() == 10, "Testujem Vector::size()");
+        for (int i = 0; i < 10; i++)
+        {
+            testVector->at(i) = i;
+        }
+
+        for (int i = 0; i < 10; i++)
+        {
+            SimpleTest::assertTrue(testVector->at(i) == i, "Testujem Vector::at(" + std::to_string(i) + ")");
+            SimpleTest::assertTrue(*(testVector->getBytePointer(i)) == i, "Testujem Vector::getBytePointer(" + std::to_string(i) + ")");
+        }
 
         delete testVector;
     }
