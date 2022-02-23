@@ -32,7 +32,11 @@ namespace tests
 
     void VectorTestAt::test()
     {
-        SimpleTest::logInfo("Funguje!");
+        structures::Vector* testVector = new structures::Vector(10);
+
+        SimpleTest::assertTrue(testVector->size() == 10, "Testujem Vector::size()");
+
+        delete testVector;
     }
 
 
