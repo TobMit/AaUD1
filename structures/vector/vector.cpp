@@ -1,30 +1,30 @@
-#include "vector.h"
+Ôªø#include "vector.h"
 #include "../utils.h"
 #include <cstdlib>
 #include <cstring>
 
 namespace structures
 {
-	// konötruktor 
+	// kon≈°truktor 
 	Vector::Vector(size_t size) :
-		memory_(std::calloc(size, 1)), // priraduj˙ sa tam hodnoty, calloc inicializuje urËit˙ veækosù a + inicializuje pam‰ù 0
-		size_(size) // to v z·tvork·ch je inicializ·cia, je efektÌvnejöia neû cez oper·tor priradenia =
+		memory_(std::calloc(size, 1)), // priraduj√∫ sa tam hodnoty, calloc inicializuje ur√®it√∫ ve¬ækos¬ù a + inicializuje pam√§¬ù 0
+		size_(size) // to v z√°tvork√°ch je inicializ√°cia, je efekt√≠vnej≈°ia ne≈æ cez oper√°tor priradenia =
 	{	
 	}
 
-	//kopÌrovacÌ konötruktor
+	//kop√≠rovac√≠ kon≈°truktor
 	Vector::Vector(Vector& other) :
 		Vector(other.size_)
 	{
-		memcpy(memory_, other.memory_, size_); //skopÌruje pam‰ù s pÙvodnÈho vectora do novÈho vectora
+		memcpy(memory_, other.memory_, size_); //skop√≠ruje pam√§¬ù s p√¥vodn√©ho vectora do nov√©ho vectora
 	}
 
 	Vector::~Vector()
 	{
-		free(memory_); // vymaûe d·ta z memory
+		free(memory_); // vyma≈æe d√°ta z memory
 		memory_ = nullptr;
 		size_ = 0;
-		//aby sa nestalo, ûe by som neskÙr pristupoval k vymazanÈmu objektu, tak je to lepöie si prekryù, inak to bude fungovaù dobre
+		//aby sa nestalo, ≈æe by som nesk√¥r pristupoval k vymazan√©mu objektu, tak je to lep≈°ie si prekry¬ù, inak to bude fungova¬ù dobre
 	}
 
 	size_t Vector::size()
@@ -34,15 +34,15 @@ namespace structures
 
 	Structure& Vector::assign(Structure& other)
 	{
-		if (this != &other) { // overuejem, Ëi sa nesnaûÌm prideliù s·m seba, sebe (ak sa ch·pem xD)
-			Vector& otherVector = dynamic_cast<Vector&>(other); //dynamic cast vr·ti to Ëo je v hranat˝ch z·tvork·ch
-			// keby to pretypov·vame v z·tvork·ch, tak to je static cast, je to ËÌtateænejöie, a robÌ viacej kontrol
-			// a potom pri refaktoringu sa æahöie d· vyhæadaù
+		if (this != &other) { // overuejem, √®i sa nesna≈æ√≠m prideli¬ù s√°m seba, sebe (ak sa ch√°pem xD)
+			Vector& otherVector = dynamic_cast<Vector&>(other); //dynamic cast vr√°ti to √®o je v hranat√Ωch z√°tvork√°ch
+			// keby to pretypov√°vame v z√°tvork√°ch, tak to je static cast, je to √®√≠tate¬ænej≈°ie, a rob√≠ viacej kontrol
+			// a potom pri refaktoringu sa ¬æah≈°ie d√° vyh¬æada¬ù
 			size_ = otherVector.size_;
-			memory_ = realloc(memory_, size_); //aby n·m pÙvodn˝ smernÌk po realokovanÌ ukazoval na nov˝ repsektÌve spr·vny
+			memory_ = realloc(memory_, size_); //aby n√°m p√¥vodn√Ω smern√≠k po realokovan√≠ ukazoval na nov√Ω repsekt√≠ve spr√°vny
 		}
 
-		return *this;  //vraciam samÈho seba, pretoûe som uravoval samÈho seba.
+		return *this;  //vraciam sam√©ho seba, preto≈æe som uravoval sam√©ho seba.
 	}
 
 	bool Vector::equals(Structure& other)
@@ -53,10 +53,10 @@ namespace structures
 		}
 		else
 		{
-			Vector* otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovateæ na structure a Vector* je pointer, ak sa nepodarÌ pretypovaù tak vratÌ NULL
+			Vector* otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovate¬æ na structure a Vector* je pointer, ak sa nepodar√≠ pretypova¬ù tak vrat√≠ NULL
 			if (otherVector != nullptr)
 			{
-				return size_ == otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) == 0; //na bitovej ˙rovni porovn· dva pam‰?ovÈ bloky
+				return size_ == otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) == 0; //na bitovej √∫rovni porovn√° dva pam√§≈•ov√© bloky
 			}
 
 			else
@@ -78,13 +78,21 @@ namespace structures
 
 	void Vector::copy(Vector& src, int srcStartIndex, Vector& dest, int destStartIndex, int length)
 	{
-		//TODO 01: Vector
-		throw std::runtime_error("Vector::copy: Not implemented yet.");
+		Utils::rangeCheckExcept(srcStartIndex, src.size_, "Invalid starting Index!");
+		Utils::rangeCheckExcept(srcStartIndex + length, src.size_, "Invalid source length!");
+		Utils::rangeCheckExcept(destStartIndex, dest.size_, "Invalid destination Index!");
+		Utils::rangeCheckExcept(destStartIndex + length, dest.size_, "Invalid source length!");
+
+		if (&src == &dest && abs(srcStartIndex - destStartIndex) < length) { //over√≠m ƒçi sa nesna≈æ√≠ kop√≠rova≈• ten ist√Ω vektor do toho ist√©ho vektora a z√°rove≈à sa miesta prekr√≠vaj√∫
+			memmove(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
+		}
+
+		memcpy(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
 	}
 
 	byte* Vector::getBytePointer(int index)
 	{
-		Utils::rangeCheckExcept(index, size_, "Invalid index!");   // toto je trieda ktor˙ spravili na unize pre n·s, aby sme st·le to istÈ neprogramovali
+		Utils::rangeCheckExcept(index, size_, "Invalid index!");   // toto je trieda ktor√∫ spravili na unize pre n√°s, aby sme st√°le to ist√© neprogramovali
 		return reinterpret_cast<byte*>(memory_) + index;
 	}
 }

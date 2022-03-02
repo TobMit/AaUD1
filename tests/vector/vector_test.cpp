@@ -18,7 +18,7 @@ namespace tests
         vector->equals(*vector);
         vector->at(0);
         vector->getBytePointer(0);
-        //structures::Vector::copy(*vector, 0, *vector, 0, 1);
+        structures::Vector::copy(*vector, 0, *vector, 0, 1);
         delete vector;
         SimpleTest::logPass("Compiled.");
     }
