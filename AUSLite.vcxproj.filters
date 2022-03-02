@@ -126,6 +126,9 @@
     <ClCompile Include="tests\stdvector\stdvector_test.cpp">
       <Filter>tests\stdvector</Filter>
     </ClCompile>
+    <ClCompile Include="file_log_consumer.cpp">
+      <Filter>gui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gui\main_form.h">
@@ -307,6 +310,9 @@
     </ClInclude>
     <ClInclude Include="structures\heap_monitor.h">
       <Filter>structures\common</Filter>
+    </ClInclude>
+    <ClInclude Include="file_log_consumer.h">
+      <Filter>gui</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

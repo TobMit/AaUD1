@@ -32,7 +32,7 @@ void main(array<String^>^)
 	tests.emplace_back(new tests::VectorTestOverall());
 
 	// TODO 02: Array
-	//tests.emplace_back(new tests::ArrayTestOverall());
+	tests.emplace_back(new tests::ArrayTestOverall());
 
 	// TODO 03: List
 	//tests.emplace_back(new tests::ListTestOverall());

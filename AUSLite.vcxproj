@@ -124,6 +124,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="file_log_consumer.cpp" />
     <ClCompile Include="gui\gui_log_consumer.cpp" />
     <ClCompile Include="gui\main_form.cpp" />
     <ClCompile Include="structures\structure.cpp" />
@@ -143,6 +144,7 @@
     <ClCompile Include="tests\vector\vector_test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="file_log_consumer.h" />
     <ClInclude Include="gui\gui_log_consumer.h" />
     <ClInclude Include="gui\main_form.h">
       <FileType>CppForm</FileType>

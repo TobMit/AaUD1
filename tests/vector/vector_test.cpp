@@ -31,7 +31,12 @@ namespace tests
     }
 
     void VectorTestAt::test()
+
     {
+        structures::Logger::getInstance().logInfo("Zacal sa test!");
+        SimpleTest::startStopwatch();
+
+
         structures::Vector* testVector = new structures::Vector(10);
 
         SimpleTest::assertTrue(testVector->size() == 10, "Testujem Vector::size()");
@@ -47,6 +52,9 @@ namespace tests
         }
 
         delete testVector;
+
+        SimpleTest::stopStopwatch();
+        structures::Logger::getInstance().logDuration(0, SimpleTest::getElapsedTime(), "..a trval tolkoto!");
     }
 
 

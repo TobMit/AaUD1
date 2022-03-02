@@ -168,8 +168,7 @@ namespace structures
 	template<typename T>
 	void Array<T>::copy(Array<T>& src, int srcStartIndex, Array<T>& dest, int destStartIndex, int length)
 	{
-		//TODO 02: Array
-		throw std::runtime_error("Array<T>::copy: Not implemented yet.");
+		Vector::copy(*src.vector_, src.mapFunction(srcStartIndex), *dest.vector_, dest.mapFunction(destStartIndex), length * sizeof(T));
 	}
 
 	template<typename T>
