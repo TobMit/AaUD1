@@ -40,6 +40,7 @@ namespace structures
 			// a potom pri refaktoringu sa ¾ahšie dá vyh¾ada
 			size_ = otherVector.size_;
 			memory_ = realloc(memory_, size_); //aby nám pôvodný smerník po realokovaní ukazoval na nový repsektíve správny
+			memcpy(memory_, otherVector.memory_, size_);
 		}
 
 		return *this;  //vraciam samého seba, pretože som uravoval samého seba.
