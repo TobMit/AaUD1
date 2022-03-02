@@ -133,6 +133,8 @@ namespace structures
 			//return *vector_ == *otherArray->vector_;
 			//return vector_ == otherArray->vector_;  //ZLE!!!
 		}
+		else
+			return false;
 	}
 
 	template<typename T>
@@ -150,8 +152,17 @@ namespace structures
 	template<typename T>
 	inline T& Array<T>::at(int index)
 	{
-		//TODO 02: Array
-		throw std::runtime_error("Array<T>::at: Not implemented yet.");
+		// 1) ziskajte index vo vektore
+		// 2) ziskajte byte* na danom indexe
+		// 3) pretypujte ukazovatel na T* (teinterpreter_cast)
+		// 4) vrati dereferovany ukazoval z ktroku 3
+
+		int indexInVector = mapFunction(index);
+		byte* ptrByte = vector_->getBytePointer(indexInVector);
+		T* ptrT = reinterpret_cast<T*> (ptrByte);
+		return *ptrT;
+
+
 	}
 
 	template<typename T>
