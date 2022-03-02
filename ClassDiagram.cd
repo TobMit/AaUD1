@@ -14,5 +14,12 @@
       <FileName>structures\structure.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="structures::Array&lt;T&gt;">
+    <Position X="8.75" Y="4.75" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAACECAAAAIAAAAhAAAEAAAJAgAAAAIAAAAA=</HashCode>
+      <FileName>structures\array\array.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>
