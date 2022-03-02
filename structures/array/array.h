@@ -164,8 +164,8 @@ namespace structures
 	template<typename T>
 	inline int Array<T>::mapFunction(int index) const
 	{
-		//TODO 02: Array
-		throw std::runtime_error("Array<T>::mapFunction: Not implemented yet.");
+		Utils::rangeCheckExcept(index, size_, "Invalid Index!");
+		return index * sizeof(T); //vráti nám začiatok bloku vo vektore
 	}
 }
 
