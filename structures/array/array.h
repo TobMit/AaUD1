@@ -97,8 +97,24 @@ namespace structures
 	template<typename T>
 	Structure& Array<T>::assign(Structure& other)
 	{
-		//TODO 02: Array
-		throw std::runtime_error("Array<T>::assign: Not implemented yet.");
+		//skotrolujem identitu a ak nie som identicky, tak:
+		//	pretypujem other na Array<T>&
+		//	skontroluje, ci maju polia rovnaku velkost
+		//		ano: necham priradit vektory(assign)
+		//		nie: Vynimka!
+		
+		if (this != &other)
+		{
+			Array<T>& otherArray = dynamic_cast< Array<T>&>(other);
+			if (size_ == otherArray.size_)
+			{
+				vector_->assign(*otherArray.vector_);  //Vector::assign potrebuje referenciu preto je tam ta *
+			}
+			else
+				throw std::invalid_argument("Array size differ!");
+		}
+		
+		return *this;
 	}
 
 	template<typename T>
