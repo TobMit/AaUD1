@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "../structure.h"
 #include "../vector/vector.h"
@@ -74,14 +74,14 @@ namespace structures
 
 	template<typename T>
 	Array<T>::Array(size_t size) :
-		vector_(new Vector(size * sizeof(T))),
-		size_(size)
+		vector_(new Vector(size * sizeof(T))), //jedno poľe sa skladá z jedného vektora. A do vektora sa uloží 3* size of T aby sme nemali pre každý prvok array jeden vektor ale aby to bolo všetko po hromade. Sizeof(T) to preto aby sa vytvorila napr pre int potrebne miesto
+ 		size_(size)
 	{
 	}
 
 	template<typename T>
 	Array<T>::Array(Array<T>& other) :
-		vector_(new Vector(*(other.vector_))),
+		vector_(new Vector(*(other.vector_))), //zavolá sa kopírovací konštruktor poľa a vďaka tomu vytvoríme novú kópiu vektora
 		size_(other.size_)
 	{
 	}
@@ -89,7 +89,9 @@ namespace structures
 	template<typename T>
 	Array<T>::~Array()
 	{
-		//TODO 02: Array
+		delete vector_; //Zavoláme deštruktor poľa
+		vector_ = nullptr;
+		size_ = 0;
 	}
 
 	template<typename T>
