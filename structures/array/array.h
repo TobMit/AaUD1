@@ -120,8 +120,19 @@ namespace structures
 	template<typename T>
 	inline bool Array<T>::equals(Structure& other)
 	{
-		//TODO 02: Array
-		throw std::runtime_error("Array<T>::equals: Not implemented yet.");
+		// pretypujte si other na Array<T>*
+		// to nebude nullptr
+		//	vratte vysledok porovnania vektorov (equals)
+		//	inak vráte false
+
+		Array<T>* otherArray = dynamic_cast<Array<T>*> (&other);
+		if (otherArray != nullptr)
+		{
+			return vector_->equals(*otherArray->vector_);
+			//return vector_->operator==(*otherArray->vector_);
+			//return *vector_ == *otherArray->vector_;
+			//return vector_ == otherArray->vector_;  //ZLE!!!
+		}
 	}
 
 	template<typename T>
