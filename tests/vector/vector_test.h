@@ -24,6 +24,17 @@ namespace tests
         void test() override;
     };
 
+
+    class VectorTestCopyConstruct
+        :public SimpleTest
+
+    {
+    public:
+        VectorTestCopyConstruct();
+        void test() override;
+    };
+
+
     /// <summary>
     /// Zahrna v sebe vsetky testy, ktore testuju vektor.
     /// </summary>

@@ -1,5 +1,6 @@
 #include "vector_test.h"
 #include "../../structures/vector/vector.h"
+#include "../../structures/heap_monitor.h"
 
 namespace tests
 {
@@ -58,6 +59,31 @@ namespace tests
     }
 
 
+// Vector test Copyconstruct
+    VectorTestCopyConstruct::VectorTestCopyConstruct() : SimpleTest("Vector Test copy construct")
+    {
+    }
+    void VectorTestCopyConstruct::test()
+    {
+        structures::Vector* testVector = new structures::Vector(10);
+        for (int i = 0; i < 10; i++) {
+            testVector->at(i) = i;
+        }
+
+        structures::Vector* copyVector = new structures::Vector(*testVector);
+        SimpleTest::assertTrue(testVector->equals(*copyVector), "Testujem, ci Copirovaci constructor funguje.");
+        copyVector->at(0) = 10;
+        SimpleTest::assertFalse(testVector->equals(*copyVector), "Testujem, ci funguje equals, (vectory su rozlicne)");
+        testVector->assign(*copyVector);
+        SimpleTest::assertTrue(testVector->equals(*copyVector), "Testujem, ci assign funguje");
+
+
+        //delete testVector;
+        //delete copyVector;
+    }
+    
+
+
 // VectorTestOverall:
 
     VectorTestOverall::VectorTestOverall() :
@@ -65,5 +91,6 @@ namespace tests
     {
         addTest(new VectorTestInterface());
         addTest(new VectorTestAt());
+        addTest(new VectorTestCopyConstruct());
     }
 }
