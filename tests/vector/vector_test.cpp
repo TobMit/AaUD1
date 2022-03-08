@@ -65,21 +65,26 @@ namespace tests
     }
     void VectorTestCopyConstruct::test()
     {
+        SimpleTest::logInfo("Vytvaram testovaci vektor");
         structures::Vector* testVector = new structures::Vector(10);
+        SimpleTest::logInfo("Naplnam vector");
         for (int i = 0; i < 10; i++) {
             testVector->at(i) = i;
         }
-
+        
+        SimpleTest::logInfo("Vytvaram kopiu originalneho vecotra");
         structures::Vector* copyVector = new structures::Vector(*testVector);
         SimpleTest::assertTrue(testVector->equals(*copyVector), "Testujem, ci Copirovaci constructor funguje.");
+        SimpleTest::logInfo("Menim prvu hodnotu v copirovanom vectore na 10");
         copyVector->at(0) = 10;
         SimpleTest::assertFalse(testVector->equals(*copyVector), "Testujem, ci funguje equals, (vectory su rozlicne)");
+        SimpleTest::logInfo("Priradujem copirovanu verziu do povodneho vectora");
         testVector->assign(*copyVector);
         SimpleTest::assertTrue(testVector->equals(*copyVector), "Testujem, ci assign funguje");
 
 
-        //delete testVector;
-        //delete copyVector;
+        delete testVector;
+        delete copyVector;
     }
     
 
