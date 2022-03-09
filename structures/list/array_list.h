@@ -198,15 +198,48 @@ namespace structures
 	template<typename T>
 	inline void ArrayList<T>::add(const T& data)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::add: Not implemented yet.");
+		// skontrolujem velkost
+		//	ak nie je dost velke tak to zvisim -> enlarge() -- uy je tu metoda
+		//		nove pole s velkostou(size_ * 2)
+		//		cez Array<T>::Copy ()
+		//		array zmazem
+		// ak je dost velke tak to tam nakopirujem
+		if (size_ == array_->size()) {
+			enlarge();
+		}
+		array_->at(size_) = data;
+		size_++;
+
+
+
 	}
 
 	template<typename T>
 	inline void ArrayList<T>::insert(const T& data, int index)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::insert: Not implemented yet.");
+
+		// ak index == sze_	
+		//	ak ano tak add data
+		//	ak nie tak rangeCheckExcept
+		//		a zabezpec kapacitu
+		//		a Array<T>::Copy(index, to iste pole, index + 1
+		//		arraz -> at(index) = data
+		//		size++;
+		
+
+		if (index == size_) {
+			add(data);
+
+		}
+		else {
+			Utils::rangeCheckExcept(index, size_, "Invalid index");
+			if (size_ == array_->size()) {
+				enlarge();
+			}
+			Array<T>::copy(*array_, index, *array_, index + 1, size_ - index);
+			array_->at(index) = data;
+			size_++;
+		}
 	}
 
 	template<typename T>
@@ -254,8 +287,10 @@ namespace structures
 	template<typename T>
 	inline void ArrayList<T>::enlarge()
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::enlarge: Not implemented yet.");
+		Array<T>* bigArray = new Array<T>(array_->size() + 10);
+		Array<T>::copy(*array_, 0, *bigArray, 0, size_);
+		delete array_;
+		array_ = bigArray;
 	}
 
 	template<typename T>
