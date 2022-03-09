@@ -218,7 +218,7 @@ namespace structures
 		//		nove pole s velkostou(size_ * 2)
 		//		cez Array<T>::Copy ()
 		//		array zmazem
-		// ak je dost velke tak to tam nakopirujem
+		// ak je dost velky tak to tam nakopirujem
 		if (size_ == array_->size()) {
 			enlarge();
 		}
@@ -233,7 +233,7 @@ namespace structures
 	inline void ArrayList<T>::insert(const T& data, int index)
 	{
 
-		// ak index == sze_	
+		// ak index == size_	
 		//	ak ano tak add data
 		//	ak nie tak rangeCheckExcept
 		//		a zabezpec kapacitu
@@ -247,7 +247,7 @@ namespace structures
 
 		}
 		else {
-			Utils::rangeCheckExcept(index, size_, "Invalid index");
+			Utils::rangeCheckExcept(index, size_, "Invalid index (exception from ArrayList<T>::insert())");
 			if (size_ == array_->size()) {
 				enlarge();
 			}

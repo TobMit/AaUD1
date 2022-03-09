@@ -76,4 +76,14 @@ namespace tests
 	public:
 		ListTestOverall();
 	};
+
+	/// <summary>
+	/// Test ktory skontroluje ci funguje add a insert v ArrayListe
+	/// </summary>
+	class ArrayListTestInsert
+		: public SimpleTest {
+	public:
+		ArrayListTestInsert();
+		void test() override;
+	};
 }

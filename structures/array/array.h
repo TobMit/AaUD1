@@ -174,7 +174,7 @@ namespace structures
 	template<typename T>
 	inline int Array<T>::mapFunction(int index) const
 	{
-		Utils::rangeCheckExcept(index, size_, "Invalid Index!");
+		Utils::rangeCheckExcept(index, size_, "Invalid Index from Array<T>::mapFunction()!");
 		return index * sizeof(T); //vráti nám začiatok bloku vo vektore
 	}
 }

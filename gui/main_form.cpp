@@ -35,7 +35,7 @@ void main(array<String^>^)
 	tests.emplace_back(new tests::ArrayTestOverall());
 
 	// TODO 03: List
-	//tests.emplace_back(new tests::ListTestOverall());
+	tests.emplace_back(new tests::ListTestOverall());
 
 	// TODO 05: Stack
 	//tests.emplace_back(new tests::StackTestOverall());

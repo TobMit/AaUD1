@@ -87,8 +87,10 @@ namespace structures
 		if (&src == &dest && abs(srcStartIndex - destStartIndex) < length) { //overím či sa nesnaží kopírovať ten istý vektor do toho istého vektora a zároveň sa miesta prekrívajú
 			memmove(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
 		}
+		else {
 
-		memcpy(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
+			memcpy(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
+		}
 	}
 
 	byte* Vector::getBytePointer(int index)
