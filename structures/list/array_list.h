@@ -133,7 +133,7 @@ namespace structures
 
 	template<typename T>
 	inline ArrayList<T>::ArrayList() :
-		List<T>(),
+		List<T>(),  // nemusim tam pisatat konstruktro predka, zpisane iba kovoli tomu aby som vedel ze to dedi
 		array_(new Array<T>(4)),
 		size_(0)
 	{
@@ -150,7 +150,9 @@ namespace structures
 	template<typename T>
 	inline ArrayList<T>::~ArrayList()
 	{
-		//TODO 03: ArrayList
+		delete array_;
+		size_ = 0;
+		array_ = nullptr;
 	}
 
 	template<typename T>
@@ -162,8 +164,21 @@ namespace structures
 	template<typename T>
 	inline Structure& ArrayList<T>::assign(Structure& other)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::assign: Not implemented yet.");
+
+		// pretypovat
+		// delete array
+		// vytvorit kopiu  other array
+		// priradit
+
+		if (this != &other) {
+			ArrayList<T>& otherArrayList = dynamic_cast<ArrayList<T>&> (other);
+			delete array_;
+			array_ = new Array<T>(*otherArrayList.array_);
+			size_ = otherArrayList.size_;
+		}
+
+		return *this;
+
 	}
 
 	template<typename T>
