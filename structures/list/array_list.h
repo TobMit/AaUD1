@@ -259,8 +259,13 @@ namespace structures
 	template<typename T>
 	inline int ArrayList<T>::getIndexOf(const T& data)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::getIndexOf: Not implemented yet.");
+		// ak sa nenajde tak posle -1
+		for (int i = 0; i < size_; i++) {
+			if (array_->at(i) == data) {
+				return i;
+			}
+		}
+		return -1;
 	}
 
 	template<typename T>
