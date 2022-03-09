@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
-  <Class Name="structures::Vector">
-    <Position X="1" Y="6" Width="5.5" />
+  <Class Name="structures::Vector" Collapsed="true">
+    <Position X="1" Y="5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAEAAAAAACEAAQAAIAIAABAAAEAAAIAgEAAAAAAAAA=</HashCode>
       <FileName>structures\vector\vector.h</FileName>
@@ -14,11 +14,32 @@
       <FileName>structures\structure.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="structures::Array&lt;T&gt;">
-    <Position X="8.75" Y="4.75" Width="6" />
+  <Class Name="structures::Array&lt;T&gt;" Collapsed="true">
+    <Position X="4" Y="5" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAACECAAAAIAAAAhAAAEAAAJAgAAAAIAAAAA=</HashCode>
       <FileName>structures\array\array.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::ArrayList&lt;T&gt;">
+    <Position X="7.5" Y="8.5" Width="3.25" />
+    <NestedTypes>
+      <Class Name="structures::ArrayList&lt;T&gt;::ArrayListIterator" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>structures\list\array_list.h</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AEAAAAAgAADEAAAACYgAAABAQAAAAAEAggAAAAECAAA=</HashCode>
+      <FileName>structures\list\array_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::List&lt;T&gt;">
+    <Position X="7.5" Y="5" Width="3" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAAABAAAAACAAAAAAAQAEAAAAAgAAAAAECAAA=</HashCode>
+      <FileName>structures\list\list.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
