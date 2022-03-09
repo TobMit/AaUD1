@@ -191,8 +191,8 @@ namespace structures
 	template<typename T>
 	inline T& ArrayList<T>::at(int index)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::at: Not implemented yet.");
+		Utils::rangeCheckExcept(index, size_, "Invalid index!");
+		return array_->at(index);
 	}
 
 	template<typename T>
