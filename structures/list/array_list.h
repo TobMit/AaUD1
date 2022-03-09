@@ -184,8 +184,23 @@ namespace structures
 	template<typename T>
 	inline bool ArrayList<T>::equals(Structure& other)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::equals: Not implemented yet.");
+		if (this == &other) {
+			return true;
+		}
+		if (size_ != other.size()) {
+			return false;
+		}
+
+		ArrayList<T>& otherArray = dynamic_cast<ArrayList<T>&> (other);
+
+		for (int i = 0; i < size_; i++) {
+			if (at(i) == otherArray.at(i)) {
+				continue;
+			}
+			return false;
+		}
+
+		return true;
 	}
 
 	template<typename T>
