@@ -79,11 +79,11 @@ namespace structures
 
 	void Vector::copy(Vector& src, int srcStartIndex, Vector& dest, int destStartIndex, int length)
 	{
-		Utils::rangeCheckExcept(srcStartIndex, src.size_, "Invalid starting Index!");
-		Utils::rangeCheckExcept(srcStartIndex + length, src.size_, "Invalid source length!");
-		Utils::rangeCheckExcept(destStartIndex, dest.size_, "Invalid destination Index!");
-		Utils::rangeCheckExcept(destStartIndex + length, dest.size_, "Invalid source length!");
-
+		Utils::rangeCheckExcept(srcStartIndex, src.size_, "Invalid starting Index! (exception from Vector::copy)");
+		Utils::rangeCheckExcept(srcStartIndex + length, src.size_ + 1, "Invalid source length! (exception from Vector::copy)");
+		Utils::rangeCheckExcept(destStartIndex, dest.size_, "Invalid destination Index! (exception from Vector::copy)");
+		Utils::rangeCheckExcept(destStartIndex + length, dest.size_ + 1, "Invalid source length! (exception from Vector::copy)");
+		// abs je absolutna hodnota
 		if (&src == &dest && abs(srcStartIndex - destStartIndex) < length) { //overím či sa nesnaží kopírovať ten istý vektor do toho istého vektora a zároveň sa miesta prekrívajú
 			memmove(dest.getBytePointer(destStartIndex), src.getBytePointer(srcStartIndex), length);
 		}
