@@ -65,13 +65,15 @@ namespace structures
 	private:
 		size_t rowCount = 0;
 		size_t columnCount = 0;
+		void* memory_;
 	};
 
 	template<typename T>
-	inline CoherentMatrix<T>::CoherentMatrix(size_t rowCount, size_t columnCount)
+	inline CoherentMatrix<T>::CoherentMatrix(size_t rowCount, size_t columnCount):
+		rowCount(rowCount),
+		columnCount(columnCount)
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::CoherentMatrix: Not implemented yet.");
+		std::calloc(rowCount * columnCount, sizeof(T));
 	}
 
 	template<typename T>
