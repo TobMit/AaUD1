@@ -73,6 +73,12 @@
     <Filter Include="tests\stdvector">
       <UniqueIdentifier>{d3ff1cd6-7e2f-446f-9253-e9234aef7102}</UniqueIdentifier>
     </Filter>
+    <Filter Include="structures\matrix">
+      <UniqueIdentifier>{05c695da-99dc-462a-a65e-31a7be0bb1a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tests\matrix">
+      <UniqueIdentifier>{b5f99733-7778-46ab-a24a-cc92ce66463d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gui\main_form.cpp">
@@ -128,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="file_log_consumer.cpp">
       <Filter>gui</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\matrix\matrix_test.cpp">
+      <Filter>tests\matrix</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -313,6 +322,18 @@
     </ClInclude>
     <ClInclude Include="file_log_consumer.h">
       <Filter>gui</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\matrix\coherent_matrix.h">
+      <Filter>structures\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\matrix\incoherent_matrix.h">
+      <Filter>structures\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="structures\matrix\matrix.h">
+      <Filter>structures\matrix</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\matrix\matrix_test.h">
+      <Filter>tests\matrix</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

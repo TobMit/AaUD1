@@ -135,6 +135,7 @@
     <ClCompile Include="structures\_logger\logger.cpp" />
     <ClCompile Include="tests\array\array_test.cpp" />
     <ClCompile Include="tests\list\list_test.cpp" />
+    <ClCompile Include="tests\matrix\matrix_test.cpp" />
     <ClCompile Include="tests\priority_queue\priority_queue_test.cpp" />
     <ClCompile Include="tests\queue\queue_test.cpp" />
     <ClCompile Include="tests\stack\stack_test.cpp" />
@@ -156,6 +157,9 @@
     <ClInclude Include="structures\list\array_list.h" />
     <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
+    <ClInclude Include="structures\matrix\coherent_matrix.h" />
+    <ClInclude Include="structures\matrix\incoherent_matrix.h" />
+    <ClInclude Include="structures\matrix\matrix.h" />
     <ClInclude Include="structures\priority_queue\heap.h" />
     <ClInclude Include="structures\priority_queue\priority_queue.h" />
     <ClInclude Include="structures\priority_queue\priority_queue_limited_sorted_array_list.h" />
@@ -200,6 +204,7 @@
     <ClInclude Include="structures\_logger\logger.h" />
     <ClInclude Include="tests\array\array_test.h" />
     <ClInclude Include="tests\list\list_test.h" />
+    <ClInclude Include="tests\matrix\matrix_test.h" />
     <ClInclude Include="tests\priority_queue\priority_queue_test.h" />
     <ClInclude Include="tests\queue\queue_test.h" />
     <ClInclude Include="tests\stack\stack_test.h" />
