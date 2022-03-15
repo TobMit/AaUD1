@@ -62,6 +62,9 @@ namespace structures
 		/// <returns> Odkaz na prvok na danych indexoch. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index riadku alebo stlpca nepatri do matice. </exception>
 		T& at(int rowIndex, int columnIndex) override;
+	private:
+		size_t rowCount = 0;
+		size_t columnCount = 0;
 	};
 
 	template<typename T>
@@ -102,22 +105,19 @@ namespace structures
 	template<typename T>
 	inline size_t CoherentMatrix<T>::size()
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::size: Not implemented yet.");
+		return rowCount * columnCount;
 	}
 
 	template<typename T>
 	inline size_t CoherentMatrix<T>::getRowCount()
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::getRowCount: Not implemented yet.");
+		return rowCount;
 	}
 
 	template<typename T>
 	inline size_t CoherentMatrix<T>::getColumnCount()
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::getColumnCount: Not implemented yet.");
+		return columnCount;
 	}
 
 	template<typename T>
