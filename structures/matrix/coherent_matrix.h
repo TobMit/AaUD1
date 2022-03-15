@@ -79,15 +79,23 @@ namespace structures
 	template<typename T>
 	inline CoherentMatrix<T>::CoherentMatrix(CoherentMatrix& other)
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::CoherentMatrix: Not implemented yet.");
+		if (this != &other) {
+			CoherentMatrix<T>& otherCohMatrix = dynamic_cast<CoherentMatrix<T>&>(other);
+			rowCount = otherCohMatrix.rowCount;
+			columnCount = otherCohMatrix.columnCount();
+			memory_ = realloc(memory_, rowCount * columnCount);
+			memccpy(memory_, otherCohMatrix.memory_, rowCount * columnCount);
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline CoherentMatrix<T>::~CoherentMatrix()
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::~CoherentMatrix: Not implemented yet.");
+		free(memory_);
+		memory_ = nullptr;
+		rowCount = 0;
+		columnCount = 0;
 	}
 
 	template<typename T>
