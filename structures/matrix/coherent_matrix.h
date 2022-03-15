@@ -71,22 +71,16 @@ namespace structures
 	template<typename T>
 	inline CoherentMatrix<T>::CoherentMatrix(size_t rowCount, size_t columnCount):
 		rowCount(rowCount),
-		columnCount(columnCount)
+		columnCount(columnCount),
+		memory_(std::calloc(rowCount* columnCount, sizeof(T)))
 	{
-		std::calloc(rowCount * columnCount, sizeof(T));
 	}
 
 	template<typename T>
-	inline CoherentMatrix<T>::CoherentMatrix(CoherentMatrix& other)
+	inline CoherentMatrix<T>::CoherentMatrix(CoherentMatrix& other) :
+		CoherentMatrix<T>(other.rowCount, other.columnCount)
 	{
-		if (this != &other) {
-			CoherentMatrix<T>& otherCohMatrix = dynamic_cast<CoherentMatrix<T>&>(other);
-			rowCount = otherCohMatrix.rowCount;
-			columnCount = otherCohMatrix.columnCount();
-			memory_ = realloc(memory_, rowCount * columnCount);
-			memccpy(memory_, otherCohMatrix.memory_, rowCount * columnCount);
-		}
-		return *this;
+		memcpy(memory_, other.memory_, other.size());
 	}
 
 	template<typename T>
@@ -101,8 +95,14 @@ namespace structures
 	template<typename T>
 	inline Structure& CoherentMatrix<T>::assign(Structure& other)
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::assign: Not implemented yet.");
+		if (this != &other) {
+			CoherentMatrix<T>& otherCohMatrix = dynamic_cast<CoherentMatrix<T>&>(other);
+			rowCount = otherCohMatrix.rowCount;
+			columnCount = otherCohMatrix.columnCount;
+			memory_ = realloc(memory_, rowCount * columnCount);
+			memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size());
+		}
+		return *this;
 	}
 
 	template<typename T>
