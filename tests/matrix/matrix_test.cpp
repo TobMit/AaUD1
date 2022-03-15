@@ -91,5 +91,6 @@ namespace tests
 
 		delete(copyMatica);
 		delete(matica);
+		delete(newMatica);
 	}
 }
