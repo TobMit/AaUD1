@@ -73,7 +73,7 @@ namespace structures
 	inline CoherentMatrix<T>::CoherentMatrix(size_t rowCount, size_t columnCount):
 		rowCount(rowCount),
 		columnCount(columnCount),
-		memory_(std::calloc(rowCount* columnCount, sizeof(T)))
+		memory_(std::calloc(sizeof(T)* rowCount* columnCount, 1))
 	{
 	}
 
@@ -81,7 +81,7 @@ namespace structures
 	inline CoherentMatrix<T>::CoherentMatrix(CoherentMatrix& other) :
 		CoherentMatrix<T>(other.rowCount, other.columnCount)
 	{
-		memcpy(memory_, other.memory_, other.size());
+		memcpy(memory_, other.memory_, other.size() * sizeof(T));
 	}
 
 	template<typename T>
@@ -101,7 +101,7 @@ namespace structures
 			rowCount = otherCohMatrix.rowCount;
 			columnCount = otherCohMatrix.columnCount;
 			memory_ = realloc(memory_, rowCount * columnCount);
-			memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size());
+			memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size() * sizeof(T));
 		}
 		return *this;
 	}
@@ -115,7 +115,7 @@ namespace structures
 		else {
 			CoherentMatrix<T>* otherCohMatrix = dynamic_cast<CoherentMatrix<T>*>(&other);
 			if (otherCohMatrix != nullptr) {
-				return size() == otherCohMatrix->size() && memcmp(memory_, otherCohMatrix->memory_, otherCohMatrix->size()) == 0;
+				return size() == otherCohMatrix->size() && memcmp(memory_, otherCohMatrix->memory_, otherCohMatrix->size() * sizeof(T)) == 0;
 			}
 			else {
 				return false;
@@ -146,8 +146,9 @@ namespace structures
 	{
 		Utils::rangeCheckExcept(rowIndex, rowCount, "Invalid rowIndex! Exception from CoherentMatrix<T>::at()");
 		Utils::rangeCheckExcept(columnIndex, columnCount, "Invalid columnIndex! Exception from CoherentMatrix<T>::at()");
-		byte* ptrByte = reinterpret_cast<byte*> (memory_) + (rowIndex * columnCount + columnIndex);
-		return reinterpret_cast<T&> (ptrByte);
+		byte* ptrByte = reinterpret_cast<byte*> (memory_) + ((rowIndex * columnCount + columnIndex) * sizeof(T));
+		T* ptrT = reinterpret_cast<T*> (ptrByte);
+		return *ptrT;
 
 	}
 }

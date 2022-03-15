@@ -62,5 +62,25 @@ namespace tests
 	}
 	void CohereneMatrixFunctionTest::test()
 	{
+		structures::CoherentMatrix<int>* matica = new structures::CoherentMatrix<int>(5, 5);
+		SimpleTest::assertTrue(matica->size() == 5 * 5, "Matica ma spravnu velkost");
+
+		SimpleTest::logInfo("Naplnam maticu hodnotami");
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				matica->at(i, j) = i * 10 + j;
+			}
+		}
+		structures::CoherentMatrix<int>* copyMatica = new structures::CoherentMatrix<int>(*matica);
+		SimpleTest::assertTrue(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, mali by byt.");
+
+		SimpleTest::logInfo("Menim hodnotu v copyMatici");
+		copyMatica->at(1, 3) = 7777;
+		SimpleTest::logInfo(std::to_string(copyMatica->at(1, 3)));
+		SimpleTest::logInfo(std::to_string(matica->at(1, 3)));
+		SimpleTest::assertFalse(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, nemali by byt.");
+
 	}
 }
