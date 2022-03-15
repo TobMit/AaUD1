@@ -108,8 +108,18 @@ namespace structures
 	template<typename T>
 	inline bool CoherentMatrix<T>::equals(Structure& other)
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::equals: Not implemented yet.");
+		if (this == &other) {
+			return true;
+		}
+		else {
+			CoherentMatrix<T>* otherCohMatrix = dynamic_cast<CoherentMatrix<T>*>(&other);
+			if (otherCohMatrix != nullptr) {
+				return size() == otherCohMatrix->size() && memcmp(memory_, otherCohMatrix->memory_, otherCohMatrix->size()) == 0;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 
 	template<typename T>
