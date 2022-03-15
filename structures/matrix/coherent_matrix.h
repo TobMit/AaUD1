@@ -98,10 +98,13 @@ namespace structures
 	{
 		if (this != &other) {
 			CoherentMatrix<T>& otherCohMatrix = dynamic_cast<CoherentMatrix<T>&>(other);
-			rowCount = otherCohMatrix.rowCount;
-			columnCount = otherCohMatrix.columnCount;
-			memory_ = realloc(memory_, rowCount * columnCount);
-			memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size() * sizeof(T));
+			if (rowCount == otherCohMatrix.getRowCount() && columnCount == otherCohMatrix.getColumnCount())
+			{
+				memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size() * sizeof(T));
+			}
+			else {
+				throw std::out_of_range("Matrix size diff! Expe trow in CoherentMatrix<T>::assig()");
+			}
 		}
 		return *this;
 	}
