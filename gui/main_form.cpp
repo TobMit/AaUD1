@@ -11,6 +11,7 @@
 #include "../tests/tree/tree_test.h"
 #include "../tests/table/table_test.h"
 #include "../tests/stdvector/stdvector_test.h"
+#include "../tests/matrix/matrix_test.h"
 #include <algorithm>
 #include <vector>
 
@@ -36,6 +37,9 @@ void main(array<String^>^)
 
 	// TODO 03: List
 	tests.emplace_back(new tests::ListTestOverall());
+
+	// TODO U01: matrix
+	tests.emplace_back(new tests::MatrixTestOverall());
 
 	// TODO 05: Stack
 	//tests.emplace_back(new tests::StackTestOverall());
