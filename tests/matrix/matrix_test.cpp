@@ -20,6 +20,8 @@ namespace tests
 		matrix->getColumnCount();
 		matrix->at(10, 10);
 		delete matrix;
+		SimpleTest::logPass("Compiled");
+
 	}
 
 	structures::Matrix<int>* CoherentMatrixTestInterface::makeMatrix(size_t rows, size_t cols) const
@@ -36,6 +38,7 @@ namespace tests
 		ComplexTest("CoherentMatrix")
 	{
 		addTest(new CoherentMatrixTestInterface());
+		addTest(new CohereneMatrixFunctionTest());
 	}
 
 	IncoherentMatrixTestOverall::IncoherentMatrixTestOverall() :
@@ -49,5 +52,15 @@ namespace tests
 	{
 		addTest(new CoherentMatrixTestOverall());
 		addTest(new IncoherentMatrixTestOverall());
+	}
+
+
+	// Moje Testovanie
+	CohereneMatrixFunctionTest::CohereneMatrixFunctionTest()
+		: SimpleTest("Complex test")
+	{
+	}
+	void CohereneMatrixFunctionTest::test()
+	{
 	}
 }

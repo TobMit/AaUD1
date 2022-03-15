@@ -70,4 +70,16 @@ namespace tests
 	public:
 		MatrixTestOverall();
 	};
+
+	/// <summary>
+	/// Otestujem ci som implementoval vsetky metody spravne
+	/// </summary>
+	class CohereneMatrixFunctionTest
+		:public SimpleTest
+	{
+	public:
+		CohereneMatrixFunctionTest();
+		void test() override;
+	};
+
 }
