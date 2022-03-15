@@ -2,6 +2,7 @@
 
 #include "matrix.h"
 #include <stdexcept>
+#include "../utils.h"
 
 namespace structures
 {
@@ -143,7 +144,10 @@ namespace structures
 	template<typename T>
 	inline T& CoherentMatrix<T>::at(int rowIndex, int columnIndex)
 	{
-		//TODO Zadanie 1: CoherentMatrix
-		throw std::runtime_error("CoherentMatrix<T>::at: Not implemented yet.");
+		Utils::rangeCheckExcept(rowIndex, rowCount, "Invalid rowIndex! Exception from CoherentMatrix<T>::at()");
+		Utils::rangeCheckExcept(columnIndex, columnCount, "Invalid columnIndex! Exception from CoherentMatrix<T>::at()");
+		byte* ptrByte = reinterpret_cast<byte*> (memory_) + (rowIndex * columnCount + columnIndex);
+		return reinterpret_cast<T&> (ptrByte);
+
 	}
 }
