@@ -320,8 +320,22 @@ namespace structures
     template<typename T>
     inline LinkedListItem<T>* LinkedList<T>::getItemAtIndex(int index)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::getItemAtIndex: Not implemented yet.");
+        //Ak index == size - 1
+        //  idme na lasta
+        //  inak for
+        //  current = current -> get(indexof+
+        // return current
+
+        if (index == size_ - 1) {
+            return last_;
+        }
+        else {
+            auto current = first_;
+            for (int i = 0; i < index; i++) {
+                current = current->getNext();
+            }
+            return current;
+        }
     }
 
     template<typename T>
