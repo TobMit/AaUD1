@@ -314,8 +314,14 @@ namespace structures
     template<typename T>
     inline bool LinkedList<T>::tryRemove(const T& data)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::tryRemove: Not implemented yet.");
+        int index = getIndexOf(data);
+        if (index != -1) {
+            removeAt(index);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     template<typename T>
