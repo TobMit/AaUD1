@@ -260,15 +260,42 @@ namespace structures
 	template<typename T>
 	inline bool ArrayList<T>::tryRemove(const T& data)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::tryRemove: Not implemented yet.");
+		// int index = getIndexOf(data)
+		// index != -1
+		//	Ak ano: removeAt(index)
+		//		return true
+		//	Ak nie: return false 
+		int index = getIndexOf(data);
+		if (index != -1) {
+			removeAt(index);
+			return true;
+		}
+
+		return false;
+
+
 	}
 
 	template<typename T>
 	inline T ArrayList<T>::removeAt(int index)
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::removeAt: Not implemented yet.");
+		// T result = at:(index)
+		// Ak index nie je size - 1 
+		//	Tak: Array<T>::copy()
+		// size_--
+		// return result
+
+		T result = this->at(index);
+
+		if (index != size_ - 1)
+		{
+			Array<T>::copy(*array_, index + 1, *array_, index, size_ - index - 1);
+		}
+
+		size_--;
+
+		return result;
+
 	}
 
 	template<typename T>
@@ -286,8 +313,7 @@ namespace structures
 	template<typename T>
 	inline void ArrayList<T>::clear()
 	{
-		//TODO 03: ArrayList
-		throw std::runtime_error("ArrayList<T>::clear: Not implemented yet.");
+		size_ = 0;
 	}
 
 	template<typename T>
