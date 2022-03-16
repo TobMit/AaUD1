@@ -359,7 +359,8 @@ namespace structures
         }
         else {
             auto pred = getItemAtIndex(index-1);
-            delItem -> setNext(delItem->getNext());
+            delItem = pred->getNext();
+            pred->setNext(delItem->getNext());
             if (last_ == delItem) {
                 last_ = pred;
             }
