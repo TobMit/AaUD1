@@ -273,8 +273,42 @@ namespace structures
     template<typename T>
     inline void LinkedList<T>::insert(const T& data, int index)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::insert: Not implemented yet.");
+        // ak index == size
+        //  Ak ano:
+        //      Add data
+        //  Ak nie:
+        //      RangeChceck
+        //      Vytvor novy LLI
+        //      Ak index == 0
+        //       Ak ano:
+        //          novzLLI->setNext(first_)
+        //          fist_ = novyLLI
+        //       Ak nie:
+        //          LLI pred = getItemAtIndex(index-1)
+        //          newLLI->setNext(pred-> getnNext())
+        //          pred ->setNext(novyLLI)
+        // size++
+        
+        if (index == size_) {
+            add(data);
+        }
+        else {
+            Utils::rangeCheckExcept(index, size_, "Invalid index! Except from LinkedList<T>::insert()");
+            auto newLLI = new LinkedListItem<T>(data);
+            if (index == 0) {
+                newLLI->setNext(first_);
+                first_ = newLLI;
+            }
+            else {
+                auto pred = getItemAtIndex(index - 1);
+                newLLI->setNext(pred->getNext());
+                pred->setNext(newLLI);
+            }
+
+            size_++;
+        }
+
+
     }
 
     template<typename T>
