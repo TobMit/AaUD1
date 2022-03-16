@@ -29,7 +29,7 @@ namespace structures
         LinkedListItem<T>* getNext();
 
         /// <summary> Setter nasledujuceho prvku zretazeneho zoznamu. </summary>
-        /// <param name´= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
+        /// <param nameÂ´= "next"> Novy nasledujuci prvok zretazeneho zoznamu. </param>
         void setNext(LinkedListItem<T>* next);
 
     private:
@@ -348,7 +348,7 @@ namespace structures
         // delete deleteItem
         // size_--
         // return result
-        Utils::rangeCheckExcept(index, size_, "Invalid index! Excpet form LinkedList<T>::removeA()");
+        Utils::rangeCheckExcept(index, size_, "Invalid index! Except form LinkedList<T>::removeAt()");
         LinkedListItem<T>* delItem;
         if (index == 0) {
             delItem = first_;
