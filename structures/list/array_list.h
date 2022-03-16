@@ -270,8 +270,10 @@ namespace structures
 			removeAt(index);
 			return true;
 		}
+		else {
+			return false;
+		}
 
-		return false;
 
 
 	}
