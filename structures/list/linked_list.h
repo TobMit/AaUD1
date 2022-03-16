@@ -327,8 +327,48 @@ namespace structures
     template<typename T>
     inline T LinkedList<T>::removeAt(int index)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::removeAt: Not implemented yet.");
+        // Range check
+        // LLI<T>* deletIem
+        // ak index == 0
+        //  Ak ano:
+        //      dellItem = fist
+        //      first = first->getNext();
+        //      Ak last == delletItem
+        //       Ak ano:
+        //          last = nullptr;
+        //  Ak nie:
+        //      LLI<T> pred = getItemAt(index-1)
+        //      dellitem = pred->getNext()
+        //      pred-> setNext(dellitem-> getnext())
+        //      Ak last == delletItem
+        //       Ak ano:
+        //          last = pred;
+
+        // T reuslt = dellitem -> accessDAta()
+        // delete deleteItem
+        // size_--
+        // return result
+        Utils::rangeCheckExcept(index, size_, "Invalid index! Excpet form LinkedList<T>::removeA()");
+        LinkedListItem<T>* delItem;
+        if (index == 0) {
+            delItem = first_;
+            first_ = first_->getNext();
+            if (last_ == delItem) {
+                last_ = nullptr;
+            }
+        }
+        else {
+            auto pred = getItemAtIndex(index-1);
+            delItem -> setNext(delItem->getNext());
+            if (last_ == delItem) {
+                last_ = pred;
+            }
+        }
+
+        T result = delItem->accessData();
+        delete delItem;
+        size_--;
+        return result;
     }
 
     template<typename T>
