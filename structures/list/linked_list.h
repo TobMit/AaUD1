@@ -248,8 +248,26 @@ namespace structures
     template<typename T>
     inline void LinkedList<T>::add(const T& data)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::add: Not implemented yet.");
+        //linkedListItem<T> newLLi = new linkedListItem<T> (data)
+        // Ak je size_ = 0
+        //  Ak ano:
+        //      first  = newLLI
+        //      last = newLLI
+        //  Ak nie:
+        //      last-> setNext = newLLI
+        //      last = newLLI
+        // size++
+
+        auto newLLI = new LinkedListItem<T>(data); // c++ si to automaticky detekuje, co je na lavo tak to prida to prava
+        if (size_ == 0) {
+            first_ = newLLI;
+        }
+        else {
+            last_->setNext(newLLI);
+        }
+        last_ = newLLI;
+        size_++;
+
     }
 
     template<typename T>
