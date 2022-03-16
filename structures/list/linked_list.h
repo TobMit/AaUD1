@@ -241,8 +241,8 @@ namespace structures
     template<typename T>
     inline T& LinkedList<T>::at(int index)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::at: Not implemented yet.");
+        Utils::rangeCheckExcept(index, size_, "Invalid index! Except from LinkedList<T>::at()");
+        return getItemAtIndex(index)->accessData();
     }
 
     template<typename T>
@@ -365,7 +365,7 @@ namespace structures
         }
         else {
             auto current = first_;
-            for (int i = 0; i < index; i++) {
+            for (size_t i = 0; i < index; i++) {
                 current = current->getNext();
             }
             return current;
