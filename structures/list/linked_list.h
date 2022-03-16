@@ -328,8 +328,15 @@ namespace structures
     template<typename T>
     inline int LinkedList<T>::getIndexOf(const T& data)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::getIndexOf: Not implemented yet.");
+        auto current = first_;
+        for (size_t i = 0; i < size_; i++) {
+            if (current->accessData() == data) {
+                return i;
+            }
+            current = current->getNext();
+        }
+
+        return -1;
     }
 
     template<typename T>
