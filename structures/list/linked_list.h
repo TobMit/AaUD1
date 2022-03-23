@@ -208,8 +208,7 @@ namespace structures
     template<typename T>
     inline LinkedList<T>::LinkedList(LinkedList<T>& other)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::LinkedList: Not implemented yet.");
+        assign(other);
     }
 
     template<typename T>
