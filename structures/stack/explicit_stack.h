@@ -80,49 +80,53 @@ namespace structures
     template<typename T>
     inline Structure& ExplicitStack<T>::assign(Structure& other)
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::assign: Not implemented yet.");
+        if (this != &other) {
+            auto otherStack = dynamic_cast<ExplicitStack<T>&>(other);
+            list_->assign(*otherStack.list_);
+        }
+        return *this;
     }
 
     template<typename T>
     inline bool ExplicitStack<T>::equals(Structure& other)
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::equals: Not implemented yet.");
+        auto otherStack = dynamic_cast<ExplicitStack<T>*>(&other);
+        if (otherStack != nullptr) {
+            return list_->equals(*otherStack->list_);
+        }
+        else {
+            return false;
+        }
+        
     }
 
     template<typename T>
     size_t ExplicitStack<T>::size()
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::size: Not implemented yet.");
+        return list_->size();
     }
 
     template<typename T>
     inline void ExplicitStack<T>::clear()
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::clear: Not implemented yet.");
+        list_->clear();
     }
 
     template<typename T>
     inline void ExplicitStack<T>::push(const T& data)
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::push: Not implemented yet.");
+        list_->insert(data, 0);
     }
 
     template<typename T>
     inline T ExplicitStack<T>::pop()
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::pop: Not implemented yet.");
+        return list_->removeAt(0);
     }
 
     template<typename T>
     inline T& ExplicitStack<T>::peek()
     {
-        //TODO 05: ExplicitStack
-        throw std::runtime_error("ExplicitStack<T>::peek: Not implemented yet.");
+        return list_->at(0);
     }
 }

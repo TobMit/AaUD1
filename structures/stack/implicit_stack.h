@@ -74,55 +74,59 @@ namespace structures
 	template<typename T>
 	ImplicitStack<T>::~ImplicitStack()
 	{
-		//TODO 05: ImplicitStack
+		delete list_;
+		list_ = nullptr;
 	}
 
 	template<typename T>
 	inline Structure& ImplicitStack<T>::assign(Structure& other)
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::assign: Not implemented yet.");
+		if (this != &other) {
+			ImplicitStack<T>& otherStack = dynamic_cast<ImplicitStack<T>&>(other);
+			list_->assign(*otherStack.list_);
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline bool ImplicitStack<T>::equals(Structure& other)
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::equals: Not implemented yet.");
+		auto otherStack = dynamic_cast<ImplicitStack<T>*>(&other);
+		if (otherStack != nullptr) {
+			return list_->equals(*otherStack->list_);
+		}
+		else {
+			return false;
+		}
 	}
 
 	template<typename T>
 	size_t ImplicitStack<T>::size()
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::size: Not implemented yet.");
+		return list_->size();
 	}
 
 	template<typename T>
 	inline void ImplicitStack<T>::clear()
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::clear: Not implemented yet.");
+		list_->clear();
 	}
 
 	template<typename T>
 	inline void ImplicitStack<T>::push(const T& data)
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::push: Not implemented yet.");
+		list_->add(data);
 	}
 
 	template<typename T>
 	inline T ImplicitStack<T>::pop()
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::pop: Not implemented yet.");
+		return list_->removeAt(static_cast<int>(size()) - 1);
 	}
 
 	template<typename T>
 	inline T& ImplicitStack<T>::peek()
 	{
-		//TODO 05: ImplicitStack
-		throw std::runtime_error("ImplicitStack<T>::peek: Not implemented yet.");
+		return list_->at(static_cast<int>(size()) - 1);
 	}
 }
