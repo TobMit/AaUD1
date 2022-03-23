@@ -214,7 +214,7 @@ namespace structures
     template<typename T>
     inline LinkedList<T>::~LinkedList()
     {
-        //TODO 04: LinkedList
+        clear();
     }
 
     template<typename T>
