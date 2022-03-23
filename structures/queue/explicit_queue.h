@@ -74,55 +74,59 @@ namespace structures
 	template<typename T>
 	ExplicitQueue<T>::~ExplicitQueue()
 	{
-		//TODO 05: ExplicitQueue
+		delete list_;
+		list_ = nullptr;
 	}
 
 	template<typename T>
 	inline Structure& ExplicitQueue<T>::assign(Structure& other)
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::assign: Not implemented yet.");
+		if (this != &other) {
+			auto otherStack = dynamic_cast<ExplicitQueue<T>&>(other);
+			list_->assign(*otherStack.list_);
+		}
+		return *this;
 	}
 
 	template<typename T>
 	inline bool ExplicitQueue<T>::equals(Structure& other)
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::equals: Not implemented yet.");
+		auto otherStack = dynamic_cast<ExplicitQueue<T>*>(&other);
+		if (otherStack != nullptr) {
+			return list_->equals(*otherStack->list_);
+		}
+		else {
+			return false;
+		}
 	}
 
 	template<typename T>
 	size_t ExplicitQueue<T>::size()
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::size: Not implemented yet.");
+		return list_->size();
 	}
 
 	template<typename T>
 	inline void ExplicitQueue<T>::clear()
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::clear: Not implemented yet.");
+		list_->clear();
 	}
 
 	template<typename T>
 	inline void ExplicitQueue<T>::push(const T& data)
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::push: Not implemented yet.");
+		list_->insert(data, list_->size());
 	}
 
 	template<typename T>
 	inline T ExplicitQueue<T>::pop()
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::pop: Not implemented yet.");
+		return list_->removeAt(0);
 	}
 
 	template<typename T>
 	inline T& ExplicitQueue<T>::peek()
 	{
-		//TODO 05: ExplicitQueue
-		throw std::runtime_error("ExplicitQueue<T>::peek: Not implemented yet.");
+		return list_->at(0);
 	}
 }
