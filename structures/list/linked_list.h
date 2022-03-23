@@ -229,6 +229,23 @@ namespace structures
     {
         //TODO 04: LinkedList
         throw std::runtime_error("LinkedList<T>::assign: Not implemented yet.");
+        // test identyty
+        // clear()
+        // vsetky data v ll@
+        // add data
+        // pomocou while az po null pinter
+        if (this != &other)
+        {
+            LinkedList<T>& otherList = dynamic_cast<LinkedList<T>&> (other);
+            clear();
+            LinkedListItem<T>* otherItem = otherList.first_;
+            while (otherItem != nullptr) {
+                add(otherItem->accessData());
+                otherItem = otherItem->getNext();
+            }
+        }
+        return *this;
+
     }
 
     template<typename T>
