@@ -5,6 +5,13 @@
 
 #include <stdexcept>
 
+//startIndex + size
+// % kapacita
+
+//equals a assign
+//
+
+
 namespace structures
 {
 	/// <summary> Implicitny front. </summary>
