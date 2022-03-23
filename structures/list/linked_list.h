@@ -234,8 +234,26 @@ namespace structures
     template<typename T>
     inline bool LinkedList<T>::equals(Structure& other)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::equals: Not implemented yet.");
+        if (size_ != other.size())
+            return false;
+        if (this == &other)
+            return true;
+
+        LinkedList<T>* otherList = dynamic_cast<LinkedList<T>*> (&other);
+        if (otherList == nullptr)
+            return false;
+
+        LinkedListItem<T>* item = first_;
+        LinkedListItem<T>* otherItem = otherList->first_;
+        while (item != nullptr) {
+            if (item->accessData() != otherItem->accessData()) {
+                return false;
+            }
+
+            item = item->getNext();
+            otherItem = otherItem->getNext();
+        }
+        return true;
     }
 
     template<typename T>
