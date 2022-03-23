@@ -504,8 +504,8 @@ namespace structures
     template<typename T>
     inline Iterator<T>& LinkedList<T>::LinkedListIterator::operator++()
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::LinkedListIterator::operator++: Not implemented yet.");
+        position_ = position_->getNext();
+        return *this;
     }
 
 }
