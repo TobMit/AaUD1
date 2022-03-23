@@ -226,8 +226,7 @@ namespace structures
     template<typename T>
     inline Structure& LinkedList<T>::assign(Structure& other)
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::assign: Not implemented yet.");
+       
         // test identyty
         // clear()
         // vsetky data v ll@
