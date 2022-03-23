@@ -423,8 +423,18 @@ namespace structures
     template<typename T>
     inline void LinkedList<T>::clear()
     {
-        //TODO 04: LinkedList
-        throw std::runtime_error("LinkedList<T>::clear: Not implemented yet.");
+        if (size_ != 0) {
+            LinkedListItem<T>* delItem = first_;
+
+            while (delItem != nullptr) {
+                LinkedListItem<T>* nextItem = delItem->getNext();
+                delete delItem;
+                delItem = nextItem;
+            }
+            size_ = 0;
+            first_ = nullptr;
+            last_ = nullptr;
+        }
     }
 
     template<typename T>
