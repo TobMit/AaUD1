@@ -141,22 +141,19 @@ namespace structures
 	template<typename T>
 	inline size_t IncoherentMatrix<T>::size()
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::size: Not implemented yet.");
+		return rowCount * columnCount;
 	}
 
 	template<typename T>
 	inline size_t IncoherentMatrix<T>::getRowCount()
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::getRowCount: Not implemented yet.");
+		return rowCount;
 	}
 
 	template<typename T>
 	inline size_t IncoherentMatrix<T>::getColumnCount()
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::getColumnCount: Not implemented yet.");
+		return columnCount;
 	}
 
 	template<typename T>
