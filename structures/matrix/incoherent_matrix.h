@@ -153,12 +153,9 @@ namespace structures
 
 				for (size_t i = 0; i < rowCount; i++)
 				{
-					for (size_t j = 0; j < columnCount; j++)
+					if (array_->at(i)->equals(*otherIncohMatrix->array_->at(i)))
 					{
-						if (this->at(i,j) != otherIncohMatrix->at(i,j))
-						{
-							return false;
-						}
+						return false;
 					}
 				}
 

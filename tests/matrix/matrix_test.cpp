@@ -55,7 +55,7 @@ namespace tests
 	}
 
 
-	// Moje Testovanie
+	// Moje Testovanie CoherenceMatrix
 	CohereneMatrixFunctionTest::CohereneMatrixFunctionTest()
 		: SimpleTest("Complex test")
 	{
@@ -93,4 +93,5 @@ namespace tests
 		delete(matica);
 		delete(newMatica);
 	}
+	// Moje Testovanie Incoherence Matrix
 }

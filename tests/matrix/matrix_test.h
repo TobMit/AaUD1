@@ -83,4 +83,12 @@ namespace tests
 		void test() override;
 	};
 
+	class IncoherentMatrixFunctionTest :
+		public SimpleTest
+	{
+	public:
+		IncoherentMatrixFunctionTest();
+		void test() override;
+	};
+
 }

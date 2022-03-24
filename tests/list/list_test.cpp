@@ -108,6 +108,7 @@ namespace tests
 		SimpleTest::assertTrue(zoznam->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(zoznam->at(18)));
 		SimpleTest::assertTrue(zoznam->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(zoznam->at(19)));
 		SimpleTest::assertTrue(zoznam->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(zoznam->at(20)));
+		delete zoznam;
 		
 	}
 

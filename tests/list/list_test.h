@@ -3,6 +3,7 @@
 #include "../test.h"
 #include "../../structures/list/array_list.h"
 #include "../../structures/list/linked_list.h"
+#include "../../structures/heap_monitor.h"
 
 namespace tests
 {
