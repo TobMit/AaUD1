@@ -4,6 +4,8 @@
 #include "../../structures/matrix/matrix.h"
 #include "../../structures/_logger/logger.h"
 #include "../../structures/heap_monitor.h"
+#include "../../structures/matrix/coherent_matrix.h"
+#include "../../structures/matrix/incoherent_matrix.h"
 
 namespace tests
 {
@@ -83,12 +85,34 @@ namespace tests
 		void test() override;
 	};
 
+	/// <summary>
+	/// Testovanie pre ˙lohu 2
+	/// </summary>
+	class CohereneMatrixUloha2
+		:public SimpleTest
+	{
+	public:
+		CohereneMatrixUloha2();
+		void test() override;
+	private:
+		void cyklus(char oznacenie,int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
+	};
+
+
+	/// <summary>
+	/// Testujem Ëi som implementoval vöetky metÛdy spr·vne
+	/// </summary>
 	class IncoherentMatrixFunctionTest :
 		public SimpleTest
 	{
 	public:
 		IncoherentMatrixFunctionTest();
 		void test() override;
+
+		//todo toto pridaù do vlastnej triedy a spraviù rovnako testy ako vyööie pre coherent maticu
+		void uloha2();
+	private:
+		void cyklus(int podielRow, int podielColumn, int podielAt);
 	};
 
 }
