@@ -103,7 +103,7 @@ namespace structures
 				memcpy(memory_, otherCohMatrix.memory_, otherCohMatrix.size() * sizeof(T));
 			}
 			else {
-				throw std::out_of_range("Matrix size diff! Expe trow in CoherentMatrix<T>::assig()");
+				throw std::invalid_argument("Matrix size diff! Expe trow in CoherentMatrix<T>::assig()");
 			}
 		}
 		return *this;

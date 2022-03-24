@@ -111,8 +111,24 @@ namespace structures
 	template<typename T>
 	inline Structure& IncoherentMatrix<T>::assign(Structure& other)
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::assign: Not implemented yet.");
+		if (this != &other)
+		{
+			IncoherentMatrix<T>& otherMatica = dynamic_cast<IncoherentMatrix<T>&>(other);
+			if (rowCount == otherMatica.rowCount && columnCount == otherMatica.columnCount)
+			{
+				array_ = new Array<Array<T>*>(rowCount);
+				for (size_t i = 0; i < rowCount; i++)
+				{
+					array_->at(i) = new Array<T>(*(otherMatica.array_->at(i)));
+				}
+			}
+			else
+			{
+				throw std::invalid_argument("IncoherentMatrix size differ! Exception from IncoherentMatrix<T>::assign()");
+			}
+		}
+
+		return *this;
 	}
 
 	template<typename T>
