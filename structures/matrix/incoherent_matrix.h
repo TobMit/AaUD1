@@ -1,6 +1,7 @@
 #pragma once
 
 #include "matrix.h"
+#include "../array/array.h"
 #include <stdexcept>
 
 namespace structures
@@ -62,13 +63,23 @@ namespace structures
 		/// <returns> Odkaz na prvok na danych indexoch. </returns>
 		/// <exception cref="std::out_of_range"> Vyhodena, ak index riadku alebo stlpca nepatri do matice. </exception>
 		T& at(int rowIndex, int columnIndex) override;
+	private:
+		size_t rowCount = 0;
+		size_t columnCount = 0;
+		Array<Array<T>*>* array_;
 	};
 
 	template<typename T>
-	inline IncoherentMatrix<T>::IncoherentMatrix(size_t rowCount, size_t columnCount)
+	inline IncoherentMatrix<T>::IncoherentMatrix(size_t rowCount, size_t columnCount):
+		rowCount(rowCount),
+		columnCount(columnCount)
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::InCoherentMatrix: Not implemented yet.");
+		array_ = new Array<Array<T>*>(rowCount);
+		for (size_t i = 0; i < rowCount; i++)
+		{
+			Array<T>* pole = new Array<T>(columnCount);
+			array_->at(i) = pole;
+		}
 	}
 
 	template<typename T>

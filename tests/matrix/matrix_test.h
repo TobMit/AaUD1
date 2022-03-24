@@ -3,6 +3,7 @@
 #include "../test.h"
 #include "../../structures/matrix/matrix.h"
 #include "../../structures/_logger/logger.h"
+#include "../../structures/heap_monitor.h"
 
 namespace tests
 {
