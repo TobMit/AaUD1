@@ -192,7 +192,8 @@ namespace structures
 	template<typename T>
 	inline T& IncoherentMatrix<T>::at(int rowIndex, int columnIndex)
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::at: Not implemented yet.");
+		Utils::rangeCheckExcept(rowIndex, rowCount, "Invalid rowIndex! Exception from IncoherentMatrix<T>::at()");
+		Utils::rangeCheckExcept(columnIndex, columnCount, "Invalid columnIndex! Exception from IncoherentMatrix<T>::at()");
+		return array_->at(rowIndex)->at(columnIndex);
 	}
 }
