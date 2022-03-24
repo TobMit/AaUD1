@@ -45,6 +45,7 @@ namespace tests
 		ComplexTest("IncoherentMatrix")
 	{
 		addTest(new IncoherentMatrixTestInterface());
+		addTest(new IncoherentMatrixFunctionTest());
 	}
 
 	MatrixTestOverall::MatrixTestOverall() :
@@ -93,5 +94,59 @@ namespace tests
 		delete(matica);
 		delete(newMatica);
 	}
+
+
 	// Moje Testovanie Incoherence Matrix
+	IncoherentMatrixFunctionTest::IncoherentMatrixFunctionTest()
+		: SimpleTest("Complex test")
+	{
+	}
+	void IncoherentMatrixFunctionTest::test()
+	{
+		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(5, 5);
+		SimpleTest::assertTrue(matica->size() == 5 * 5, "Matica ma spravnu velkost");
+
+		SimpleTest::logInfo("Naplnam maticu hodnotami");
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				matica->at(i, j) = i * 10 + j;
+				//SimpleTest::logInfo(std::to_string(matica->at(i,j)));
+			}
+		}
+
+		
+
+
+		structures::IncoherentMatrix<int>* copyMatica = new structures::IncoherentMatrix<int>(*matica);
+		/*
+		copyMatica->at(2, 2) = 7777;
+		for (int i = 0; i < 5; i++)
+		{
+			for (int j = 0; j < 5; j++)
+			{
+				//matica->at(i, j) = i * 10 + j;
+				SimpleTest::logInfo(std::to_string(copyMatica->at(i,j)));
+			}
+		}*/
+		SimpleTest::assertTrue(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, mali by byt.");
+		/*
+		SimpleTest::logInfo("Menim hodnotu v copyMatici");
+		//SimpleTest::logInfo(std::to_string(copyMatica->at(4, 4)));
+		copyMatica->at(1, 3) = 7777;
+		SimpleTest::assertTrue(copyMatica->at(1, 3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do matice.");
+		SimpleTest::assertFalse(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, nemali by byt.");
+
+		SimpleTest::logInfo("Vkladam copyMaticu do uplne novej matice pomocou assign");
+		structures::IncoherentMatrix<int>* newMatica = new structures::IncoherentMatrix<int>(5, 5);
+		newMatica->assign(*copyMatica);
+		SimpleTest::assertTrue(newMatica->equals(*copyMatica), "Porovnavam matice ci su rovnake, mali by byt.");
+
+
+
+		delete(newMatica);*/
+		delete(copyMatica);
+		delete(matica);
+	}
 }

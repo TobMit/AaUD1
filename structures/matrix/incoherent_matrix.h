@@ -153,7 +153,7 @@ namespace structures
 
 				for (size_t i = 0; i < rowCount; i++)
 				{
-					if (array_->at(i)->equals(*otherIncohMatrix->array_->at(i)))
+					if (array_->at(i)->equals(*otherIncohMatrix->array_->at(i)) == false)
 					{
 						return false;
 					}
