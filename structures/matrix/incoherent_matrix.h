@@ -83,10 +83,15 @@ namespace structures
 	}
 
 	template<typename T>
-	inline IncoherentMatrix<T>::IncoherentMatrix(IncoherentMatrix& other)
+	inline IncoherentMatrix<T>::IncoherentMatrix(IncoherentMatrix& other):
+		rowCount(other.rowCount),
+		columnCount(other.columnCount)
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::InCoherentMatrix: Not implemented yet.");
+		array_ = new Array<Array<T>*>(rowCount);
+		for (size_t i = 0; i < rowCount; i++)
+		{
+			array_->at(i) = new Array<T>(*(other.array_->at(i)));
+		}
 	}
 
 	template<typename T>
