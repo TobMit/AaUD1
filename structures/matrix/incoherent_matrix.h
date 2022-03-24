@@ -116,6 +116,15 @@ namespace structures
 			IncoherentMatrix<T>& otherMatica = dynamic_cast<IncoherentMatrix<T>&>(other);
 			if (rowCount == otherMatica.rowCount && columnCount == otherMatica.columnCount)
 			{
+				// treba vyËistiù maticu pred nahratim druhej
+				for (size_t i = 0; i < rowCount; i++)
+				{
+					delete array_->at(i);
+					array_->at(i) = nullptr;
+				}
+				delete array_;
+
+
 				array_ = new Array<Array<T>*>(rowCount);
 				for (size_t i = 0; i < rowCount; i++)
 				{

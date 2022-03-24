@@ -131,21 +131,20 @@ namespace tests
 			}
 		}*/
 		SimpleTest::assertTrue(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, mali by byt.");
-		/*
+		
 		SimpleTest::logInfo("Menim hodnotu v copyMatici");
 		//SimpleTest::logInfo(std::to_string(copyMatica->at(4, 4)));
 		copyMatica->at(1, 3) = 7777;
 		SimpleTest::assertTrue(copyMatica->at(1, 3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do matice.");
 		SimpleTest::assertFalse(matica->equals(*copyMatica), "Porovnavam matice ci su rovnake, nemali by byt.");
-
+		
 		SimpleTest::logInfo("Vkladam copyMaticu do uplne novej matice pomocou assign");
 		structures::IncoherentMatrix<int>* newMatica = new structures::IncoherentMatrix<int>(5, 5);
 		newMatica->assign(*copyMatica);
 		SimpleTest::assertTrue(newMatica->equals(*copyMatica), "Porovnavam matice ci su rovnake, mali by byt.");
 
 
-
-		delete(newMatica);*/
+		delete(newMatica);
 		delete(copyMatica);
 		delete(matica);
 	}
