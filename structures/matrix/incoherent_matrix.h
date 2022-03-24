@@ -97,8 +97,15 @@ namespace structures
 	template<typename T>
 	inline IncoherentMatrix<T>::~IncoherentMatrix()
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::~InCoherentMatrix: Not implemented yet.");
+		for (size_t i = 0; i < rowCount; i++)
+		{
+			delete array_->at(i);
+			array_->at(i) = nullptr;
+		}
+		delete array_;
+		array_ = nullptr;
+		rowCount = 0;
+		columnCount = 0;
 	}
 
 	template<typename T>
