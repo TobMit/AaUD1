@@ -134,8 +134,41 @@ namespace structures
 	template<typename T>
 	inline bool IncoherentMatrix<T>::equals(Structure& other)
 	{
-		//TODO Zadanie 1: InCoherentMatrix
-		throw std::runtime_error("InCoherentMatrix<T>::equals: Not implemented yet.");
+		if (this == &other)
+		{
+			return true;
+		} else
+		{
+			IncoherentMatrix<T>* otherIncohMatrix = dynamic_cast<IncoherentMatrix<T>*>(&other);
+			if (otherIncohMatrix != nullptr)
+			{
+				if (columnCount != otherIncohMatrix->columnCount)
+				{
+					return false;
+				}
+				if (rowCount != otherIncohMatrix->rowCount)
+				{
+					return false;
+				}
+
+				for (size_t i = 0; i < rowCount; i++)
+				{
+					for (size_t j = 0; j < columnCount; j++)
+					{
+						if (this->at(i,j) != otherIncohMatrix->at(i,j))
+						{
+							return false;
+						}
+					}
+				}
+
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
 	}
 
 	template<typename T>
