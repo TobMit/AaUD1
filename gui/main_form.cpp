@@ -1,6 +1,7 @@
 #include "../structures/heap_monitor.h"
 #include "main_form.h"
 #include "gui_log_consumer.h"
+#include "../file_log_consumer.h"
 #include "../tests/test.h"
 #include "../tests/vector/vector_test.h"
 #include "../tests/array/array_test.h"
@@ -64,10 +65,14 @@ void main(array<String^>^)
 	gui::GuiLogConsumer* guiLogConsumer = new gui::GuiLogConsumer(%form);
 	structures::Logger::getInstance().registerConsumer(guiLogConsumer);
 
+	gui::FileLogConsummer* fileLogConsumer = new gui::FileLogConsummer("log.csv");
+	structures::Logger::getInstance().registerConsumer(fileLogConsumer);
+
 	WF::Application::Run(%form);
 
 	// Ak ste Vas logger alokovali dynamicky, zmazatù ho mÙûete tu:
 	delete guiLogConsumer;
+	delete fileLogConsumer;
 	for (tests::Test* test : tests)
 	{
 		delete test;
