@@ -269,9 +269,9 @@ namespace gui
 		columnGlobalLogMessage->Width = WidthFitContent;
 	}
 
-	System::Void gui::MainForm::LogDuration(size_t size, std::chrono::milliseconds duration, const std::string& message)
+	System::Void gui::MainForm::LogDuration(size_t size, tests::Milliseconds duration, const std::string& message)
 	{
-		String^ str = "Size: " + size + ", Duration: " + duration.count() + " ms, " + gcnew String(message.c_str());
+		String^ str = "Size: " + size + ", Duration: " + duration.count() + " microseconds, " + gcnew String(message.c_str());
 		this->LogMessage(structures::LogType::Duration, str);
 		return System::Void();
 	}

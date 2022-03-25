@@ -33,7 +33,7 @@ namespace structures
     {
     public:
         virtual void logMessage(LogType type, const std::string& message) = 0;
-        virtual void logDuration(size_t size, Milliseconds duration, const std::string& message) = 0;
+        virtual void logDuration(size_t size, DurationType duration, const std::string& message) = 0;
     };
 
     /// <summary>
@@ -51,7 +51,7 @@ namespace structures
         void logInfo(const std::string& message);
         void logWarning(const std::string& message);
         void logError(const std::string& message);
-        void logDuration(size_t size, std::chrono::milliseconds duration, const std::string& message);
+        void logDuration(size_t size, DurationType duration, const std::string& message);
 
     private:
         Logger() = default;

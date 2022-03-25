@@ -12,7 +12,7 @@ namespace gui
         form_->LogMessage(type, gcnew System::String(message.c_str()));
     }
 
-    void GuiLogConsumer::logDuration(size_t size, std::chrono::milliseconds duration, const std::string& message)
+    void GuiLogConsumer::logDuration(size_t size, tests::Milliseconds duration, const std::string& message)
     {
         form_->LogDuration(size, duration, message);
     }

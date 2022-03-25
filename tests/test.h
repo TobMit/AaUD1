@@ -8,7 +8,7 @@
 
 namespace tests
 {
-	using Milliseconds = std::chrono::milliseconds;
+	using Milliseconds = structures::DurationType;
 
 	/// <summary>
 	/// Typ spravy o priebehu testu.

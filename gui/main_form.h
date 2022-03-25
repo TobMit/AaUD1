@@ -17,7 +17,7 @@ namespace gui
 		MainForm(const std::vector<tests::Test*>& tests);
 
 		System::Void LogMessage(structures::LogType type, System::String^ message);
-		System::Void LogDuration(size_t size, std::chrono::milliseconds duration, const std::string& message);
+		System::Void LogDuration(size_t size, tests::Milliseconds duration, const std::string& message);
 
 	public:
 		/// <summary>

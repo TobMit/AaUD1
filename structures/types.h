@@ -5,5 +5,5 @@
 namespace structures
 {
     using byte = unsigned char;
-    using Milliseconds = std::chrono::milliseconds;
+    using DurationType = std::chrono::microseconds;
 }

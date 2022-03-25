@@ -16,7 +16,7 @@ namespace gui
     public:
         GuiLogConsumer(MainForm^ form);
         void logMessage(structures::LogType type, const std::string& message) override;
-        void logDuration(size_t size, std::chrono::milliseconds duration, const std::string& message) override;
+        void logDuration(size_t size, tests::Milliseconds duration, const std::string& message) override;
 
     public:
         gcroot<MainForm^> form_;

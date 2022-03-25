@@ -14,7 +14,8 @@ void gui::FileLogConsummer::logMessage(structures::LogType type, const std::stri
 	fileStream_ << structures::logTypeToString(type) << "!" << message << std::endl;
 }
 
-void gui::FileLogConsummer::logDuration(size_t size, std::chrono::milliseconds duration, const std::string& message)
+void gui::FileLogConsummer::logDuration(size_t size, structures::DurationType duration, const std::string& message)
 {
 	fileStream_ << size << "!" << duration.count() << "!" << message << std::endl;
 }
+

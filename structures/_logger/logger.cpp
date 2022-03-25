@@ -28,7 +28,7 @@ namespace structures
         this->log(LogType::Error, message);
     }
 
-    void Logger::logDuration(size_t size, std::chrono::milliseconds duration, const std::string& message)
+    void Logger::logDuration(size_t size, DurationType duration, const std::string& message)
     {
         for (ILogConsumer* consumer : consumers_)
         {
