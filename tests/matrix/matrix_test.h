@@ -123,4 +123,24 @@ namespace tests
 		void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
 	};
 
+
+	class IncoherenMatrixUloha3
+		:public SimpleTest
+	{
+	public:
+		IncoherenMatrixUloha3();
+		void test() override;
+	private:
+		void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
+	};
+
+	class CohereneMatrixUloha3
+		:public SimpleTest
+	{
+	public:
+		CohereneMatrixUloha3();
+		void test() override;
+	private:
+		void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
+	};
 }
