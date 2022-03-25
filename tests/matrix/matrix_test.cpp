@@ -46,6 +46,7 @@ namespace tests
 	{
 		addTest(new IncoherentMatrixTestInterface());
 		addTest(new IncoherentMatrixFunctionTest());
+		addTest(new IncoherenMatrixUloha2());
 	}
 
 	MatrixTestOverall::MatrixTestOverall() :
@@ -103,7 +104,7 @@ namespace tests
 
 	void CohereneMatrixUloha2::test()
 	{
-
+		structures::Logger::getInstance().logInfo("Testovanie CohereneMatrix!");
 	
 		// scenár A
 		structures::CoherentMatrix<int>* matica = new structures::CoherentMatrix<int>(10, 50);
@@ -213,10 +214,76 @@ namespace tests
 		delete(copyMatica);
 		delete(matica);
 	}
-	void IncoherentMatrixFunctionTest::uloha2()
+
+
+	IncoherenMatrixUloha2::IncoherenMatrixUloha2()
+		: SimpleTest("Uloha2")
 	{
+		
 	}
-	void IncoherentMatrixFunctionTest::cyklus(int podielRow, int podielColumn, int podielAt)
+	void IncoherenMatrixUloha2::test()
 	{
+		structures::Logger::getInstance().logInfo("Testovanie IncoherenMatrix!");
+		// scenár A
+		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(10, 50);
+		cyklus('A', 5, 5, 90, *matica);
+		delete matica;
+		// Scenár B
+		matica = new structures::IncoherentMatrix<int>(2000, 500);
+		cyklus('B', 5, 5, 90, *matica);
+		delete matica;
+
+		// Scenár C
+		matica = new structures::IncoherentMatrix<int>(50, 10);
+		cyklus('C', 10, 30, 60, *matica);
+		delete matica;
+
+
+		// Scenár D
+		matica = new structures::IncoherentMatrix<int>(500, 2000);
+		cyklus('D', 10, 30, 60, *matica);
+		delete matica;
+	}
+	void IncoherenMatrixUloha2::cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica)
+	{
+		structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
+		SimpleTest::startStopwatch();
+		std::vector<char>pool;
+		for (unsigned i = 0; i <= 1000000 / podielRow; i++)
+		{
+			pool.push_back(1);
+		}
+		for (unsigned i = 0; i <= 1000000 / podielColumn; i++)
+		{
+			pool.push_back(2);
+		}
+		for (unsigned i = 0; i <= 1000000 / podielAt; i++)
+		{
+			pool.push_back(2);
+		}
+
+		while (!pool.empty())
+		{
+			int index = rand() % pool.size();
+			switch (pool.at(index))
+			{
+			case 1:
+				matica.getRowCount();
+				break;
+
+			case 2:
+				matica.getColumnCount();
+				break;
+
+			case 3:
+				matica.at((rand() % matica.getRowCount()), (rand() % matica.getColumnCount()));
+				break;
+			}
+
+			pool.erase(pool.begin() + index);
+		}
+
+		SimpleTest::stopStopwatch();
+		structures::Logger::getInstance().logDuration(0, SimpleTest::getElapsedTime(), "..a trval tolkoto!");
 	}
 }

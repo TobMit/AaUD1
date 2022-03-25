@@ -108,11 +108,19 @@ namespace tests
 	public:
 		IncoherentMatrixFunctionTest();
 		void test() override;
+	};
 
-		//todo toto pridaù do vlastnej triedy a spraviù rovnako testy ako vyööie pre coherent maticu
-		void uloha2();
+	/// <summary>
+	/// Testovanie pre ˙lohu 2
+	/// </summary>
+	class IncoherenMatrixUloha2
+		:public SimpleTest
+	{
+	public:
+		IncoherenMatrixUloha2();
+		void test() override;
 	private:
-		void cyklus(int podielRow, int podielColumn, int podielAt);
+		void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
 	};
 
 }
