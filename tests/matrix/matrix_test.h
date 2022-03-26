@@ -148,7 +148,10 @@ namespace tests
 		CohereneMatrixUloha3();
 		void test() override;
 	private:
-		size_t durationAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
-		void cyklusAssign(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
+		Milliseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
+		Milliseconds durationAt(int x, int y, structures::CoherentMatrix<int>& matica);
+
+		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
+		Milliseconds durationAssign(int x, int y, structures::CoherentMatrix<int>& matica, structures::CoherentMatrix<int>& maticaAssign);
 	};
 }
