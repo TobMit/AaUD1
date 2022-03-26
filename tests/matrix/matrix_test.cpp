@@ -132,15 +132,18 @@ namespace tests
 		structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1,oznacenie) + "!");
 		SimpleTest::startStopwatch();
 		std::vector<char>pool;
-		for (unsigned i = 0; i <= 1000000 / podielRow; i++)
+
+		const int OPAKOVANIA = 1000000;
+
+		for (unsigned i = 0; i <= OPAKOVANIA / podielRow; i++)
 		{
 			pool.push_back(1);
 		}
-		for (unsigned i = 0; i <= 1000000 / podielColumn; i++)
+		for (unsigned i = 0; i <= OPAKOVANIA / podielColumn; i++)
 		{
 			pool.push_back(2);
 		}
-		for (unsigned i = 0; i <= 1000000 / podielAt; i++)
+		for (unsigned i = 0; i <= OPAKOVANIA / podielAt; i++)
 		{
 			pool.push_back(2);
 		}
@@ -249,15 +252,18 @@ namespace tests
 		structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
 		SimpleTest::startStopwatch();
 		std::vector<char>pool;
-		for (unsigned i = 0; i <= 1000000 / podielRow; i++)
+
+		const int OPAKOVANIA = 1000000;
+
+		for (unsigned i = 0; i <= OPAKOVANIA / podielRow; i++)
 		{
 			pool.push_back(1);
 		}
-		for (unsigned i = 0; i <= 1000000 / podielColumn; i++)
+		for (unsigned i = 0; i <= OPAKOVANIA / podielColumn; i++)
 		{
 			pool.push_back(2);
 		}
-		for (unsigned i = 0; i <= 1000000 / podielAt; i++)
+		for (unsigned i = 0; i <= OPAKOVANIA / podielAt; i++)
 		{
 			pool.push_back(2);
 		}
