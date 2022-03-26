@@ -6,6 +6,7 @@
 #include "../../structures/heap_monitor.h"
 #include "../../structures/matrix/coherent_matrix.h"
 #include "../../structures/matrix/incoherent_matrix.h"
+#include <chrono>
 
 namespace tests
 {
@@ -131,8 +132,12 @@ namespace tests
 		IncoherenMatrixUloha3();
 		void test() override;
 	private:
-		void cyklusAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
-		void cyklusAssign(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
+		Milliseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
+		Milliseconds durationAt(int x, int y, structures::IncoherentMatrix<int>& matica);
+
+		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
+		Milliseconds durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign);
+
 
 	};
 
@@ -143,7 +148,7 @@ namespace tests
 		CohereneMatrixUloha3();
 		void test() override;
 	private:
-		void cyklusAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
+		size_t durationAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
 		void cyklusAssign(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
 	};
 }

@@ -301,13 +301,83 @@ namespace tests
 	}
 	void IncoherenMatrixUloha3::test()
 	{
+		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - at");
+		const int MAX = 1000;	
+		const int KROK = 100;
+		const int POC_VELKOST = 100;
+		const int POC_OPAKOVANI = 100;
+		int xSize, ySize;
+		xSize = ySize = POC_VELKOST;
 
-		structures::Logger::getInstance().logInfo(",Testovanie, IncoherenMatrix!");
-		structures::Logger::getInstance().logInfo("Ahoj, ako sa, mas!");
+		structures::Logger::getInstance().logInfo("Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani , Pocet Riadkov, Pocet stlpcov");
+
+		while (xSize <= MAX && ySize <= MAX)
+		{
+			structures::Logger::getInstance().logDuration(0, cyklusAt(xSize, ySize, POC_OPAKOVANI), std::to_string(xSize) + "," + std::to_string(ySize));
+
+			xSize += KROK;
+			// Pripravene pre testovanie neštvorcových matic
+			//structures::Logger::getInstance().logDuration(0, cyklusAt(xSize, ySize, POC_OPAKOVANI), std::to_string(xSize) + "," + std::to_string(ySize));
+			ySize += KROK;
+		}
+
+		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - Assign");
+
+		xSize = ySize = POC_VELKOST;
+		while (xSize <= MAX && ySize <= MAX)
+		{
+			structures::Logger::getInstance().logDuration(0, cyklusAssign(xSize, ySize, POC_OPAKOVANI), std::to_string(xSize) + "," + std::to_string(ySize));
+
+			xSize += KROK;
+			// Pripravene pre testovanie neštvorcových matic
+			//structures::Logger::getInstance().logDuration(0, cyklusAt(xSize, ySize, POC_OPAKOVANI), std::to_string(xSize) + "," + std::to_string(ySize));
+			ySize += KROK;
+		}
+
 	}
 
-	void IncoherenMatrixUloha3::cyklusAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica)
+	Milliseconds IncoherenMatrixUloha3::cyklusAt(int x, int y, const int POC_OPAKOVANI)
 	{
+		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(x, y);
+		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
+		for (int i = 0; i < POC_OPAKOVANI; i++)
+		{
+			duration += durationAt(rand() % x, rand() % y, *matica);
+		}
+		delete matica;
+		return duration / POC_OPAKOVANI;
 	}
+
+
+	Milliseconds IncoherenMatrixUloha3::durationAt(int x, int y, structures::IncoherentMatrix<int>& matica)
+	{
+		SimpleTest::startStopwatch();
+		matica.at(x, y) = 7;
+		SimpleTest::stopStopwatch();
+		return SimpleTest::getElapsedTime();
+	}
+	Milliseconds IncoherenMatrixUloha3::cyklusAssign(int x, int y, const int POC_OPAKOVANI)
+	{
+		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(x, y);
+		structures::IncoherentMatrix<int>* maticaAssign = new structures::IncoherentMatrix<int>(x, y);
+		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
+		for (int i = 0; i < POC_OPAKOVANI; i++)
+		{
+			duration += durationAssign(rand() % x, rand() % y, *matica, *maticaAssign);
+		}
+		delete matica;
+		delete maticaAssign;
+		return duration / POC_OPAKOVANI;
+
+	}
+
+	Milliseconds IncoherenMatrixUloha3::durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign)
+	{
+		SimpleTest::startStopwatch();
+		matica.assign(maticaAssign);
+		SimpleTest::stopStopwatch();
+		return SimpleTest::getElapsedTime();
+	}
+
 
 }
