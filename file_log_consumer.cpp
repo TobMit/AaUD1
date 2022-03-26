@@ -7,6 +7,7 @@ gui::FileLogConsummer::FileLogConsummer(const std::string& filePath) :
 	{
 		throw std::logic_error("Can not open file! Expection from FileLogConsummer::FileLogConsummer()");
 	}
+	fileStream_ << "sep=," << std::endl; // excel pre správen otváranie potrebuje toto na zaèiatku csv súboru.
 }
 
 void gui::FileLogConsummer::logMessage(structures::LogType type, const std::string& message)

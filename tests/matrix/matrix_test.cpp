@@ -47,6 +47,7 @@ namespace tests
 		addTest(new IncoherentMatrixTestInterface());
 		addTest(new IncoherentMatrixFunctionTest());
 		addTest(new IncoherenMatrixUloha2());
+		addTest(new IncoherenMatrixUloha3());
 	}
 
 	MatrixTestOverall::MatrixTestOverall() :
@@ -292,4 +293,21 @@ namespace tests
 		SimpleTest::stopStopwatch();
 		structures::Logger::getInstance().logDuration(0, SimpleTest::getElapsedTime(), "..a trval tolkoto!");
 	}
+
+	//-------------------------------------------------------------------------------------------------------------------------------
+	IncoherenMatrixUloha3::IncoherenMatrixUloha3():
+		SimpleTest("Uloha3")
+	{
+	}
+	void IncoherenMatrixUloha3::test()
+	{
+
+		structures::Logger::getInstance().logInfo(",Testovanie, IncoherenMatrix!");
+		structures::Logger::getInstance().logInfo("Ahoj, ako sa, mas!");
+	}
+
+	void IncoherenMatrixUloha3::cyklusAt(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica)
+	{
+	}
+
 }
