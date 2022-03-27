@@ -303,14 +303,15 @@ namespace tests
 	void IncoherenMatrixUloha3::test()
 	{
 		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - at");
-		const int MAX = 1000;	
-		const int KROK = 100;
+		const int MAX = 10000;	
+		const int KROK = 200;
 		const int POC_VELKOST = 100;
 		const int POC_OPAKOVANI = 100;
 		int xSize, ySize;
 		xSize = ySize = POC_VELKOST;
 
 		structures::Logger::getInstance().logInfo("Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani , Pocet Riadkov, Pocet stlpcov");
+		SimpleTest::logInfo("Testujem AT");
 
 		while (xSize <= MAX && ySize <= MAX)
 		{
@@ -323,7 +324,7 @@ namespace tests
 		}
 
 		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - Assign");
-
+		SimpleTest::logInfo("Testujem Assign");
 		xSize = ySize = POC_VELKOST;
 		while (xSize <= MAX && ySize <= MAX)
 		{
@@ -391,15 +392,15 @@ namespace tests
 	void CohereneMatrixUloha3::test()
 	{
 		structures::Logger::getInstance().logInfo("Testovanie CoherenceMatrix Uloha 3 - at");
-		const int MAX = 1000;
-		const int KROK = 100;
+		const int MAX = 10000;
+		const int KROK = 200;
 		const int POC_VELKOST = 100;
 		const int POC_OPAKOVANI = 100;
 		int xSize, ySize;
 		xSize = ySize = POC_VELKOST;
 
 		structures::Logger::getInstance().logInfo("Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani , Pocet Riadkov, Pocet stlpcov");
-
+		SimpleTest::logInfo("Testujem AT");
 		while (xSize <= MAX && ySize <= MAX)
 		{
 			structures::Logger::getInstance().logDuration(0, cyklusAt(xSize, ySize, POC_OPAKOVANI), std::to_string(xSize) + "," + std::to_string(ySize));
@@ -411,7 +412,7 @@ namespace tests
 		}
 
 		structures::Logger::getInstance().logInfo("Testovanie CoherenceMatrix Uloha 3 - Assign");
-
+		SimpleTest::logInfo("Testujem Assign");
 		xSize = ySize = POC_VELKOST;
 		while (xSize <= MAX && ySize <= MAX)
 		{
