@@ -149,30 +149,38 @@ namespace tests
 			pool.push_back(3);
 		}
 
-		SimpleTest::startStopwatch();
+		Milliseconds duration = std::chrono::milliseconds(0);
 		while (!pool.empty())
 		{
 			int index = rand() % pool.size();
 			switch (pool.at(index))
 			{
 			case 1:
+				SimpleTest::startStopwatch();
 				matica.getRowCount();
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 
 			case 2:
+				SimpleTest::startStopwatch();
 				matica.getColumnCount();
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 
 			case 3:
+				SimpleTest::startStopwatch();
 				matica.at((rand() % matica.getRowCount()), (rand() % matica.getColumnCount()));
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 			}
 
 			pool.erase(pool.begin() + index);
 		}
 
-		SimpleTest::stopStopwatch();
-		structures::Logger::getInstance().logDuration(0, SimpleTest::getElapsedTime(), "..a trval tolkoto!");
+		structures::Logger::getInstance().logDuration(0, duration, "..a trval tolkoto!");
 
 	}
 
@@ -268,31 +276,39 @@ namespace tests
 		{
 			pool.push_back(3);
 		}
-
-		SimpleTest::startStopwatch();
+		Milliseconds duration = std::chrono::milliseconds(0);
+		
 		while (!pool.empty())
 		{
 			int index = rand() % pool.size();
 			switch (pool.at(index))
 			{
 			case 1:
+				SimpleTest::startStopwatch();
 				matica.getRowCount();
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 
 			case 2:
+				SimpleTest::startStopwatch();
 				matica.getColumnCount();
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 
 			case 3:
+				SimpleTest::startStopwatch();
 				matica.at((rand() % matica.getRowCount()), (rand() % matica.getColumnCount()));
+				SimpleTest::stopStopwatch();
+				duration += SimpleTest::getElapsedTime();
 				break;
 			}
 
 			pool.erase(pool.begin() + index);
 		}
 
-		SimpleTest::stopStopwatch();
-		structures::Logger::getInstance().logDuration(0, SimpleTest::getElapsedTime(), "..a trval tolkoto!");
+		structures::Logger::getInstance().logDuration(0, duration, "..a trval tolkoto!");
 	}
 
 	//-------------------------------------------------------------------------------------------------------------------------------
@@ -303,8 +319,8 @@ namespace tests
 	void IncoherenMatrixUloha3::test()
 	{
 		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - at");
-		const int MAX = 10000;	
-		const int KROK = 200;
+		const int MAX = 3000;	
+		const int KROK = 100;
 		const int POC_VELKOST = 100;
 		const int POC_OPAKOVANI = 100;
 		int xSize, ySize;
@@ -392,8 +408,8 @@ namespace tests
 	void CohereneMatrixUloha3::test()
 	{
 		structures::Logger::getInstance().logInfo("Testovanie CoherenceMatrix Uloha 3 - at");
-		const int MAX = 10000;
-		const int KROK = 200;
+		const int MAX = 3000;
+		const int KROK = 100;
 		const int POC_VELKOST = 100;
 		const int POC_OPAKOVANI = 100;
 		int xSize, ySize;
