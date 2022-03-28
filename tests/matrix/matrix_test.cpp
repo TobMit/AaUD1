@@ -132,7 +132,6 @@ namespace tests
 	void CohereneMatrixUloha2::cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica)
 	{
 		structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1,oznacenie) + "!");
-		SimpleTest::startStopwatch();
 		std::vector<char>pool;
 
 		const int OPAKOVANIA = 1000000;
@@ -147,9 +146,10 @@ namespace tests
 		}
 		for (unsigned i = 0; i <= OPAKOVANIA / podielAt; i++)
 		{
-			pool.push_back(2);
+			pool.push_back(3);
 		}
 
+		SimpleTest::startStopwatch();
 		while (!pool.empty())
 		{
 			int index = rand() % pool.size();
@@ -252,7 +252,6 @@ namespace tests
 	void IncoherenMatrixUloha2::cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica)
 	{
 		structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
-		SimpleTest::startStopwatch();
 		std::vector<char>pool;
 
 		const int OPAKOVANIA = 1000000;
@@ -267,9 +266,10 @@ namespace tests
 		}
 		for (unsigned i = 0; i <= OPAKOVANIA / podielAt; i++)
 		{
-			pool.push_back(2);
+			pool.push_back(3);
 		}
 
+		SimpleTest::startStopwatch();
 		while (!pool.empty())
 		{
 			int index = rand() % pool.size();
