@@ -41,10 +41,9 @@ namespace structures
 
 	template<typename T>
 	PriorityQueueUnsortedArrayList<T>::PriorityQueueUnsortedArrayList(PriorityQueueUnsortedArrayList<T>& other) :
-		PriorityQueueList<T>(
-			new ArrayList<PriorityQueueItem<T>*>(
-				dynamic_cast<ArrayList<PriorityQueueItem<T>*>&>(*other.list_)))
+		PriorityQueueUnsortedArrayList<T>()
 	{
+		assign(other);
 	}
 
 	template<typename T>
