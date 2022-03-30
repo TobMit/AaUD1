@@ -44,10 +44,9 @@ namespace structures
 
 	template<typename T>
 	inline PriorityQueueSortedArrayList<T>::PriorityQueueSortedArrayList(PriorityQueueSortedArrayList<T>& other) :
-		PriorityQueueList<T>(
-			new ArrayList<PriorityQueueItem<T>*>(
-				dynamic_cast<ArrayList<PriorityQueueItem<T>*>&>(*other.list_)))
+		PriorityQueueList<T>()
 	{
+		assign(other);
 	}
 
 	template<typename T>
@@ -66,7 +65,6 @@ namespace structures
 	template<typename T>
 	inline int PriorityQueueSortedArrayList<T>::indexOfPeek()
 	{
-		//TODO 06: PriorityQueueSortedArrayList
-		throw std::runtime_error("PriorityQueueSortedArrayList<T>::index_of_peek: Not implemented yet.");
+		return PriorityQueueList<T>::list_->size() - 1;
 	}
 }
