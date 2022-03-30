@@ -100,8 +100,27 @@ namespace structures
     template<typename T>
     inline int PriorityQueueList<T>::indexOfPeek()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::indexOfPeek: Not implemented yet.");
+        // int prioritz = int_max
+        // int indexNaj = -1
+        // int indexAkt = 0
+        // for (auto item : *list_)
+        //      if (item->getPriority() < priorytaNajve
+        //          prioritaNaj = item->getPriorita()
+        //          indexNaj = inedexAkt
+        //      indexAkt =++
+        // return indexNaj
+
+        int prioritaNaj = INT_MAX;
+        int indexNaj = -1;
+        int indexAkt = 0;
+        for (auto item : *list_) {
+            if (item->getPriority() < prioritaNaj) {
+                prioritaNaj = item->getPriority();
+                indexNaj = indexAkt;
+            }
+            indexAkt++;
+        }
+        return indexNaj;
     }
 
     template<typename T>
@@ -139,26 +158,14 @@ namespace structures
     template<typename T>
     inline int PriorityQueueList<T>::peekPriority()
     {
-        // int prioritz = int_max
-        // int indexNaj = -1
-        // int indexAkt = 0
-        // for (auto item : *list_)
-        //      if (item->getPriority() < priorytaNajve
-        //          prioritaNaj = item->getPriorita()
-        //          indexNaj = inedexAkt
-        //      indexAkt =++
-        // return indexNaj
+        int index = indexOfPeek();
+        if (index != -1) {
+            return list_->at(index)->getPriority();
 
-        int prioritaNaj = INT_MAX;
-        int indexNaj = -1;
-        int indexAkt = 0;
-        for (auto item : *list_) {
-            if (item->getPriority() < prioritaNaj) {
-                prioritaNaj = item->getPriority();
-                indexNaj = indexAkt;
-            }
-            indexAkt++;
         }
-        return indexNaj;
+        else {
+            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peekPriority()");
+        }
+
     }
 }
