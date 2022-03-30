@@ -108,8 +108,19 @@ namespace structures
     template<typename T>
     inline Structure& PriorityQueueList<T>::assign(PriorityQueueList<T>& other)
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::assign: Not implemented yet.");
+        // test identyty
+        //clear()
+        //for (auto item : *otherlist_)
+        //  list ->add (new item cey kopy konstruktor)
+        // return 
+        if (this != &other) 
+        {
+            clear();
+            for (auto item : *other.list_) {
+                list_->add(new PriorityQueueItem<T>(*item));
+            }
+        }
+        return *this;
     }
 
     template<typename T>
