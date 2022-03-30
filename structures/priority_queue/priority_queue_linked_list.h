@@ -37,10 +37,9 @@ namespace structures
 
 	template<typename T>
 	PriorityQueueLinkedList<T>::PriorityQueueLinkedList(PriorityQueueLinkedList<T>& other) :
-		PriorityQueueList<T>(
-			new LinkedList<PriorityQueueItem<T>*>(
-				dynamic_cast<LinkedList<PriorityQueueItem<T>*>&>(*other.list_)))
+		PriorityQueueLinkedList<T>()
 	{
+		assign(other);
 	}
 
 	template<typename T>
