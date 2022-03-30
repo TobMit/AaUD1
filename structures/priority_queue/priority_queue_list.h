@@ -151,8 +151,14 @@ namespace structures
     template<typename T>
     inline T& PriorityQueueList<T>::peek()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::peek: Not implemented yet.");
+        int index = indexOfPeek();
+        if (index != -1) {
+            return list_->at(index)->accessData();
+
+        }
+        else {
+            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peek()");
+        }
     }
 
     template<typename T>
