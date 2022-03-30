@@ -80,8 +80,7 @@ namespace structures
     template<typename T>
     inline size_t PriorityQueueList<T>::size()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::size: Not implemented yet.");
+        return list_->size();
     }
 
     template<typename T>
