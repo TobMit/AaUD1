@@ -55,7 +55,7 @@ namespace structures
 	template<typename T>
 	void PriorityQueueUnsortedArrayList<T>::push(int priority, const T& data)
 	{
-		PriorityQueueUnsortedArrayList<T>::list_->add(new PriorityQueueItem<T>(priority, data));
+		PriorityQueueList<T>::list_->add(new PriorityQueueItem<T>(priority, data));
 	}
 
 	template<typename T>
@@ -65,10 +65,10 @@ namespace structures
 		//utils::swap(a,b)
 		int index = PriorityQueueList<T>::indexOfPeek();
 		if (index != -1){
-			int indexLast = PriorityQueueList<T>::size() - 1;
+			int indexLast = PriorityQueueList<T>::list_->size() - 1;
 
 			if (index != indexLast) {
-				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueLinkedList<T>::list_->at(indexLast));
+				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
 			}
 			PriorityQueueItem<T>* item = list_->removeAt(index);
 			T data = item->accessData();

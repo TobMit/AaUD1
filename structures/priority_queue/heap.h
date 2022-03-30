@@ -79,8 +79,8 @@ namespace structures
 		int indexCurrent = PriorityQueueList<T>::list_->size() - 1;
 		int indexParent = getParentIndex(indexCurrent);
 
-		while (indexCurrent != 0 && PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueLinkedList<T>::list_->at(indexParent)) {
-			Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueLinkedList<T>::list_->at(indexParent));
+		while (indexCurrent != 0 && PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueList<T>::list_->at(indexParent)) {
+			Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexParent));
 			indexCurrent = indexParent;
 			indexParent = getParentIndex(indexCurrent);
 		}
@@ -92,23 +92,27 @@ namespace structures
 	{
 		int index = PriorityQueueList<T>::indexOfPeek();
 		if (index != -1) {
-			int indexLast = PriorityQueueList<T>::size() - 1;
+			int indexLast = PriorityQueueList<T>::list_->size() - 1;
 
 			if (index != indexLast) {
-				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueLinkedList<T>::list_->at(indexLast));
+				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
 			}
-			PriorityQueueItem<T>* item = list_->removeAt(index);
+
+			PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
+
 			T data = item->accessData();
 			delete item;
+
 			//upratovanie
-			int indexCurrent = PriorityQueueList<T>::list_->size() - 1;
-			int indexSon = getParentIndex(indexCurrent);
+			int indexCurrent = 0;
+			int indexSon = getGreaterSonIndex(indexCurrent);
 
 			while (indexSon != -1 &&
-				&&indexCurrent != 0 && PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueLinkedList<T>::list_->at(indexSon)) {
-				Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueLinkedList<T>::list_->at(indexSon));
+				PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueList<T>::list_->at(indexSon)) {
+				
+				Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexSon));
 				indexCurrent = indexSon;
-				indexSon = getParentIndex(indexCurrent);
+				indexSon = getGreaterSonIndex(indexCurrent);
 			}
 
 
@@ -149,6 +153,6 @@ namespace structures
 	template<typename T>
 	inline int Heap<T>::indexOfPeek()
 	{
-		return Structures::isEmpty() ? - 1 : 0;
+		return Structure::isEmpty() ? - 1 : 0;
 	}
 }
