@@ -72,6 +72,9 @@ namespace structures
     inline PriorityQueueList<T>::~PriorityQueueList()
     {
         //TODO 06: PriorityQueueList
+        clear();
+        delete list_;
+        list_ = nullptr;
     }
 
     template<typename T>
@@ -84,8 +87,15 @@ namespace structures
     template<typename T>
     inline void PriorityQueueList<T>::clear()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::size: Not implemented yet.");
+        //for (auto item : xlist_)
+        // delete item;
+        // lest_ ->clear();
+
+        for (auto item : *list_)
+        {
+            delete item;
+        }
+        list_->clear();
     }
 
     template<typename T>
