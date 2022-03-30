@@ -144,8 +144,18 @@ namespace structures
     template<typename T>
     inline T PriorityQueueList<T>::pop()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::pop: Not implemented yet.");
+        int index = indexOfPeek();
+
+        if (index != -1) {
+            PriorityQueueItem<T>* item = list_->removeAt(index);
+            T data = item->accessData();
+            delete item;
+            return data;
+
+        }
+        else {
+            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peek()");
+        }
     }
 
     template<typename T>
