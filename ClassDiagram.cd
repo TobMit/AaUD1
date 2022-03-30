@@ -22,38 +22,56 @@
     </TypeIdentifier>
   </Class>
   <Class Name="structures::ArrayList&lt;T&gt;" Collapsed="true">
-    <Position X="5.5" Y="8.25" Width="3.25" />
-    <NestedTypes>
-      <Class Name="structures::ArrayList&lt;T&gt;::ArrayListIterator" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>structures\list\array_list.h</NewMemberFileName>
-        </TypeIdentifier>
-      </Class>
-    </NestedTypes>
+    <Position X="5.5" Y="6.5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AEAAAAAgAADEAAAACYgAAABAQAAAAAEAggAAAAECAAA=</HashCode>
       <FileName>structures\list\array_list.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="structures::List&lt;T&gt;">
+  <Class Name="structures::List&lt;T&gt;" Collapsed="true">
     <Position X="7.5" Y="5" Width="3" />
     <TypeIdentifier>
       <HashCode>AEAAAAAAAABAAAAACAAAAAAAQAEAAAAAgAAAAAECAAA=</HashCode>
       <FileName>structures\list\list.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="structures::LinkedListItem&lt;T&gt;">
-    <Position X="13.25" Y="8.25" Width="3" />
+  <Class Name="structures::DataItem&lt;T&gt;">
+    <Position X="22" Y="5.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAAABAAAAAAAAAAAAAAAAAAIAAAAAAAAAE=</HashCode>
+      <FileName>structures\data_item.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::LinkedListItem&lt;T&gt;" Collapsed="true">
+    <Position X="24.25" Y="8.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAABAAAAAAAAAAAAIAAAAAgAAAAAAAAIAACAAAAAAA=</HashCode>
       <FileName>structures\list\linked_list.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="structures::Heap&lt;T&gt;">
+    <Position X="16.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAMAAAAAAAAAIAAAAAAAAAAAEAIAIAAAAE=</HashCode>
+      <FileName>structures\priority_queue\heap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueueItem&lt;T&gt;" Collapsed="true">
+    <Position X="22.5" Y="8" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAQAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueue&lt;T&gt;" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAACAAAAAAAAAAIAIAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue.h</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="structures::LinkedList&lt;T&gt;">
-    <Position X="9.5" Y="8.25" Width="3.25" />
-    <Compartments>
-      <Compartment Name="Nested Types" Collapsed="false" />
-    </Compartments>
+    <Position X="9.5" Y="6.5" Width="3.25" />
     <NestedTypes>
       <Class Name="structures::LinkedList&lt;T&gt;::LinkedListIterator" Collapsed="true">
         <TypeIdentifier>
@@ -66,11 +84,39 @@
       <FileName>structures\list\linked_list.h</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="structures::DataItem&lt;T&gt;">
-    <Position X="13.5" Y="4.75" Width="2.75" />
+  <Class Name="structures::PriorityQueueList&lt;T&gt;" Collapsed="true">
+    <Position X="16" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAIAAAAAAABAAAAAAAAAAAAAAAAAAIAAAAAAAAAE=</HashCode>
-      <FileName>structures\data_item.h</FileName>
+      <HashCode>AEAAAAQAAAAEAAAAAIAAAIAIgAAAAAAAAEAAABAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueueLimitedSortedArrayList&lt;T&gt;" Collapsed="true">
+    <Position X="18.25" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEAAEAAAAAAIAAAAAAAAAAQAAACAIgAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue_limited_sorted_array_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueueSortedArrayList&lt;T&gt;" Collapsed="true">
+    <Position X="18" Y="6.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAEAAAAAAAAAAAAAAAAAAAAAEAIAAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue_sorted_array_list.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueueTwoLists&lt;T&gt;" Collapsed="true">
+    <Position X="18.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAQAAAAEACAAAIAAAIAIAAAQAAAAAAIIEAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue_two_lists.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="structures::PriorityQueueUnsortedArrayList&lt;T&gt;" Collapsed="true">
+    <Position X="14" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAEAAAAAAAAAIAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>structures\priority_queue\priority_queue_unsorted_array_list.h</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
