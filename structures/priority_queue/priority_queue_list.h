@@ -139,7 +139,26 @@ namespace structures
     template<typename T>
     inline int PriorityQueueList<T>::peekPriority()
     {
-        //TODO 06: PriorityQueueList
-        throw std::runtime_error("PriorityQueueList<T>::peekPriority: Not implemented yet.");
+        // int prioritz = int_max
+        // int indexNaj = -1
+        // int indexAkt = 0
+        // for (auto item : *list_)
+        //      if (item->getPriority() < priorytaNajve
+        //          prioritaNaj = item->getPriorita()
+        //          indexNaj = inedexAkt
+        //      indexAkt =++
+        // return indexNaj
+
+        int prioritaNaj = INT_MAX;
+        int indexNaj = -1;
+        int indexAkt = 0;
+        for (auto item : *list_) {
+            if (item->getPriority() < prioritaNaj) {
+                prioritaNaj = item->getPriority();
+                indexNaj = indexAkt;
+            }
+            indexAkt++;
+        }
+        return indexNaj;
     }
 }
