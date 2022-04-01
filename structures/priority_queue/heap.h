@@ -108,7 +108,7 @@ namespace structures
 			int indexSon = getGreaterSonIndex(indexCurrent);
 
 			while (indexSon != -1 &&
-				PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueList<T>::list_->at(indexSon)) {
+				PriorityQueueList<T>::list_->at(indexCurrent) > PriorityQueueList<T>::list_->at(indexSon)) {
 				
 				Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexSon));
 				indexCurrent = indexSon;
