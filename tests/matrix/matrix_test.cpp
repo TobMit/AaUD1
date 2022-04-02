@@ -181,9 +181,9 @@ namespace tests
 		}
 
 		
-		Milliseconds durationRow = std::chrono::milliseconds(0);
-		Milliseconds durationColumn = std::chrono::milliseconds(0);
-		Milliseconds durationAt = std::chrono::milliseconds(0);
+		Milliseconds durationRow = std::chrono::microseconds(0);
+		Milliseconds durationColumn = std::chrono::microseconds(0);
+		Milliseconds durationAt = std::chrono::microseconds(0);
 
 		// todo uprava vypisova aby to vypysovalo aj jednotlive priemery
 		while (!pool.empty())
@@ -278,7 +278,7 @@ namespace tests
 	Milliseconds MatrixUloha3::cyklusAt(int x, int y, const int POC_OPAKOVANI)
 	{
 		structures::Matrix<int>* matica = this->makeMatrix(x, y);
-		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
+		Milliseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
 		for (int i = 0; i < POC_OPAKOVANI; i++)
 		{
 			duration += durationAt(rand() % x, rand() % y, *matica);
@@ -299,7 +299,7 @@ namespace tests
 	{
 		structures::Matrix<int>* matica = this->makeMatrix( x, y);
 		structures::Matrix<int>* maticaAssign = this->makeMatrix(x, y);
-		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
+		Milliseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
 
 		for (int i = 0; i < POC_OPAKOVANI; i++)
 		{

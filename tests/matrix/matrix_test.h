@@ -196,7 +196,7 @@ namespace tests
 		}
 		void infoAssign() const override
 		{
-			structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - Assign");
+			structures::Logger::getInstance().logInfo("Testovanie CohMatrix - Assign");
 		}
 	};
 
