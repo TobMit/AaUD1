@@ -162,20 +162,61 @@ namespace tests
 
 	//--------------------------------------------------------------------------------------------------------------
 
-	class IncoherenMatrixUloha3
+	class MatrixUloha3
 		:public SimpleTest
 	{
 	public:
-		IncoherenMatrixUloha3();
+		MatrixUloha3();
 		void test() override;
 	private:
 		Milliseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAt(int x, int y, structures::IncoherentMatrix<int>& matica);
+		Milliseconds durationAt(int x, int y, structures::Matrix<int>& matica);
 
 		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign);
+		Milliseconds durationAssign(int x, int y, structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign);
+	protected:
+		virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
+		virtual void infoAt() const = 0;
+		virtual void infoAssign() const = 0;
 
+	};
 
+	class CohMatrixUloha3
+		: public MatrixUloha3
+	{
+	protected:
+		structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+		{
+			return new structures::CoherentMatrix<int>(rows, cols);
+		};
+
+		void infoAt() const override
+		{
+			structures::Logger::getInstance().logInfo("Testovanie CohMatrix - at");
+		}
+		void infoAssign() const override
+		{
+			structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - Assign");
+		}
+	};
+
+	class IncohMatrixUloha3
+		: public MatrixUloha3
+	{
+	protected:
+		structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+		{
+			return new structures::IncoherentMatrix<int>(rows, cols);
+		};
+
+		void infoAt() const override
+		{
+			structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - at");
+		}
+		void infoAssign() const override
+		{
+			structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - Assign");
+		}
 	};
 
 }

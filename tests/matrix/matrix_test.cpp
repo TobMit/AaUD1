@@ -39,6 +39,7 @@ namespace tests
 		addTest(new CoherentMatrixTestInterface());
 		addTest(new CohMatrixFunctionTest());
 		addTest(new CohMatrixUloha2());
+		addTest(new CohMatrixUloha3());
 
 	}
 
@@ -48,7 +49,7 @@ namespace tests
 		addTest(new IncoherentMatrixTestInterface());
 		addTest(new IncohMatrixFunctionTest());
 		addTest(new IncohMatrixUloha2());
-		addTest(new IncoherenMatrixUloha3());
+		addTest(new IncohMatrixUloha3());
 	}
 
 	MatrixTestOverall::MatrixTestOverall() :
@@ -140,18 +141,18 @@ namespace tests
 
 		// Scenár B
 		matica = this->makeMatrix(2000, 500);
-		//cyklus('B', 5, 5, 90, *matica);
+		cyklus('B', 5, 5, 90, *matica);
 		delete matica;
 
 		// Scenár C
 		matica = this->makeMatrix(50, 10);
-		//cyklus('C', 10, 30, 60, *matica);
+		cyklus('C', 10, 30, 60, *matica);
 		delete matica;
 
 
 		// Scenár D
 		matica = this->makeMatrix(500, 2000);
-		//cyklus('D', 10, 30, 60, *matica);
+		cyklus('D', 10, 30, 60, *matica);
 		delete matica;
 	}
 	void MatrixUloha2::cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::Matrix<int>& matica)
@@ -229,14 +230,15 @@ namespace tests
 	}
 
 
-	//-------------------------------------------------------------------------------------------------------------------------------
-	IncoherenMatrixUloha3::IncoherenMatrixUloha3():
+	//---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	MatrixUloha3::MatrixUloha3():
 		SimpleTest("Uloha3")
 	{
 	}
-	void IncoherenMatrixUloha3::test()
+	void MatrixUloha3::test()
 	{
-		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - at");
+		structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
+		this->infoAt();
 		const int MAX = 3000;	
 		const int KROK = 100;
 		const int POC_VELKOST = 100;
@@ -245,7 +247,6 @@ namespace tests
 		xSize = ySize = POC_VELKOST;
 
 		structures::Logger::getInstance().logInfo("Pocet Riadkov, Pocet stlpcov, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
-		SimpleTest::logInfo("Testujem AT");
 
 		while (xSize <= MAX && ySize <= MAX)
 		{
@@ -257,8 +258,9 @@ namespace tests
 			ySize += KROK;
 		}
 
-		structures::Logger::getInstance().logInfo("Testovanie IncoherenceMatrix Uloha 3 - Assign");
-		SimpleTest::logInfo("Testujem Assign");
+		//--------------------Assign-----------------
+		this->infoAssign();
+
 		xSize = ySize = POC_VELKOST;
 		while (xSize <= MAX && ySize <= MAX)
 		{
@@ -273,9 +275,9 @@ namespace tests
 	}
 
 	//------------------------------------------------------------------------
-	Milliseconds IncoherenMatrixUloha3::cyklusAt(int x, int y, const int POC_OPAKOVANI)
+	Milliseconds MatrixUloha3::cyklusAt(int x, int y, const int POC_OPAKOVANI)
 	{
-		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(x, y);
+		structures::Matrix<int>* matica = this->makeMatrix(x, y);
 		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
 		for (int i = 0; i < POC_OPAKOVANI; i++)
 		{
@@ -284,7 +286,7 @@ namespace tests
 		delete matica;
 		return duration / POC_OPAKOVANI;
 	}
-	Milliseconds IncoherenMatrixUloha3::durationAt(int x, int y, structures::IncoherentMatrix<int>& matica)
+	Milliseconds MatrixUloha3::durationAt(int x, int y, structures::Matrix<int>& matica)
 	{
 		SimpleTest::startStopwatch();
 		matica.at(x, y) = 7;
@@ -293,11 +295,12 @@ namespace tests
 	}
 
 	//---------------------------------------------------------------------
-	Milliseconds IncoherenMatrixUloha3::cyklusAssign(int x, int y, const int POC_OPAKOVANI)
+	Milliseconds MatrixUloha3::cyklusAssign(int x, int y, const int POC_OPAKOVANI)
 	{
-		structures::IncoherentMatrix<int>* matica = new structures::IncoherentMatrix<int>(x, y);
-		structures::IncoherentMatrix<int>* maticaAssign = new structures::IncoherentMatrix<int>(x, y);
+		structures::Matrix<int>* matica = this->makeMatrix( x, y);
+		structures::Matrix<int>* maticaAssign = this->makeMatrix(x, y);
 		Milliseconds duration = std::chrono::milliseconds(0); // nastaví premennú na nulu
+
 		for (int i = 0; i < POC_OPAKOVANI; i++)
 		{
 			duration += durationAssign(rand() % x, rand() % y, *matica, *maticaAssign);
@@ -308,7 +311,7 @@ namespace tests
 
 	}
 
-	Milliseconds IncoherenMatrixUloha3::durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign)
+	Milliseconds MatrixUloha3::durationAssign(int x, int y, structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign)
 	{
 		SimpleTest::startStopwatch();
 		matica.assign(maticaAssign);
