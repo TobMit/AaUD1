@@ -173,7 +173,7 @@ namespace tests
 		Milliseconds durationAt(int x, int y, structures::Matrix<int>& matica);
 
 		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAssign(int x, int y, structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign);
+		Milliseconds durationAssign(structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign);
 	protected:
 		virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
 		virtual void infoAt() const = 0;

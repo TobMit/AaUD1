@@ -303,7 +303,7 @@ namespace tests
 
 		for (int i = 0; i < POC_OPAKOVANI; i++)
 		{
-			duration += durationAssign(rand() % x, rand() % y, *matica, *maticaAssign);
+			duration += durationAssign(*matica, *maticaAssign);
 		}
 		delete matica;
 		delete maticaAssign;
@@ -311,7 +311,7 @@ namespace tests
 
 	}
 
-	Milliseconds MatrixUloha3::durationAssign(int x, int y, structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign)
+	Milliseconds MatrixUloha3::durationAssign(structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign)
 	{
 		SimpleTest::startStopwatch();
 		matica.assign(maticaAssign);
