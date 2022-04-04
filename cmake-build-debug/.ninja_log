@@ -39,3 +39,17 @@
 407	487	1649098813619284794	AUS_Console	b6dfad1ccea4254d
 1	308	1649098983638299076	CMakeFiles/AUS_Console.dir/main.cpp.o	faa9aa5e733e148
 309	347	1649098983678656368	AUS_Console	b6dfad1ccea4254d
+1	273	1649099614850419961	CMakeFiles/AUS_Console.dir/structures/table/sorting/sort.cpp.o	aff28a5e921bcadd
+2	310	1649099614888556808	CMakeFiles/AUS_Console.dir/tests/stack/stack_test.cpp.o	be608e5d448bb558
+2	335	1649099614913290177	CMakeFiles/AUS_Console.dir/tests/queue/queue_test.cpp.o	ae09632bfa39ccc9
+1	338	1649099614915116555	CMakeFiles/AUS_Console.dir/tests/list/list_test.cpp.o	63a8437a39ef2486
+2	365	1649099614943210970	CMakeFiles/AUS_Console.dir/tests/tree/tree_test.cpp.o	d6d215395991d2ed
+1	369	1649099614947871852	CMakeFiles/AUS_Console.dir/tests/priority_queue/priority_queue_test.cpp.o	3209e1dd4bd25e7d
+2	429	1649099615007187271	CMakeFiles/AUS_Console.dir/tests/table/table_test.cpp.o	fa37ba3eff715216
+2	430	1649099615009458316	CMakeFiles/AUS_Console.dir/main.cpp.o	faa9aa5e733e148
+430	470	1649099615050118125	AUS_Console	b6dfad1ccea4254d
+2	303	1649099951417698638	CMakeFiles/AUS_Console.dir/structures/_logger/file_log_consumer.cpp.o	844dacf3d16d5452
+303	344	1649099951459797740	AUS_Console	b6dfad1ccea4254d
+1	256	1649101235661946190	CMakeFiles/AUS_Console.dir/tests/matrix/matrix_test.cpp.o	a4cd9c646679946a
+1	303	1649101235708691024	CMakeFiles/AUS_Console.dir/main.cpp.o	faa9aa5e733e148
+303	346	1649101235753152797	AUS_Console	b6dfad1ccea4254d
