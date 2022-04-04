@@ -34,7 +34,7 @@ namespace structures
 		/// <summary> Porovnanie struktur. </summary>
         /// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
         /// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		bool equals(Structure& other);
+		bool equals(Structure& other) override;
 
 		/// <summary> Vrati adresou prvok na indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>

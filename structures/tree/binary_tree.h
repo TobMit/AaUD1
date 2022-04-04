@@ -110,7 +110,7 @@ namespace structures
 		Iterator<T>* getEndIterator() override;
 
 	public:
-		class InOrderTreeIterator : public TreeIterator
+		class InOrderTreeIterator : public Tree<T>::TreeIterator
 		{
 		public:
 			/// <summary> Konstruktor. </summary>
@@ -243,7 +243,7 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>* BinaryTree<T>::getBeginIterator()
 	{
-		return new InOrderTreeIterator(getRoot());
+		return new InOrderTreeIterator(this->getRoot());
 	}
 
 	template<typename T>
@@ -254,7 +254,7 @@ namespace structures
 
 	template<typename T>
 	inline BinaryTree<T>::InOrderTreeIterator::InOrderTreeIterator(TreeNode<T>* startNode):
-		TreeIterator()
+		Tree<T>::TreeIterator()
 	{
 		populatePath(startNode);
 	}

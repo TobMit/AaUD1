@@ -1,0 +1,110 @@
+cmake_minimum_required(VERSION 3.21)
+project(AUS_Console)
+
+set(CMAKE_CXX_STANDARD 14)
+
+include_directories(structures)
+include_directories(structures/_logger)
+include_directories(structures/array)
+include_directories(structures/list)
+include_directories(structures/priority_queue)
+include_directories(structures/queue)
+include_directories(structures/stack)
+include_directories(structures/table)
+include_directories(structures/table/sorting)
+include_directories(structures/tree)
+include_directories(structures/vector)
+include_directories(tests)
+include_directories(tests/array)
+include_directories(tests/list)
+include_directories(tests/priority_queue)
+include_directories(tests/queue)
+include_directories(tests/stack)
+include_directories(tests/table)
+include_directories(tests/tree)
+include_directories(tests/vector)
+include_directories(ui)
+
+add_executable(AUS_Console
+        structures/_logger/file_log_consumer.cpp
+        structures/_logger/file_log_consumer.h
+        structures/_logger/logger.cpp
+        structures/_logger/logger.h
+        structures/array/array.h
+        structures/list/array_list.h
+        structures/list/linked_list.h
+        structures/list/list.h
+        structures/priority_queue/heap.h
+        structures/priority_queue/priority_queue.h
+        structures/priority_queue/priority_queue_limited_sorted_array_list.h
+        structures/priority_queue/priority_queue_linked_list.h
+        structures/priority_queue/priority_queue_list.h
+        structures/priority_queue/priority_queue_sorted_array_list.h
+        structures/priority_queue/priority_queue_two_lists.h
+        structures/priority_queue/priority_queue_unsorted_array_list.h
+        structures/queue/explicit_queue.h
+        structures/queue/implicit_queue.h
+        structures/queue/queue.h
+        structures/stack/explicit_stack.h
+        structures/stack/implicit_stack.h
+        structures/stack/stack.h
+        structures/table/sorting/bubble_sort.h
+        structures/table/sorting/heap_sort.h
+        structures/table/sorting/insert_sort.h
+        structures/table/sorting/merge_sort.h
+        structures/table/sorting/quick_sort.h
+        structures/table/sorting/radix_sort.h
+        structures/table/sorting/select_sort.h
+        structures/table/sorting/shell_sort.h
+        structures/table/sorting/shuffle.h
+        structures/table/sorting/sort.cpp
+        structures/table/sorting/sort.h
+        structures/table/binary_search_tree.h
+        structures/table/hash_table.h
+        structures/table/linked_table.h
+        structures/table/sequence_table.h
+        structures/table/sorted_sequence_table.h
+        structures/table/table.h
+        structures/table/treap.h
+        structures/table/unsorted_sequence_table.h
+        structures/tree/binary_tree.h
+        structures/tree/k_way_tree.h
+        structures/tree/multi_way_tree.h
+        structures/tree/tree.h
+        structures/vector/vector.cpp
+        structures/vector/vector.h
+        structures/matrix/matrix.h
+        structures/matrix/coherent_matrix.h
+        structures/matrix/incoherent_matrix.h
+        structures/data_item.h
+        structures/structure.cpp
+        structures/structure.h
+        structures/structure_iterator.h
+        structures/types.h
+        structures/utils.cpp
+        structures/utils.h
+        tests/array/array_test.cpp
+        tests/array/array_test.h
+        tests/list/list_test.cpp
+        tests/list/list_test.h
+        tests/matrix/matrix_test.cpp
+        tests/matrix/matrix_test.h
+        tests/priority_queue/priority_queue_test.cpp
+        tests/priority_queue/priority_queue_test.h
+        tests/queue/queue_test.cpp
+        tests/queue/queue_test.h
+        tests/stack/stack_test.cpp
+        tests/stack/stack_test.h
+        tests/table/table_test.cpp
+        tests/table/table_test.h
+        tests/tree/tree_test.cpp
+        tests/tree/tree_test.h
+        tests/vector/vector_test.cpp
+        tests/vector/vector_test.h
+        tests/test.cpp
+        tests/test.h
+        ui/console.cpp
+        ui/console.h
+        ui/ui_keeper.cpp
+        ui/ui_keeper.h
+        main.cpp)

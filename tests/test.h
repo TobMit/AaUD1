@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../structures/heap_monitor.h"
 #include "../structures/_logger/logger.h"
 #include <chrono>
 #include <string>
@@ -8,7 +7,7 @@
 
 namespace tests
 {
-	using Milliseconds = structures::DurationType;
+	using Microseconds = structures::DurationType;
 
 	/// <summary>
 	/// Typ spravy o priebehu testu.
@@ -111,7 +110,7 @@ namespace tests
 
 		void startStopwatch();
 		void stopStopwatch();
-		Milliseconds getElapsedTime() const;
+		Microseconds getElapsedTime() const;
 
 	private:
 		using Clock = std::chrono::high_resolution_clock;
@@ -121,7 +120,7 @@ namespace tests
 		TestResult result_;
 		std::vector<TestLog> output_;
 		TimePoint timeZero_;
-		Milliseconds elapsedTime_;
+		Microseconds elapsedTime_;
 	};
 
 	/// <summary>

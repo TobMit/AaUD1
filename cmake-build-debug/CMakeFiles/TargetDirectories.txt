@@ -1,0 +1,3 @@
+/Users/tobias/CLionProjects/AaUD1/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/tobias/CLionProjects/AaUD1/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/tobias/CLionProjects/AaUD1/cmake-build-debug/CMakeFiles/AUS_Console.dir

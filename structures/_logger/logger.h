@@ -52,6 +52,7 @@ namespace structures
         void logWarning(const std::string& message);
         void logError(const std::string& message);
         void logDuration(size_t size, DurationType duration, const std::string& message);
+        void logMessage(LogType type, const std::string& message);
 
     private:
         Logger() = default;

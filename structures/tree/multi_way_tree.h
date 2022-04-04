@@ -112,49 +112,49 @@ namespace structures
 	inline TreeNode<T>* MultiWayTreeNode<T>::shallowCopy()
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::shallowCopy: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::shallowCopy: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline bool MultiWayTreeNode<T>::isLeaf()
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::isLeaf: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::isLeaf: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline TreeNode<T>* MultiWayTreeNode<T>::getSon(int order)
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::getSon: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::getSon: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline void MultiWayTreeNode<T>::insertSon(TreeNode<T>* son, int order)
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::insertSon: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::insertSon: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline TreeNode<T>* MultiWayTreeNode<T>::replaceSon(TreeNode<T>* son, int order)
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::replaceSon: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::replaceSon: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline TreeNode<T>* MultiWayTreeNode<T>::removeSon(int order)
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::removeSon: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::removeSon: Not implemented yet.");
 	}
 
 	template<typename T>
 	inline int MultiWayTreeNode<T>::degree()
 	{
 		//TODO 07: MultiWayTreeNode<T>
-		throw std::exception("MultiWayTreeNode<T>::degree: Not implemented yet.");
+		throw std::runtime_error("MultiWayTreeNode<T>::degree: Not implemented yet.");
 	}
 
 	template<typename T>

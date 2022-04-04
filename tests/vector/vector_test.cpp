@@ -1,6 +1,6 @@
 #include "vector_test.h"
 #include "../../structures/vector/vector.h"
-#include "../../structures/heap_monitor.h"
+//#include "../../structures/heap_monitor.h"
 
 namespace tests
 {

@@ -3,7 +3,7 @@
 #include "../test.h"
 #include "../../structures/matrix/matrix.h"
 #include "../../structures/_logger/logger.h"
-#include "../../structures/heap_monitor.h"
+//#include "../../structures/heap_monitor.h"
 #include "../../structures/matrix/coherent_matrix.h"
 #include "../../structures/matrix/incoherent_matrix.h"
 #include <chrono>
@@ -87,7 +87,7 @@ namespace tests
 	};
 
 	/// <summary>
-	/// Testovanie pre úlohu 2
+	/// Testovanie pre ï¿½lohu 2
 	/// </summary>
 	class CohereneMatrixUloha2
 		:public SimpleTest
@@ -101,7 +101,7 @@ namespace tests
 
 
 	/// <summary>
-	/// Testujem èi som implementoval všetky metódy správne
+	/// Testujem ï¿½i som implementoval vï¿½etky metï¿½dy sprï¿½vne
 	/// </summary>
 	class IncoherentMatrixFunctionTest :
 		public SimpleTest
@@ -112,7 +112,7 @@ namespace tests
 	};
 
 	/// <summary>
-	/// Testovanie pre úlohu 2
+	/// Testovanie pre ï¿½lohu 2
 	/// </summary>
 	class IncoherenMatrixUloha2
 		:public SimpleTest
@@ -132,11 +132,11 @@ namespace tests
 		IncoherenMatrixUloha3();
 		void test() override;
 	private:
-		Milliseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAt(int x, int y, structures::IncoherentMatrix<int>& matica);
+		Microseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
+        Microseconds durationAt(int x, int y, structures::IncoherentMatrix<int>& matica);
 
-		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign);
+        Microseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
+        Microseconds durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign);
 
 
 	};
@@ -148,10 +148,10 @@ namespace tests
 		CohereneMatrixUloha3();
 		void test() override;
 	private:
-		Milliseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAt(int x, int y, structures::CoherentMatrix<int>& matica);
+        Microseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
+        Microseconds durationAt(int x, int y, structures::CoherentMatrix<int>& matica);
 
-		Milliseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-		Milliseconds durationAssign(int x, int y, structures::CoherentMatrix<int>& matica, structures::CoherentMatrix<int>& maticaAssign);
+        Microseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
+        Microseconds durationAssign(int x, int y, structures::CoherentMatrix<int>& matica, structures::CoherentMatrix<int>& maticaAssign);
 	};
 }

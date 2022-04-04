@@ -70,7 +70,7 @@ namespace structures
 			if (index != indexLast) {
 				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
 			}
-			PriorityQueueItem<T>* item = list_->removeAt(index);
+			PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
 			T data = item->accessData();
 			delete item;
 			return data;

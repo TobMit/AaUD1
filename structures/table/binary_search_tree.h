@@ -15,7 +15,7 @@ namespace structures
 	class BinarySearchTree : public Table<K, T>
 	{
 	public:
-		typedef typename BinaryTreeNode<TableItem<K, T>*> BSTTreeNode;
+		typedef BinaryTreeNode<TableItem<K, T>*> BSTTreeNode;
 	public:
 		/// <summary> Konstruktor. </summary>
 		BinarySearchTree();
@@ -88,7 +88,7 @@ namespace structures
 		/// <param name = "key"> Hladany kluc. </param>
 		/// <param name = "found"> Vystupny parameter, ktory indikuje, ci sa kluc nasiel. </param>
 		/// <returns> Vrchol binarneho vyhladavacieho stromu s danym klucom. Ak sa kluc v tabulke nenachadza, vrati otca, ktoreho by mal mat vrchol s takym klucom. </returns>
-		typename BSTTreeNode* findBSTNode(K key, bool& found);
+		BSTTreeNode* findBSTNode(K key, bool& found);
 
 	protected:
 		/// <summary> Binarny strom s datami. </summary>

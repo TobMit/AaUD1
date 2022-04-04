@@ -63,7 +63,7 @@ namespace structures
 	Heap<T>::Heap(Heap<T>& other) :
 		Heap<T>()
 	{
-		assign(other)
+		assign(other);
 	}
 
 	template<typename T>
@@ -75,84 +75,84 @@ namespace structures
 	template<typename T>
 	void Heap<T>::push(int priority, const T& data)
 	{
-		PriorityQueueList<T>::list_->add(new PriorityQueueItem<T>(priority, data));
-		int indexCurrent = PriorityQueueList<T>::list_->size() - 1;
-		int indexParent = getParentIndex(indexCurrent);
+        PriorityQueueList<T>::list_->add(new PriorityQueueItem<T>(priority, data));
 
-		while (indexCurrent != 0 && PriorityQueueList<T>::list_->at(indexCurrent) < PriorityQueueList<T>::list_->at(indexParent)) {
-			Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexParent));
-			indexCurrent = indexParent;
-			indexParent = getParentIndex(indexCurrent);
-		}
+        int indexCurrent = PriorityQueueList<T>::list_->size() - 1;
+        int indexParent = getParentIndex(indexCurrent);
 
+        while (indexCurrent != 0 &&
+                PriorityQueueList<T>::list_->at(indexCurrent)->getPriority() < PriorityQueueList<T>::list_->at(indexParent)->getPriority()) {
+
+            Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexParent));
+            indexCurrent = indexParent;
+            indexParent = getParentIndex(indexCurrent);
+        }
 	}
 
 	template<typename T>
 	T Heap<T>::pop()
 	{
-		int index = PriorityQueueList<T>::indexOfPeek();
-		if (index != -1) {
-			int indexLast = PriorityQueueList<T>::list_->size() - 1;
+        int index = PriorityQueueList<T>::indexOfPeek();
+        if (index != -1) {
+            int indexLast = PriorityQueueList<T>::list_->size()-1;
 
-			if (index != indexLast) {
-				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
-			}
+            if(index != indexLast) {
+                Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
+            }
 
-			PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
+            PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
 
-			T data = item->accessData();
-			delete item;
+            T data = item->accessData();
+            delete item;
 
-			//upratovanie
-			int indexCurrent = 0;
-			int indexSon = getGreaterSonIndex(indexCurrent);
+            //upratovanie
+            int indexCurrent = 0;
+            int indexSon = getGreaterSonIndex(indexCurrent);
 
-			while (indexSon != -1 &&
-				PriorityQueueList<T>::list_->at(indexCurrent) > PriorityQueueList<T>::list_->at(indexSon)) {
-				
-				Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexSon));
-				indexCurrent = indexSon;
-				indexSon = getGreaterSonIndex(indexCurrent);
-			}
+            while (indexSon != -1 &&
+                   PriorityQueueList<T>::list_->at(indexCurrent)->getPriority() > PriorityQueueList<T>::list_->at(indexSon)->getPriority()) {
 
+                Utils::swap(PriorityQueueList<T>::list_->at(indexCurrent), PriorityQueueList<T>::list_->at(indexSon));
+                indexCurrent = indexSon;
+                indexSon = getGreaterSonIndex(indexCurrent);
+            }
+            //koniec upratovania
 
-			//koniecupratovania
-
-
-
-			return data;
-		}
-		else {
-			throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueUnsortedArrayList<T>::pop()");
-		}
+            return data;
+        }
+        else {
+            throw std::logic_error("Priority queue is empty!");
+        }
 	}
 
 	template<typename T>
 	inline int Heap<T>::getParentIndex(int index)
 	{
-		//TODO 06: Heap
-		throw std::runtime_error("Heap<T>::getParentIndex: Not implemented yet.");
+		return (index - 1) / 2;
 	}
 
 	template<typename T>
 	inline int Heap<T>::getGreaterSonIndex(int index)
 	{
 		int indexLeft = 2 * index + 1;
-		int indexRight= 2 * index + 2;
-		int size = PriorityQueueList<T>::list_->size();
+        int indexRight = 2 * index + 2;
 
-		if (indexLeft >= size) {
-			return indexLeft;
-		}
-		else {
-			return PriorityQueueList<T>::list_->at(indexLeft)->getPriority() <
-				PriorityQueueList<T>::list_->at(indexRight)->getPriority() ? indexLeft : indexRight;
-		}
+        int size = PriorityQueueList<T>::list_->size();
+        if (indexLeft >= size) {
+            return -1;
+        } else {
+            if (indexRight >= size) {
+                return indexLeft;
+            } else {
+                return PriorityQueueList<T>::list_->at(indexLeft)->getPriority() <
+                        PriorityQueueList<T>::list_->at(indexRight)->getPriority() ? indexLeft : indexRight;
+            }
+        }
 	}
 
 	template<typename T>
 	inline int Heap<T>::indexOfPeek()
 	{
-		return Structure::isEmpty() ? - 1 : 0;
+		return Structure::isEmpty() ? -1 : 0;
 	}
 }

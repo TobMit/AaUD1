@@ -168,10 +168,10 @@ namespace tests
 	{
 		namespace ch = std::chrono;
 		auto elapsedTime = Clock::now() - timeZero_;
-		elapsedTime_ = ch::duration_cast<Milliseconds>(elapsedTime);
+		elapsedTime_ = ch::duration_cast<Microseconds>(elapsedTime);
 	}
 
-	Milliseconds SimpleTest::getElapsedTime() const
+	Microseconds SimpleTest::getElapsedTime() const
 	{
 		return elapsedTime_;
 	}

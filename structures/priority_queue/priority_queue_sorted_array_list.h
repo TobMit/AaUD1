@@ -44,9 +44,9 @@ namespace structures
 
 	template<typename T>
 	inline PriorityQueueSortedArrayList<T>::PriorityQueueSortedArrayList(PriorityQueueSortedArrayList<T>& other) :
-		PriorityQueueList<T>()
+        PriorityQueueSortedArrayList<T>()
 	{
-		assign(other);
+        assign(other);
 	}
 
 	template<typename T>
@@ -65,6 +65,6 @@ namespace structures
 	template<typename T>
 	inline int PriorityQueueSortedArrayList<T>::indexOfPeek()
 	{
-		return PriorityQueueList<T>::list_->size() - 1;
+        return PriorityQueueList<T>::list_->size() - 1;
 	}
 }
