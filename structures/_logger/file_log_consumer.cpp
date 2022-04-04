@@ -10,19 +10,21 @@ namespace structures
         {
             throw std::runtime_error("Failed to open file " + path);
         }
+        fileStream_ << "sep=," << std::endl;
     }
 
     void FileLogConsumer::logMessage(LogType type, const std::string& message)
     {
         //fileStream_ << logTypeToString(type) << ';' << message << std::endl;
-        fileStream_ << message << std::endl;
+        fileStream_ << structures::logTypeToString(type) << "!," << message << std::endl;
     }
 
     void FileLogConsumer::logDuration(size_t size, DurationType duration, const std::string& message)
     {
-        fileStream_ << logTypeToString(LogType::Duration) << ';'
+        /*fileStream_ << logTypeToString(LogType::Duration) << ';'
             << duration.count() << ';'
             << message << ';'
-            << std::endl;
+            << std::endl;*/
+        fileStream_ << size << "!,"  << message << "," << duration.count() << std::endl;
     }
 }

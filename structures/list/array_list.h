@@ -193,12 +193,13 @@ namespace structures
 
 		ArrayList<T>& otherArray = dynamic_cast<ArrayList<T>&> (other);
 
-		for (int i = 0; i < size_; i++) {
-			if (at(i) == otherArray.at(i)) {
-				continue;
-			}
-			return false;
-		}
+        for (size_t i = 0; i < size_; i++)
+        {
+            if (otherArray.at(i) != array_->at(i))
+            {
+                return false;
+            }
+        }
 
 		return true;
 	}

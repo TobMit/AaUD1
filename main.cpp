@@ -46,7 +46,7 @@ int main()
 	//keeper.registerTest(new tests::TableTestOverall());
 
     // TODO Zadanie na doma 01
-    //keeper.registerTest(new tests::MatrixTestOverall());
+    keeper.registerTest(new tests::MatrixTestOverall());
 
 	bool run = true;
 	do

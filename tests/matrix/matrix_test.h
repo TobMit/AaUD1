@@ -10,148 +10,213 @@
 
 namespace tests
 {
-	/// <summary>
-	/// Zavola vsetky metody z rozhrania matice avsak nekontroluje ich spravnost.
-	/// Zabezpeci, ze vsetky metody budu prelozene kompilatorom.
-	/// </summary>
-	class MatrixTestInterface
-		: public SimpleTest
-	{
-	public:
-		MatrixTestInterface();
-		void test() override;
+    /// <summary>
+    /// Zavola vsetky metody z rozhrania matice avsak nekontroluje ich spravnost.
+    /// Zabezpeci, ze vsetky metody budu prelozene kompilatorom.
+    /// </summary>
+    class MatrixTestInterface
+            : public SimpleTest
+    {
+    public:
+        MatrixTestInterface();
+        void test() override;
 
-	protected:
-		virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
-	};
+    protected:
+        virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
+    };
 
-	/// <summary>
-	/// Zavola vsetky metody koherentnej matice.
-	/// </summary>
-	class CoherentMatrixTestInterface
-		: public MatrixTestInterface
-	{
-	protected:
-		structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
-	};
+    /// <summary>
+    /// Zavola vsetky metody koherentnej matice.
+    /// </summary>
+    class CoherentMatrixTestInterface
+            : public MatrixTestInterface
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
+    };
 
-	/// <summary>
-	/// Zavola vsetky metody nekoherentnej matice.
-	/// </summary>
-	class IncoherentMatrixTestInterface
-		: public MatrixTestInterface
-	{
-	protected:
-		structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
-	};
+    /// <summary>
+    /// Zavola vsetky metody nekoherentnej matice.
+    /// </summary>
+    class IncoherentMatrixTestInterface
+            : public MatrixTestInterface
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
+    };
 
-	/// <summary>
-	/// Zahrna v sebe vsetky testy, ktore testuju CoherentMatrix.
-	/// </summary>
-	class CoherentMatrixTestOverall
-		: public ComplexTest
-	{
-	public:
-		CoherentMatrixTestOverall();
-	};
+    /// <summary>
+    /// Zahrna v sebe vsetky testy, ktore testuju CoherentMatrix.
+    /// </summary>
+    class CoherentMatrixTestOverall
+            : public ComplexTest
+    {
+    public:
+        CoherentMatrixTestOverall();
+    };
 
-	/// <summary>
-	/// Zahrna v sebe vsetky testy, ktore testuju IncoherentMatrix.
-	/// </summary>
-	class IncoherentMatrixTestOverall
-		: public ComplexTest
-	{
-	public:
-		IncoherentMatrixTestOverall();
-	};
+    /// <summary>
+    /// Zahrna v sebe vsetky testy, ktore testuju IncoherentMatrix.
+    /// </summary>
+    class IncoherentMatrixTestOverall
+            : public ComplexTest
+    {
+    public:
+        IncoherentMatrixTestOverall();
+    };
 
-	/// <summary>
-	/// Zahrna v sebe vsetky testy, ktore testuju CoherrentMatrix a IncoherrentMatrix.
-	/// </summary>
-	class MatrixTestOverall
-		: public ComplexTest
-	{
-	public:
-		MatrixTestOverall();
-	};
+    /// <summary>
+    /// Zahrna v sebe vsetky testy, ktore testuju CoherrentMatrix a IncoherrentMatrix.
+    /// </summary>
+    class MatrixTestOverall
+            : public ComplexTest
+    {
+    public:
+        MatrixTestOverall();
+    };
 
-	/// <summary>
-	/// Otestujem ci som implementoval vsetky metody spravne
-	/// </summary>
-	class CohereneMatrixFunctionTest
-		:public SimpleTest
-	{
-	public:
-		CohereneMatrixFunctionTest();
-		void test() override;
-	};
+    //--------------------------------------------------------------------------------------------------------------------
 
-	/// <summary>
-	/// Testovanie pre �lohu 2
-	/// </summary>
-	class CohereneMatrixUloha2
-		:public SimpleTest
-	{
-	public:
-		CohereneMatrixUloha2();
-		void test() override;
-	private:
-		void cyklus(char oznacenie,int podielRow, int podielColumn, int podielAt, structures::CoherentMatrix<int>& matica);
-	};
+    /// <summary>
+    /// Otestujem ci som implementoval vsetky metody spravne
+    /// </summary>
+    class MatrixFunctionTest
+            :public SimpleTest
+    {
+    public:
+        MatrixFunctionTest();
+        void test() override;
+    protected:
+        virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
+        virtual structures::Matrix<int>* makeMatrix(structures::Matrix<int>& other) const = 0;
+    };
 
+    class CohMatrixFunctionTest
+            : public MatrixFunctionTest
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
+        structures::Matrix<int>* makeMatrix(structures::Matrix<int>& other) const override;
+    };
 
-	/// <summary>
-	/// Testujem �i som implementoval v�etky met�dy spr�vne
-	/// </summary>
-	class IncoherentMatrixFunctionTest :
-		public SimpleTest
-	{
-	public:
-		IncoherentMatrixFunctionTest();
-		void test() override;
-	};
-
-	/// <summary>
-	/// Testovanie pre �lohu 2
-	/// </summary>
-	class IncoherenMatrixUloha2
-		:public SimpleTest
-	{
-	public:
-		IncoherenMatrixUloha2();
-		void test() override;
-	private:
-		void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::IncoherentMatrix<int>& matica);
-	};
+    class IncohMatrixFunctionTest
+            : public MatrixFunctionTest
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override;
+        structures::Matrix<int>* makeMatrix(structures::Matrix<int>& other) const override;
+    };
 
 
-	class IncoherenMatrixUloha3
-		:public SimpleTest
-	{
-	public:
-		IncoherenMatrixUloha3();
-		void test() override;
-	private:
-		Microseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
-        Microseconds durationAt(int x, int y, structures::IncoherentMatrix<int>& matica);
-
-        Microseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-        Microseconds durationAssign(int x, int y, structures::IncoherentMatrix<int>& matica, structures::IncoherentMatrix<int>& maticaAssign);
+    //-----------------------------------------------------------------------------------------------------------
 
 
-	};
 
-	class CohereneMatrixUloha3
-		:public SimpleTest
-	{
-	public:
-		CohereneMatrixUloha3();
-		void test() override;
-	private:
+
+    /// <summary>
+    /// Testovanie pre úlohu 2
+    /// </summary>
+    class MatrixUloha2
+            :public SimpleTest
+    {
+    public:
+        MatrixUloha2();
+        void test() override;
+    private:
+        void cyklus(char oznacenie, int podielRow, int podielColumn, int podielAt, structures::Matrix<int>& matica);
+        int getPomer(int const OPAKOVANIA, int pomer);
+    protected:
+        virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
+        virtual void info() const = 0;
+    };
+
+
+    class CohMatrixUloha2
+            : public MatrixUloha2
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+        {
+            return new structures::CoherentMatrix<int>(rows, cols);
+        };
+
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie CohMatrix!");
+        }
+    };
+
+    class IncohMatrixUloha2
+            : public MatrixUloha2
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+        {
+            return new structures::IncoherentMatrix<int>(rows, cols);
+        };
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie IncohMatrix!");
+        }
+    };
+
+    //--------------------------------------------------------------------------------------------------------------
+
+    class MatrixUloha3
+            :public SimpleTest
+    {
+    public:
+        MatrixUloha3();
+        void test() override;
+    private:
         Microseconds cyklusAt(int x, int y, const int POC_OPAKOVANI);
-        Microseconds durationAt(int x, int y, structures::CoherentMatrix<int>& matica);
+        Microseconds durationAt(int x, int y, structures::Matrix<int>& matica);
 
         Microseconds cyklusAssign(int x, int y, const int POC_OPAKOVANI);
-        Microseconds durationAssign(int x, int y, structures::CoherentMatrix<int>& matica, structures::CoherentMatrix<int>& maticaAssign);
-	};
+        Microseconds durationAssign(structures::Matrix<int>& matica, structures::Matrix<int>& maticaAssign);
+    protected:
+        virtual structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const = 0;
+        virtual void infoAt() const = 0;
+        virtual void infoAssign() const = 0;
+
+    };
+
+    class CohMatrixUloha3
+            : public MatrixUloha3
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+        {
+            return new structures::CoherentMatrix<int>(rows, cols);
+        };
+
+        void infoAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie CohMatrix - at");
+        }
+        void infoAssign() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie CohMatrix - Assign");
+        }
+    };
+
+    class IncohMatrixUloha3
+            : public MatrixUloha3
+    {
+    protected:
+        structures::Matrix<int>* makeMatrix(size_t rows, size_t cols) const override
+        {
+            return new structures::IncoherentMatrix<int>(rows, cols);
+        };
+
+        void infoAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - at");
+        }
+        void infoAssign() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie IncohMatrix - Assign");
+        }
+    };
+
 }

@@ -121,7 +121,7 @@ namespace structures
             return data;
         }
         else {
-            throw std::logic_error("Priority queue is empty!");
+            throw std::logic_error("Priority queue is empty! Except from Heap<T>::pop()");
         }
 	}
 
