@@ -60,10 +60,10 @@ namespace tests
 	{
 		return new structures::LinkedList<int>();
 	}
-	ListTestInsert::ListTestInsert() : SimpleTest("Insert")
+	ListTestFunctionsTest::ListTestFunctionsTest() : SimpleTest("Complex test")
 	{
 	}
-	void ListTestInsert::test()
+	void ListTestFunctionsTest::test()
 	{
 		structures::List<int>* zoznam = this->makeList();
 		SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
@@ -116,8 +116,56 @@ namespace tests
 		SimpleTest::assertTrue(zoznam->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(zoznam->at(18)));
 		SimpleTest::assertTrue(zoznam->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(zoznam->at(19)));
 		SimpleTest::assertTrue(zoznam->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(zoznam->at(20)));
-		delete zoznam;
-		
+
+        SimpleTest::logInfo("Cistim zoznam");
+        zoznam->clear();
+        SimpleTest::assertTrue(zoznam->size() == 0, "Velkost zoznamu by mala byt 0 a je " + std::to_string(zoznam->size()));
+
+        SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
+        zoznam->add(10);
+        zoznam->add(20);
+        zoznam->add(30);
+        zoznam->add(40);
+        structures::List<int>* copyZoznam = this->makeList(*zoznam);
+        SimpleTest::assertTrue(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
+
+        SimpleTest::logInfo("Menim hodnotu v copyZozham");
+        //SimpleTest::logInfo(std::to_string(copyMatica->at(4, 4)));
+        copyZoznam->at(3) = 7777;
+        SimpleTest::assertTrue(copyZoznam->at(3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do zoznamu.");
+        SimpleTest::assertFalse(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, nemali by byt.");
+
+        SimpleTest::logInfo("Vkladam copyZoznam do uplne noveho zoznamu pomocou assign");
+        structures::List<int>* newZoznam = this->makeList();
+        newZoznam->assign(*copyZoznam);
+        SimpleTest::assertTrue(newZoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
+
+        newZoznam->clear();
+        newZoznam->add(10);
+        newZoznam->add(20);
+        newZoznam->add(30);
+        newZoznam->add(40);
+        SimpleTest::logInfo("Testujem iterator");
+        for (auto polozka: *newZoznam) {
+            logInfo(std::to_string(polozka));
+        }
+
+        SimpleTest::logInfo("Vymazavam prvy item z newZoznam");
+        newZoznam->removeAt(0);
+        SimpleTest::assertTrue(newZoznam->size() == 3, "Velkost newZoznamu ma byt 3 a je " + std::to_string(newZoznam->size()));
+        SimpleTest::assertTrue(newZoznam->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newZoznam->getIndexOf(40)));
+        SimpleTest::assertFalse(newZoznam->tryRemove(1), "Vymazavam pomocou tryRemove data ktoré tam niesu");
+        SimpleTest::assertTrue(newZoznam->tryRemove(20) == true, "Vymazavam pomocou tryRemove data ktoré tam sú");
+
+        SimpleTest::logInfo("Testujem iterator");
+        for (auto polozka: *newZoznam) {
+            logInfo(std::to_string(polozka));
+        }
+
+        SimpleTest::logPass("Complet");
+        delete newZoznam;
+        delete copyZoznam;
+        delete zoznam;
 	}
 
 // ArrayListTestOverall:
@@ -126,7 +174,7 @@ namespace tests
 		ComplexTest("ArrayList")
 	{
 		addTest(new ArrayListTestInterface());
-		addTest(new ArryListInsert());
+		addTest(new ArryListFunctionTest());
 	}
 
 // LinkedListTestOverall:
@@ -135,7 +183,7 @@ namespace tests
 		ComplexTest("LinkedList")
 	{
 		addTest(new LinkedListTestInterface());
-        addTest(new LinkedListInsert());
+        addTest(new LinkedListFunctionTest());
 	}
 
 // ListTestOverall:

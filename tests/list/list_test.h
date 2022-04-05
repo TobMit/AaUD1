@@ -108,31 +108,39 @@ namespace tests
 	/// <summary>
 	/// Test ktory skontroluje ci funguje add a insert v V oboch implementáciach Listu
 	/// </summary>
-	class ListTestInsert
+	class ListTestFunctionsTest
 		: public SimpleTest {
 	public:
-		ListTestInsert();
+		ListTestFunctionsTest();
 		void test() override;
 
     protected:
         virtual structures::List<int>* makeList() const = 0;
+        virtual structures::List<int>* makeList(structures::List<int>& other) const = 0;
 	};
 
-    class ArryListInsert
-            :public ListTestInsert {
+    class ArryListFunctionTest
+            :public ListTestFunctionsTest {
     protected:
         structures::List<int> *makeList() const override {
             return new structures::ArrayList<int>();
         };
+        structures::List<int> *makeList(structures::List<int> &other) const override {
+            structures::ArrayList<int>& arrayList = dynamic_cast<structures::ArrayList<int>&>(other);
+            return new structures::ArrayList<int>(arrayList);
+        };
 
     };
 
-    class LinkedListInsert
-            :public ListTestInsert {
+    class LinkedListFunctionTest
+            :public ListTestFunctionsTest {
     protected:
         structures::List<int> *makeList() const override {
             return new structures::LinkedList<int>();
         };
-
+        structures::List<int> *makeList(structures::List<int> &other) const override {
+            structures::LinkedList<int>& linkedList = dynamic_cast<structures::LinkedList<int>&>(other);
+            return new structures::LinkedList<int>(linkedList);
+        };
     };
 }
