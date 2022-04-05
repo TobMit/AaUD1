@@ -112,7 +112,8 @@ namespace structures
         /// <summary> Odstrani prvy vyskyt prvku zo zoznamu. </summary>
         /// <param name = "data"> Odstranovany prvok. </param>
         /// <returns> true, ak sa podarilo prvok zo zoznamu odobrat, false inak. </returns>
-        bool tryRemove(const T& data) override;
+        //Riesi dedicnost
+        //bool tryRemove(const T& data) override;
 
         /// <summary> Odstrani zo zoznamu prvok na danom indexe. </summary>
         /// <param name = "index"> Index prvku. </param>
@@ -201,7 +202,6 @@ namespace structures
         else {
             this->last_->setNext(newLLI);
         }
-        // todo skontolovat či do stareho pridávam predchadzajúci
         DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
         newLLI->setPrevious(oldLLI);
         this->last_ = newLLI;
@@ -237,18 +237,48 @@ namespace structures
         }
     }
 
+    //Rieši dedičnost
+    /*
     template<typename T>
     inline bool DoubleLinkedList<T>::tryRemove(const T& data)
     {
-        //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::tryRemove: Not implemented yet.");
-    }
+    }*/
 
     template<typename T>
     inline T DoubleLinkedList<T>::removeAt(int index)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::removeAt: Not implemented yet.");
+        //todo skontrolovat ci maze správny (da sa to spravit tak že si chcdekcnem ze ceknem prvok ktorý mi vráti)
+        Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except form DoubleLinkedList<T>::removeAt()");
+        DoubleLinkedListItem<T>* delItem;
+        if (index == 0) {
+            delItem = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
+            this->first_ = this->first_->getNext();
+            DoubleLinkedListItem<T>* newFirst = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
+            newFirst->setPrevious(nullptr);
+            //todo skontrolovat spravanie keď je prvok posledny a maze sa
+            if (this->last_ == delItem) {
+                this->last_ = nullptr;
+            }
+        }
+        else {
+            auto pred = dynamic_cast<DoubleLinkedListItem<T>*>(getItemAtIndex(index-1));
+            delItem = dynamic_cast<DoubleLinkedListItem<T>*>(pred->getNext());
+            pred->setNext(delItem->getNext());
+            //todo skontrolovat spravanie pri posledom prvku
+            if (this->last_ == delItem) {
+                this->last_ = pred;
+            } else {
+                //ak to nieje prvok tak nech sa prvok po prvku ktorý sa zmazal upravi previous_
+                DoubleLinkedListItem<T>* po = dynamic_cast<DoubleLinkedListItem<T>*>(pred->getNext());
+                po->setPrevious(pred);
+            }
+        }
+
+        T result = delItem->accessData();
+        delete delItem;
+        this->size_--;
+        return result;
     }
 
     template<typename T>
