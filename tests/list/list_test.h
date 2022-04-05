@@ -77,14 +77,35 @@ namespace tests
 	public:
 		ListTestOverall();
 	};
-
+//--------------------------------TESTY FUNKCNOSTI --------------------------------------
 	/// <summary>
-	/// Test ktory skontroluje ci funguje add a insert v ArrayListe
+	/// Test ktory skontroluje ci funguje add a insert v V oboch implementáciach Listu
 	/// </summary>
-	class ArrayListTestInsert
+	class ListTestInsert
 		: public SimpleTest {
 	public:
-		ArrayListTestInsert();
+		ListTestInsert();
 		void test() override;
+
+    protected:
+        virtual structures::List<int>* makeList() const = 0;
 	};
+
+    class ArryListInsert
+            :public ListTestInsert {
+    protected:
+        structures::List<int> *makeList() const override {
+            return new structures::ArrayList<int>();
+        };
+
+    };
+
+    class LinkedListInsert
+            :public ListTestInsert {
+    protected:
+        structures::List<int> *makeList() const override{
+            return new structures::LinkedList<int>();
+        };
+
+    };
 }

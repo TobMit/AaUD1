@@ -52,10 +52,10 @@ namespace tests
 	{
 		return new structures::LinkedList<int>();
 	}
-	ArrayListTestInsert::ArrayListTestInsert() : SimpleTest("Insert")
+	ListTestInsert::ListTestInsert() : SimpleTest("Insert")
 	{
 	}
-	void ArrayListTestInsert::test()
+	void ListTestInsert::test()
 	{
 		structures::ArrayList<int>* zoznam = new structures::ArrayList<int>;
 		SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
@@ -118,7 +118,7 @@ namespace tests
 		ComplexTest("ArrayList")
 	{
 		addTest(new ArrayListTestInterface());
-		addTest(new ArrayListTestInsert());
+		addTest(new ArryListInsert());
 	}
 
 // LinkedListTestOverall:
@@ -127,6 +127,7 @@ namespace tests
 		ComplexTest("LinkedList")
 	{
 		addTest(new LinkedListTestInterface());
+        addTest(new LinkedListInsert());
 	}
 
 // ListTestOverall:
@@ -138,4 +139,5 @@ namespace tests
 		addTest(new LinkedListTestOverall());
 		
 	}
+
 }
