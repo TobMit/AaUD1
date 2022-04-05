@@ -38,7 +38,7 @@ namespace structures
         /// Destruktor
         ~DoubleLinkedListItem(){
             previous_ = nullptr;
-            ~LinkedListItem<T>();
+
         };
 
         /// Geter predchadzajúceho prvku
@@ -76,23 +76,27 @@ namespace structures
 
         /// <summary> Vrati pocet prvkov v zozname. </summary>
         /// <returns> Pocet prvkov v zozname. </returns>
-        size_t size() override;
+        //Riesi dedicnost
+        //size_t size() override;
 
         /// <summary> Priradenie struktury. </summary>
         /// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
         /// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
-        Structure& assign(Structure& other) override;
+        //Rieši dedičnosť
+        //Structure& assign(Structure& other) override;
 
         /// <summary> Porovnanie struktur. </summary>
         /// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
         /// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-        bool equals(Structure& other) override;
+        //Rieši dedičnost
+        //bool equals(Structure& other) override;
 
         /// <summary> Vrati adresou prvok na indexe. </summary>
         /// <param name = "index"> Index prvku. </param>
         /// <returns> Adresa prvku na danom indexe. </returns>
         /// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>
-        T& at(int index) override;
+        //Rieši dedičnost
+        //T& at(int index) override;
 
         /// <summary> Prida prvok do zoznamu. </summary>
         /// <param name = "data"> Pridavany prvok. </param>
@@ -136,59 +140,68 @@ namespace structures
 	};
 
     template<typename T>
-    inline DoubleLinkedList<T>::DoubleLinkedList()
+    inline DoubleLinkedList<T>::DoubleLinkedList() :
+            LinkedList<T>()
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::DoubleLinkedList: Not implemented yet.");
     }
 
     template<typename T>
     inline DoubleLinkedList<T>::DoubleLinkedList(DoubleLinkedList<T>& other)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::DoubleLinkedList: Not implemented yet.");
+        this->assign(other);
     }
 
     template<typename T>
     inline DoubleLinkedList<T>::~DoubleLinkedList()
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::~DoubleLinkedList: Not implemented yet.");
+        clear();
     }
 
+    //Riesi dedicnost
+    /*
     template<typename T>
     inline size_t DoubleLinkedList<T>::size()
     {
-        //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::size: Not implemented yet.");
-    }
+    }*/
 
+    // Rieši dedičnosť
+    /*
     template<typename T>
     inline Structure& DoubleLinkedList<T>::assign(Structure& other)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::assign: Not implemented yet.");
-    }
+    }*/
 
+    //Rieši dedičnost
+    /*
     template<typename T>
     inline bool DoubleLinkedList<T>::equals(Structure& other)
     {
-        //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::equals: Not implemented yet.");
-    }
+    }*/
 
+    //Rieši dedičnost
+    /*
     template<typename T>
     inline T& DoubleLinkedList<T>::at(int index)
     {
-        //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::at: Not implemented yet.");
-    }
+    }*/
 
     template<typename T>
     inline void DoubleLinkedList<T>::add(const T& data)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::add: Not implemented yet.");
+        auto newLLI = new DoubleLinkedListItem<T>(data); // c++ si to automaticky detekuje, co je na lavo tak to prida to prava
+        if (this->size_ == 0) {
+            this->first_ = newLLI;
+        }
+        else {
+            this->last_->setNext(newLLI);
+        }
+        DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
+        newLLI->setPrevious(oldLLI);
+        this->last_ = newLLI;
+        this->size_++;
     }
 
     template<typename T>

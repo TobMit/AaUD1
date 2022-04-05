@@ -113,7 +113,7 @@ namespace structures
         /// <remarks> Zabezpecuje polymorfizmus. </remarks>
         Iterator<T>* getEndIterator() override;
 
-    private:
+    protected:
         /// <summary> Pocet prvkov v zozname. </summary>
         size_t size_;
         /// <summary> Prvy prvok zoznamu. </summary>
