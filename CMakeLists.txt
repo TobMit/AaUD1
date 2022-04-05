@@ -33,6 +33,7 @@ add_executable(AUS_Console
         structures/array/array.h
         structures/list/array_list.h
         structures/list/linked_list.h
+        structures/list/double_linked_list.h
         structures/list/list.h
         structures/priority_queue/heap.h
         structures/priority_queue/priority_queue.h

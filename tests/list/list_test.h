@@ -3,6 +3,7 @@
 #include "../test.h"
 #include "../../structures/list/array_list.h"
 #include "../../structures/list/linked_list.h"
+#include "../../structures/list/double_linked_list.h"
 //#include "../../structures/heap_monitor.h"
 
 namespace tests
@@ -48,6 +49,23 @@ namespace tests
 		structures::List<int>* makeList() const override;
 	};
 
+    /// <summary>
+    /// Zavola vsetky metody DoubleLinkedList.
+    /// </summary>
+    class DoubleLinkedListTestInterface
+            : public ListTestInterface
+    {
+    public:
+        DoubleLinkedListTestInterface();
+
+    protected:
+        structures::List<int>* makeList() const override
+        {
+            return new structures::DoubleLinkedList<int>();
+        };
+    };
+
+
 	/// <summary>
 	/// Zahrna v sebe vsetky testy, ktore testuju ArrayList.
 	/// </summary>
@@ -68,8 +86,17 @@ namespace tests
 		LinkedListTestOverall();
 	};
 
+    /// <summary>
+    /// Zahrna v sebe vsetky testy, ktore testuju DobuleLinkedList.
+    /// </summary>
+    class DoubleLinkedListOverall
+            : public ComplexTest
+    {
+    public:
+        DoubleLinkedListOverall();
+    };
 	/// <summary>
-	/// Zahrna v sebe vsetky testy, ktore testuju ArrayList a LinkedList.
+	/// Zahrna v sebe vsetky testy, ktore testuju ArrayList a LinkedList a DoubleLinkedList.
 	/// </summary>
 	class ListTestOverall :
 		public ComplexTest

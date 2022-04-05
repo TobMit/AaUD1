@@ -48,6 +48,13 @@ namespace tests
 	{
 	}
 
+    // DoubleLInkedListTestInterface
+    DoubleLinkedListTestInterface::DoubleLinkedListTestInterface() :
+            ListTestInterface("Intrerface")
+    {
+
+    }
+
 	structures::List<int>* LinkedListTestInterface::makeList() const
 	{
 		return new structures::LinkedList<int>();
@@ -137,7 +144,15 @@ namespace tests
 	{
 		addTest(new ArrayListTestOverall());
 		addTest(new LinkedListTestOverall());
+        addTest(new DoubleLinkedListOverall());
 		
 	}
+
+    DoubleLinkedListOverall::DoubleLinkedListOverall() :
+        ComplexTest("DoubleLinkedList")
+    {
+        addTest(new DoubleLinkedListTestInterface());
+    }
+
 
 }
