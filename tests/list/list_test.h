@@ -143,4 +143,16 @@ namespace tests
             return new structures::LinkedList<int>(linkedList);
         };
     };
+
+    class DoubleLinkedListFunctionTest
+            :public ListTestFunctionsTest {
+    protected:
+        structures::List<int> *makeList() const override {
+            return new structures::DoubleLinkedList<int>();
+        };
+        structures::List<int> *makeList(structures::List<int> &other) const override {
+            structures::DoubleLinkedList<int>& doubleLinkedList = dynamic_cast<structures::DoubleLinkedList<int>&>(other);
+            return new structures::DoubleLinkedList<int>(doubleLinkedList);
+        };
+    };
 }

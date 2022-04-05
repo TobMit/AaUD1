@@ -55,11 +55,11 @@ namespace tests
 
     }
 
+    structures::List<int>* LinkedListTestInterface::makeList() const
+    {
+        return new structures::LinkedList<int>();
+    }
     //--------------------------- Testy funkčnosti ---------------------------------------
-	structures::List<int>* LinkedListTestInterface::makeList() const
-	{
-		return new structures::LinkedList<int>();
-	}
 	ListTestFunctionsTest::ListTestFunctionsTest() : SimpleTest("Complex test")
 	{
 	}
@@ -201,6 +201,7 @@ namespace tests
         ComplexTest("DoubleLinkedList")
     {
         addTest(new DoubleLinkedListTestInterface());
+        addTest(new DoubleLinkedListFunctionTest());
     }
 
     //---------------------------Uloha 2 -----------------------------
