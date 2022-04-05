@@ -124,20 +124,24 @@ namespace structures
         /// <summary> Vrati index prveho vyskytu prvku v zozname. </summary>
         /// <param name = "data"> Prvok, ktoreho index sa hlada. </param>
         /// <returns> Index prveho vyskytu prvku v zozname, ak sa prvok v zozname nenachadza, vrati -1. </returns>
-        int getIndexOf(const T& data) override;
+        //Riesi dedičnost
+        //int getIndexOf(const T& data) override;
 
         /// <summary> Vymaze zoznam. </summary>
-        void clear() override;
+        //Riesi dedicnost
+        //void clear() override;
 
         /// <summary> Vrati skutocny iterator na zaciatok struktury </summary>
         /// <returns> Iterator na zaciatok struktury. </returns>
         /// <remarks> Zabezpecuje polymorfizmus. </remarks>
-        Iterator<T>* getBeginIterator() override;
+        // Riesi dedicnost
+        //Iterator<T>* getBeginIterator() override;
 
         /// <summary> Vrati skutocny iterator na koniec struktury </summary>
         /// <returns> Iterator na koniec struktury. </returns>
         /// <remarks> Zabezpecuje polymorfizmus. </remarks>
-        Iterator<T>* getEndIterator() override;
+        //Riesi dedicnost
+        //Iterator<T>* getEndIterator() override;
 
     private:
         DoubleLinkedListItem<T>* getItemAtIndex(int index);
@@ -158,7 +162,7 @@ namespace structures
     template<typename T>
     inline DoubleLinkedList<T>::~DoubleLinkedList()
     {
-        clear();
+        this->clear();
     }
 
     //Riesi dedicnost
@@ -254,11 +258,12 @@ namespace structures
         if (index == 0) {
             delItem = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
             this->first_ = this->first_->getNext();
-            DoubleLinkedListItem<T>* newFirst = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
-            newFirst->setPrevious(nullptr);
             //todo skontrolovat spravanie keď je prvok posledny a maze sa
             if (this->last_ == delItem) {
                 this->last_ = nullptr;
+            } else {
+                DoubleLinkedListItem<T>* newFirst = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
+                newFirst->setPrevious(nullptr);
             }
         }
         else {
@@ -281,20 +286,25 @@ namespace structures
         return result;
     }
 
+    //rieši dedičnost
+    /*
     template<typename T>
     inline int DoubleLinkedList<T>::getIndexOf(const T& data)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::getIndexOf: Not implemented yet.");
-    }
 
+    }*/
+
+    //Riesi dedicnost
+    /*
     template<typename T>
     inline void DoubleLinkedList<T>::clear()
     {
         //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::clear: Not implemented yet.");
-    }
+    }*/
 
+    //Iterátori riesi dedicnost
+    /*
     template<typename T>
     inline Iterator<T>* DoubleLinkedList<T>::getBeginIterator()
     {
@@ -309,9 +319,9 @@ namespace structures
         throw std::runtime_error("DoubleLinkedList<T>::getEndIterator: Not implemented yet.");
 
     }
-
+    */
     template<typename T>
-    // todo skontrolovat ci to dava správne
+    // todo skontrolovat ci to dava správne keď to ide od predu a aj od zadu
     DoubleLinkedListItem<T> *DoubleLinkedList<T>::getItemAtIndex(int index) {
         if (index == this->size_ - 1) {
             return dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
@@ -326,7 +336,7 @@ namespace structures
                 return dynamic_cast<DoubleLinkedListItem<T>*>(current);
             } else {
                 auto current = dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
-                for (int i = 0; i > index; i--) {
+                for (int i = this->size_; i > index; i--) {
                     current = current->getPrevious();
                 }
                 return dynamic_cast<DoubleLinkedListItem<T>*>(current);
