@@ -114,16 +114,6 @@ namespace structures
 		/// <summary> Destruktor. </summary>
 		~Tree();
 
-		/// <summary> Priradenie struktury. </summary>
-		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
-		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
-		Structure& assign(Structure& other) override;
-
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		bool equals(Structure& other) override;
-
 		/// <summary> Zisti, ci je struktura prazdna. </summary>
 		/// <returns> true, ak je struktura prazdna, false inak. </returns>
 		bool isEmpty() override;
@@ -162,6 +152,17 @@ namespace structures
 		/// <returns> Iterator na koniec struktury. </returns>
 		/// <remarks> Zabezpecuje polymorfizmus. </remarks>
 		Iterator<T>* getEndIterator() override;
+
+	protected:
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assignTree(Tree<T>& other);
+
+		/// <summary> Porovnanie struktur. </summary>
+		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		bool equalsTree(Tree<T>* other);
 
 	private:
 		/// <summary> Koren stromu. </summary>
@@ -308,13 +309,6 @@ namespace structures
 	}
 
 	template<typename T>
-	inline bool Tree<T>::equals(Structure& other)
-	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
-	}
-
-	template<typename T>
 	inline bool Tree<T>::isEmpty()
 	{
 		//TODO 07: Tree
@@ -341,6 +335,20 @@ namespace structures
 	}
 
 	template<typename T>
+	inline Structure& Tree<T>::assignTree(Tree<T>& other)
+	{
+		//TODO 07: Tree
+		throw std::runtime_error("Tree<T>::assignTree: Not implemented yet.");
+	}
+
+	template<typename T>
+	inline bool Tree<T>::equalsTree(Tree<T>* other)
+	{
+		//TODO 07: Tree
+		throw std::runtime_error("Tree<T>::equalsTree: Not implemented yet.");
+	}
+
+	template<typename T>
 	inline Tree<T>::Tree():
 		Structure(),
 		Iterable<T>(),
@@ -352,14 +360,7 @@ namespace structures
 	inline Tree<T>::Tree(Tree<T>& other):
 		Tree<T>()
 	{
-		assign(other);
-	}
-
-	template<typename T>
-	inline Structure& Tree<T>::assign(Structure& other)
-	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::assign: Not implemented yet.");
+		assignTree(other);
 	}
 
 	template<typename T>

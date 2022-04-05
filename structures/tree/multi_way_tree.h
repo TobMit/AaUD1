@@ -80,6 +80,16 @@ namespace structures
 		/// <param name = "other"> Viaccestny strom, z ktoreho sa prevezmu vlastnosti. </param>
 		MultiWayTree(MultiWayTree<T>& other);
 
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assign(Structure& other) override;
+
+		/// <summary> Porovnanie struktur. </summary>
+		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		bool equals(Structure& other) override;
+
 		/// <summary> Vytvori a vrati instanciu vrcholu k-cestneho stromu. </summary>
 		/// <returns> Vytvorena instancia vrcholu k-cestneho stromu. </returns>
 		TreeNode<T>* createTreeNodeInstance() override;
@@ -167,6 +177,18 @@ namespace structures
 	inline MultiWayTree<T>::MultiWayTree(MultiWayTree<T>& other) :
 		Tree<T>(other)
 	{
+	}
+
+	template<typename T>
+	inline Structure& MultiWayTree<T>::assign(Structure& other)
+	{
+		return Tree<T>::assignTree(dynamic_cast<MultiWayTree<T>&>(other));
+	}
+
+	template<typename T>
+	inline bool MultiWayTree<T>::equals(Structure& other)
+	{
+		return Tree<T>::equalsTree(dynamic_cast<MultiWayTree<T>*>(&other));
 	}
 
 	template<typename T>
