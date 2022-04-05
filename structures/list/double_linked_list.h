@@ -137,6 +137,9 @@ namespace structures
         /// <returns> Iterator na koniec struktury. </returns>
         /// <remarks> Zabezpecuje polymorfizmus. </remarks>
         Iterator<T>* getEndIterator() override;
+
+    private:
+        DoubleLinkedListItem<T>* getItemAtIndex(int index);
 	};
 
     template<typename T>
@@ -198,6 +201,7 @@ namespace structures
         else {
             this->last_->setNext(newLLI);
         }
+        // todo skontolovat či do stareho pridávam predchadzajúci
         DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
         newLLI->setPrevious(oldLLI);
         this->last_ = newLLI;
@@ -207,8 +211,30 @@ namespace structures
     template<typename T>
     inline void DoubleLinkedList<T>::insert(const T& data, int index)
     {
-        //TODO Zadanie 2: DoubleLinkedList
-        throw std::runtime_error("DoubleLinkedList<T>::insert: Not implemented yet.");
+        if (index == this->size_) {
+            add(data);
+        }
+        else {
+            Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except from DoubleLinkedList<T>::insert()");
+            auto newLLI = new DoubleLinkedListItem<T>(data);
+            if (index == 0) {
+                DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_); // stačí pridat predchadzajúci prvok iba do pôvodneho, kedže nový je na začiatu
+                oldLLI->setPrevious(newLLI);
+                newLLI->setNext(this->first_);
+                this-> first_ = newLLI;
+            }
+            else {
+                //todo skontrolovat ci na spravne miesto pridalo prvok
+                auto pred = getItemAtIndex(index - 1);
+                DoubleLinkedListItem<T>* po = dynamic_cast<DoubleLinkedListItem<T>*>(getItemAtIndex(index));
+                po->setPrevious(newLLI);
+                newLLI->setNext(pred->getNext());
+                newLLI->setPrevious(pred);
+                pred->setNext(newLLI);
+            }
+
+            this->size_++;
+        }
     }
 
     template<typename T>
@@ -252,5 +278,30 @@ namespace structures
         //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::getEndIterator: Not implemented yet.");
 
+    }
+
+    template<typename T>
+    // todo skontrolovat ci to dava správne
+    DoubleLinkedListItem<T> *DoubleLinkedList<T>::getItemAtIndex(int index) {
+        if (index == this->size_ - 1) {
+            return dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
+        }
+        else {
+            // pozriem z ktorej strany sa tam rýchlejšie dostanem
+            if (index <= this->size_ / 2) {
+                auto current = this->first_;
+                for (int i = 0; i < index; i++) {
+                    current = current->getNext();
+                }
+                return dynamic_cast<DoubleLinkedListItem<T>*>(current);
+            } else {
+                auto current = dynamic_cast<DoubleLinkedListItem<T>*>(this->last_);
+                for (int i = 0; i > index; i--) {
+                    current = current->getPrevious();
+                }
+                return dynamic_cast<DoubleLinkedListItem<T>*>(current);
+            }
+
+        }
     }
 }
