@@ -14,13 +14,56 @@ namespace structures
 	//    opat tento prvok mozete zdedit z prvku jednostranne zretazeneho zoznamu.
 	//  - ak vyuzijete dedicnost, budete moct vyuzit predkove iteratory, 
 	//    takze ich nebudete musiet implementovat.
-	
+
+    template<typename T>
+    class DoubleLinkedListItem : public LinkedListItem<T>
+    {
+    public:
+        /// Konstruktor
+        /// \param data Data, ktore uchovavam
+        DoubleLinkedListItem(T data) :
+            LinkedListItem<T>(data),
+            previous_ (nullptr)
+            {
+            };
+
+        /// Kopirovaci Konstruktor
+        /// \param other Prvoj jednostranne zretazeneho zooznamu, z kotrého sa prevezmu vlastnosti...
+        DoubleLinkedListItem(DoubleLinkedListItem<T>& other) :
+            LinkedListItem<T>(other),
+            previous_(other.previous_)
+        {
+        };
+
+        /// Destruktor
+        ~DoubleLinkedListItem(){
+            previous_ = nullptr;
+            ~LinkedListItem<T>();
+        };
+
+        /// Geter predchadzajúceho prvku
+        /// \return Predchadzajúci prvok zretazeneho zoznamu
+        DoubleLinkedListItem<T>* getPrevious() {
+            return previous_;
+        };
+
+        /// Setter predchadzajuceho prvku zretazeneho zoznamu
+        /// \param previous Predchadzajuci prvok zretazeneho zoznamu
+        void setPrevious(DoubleLinkedListItem<T>* previous) {
+            previous_ = previous;
+        };
+    private:
+        DoubleLinkedListItem<T>* previous_;
+    };
+
+
     /// <summary> Obojstranne zretazeny zoznam. </summary>
     /// <typeparam name = "T"> Typ dat ukladanych v zozname. </typepram>
 	template<typename T>
 	class DoubleLinkedList : public LinkedList<T>
 	{
     public:
+
         /// <summary> Konstruktor. </summary>
         DoubleLinkedList();
 
@@ -195,5 +238,6 @@ namespace structures
     {
         //TODO Zadanie 2: DoubleLinkedList
         throw std::runtime_error("DoubleLinkedList<T>::getEndIterator: Not implemented yet.");
+
     }
 }

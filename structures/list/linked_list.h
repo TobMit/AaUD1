@@ -183,6 +183,7 @@ namespace structures
     inline LinkedListItem<T>::~LinkedListItem()
     {
         next_ = nullptr;
+        //todo skontrolovat ci nemam memleaky
     }
 
     template<typename T>

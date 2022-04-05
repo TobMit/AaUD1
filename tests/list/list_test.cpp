@@ -203,5 +203,6 @@ namespace tests
         addTest(new DoubleLinkedListTestInterface());
     }
 
+    //---------------------------Uloha 2 -----------------------------
 
 }
