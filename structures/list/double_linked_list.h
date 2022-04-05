@@ -2,6 +2,8 @@
 
 #include "linked_list.h"
 
+// todo netestovane memleaky
+
 namespace structures
 {
 	// implementacne tipy: 
