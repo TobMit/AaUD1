@@ -93,7 +93,7 @@ namespace tests
 		zoznam->insert(77, 4);
 		zoznam->insert(777, 18);
 		zoznam->insert(7777, 20);
-		SimpleTest::assertTrue(zoznam->size() == 21, "Pole ma velkost 21");
+        SimpleTest::assertTrue(zoznam->size() == 21, "Pole ma velkost 21");
 
 		SimpleTest::assertTrue(zoznam->at(0) == 7, "Mala by tam byt 7 a je tam " + std::to_string(zoznam->at(0)));
 		SimpleTest::assertTrue(zoznam->at(1) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(1)));
@@ -149,13 +149,11 @@ namespace tests
         for (auto polozka: *newZoznam) {
             logInfo(std::to_string(polozka));
         }
-
-        SimpleTest::logInfo("Vymazavam prvy item z newZoznam");
-        newZoznam->removeAt(0);
-        SimpleTest::assertTrue(newZoznam->size() == 3, "Velkost newZoznamu ma byt 3 a je " + std::to_string(newZoznam->size()));
+        int zmazanyPrvok = newZoznam->removeAt(0);
+        SimpleTest::assertTrue(zmazanyPrvok == 10, "Hodnota mazaneho prvku ma byt 10 a je " + std::to_string(zmazanyPrvok));
         SimpleTest::assertTrue(newZoznam->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newZoznam->getIndexOf(40)));
         SimpleTest::assertFalse(newZoznam->tryRemove(1), "Vymazavam pomocou tryRemove data ktoré tam niesu");
-        SimpleTest::assertTrue(newZoznam->tryRemove(20) == true, "Vymazavam pomocou tryRemove data ktoré tam sú");
+        SimpleTest::assertTrue(newZoznam->tryRemove(20), "Vymazavam pomocou tryRemove data ktoré tam sú");
 
         SimpleTest::logInfo("Testujem iterator");
         for (auto polozka: *newZoznam) {
