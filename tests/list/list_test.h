@@ -130,7 +130,7 @@ namespace tests
     class LinkedListInsert
             :public ListTestInsert {
     protected:
-        structures::List<int> *makeList() const override{
+        structures::List<int> *makeList() const override {
             return new structures::LinkedList<int>();
         };
 

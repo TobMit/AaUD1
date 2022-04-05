@@ -55,6 +55,7 @@ namespace tests
 
     }
 
+    //--------------------------- Testy funkčnosti ---------------------------------------
 	structures::List<int>* LinkedListTestInterface::makeList() const
 	{
 		return new structures::LinkedList<int>();
@@ -64,7 +65,7 @@ namespace tests
 	}
 	void ListTestInsert::test()
 	{
-		structures::ArrayList<int>* zoznam = new structures::ArrayList<int>;
+		structures::List<int>* zoznam = this->makeList();
 		SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
 		zoznam->add(10);
 		zoznam->add(20);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "list.h"
+#include "linked_list.h"
 
 namespace structures
 {
@@ -18,7 +18,7 @@ namespace structures
     /// <summary> Obojstranne zretazeny zoznam. </summary>
     /// <typeparam name = "T"> Typ dat ukladanych v zozname. </typepram>
 	template<typename T>
-	class DoubleLinkedList : public List<T> 
+	class DoubleLinkedList : public LinkedList<T>
 	{
     public:
         /// <summary> Konstruktor. </summary>

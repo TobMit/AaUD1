@@ -462,7 +462,7 @@ namespace structures
         }
         else {
             auto current = first_;
-            for (int i = 0; index; i++) {
+            for (int i = 0; i < index; i++) {
                 current = current->getNext();
             }
             return current;
