@@ -4,6 +4,9 @@
 #include "../structure_iterator.h"
 #include "../array/array.h"
 
+// todo nezabudni zmazať
+// Lambda funkcie ako bónus, pozrieť nepovinné
+
 namespace structures
 {
 	/// <summary> Zoznam implementovany polom. </summary>
