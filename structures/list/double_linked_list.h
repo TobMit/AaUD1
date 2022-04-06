@@ -17,6 +17,10 @@ namespace structures
 	//  - ak vyuzijete dedicnost, budete moct vyuzit predkove iteratory, 
 	//    takze ich nebudete musiet implementovat.
 
+
+    // pridatie virtualnu metódu vytvor lli item a potomok to prešije
+    // pridanie aj preportovanie ako vyrtuálnu metódu
+
     template<typename T>
     class DoubleLinkedListItem : public LinkedListItem<T>
     {
