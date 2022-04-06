@@ -245,8 +245,32 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* TreeNode<T>::deepCopy()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::deepCopy: Not implemented yet.");
+        // Factory metod"
+        // TreeNote<T>* result = shallowCopy()
+        // int pocet spracovanych vrcholov = 0
+        // for(i = 0; pocet spracovanych vrcholov < degree(); i ++)
+        //      syn = getSon(i)
+        //      if (syn != nullptr)
+        //          result -> replaceSon(syn->deepCopy(), i)
+        //          pocet spracovanych synov++
+        // return result;
+
+        //Kopiu stromu vytváram ako shallow copy, mám jeden objek ktorý ukazuje na synov to je na začiato (shallowCopy)
+        //Druhom kroku sa replace jeden smerník tou kópiou z rekurzie ktorí nam vráti syn->deepCopy() - 253 riadok
+        //takto to prechádza pre každý prvok. vytvorí sa nová kopia "otec" ktorý ukazuje na synov smerníkmi ... a takto
+        // to ide dokiaľ sa nedostaneme niekde na spodok kde už nie sú žiadny synovia potom sa to postupne returnuje
+        // je to lepšie si nakresliť
+
+        auto result = shallowCopy();
+        int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+        for (int i = 0; nuberOfProcessedSons < degree(); ++i) {
+            auto son = getSon(i);
+            if (son != nullptr) {
+                result->replaceSon(son->deepCopy(), i);
+                nuberOfProcessedSons++;
+            }
+        }
+        return result;
 	}
 
 	template<typename T>
