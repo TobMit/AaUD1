@@ -287,8 +287,25 @@ namespace structures
 	template<typename T>
 	inline size_t TreeNode<T>::sizeOfSubtree()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::sizeOfSubtree: Not implemented yet.");
+        // int result =1
+        // int pocet spracovanych vrcholov = 0
+        // for(i = 0; pocet spracovanych vrcholov < degree(); i ++)
+        //      syn = getSon(i)
+        //      if (syn != nullptr)
+        //          result = syn -> sizeOfSubtree();
+        //          pocet spracovanych synov++
+        // return result;
+
+        int result = 1;
+        int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+        for (int i = 0; nuberOfProcessedSons < degree(); ++i) {
+            auto son = getSon(i);
+            if (son != nullptr) {
+                result += son->sizeOfSubtree();
+                nuberOfProcessedSons++;
+            }
+        }
+        return result;
 	}
 
 	template<typename T>
