@@ -252,8 +252,8 @@ namespace structures
 	template<typename T>
 	inline bool TreeNode<T>::isRoot()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::isRoot: Not implemented yet.");
+		// keď nemá parenta
+        return parent_ == nullptr;
 	}
 
 	template<typename T>
@@ -277,8 +277,11 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* TreeNode<T>::getBrother(int brothersOrder)
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::getBrother: Not implemented yet.");
+        if(parent_ == nullptr) {
+            throw std::logic_error("Root has no brother! Except from TreeNode<T>::getBrother()");
+        } else {
+            return parent_->getSon(brothersOrder);
+        }
 	}
 
 	template<typename T>
