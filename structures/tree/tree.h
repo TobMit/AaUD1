@@ -349,21 +349,30 @@ namespace structures
 	template<typename T>
 	inline Tree<T>::~Tree()
 	{
-		//TODO 07: Tree
+        // Stačí zavolať deštruktor roota, a root sa postará o deštruktovanie potomka potomok svojich potomkov atď
+
+        // zavolať cleer
+        // nastaviť na nullptr - ostal by nam tam pointer na nejaký bordel a program by mohol spadnúť
+
+        clear();
+        //this->root_ = nullptr;
 	}
 
 	template<typename T>
 	inline bool Tree<T>::isEmpty()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
+		return root_ == nullptr ? 0 : root_->sizeOfSubtree();
+
+        // size <> od size 0
 	}
 
 	template<typename T>
 	inline size_t Tree<T>::size()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
+		// strom si nedrzí size_ keďže môžeme naraz viac prvkov
+        // nejaké osetrenie lebo a zavoláme sizeOf subtree
+
+        return root_->sizeOfSubtree();
 	}
 
 	template<typename T>
@@ -410,8 +419,8 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::clear()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::clear: Not implemented yet.");
+		delete root_;
+        root_ = nullptr;
 	}
 
 	template<typename T>
@@ -423,8 +432,9 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* Tree<T>::replaceRoot(TreeNode<T>* newRoot)
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::replaceRoot: Not implemented yet.");
+		auto result = root_;
+        root_ = newRoot;
+        return result;
 	}
 
 	template<typename T>
