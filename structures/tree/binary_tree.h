@@ -243,7 +243,7 @@ namespace structures
 	template<typename T>
 	inline Iterator<T>* BinaryTree<T>::getBeginIterator()
 	{
-		return new InOrderTreeIterator(this->getRoot());
+		return new InOrderTreeIterator(Tree<T>::getRoot());
 	}
 
 	template<typename T>

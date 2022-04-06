@@ -352,10 +352,8 @@ namespace structures
         // Stačí zavolať deštruktor roota, a root sa postará o deštruktovanie potomka potomok svojich potomkov atď
 
         // zavolať cleer
-        // nastaviť na nullptr - ostal by nam tam pointer na nejaký bordel a program by mohol spadnúť
 
         clear();
-        //this->root_ = nullptr;
 	}
 
 	template<typename T>
@@ -363,7 +361,6 @@ namespace structures
 	{
 		return root_ == nullptr ? 0 : root_->sizeOfSubtree();
 
-        // size <> od size 0
 	}
 
 	template<typename T>
@@ -390,15 +387,44 @@ namespace structures
 	template<typename T>
 	inline Structure& Tree<T>::assignTree(Tree<T>& other)
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::assignTree: Not implemented yet.");
+        // potom vyrieši pretypovanie a keď sú pretipované správne tak sa potom pokračuje tu
+        // todo checknút ci to mam spravne
+        if (this != &other) {
+            clear();
+            // mám zaručené že sa mi praví kópia do rootu vyuýžívanie rekurzie
+            if (other.root_ != nullptr){
+                root_ = other.root_->deepCopy();
+            }
+        }
+        return *this;
 	}
 
 	template<typename T>
 	inline bool Tree<T>::equalsTree(Tree<T>* other)
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equalsTree: Not implemented yet.");
+        // potom vyrieši pretypovanie a keď sú pretipované správne tak sa potom pokračuje tu
+
+        if (other == nullptr) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+
+        auto iteratorThis = Iterable<T>::begin();
+        auto iteratorEnd = Iterable<T>::end();
+        auto iteratorOteher = other->begin();
+        auto iteratorOterEnd = other->end();
+
+        while (iteratorEnd != iteratorEnd) {
+            if (*iteratorEnd != *iteratorEnd) {
+                return false;
+            }
+            ++iteratorThis;
+            ++iteratorOteher;
+        }
+        return !(iteratorOteher != iteratorOterEnd);
+        //return true;
 	}
 
 	template<typename T>
@@ -419,6 +445,7 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::clear()
 	{
+        // nastaviť na nullptr - ostal by nam tam pointer na nejaký bordel a program by mohol spadnúť
 		delete root_;
         root_ = nullptr;
 	}
