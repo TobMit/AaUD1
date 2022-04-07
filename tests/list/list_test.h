@@ -218,4 +218,78 @@ namespace tests
             structures::Logger::getInstance().logInfo("Testovanie LinList!");
         }
     };
+
+    //------------------------------------------- Uloha 3 -----------------------------------------------
+    class ListUloha3
+            :public SimpleTest
+    {
+    public:
+        ListUloha3();
+        void test() override;
+    private:
+        Microseconds cyklusInsert(int size, const int POC_OPAKOVANI);
+        Microseconds durationInsert(int cislo, int index, structures::List<int> &list);
+
+        Microseconds cyklusAt(int size, const int POC_OPAKOVANI);
+        Microseconds durationAt(int index, structures::List<int> &list);
+
+        Microseconds cyklusRemoveAt(int size, const int POC_OPAKOVANI);
+        Microseconds durationRemoveAt(int index, structures::List<int> &list);
+
+        void repairList(const int SIZE, structures::List<int> &list);
+    protected:
+        virtual structures::List<int> *makeList() const = 0;
+        virtual void infoInsert() const = 0;
+        virtual void infoAt() const = 0;
+        virtual void infoRemoveAt() const = 0;
+
+    };
+
+    class ArrListUloha3
+            : public ListUloha3
+    {
+    protected:
+        structures::List<int> *makeList() const override
+        {
+            return new structures::ArrayList<int>();
+        };
+
+        void infoAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie ArrList - at");
+        }
+        void infoInsert() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie ArrList - Assign");
+        }
+
+        void infoRemoveAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie ArrList - RemoveAt");
+        }
+    };
+
+    class DoubleLinListUloha3
+            : public ListUloha3
+    {
+    protected:
+        structures::List<int> *makeList() const override
+        {
+            return new structures::DoubleLinkedList<int>();
+        };
+
+        void infoAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie DoubleLinList - at");
+        }
+        void infoInsert() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie DoubleLinList - Insert");
+        }
+
+        void infoRemoveAt() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie DoubleLinList - RemoveAt");
+        }
+    };
 }
