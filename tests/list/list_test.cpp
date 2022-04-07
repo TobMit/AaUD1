@@ -1,5 +1,3 @@
-#include <iostream>
-#include <sstream>
 #include "list_test.h"
 
 namespace tests
@@ -176,6 +174,7 @@ namespace tests
 		addTest(new ArrayListTestInterface());
 		addTest(new ArryListFunctionTest());
         addTest(new ArrListUloha2());
+        addTest(new ArrListUloha3());
 	}
 
 // LinkedListTestOverall:
@@ -194,6 +193,7 @@ namespace tests
         addTest(new DoubleLinkedListTestInterface());
         addTest(new DoubleLinkedListFunctionTest());
         addTest(new DoubleLinListUloha2());
+        addTest(new DoubleLinListUloha3);
     }
 // ListTestOverall:
 
@@ -207,7 +207,7 @@ namespace tests
 	}
 
 
-    //---------------------------Uloha 2 -----------------------------
+    //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
     ListUloha2::ListUloha2()
             : SimpleTest("Uloha2")
     {
@@ -346,4 +346,96 @@ namespace tests
         return (pomer * OPAKOVANIA) / 100;
     }
 
+    //--------------------------------------------------- Uloha 3 ------------------------------------------------------------
+    ListUloha3::ListUloha3():
+            SimpleTest("Uloha3")
+    {
+    }
+    void ListUloha3::test()
+    {
+        structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
+        const int MAX = 3000;
+        const int KROK = 100;
+        const int POC_VELKOST = 100;
+        const int POC_OPAKOVANI = 100;
+        int sizeOfList;
+        sizeOfList = POC_VELKOST;
+
+        structures::Logger::getInstance().logInfo("Velkost listu, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
+
+        //--------------------Insert-----------------
+        this->infoInsert();
+        while (sizeOfList <= MAX)
+        {
+            structures::Logger::getInstance().logDuration(0, cyklusInsert(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
+            sizeOfList += KROK;
+        }
+
+        //----------------------At-------------------
+
+        sizeOfList = POC_VELKOST;
+        this->infoAt();
+        while (sizeOfList <= MAX)
+        {
+            structures::Logger::getInstance().logDuration(0, cyklusAt(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
+            sizeOfList += KROK;
+        }
+
+        //------------------RemoveAt-----------------
+        this->infoRemoveAt();
+
+
+    }
+
+    void ListUloha3::repairList(const int SIZE, structures::List<int> &list) {
+
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds ListUloha3::cyklusInsert(int size, const int POC_OPAKOVANI)
+    {
+        structures::List<int>* list = this->makeList();
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            repairList(size,*list);
+            duration += durationInsert(rand() % INT16_MAX /2 , rand() % list->size(), *list);
+        }
+        delete list;
+        return duration / POC_OPAKOVANI;
+
+    }
+
+
+    Microseconds ListUloha3::durationInsert(int cislo, int index, structures::List<int> &list)
+    {
+        SimpleTest::startStopwatch();
+        list.insert(cislo,index);
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds ListUloha3::cyklusAt(int size, const int POC_OPAKOVANI)
+    {
+        structures::List<int>* list = this->makeList();
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+        repairList(size, *list); // repair list je volaná tu pretože viem že sa s listom nič pri volaní at nestane
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            duration += durationAt(rand() % size, *list);
+        }
+        delete list;
+        return duration / POC_OPAKOVANI;
+    }
+
+    Microseconds ListUloha3::durationAt(int index, structures::List<int> &list)
+    {
+        SimpleTest::startStopwatch();
+        list.at(index) = 7;
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
 }
