@@ -338,7 +338,7 @@ namespace structures
 	template<typename T>
 	inline void ArrayList<T>::enlarge()
 	{
-		Array<T>* bigArray = new Array<T>(array_->size() + 10);
+		Array<T>* bigArray = new Array<T>(array_->size() * 2);
 		Array<T>::copy(*array_, 0, *bigArray, 0, size_);
 		delete array_;
 		array_ = bigArray;
