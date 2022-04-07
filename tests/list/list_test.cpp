@@ -215,8 +215,8 @@ namespace tests
     }
     void ListUloha2::test()
     {
-        structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
         this->info();
+        structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
         // scenár A
         structures::List<int>* list = this->makeList();
         cyklus('A', 20, 20, 50, 10, *list);
@@ -354,9 +354,9 @@ namespace tests
     void ListUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        const int MAX = 3000;
-        const int KROK = 100;
-        const int POC_VELKOST = 100;
+        const int MAX = 1000000;
+        const int KROK = 10000;
+        const int POC_VELKOST = 1000;
         const int POC_OPAKOVANI = 100;
         int sizeOfList;
         sizeOfList = POC_VELKOST;
@@ -394,9 +394,9 @@ namespace tests
 
     void ListUloha3::repairList(int SIZE, structures::List<int> &list) {
         // zväčšujem a mažem listy na koncoch
-        while (list.size() == SIZE) {
+        while (list.size() != SIZE) {
             if (list.size() < SIZE) {
-                list.insert(rand() % INT16_MAX /2, list.size() - 1);
+                list.add(rand() % INT16_MAX /2);
             } else {
                 list.removeAt(list.size() - 1);
             }

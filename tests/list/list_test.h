@@ -263,7 +263,7 @@ namespace tests
         }
         void infoInsert() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie ArrList - Assign");
+            structures::Logger::getInstance().logInfo("Testovanie ArrList - Insert");
         }
         void infoRemoveAt() const override
         {
