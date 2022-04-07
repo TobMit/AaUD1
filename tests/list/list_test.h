@@ -155,4 +155,53 @@ namespace tests
             return new structures::DoubleLinkedList<int>(doubleLinkedList);
         };
     };
+
+    //------------------------------------ Uloha 2 ------------------------------------------------
+
+    /// <summary>
+    /// Testovanie pre úlohu 2
+    /// </summary>
+    class ListUloha2
+            :public SimpleTest
+    {
+    public:
+        ListUloha2();
+        void test() override;
+    private:
+        void cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,structures::List<int> &list);
+        int getPomer(int const OPAKOVANIA, int pomer);
+    protected:
+        virtual structures::List<int> *makeList() const = 0;
+        virtual void info() const = 0;
+    };
+
+
+    class ArrListUloha2
+            : public ListUloha2
+    {
+    protected:
+        structures::List<int> *makeList() const override
+        {
+            return new structures::ArrayList<int>();
+        };
+
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie ArrList!");
+        }
+    };
+
+    class DoubleLinListUloha2
+            : public ListUloha2
+    {
+    protected:
+        structures::List<int> *makeList() const override
+        {
+            return new structures::DoubleLinkedList<int>();
+        };
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie DoubleLinList!");
+        }
+    };
 }

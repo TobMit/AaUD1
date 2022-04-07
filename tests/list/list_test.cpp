@@ -1,3 +1,4 @@
+#include <iostream>
 #include "list_test.h"
 
 namespace tests
@@ -173,6 +174,7 @@ namespace tests
 	{
 		addTest(new ArrayListTestInterface());
 		addTest(new ArryListFunctionTest());
+        addTest(new ArrListUloha2());
 	}
 
 // LinkedListTestOverall:
@@ -200,8 +202,132 @@ namespace tests
     {
         addTest(new DoubleLinkedListTestInterface());
         addTest(new DoubleLinkedListFunctionTest());
+        addTest(new DoubleLinListUloha2());
     }
 
     //---------------------------Uloha 2 -----------------------------
+    ListUloha2::ListUloha2()
+            : SimpleTest("Uloha2")
+    {
+
+    }
+    void ListUloha2::test()
+    {
+        structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
+        this->info();
+        // scenár A
+        structures::List<int>* list = this->makeList();
+        cyklus('A', 20, 20, 50, 10, *list);
+        delete list;
+
+        // Scenár B
+        list = this->makeList();
+        cyklus('B', 35, 35, 20, 10, *list);
+        delete list;
+
+        // Scenár C
+        list = this->makeList();
+        cyklus('C', 45, 45, 5, 5, *list);
+        delete list;
+
+    }
+    void ListUloha2::cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,
+                            structures::List<int> &list)
+    {
+        const int OPAKOVANIA = 100000;
+
+        structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
+
+        int opInst = getPomer(OPAKOVANIA, podielInsert);
+        int opRemoveAt = getPomer(OPAKOVANIA, podielRemoveAt);
+        int opAt = getPomer(OPAKOVANIA, podielAt);
+        int opGetIndOf = getPomer(OPAKOVANIA, podielAt);
+
+        std::vector<char>pool;
+        for (unsigned i = 0; i < opInst; i++)
+        {
+            pool.push_back(1);
+        }
+        for (unsigned i = 0; i < opRemoveAt; i++)
+        {
+            pool.push_back(2);
+        }
+        for (unsigned i = 0; i < opAt; i++)
+        {
+            pool.push_back(3);
+        }
+        for (unsigned i = 0; i < opGetIndOf; i++)
+        {
+            pool.push_back(4);
+        }
+
+
+        Microseconds durationInsert = std::chrono::microseconds(0);
+        Microseconds durationRemoveAt = std::chrono::microseconds(0);
+        Microseconds durationAt = std::chrono::microseconds(0);
+        Microseconds durationGetIndexOf = std::chrono::microseconds(0);
+
+        while (!pool.empty())
+        {
+            int index = rand() % pool.size();
+            int cislo;
+            int indexL;
+            switch (pool.at(index))
+            {
+                case 1:
+                    cislo = rand() % 100;
+                    if (list.size() == 0) {
+                        SimpleTest::startStopwatch();
+                        list.insert(cislo, 0);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    } else {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.insert(cislo, indexL);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    }
+                    break;
+
+                case 2:
+                    if (list.size() != 0) {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.removeAt(indexL);
+                        SimpleTest::stopStopwatch();
+                        durationRemoveAt += SimpleTest::getElapsedTime();
+                    }
+                    break;
+
+                case 3:
+                    if (list.size() != 0) {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.at(indexL);
+                        SimpleTest::stopStopwatch();
+                        durationAt += SimpleTest::getElapsedTime();
+                    }
+                    break;
+                case 4:
+                    cislo = rand() % 100;
+                    SimpleTest::startStopwatch();
+                    list.getIndexOf(cislo);
+                    SimpleTest::stopStopwatch();
+                    durationGetIndexOf += SimpleTest::getElapsedTime();
+                    break;
+            }
+
+            pool.erase(pool.begin() + index);
+        }
+
+        structures::Logger::getInstance().logDuration(0, durationInsert + durationRemoveAt + durationAt + durationGetIndexOf, std::to_string(durationInsert.count() ) + "," + std::to_string(durationRemoveAt.count()) + "," + std::to_string(durationAt.count())+ "," + std::to_string(durationGetIndexOf.count()));
+    }
+
+    int ListUloha2::getPomer(int const OPAKOVANIA, int pomer)
+    {
+        return (pomer * OPAKOVANIA) / 100;
+    }
 
 }
