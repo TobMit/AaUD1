@@ -210,7 +210,7 @@ namespace structures
 	template<typename T>
 	inline T& ArrayList<T>::at(int index)
 	{
-		Utils::rangeCheckExcept(index, size_, "Invalid index!");
+		Utils::rangeCheckExcept(index, size_, "Invalid index! Except from ArrayList<T>::at()");
 		return array_->at(index);
 	}
 
@@ -251,7 +251,7 @@ namespace structures
 
 		}
 		else {
-			Utils::rangeCheckExcept(index, size_, "Invalid index (exception from ArrayList<T>::insert())");
+			Utils::rangeCheckExcept(index, size_, "Invalid index Excep from ArrayList<T>::insert()");
 			if (size_ == array_->size()) {
 				enlarge();
 			}
