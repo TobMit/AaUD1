@@ -373,8 +373,8 @@ namespace tests
 
         //----------------------At-------------------
 
-        sizeOfList = POC_VELKOST;
         this->infoAt();
+        sizeOfList = POC_VELKOST;
         while (sizeOfList <= MAX)
         {
             structures::Logger::getInstance().logDuration(0, cyklusAt(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
@@ -383,7 +383,12 @@ namespace tests
 
         //------------------RemoveAt-----------------
         this->infoRemoveAt();
-
+        sizeOfList = POC_VELKOST;
+        while (sizeOfList <= MAX)
+        {
+            structures::Logger::getInstance().logDuration(0, cyklusRemoveAt(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
+            sizeOfList += KROK;
+        }
 
     }
 
@@ -406,7 +411,6 @@ namespace tests
         return duration / POC_OPAKOVANI;
 
     }
-
 
     Microseconds ListUloha3::durationInsert(int cislo, int index, structures::List<int> &list)
     {
@@ -435,6 +439,30 @@ namespace tests
     {
         SimpleTest::startStopwatch();
         list.at(index) = 7;
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds ListUloha3::cyklusRemoveAt(int size, const int POC_OPAKOVANI)
+    {
+        structures::List<int>* list = this->makeList();
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            repairList(size,*list);
+            duration += durationRemoveAt(rand() % size, *list);
+        }
+        delete list;
+        return duration / POC_OPAKOVANI;
+
+    }
+
+    Microseconds ListUloha3::durationRemoveAt(int index, structures::List<int> &list)
+    {
+        SimpleTest::startStopwatch();
+        list.removeAt(index);
         SimpleTest::stopStopwatch();
         return SimpleTest::getElapsedTime();
     }

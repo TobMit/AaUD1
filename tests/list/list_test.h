@@ -286,7 +286,6 @@ namespace tests
         {
             structures::Logger::getInstance().logInfo("Testovanie DoubleLinList - Insert");
         }
-
         void infoRemoveAt() const override
         {
             structures::Logger::getInstance().logInfo("Testovanie DoubleLinList - RemoveAt");
