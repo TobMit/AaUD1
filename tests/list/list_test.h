@@ -236,7 +236,10 @@ namespace tests
         Microseconds cyklusRemoveAt(int size, const int POC_OPAKOVANI);
         Microseconds durationRemoveAt(int index, structures::List<int> &list);
 
-        void repairList(const int SIZE, structures::List<int> &list);
+        /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
+        /// \param SIZE - velkost listu ktora sa ma udrziavat
+        /// \param list - list kotry sa ma opravit
+        void repairList(int SIZE, structures::List<int> &list);
     protected:
         virtual structures::List<int> *makeList() const = 0;
         virtual void infoInsert() const = 0;
@@ -262,7 +265,6 @@ namespace tests
         {
             structures::Logger::getInstance().logInfo("Testovanie ArrList - Assign");
         }
-
         void infoRemoveAt() const override
         {
             structures::Logger::getInstance().logInfo("Testovanie ArrList - RemoveAt");

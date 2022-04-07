@@ -392,8 +392,15 @@ namespace tests
 
     }
 
-    void ListUloha3::repairList(const int SIZE, structures::List<int> &list) {
-
+    void ListUloha3::repairList(int SIZE, structures::List<int> &list) {
+        // zväčšujem a mažem listy na koncoch
+        while (list.size() == SIZE) {
+            if (list.size() < SIZE) {
+                list.insert(rand() % INT16_MAX /2, list.size() - 1);
+            } else {
+                list.removeAt(list.size() - 1);
+            }
+        }
     }
 
     //------------------------------------------------------------------------
