@@ -204,4 +204,18 @@ namespace tests
             structures::Logger::getInstance().logInfo("Testovanie DoubleLinList!");
         }
     };
+
+    class LinListUloha2
+            : public ListUloha2
+    {
+    protected:
+        structures::List<int> *makeList() const override
+        {
+            return new structures::LinkedList<int>();
+        };
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie LinList!");
+        }
+    };
 }

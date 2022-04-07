@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "list_test.h"
 
 namespace tests
@@ -184,17 +185,7 @@ namespace tests
 	{
 		addTest(new LinkedListTestInterface());
         addTest(new LinkedListFunctionTest());
-	}
-
-// ListTestOverall:
-
-	ListTestOverall::ListTestOverall() :
-		ComplexTest("List")
-	{
-		addTest(new ArrayListTestOverall());
-		addTest(new LinkedListTestOverall());
-        addTest(new DoubleLinkedListOverall());
-		
+        addTest(new LinListUloha2());
 	}
 
     DoubleLinkedListOverall::DoubleLinkedListOverall() :
@@ -204,6 +195,17 @@ namespace tests
         addTest(new DoubleLinkedListFunctionTest());
         addTest(new DoubleLinListUloha2());
     }
+// ListTestOverall:
+
+	ListTestOverall::ListTestOverall() :
+		ComplexTest("List")
+	{
+		addTest(new ArrayListTestOverall());
+		addTest(new LinkedListTestOverall());
+        addTest(new DoubleLinkedListOverall());
+
+	}
+
 
     //---------------------------Uloha 2 -----------------------------
     ListUloha2::ListUloha2()
@@ -235,6 +237,9 @@ namespace tests
                             structures::List<int> &list)
     {
         const int OPAKOVANIA = 100000;
+        const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
+
+        // todo rozhodnúť sa či budem hladať pre getIndexOf čísla náhodné alebo ich budem ešte ukladať niekde do zoznam a z tadiaľ budem číslo vyhľadávať
 
         structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
         structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
@@ -242,7 +247,7 @@ namespace tests
         int opInst = getPomer(OPAKOVANIA, podielInsert);
         int opRemoveAt = getPomer(OPAKOVANIA, podielRemoveAt);
         int opAt = getPomer(OPAKOVANIA, podielAt);
-        int opGetIndOf = getPomer(OPAKOVANIA, podielAt);
+        int opGetIndOf = getPomer(OPAKOVANIA, podielGetIndexOf);
 
         std::vector<char>pool;
         for (unsigned i = 0; i < opInst; i++)
@@ -276,7 +281,7 @@ namespace tests
             switch (pool.at(index))
             {
                 case 1:
-                    cislo = rand() % 100;
+                    cislo = rand() % MAX_VALUE_IN_LIST;
                     if (list.size() == 0) {
                         SimpleTest::startStopwatch();
                         list.insert(cislo, 0);
@@ -311,11 +316,22 @@ namespace tests
                     }
                     break;
                 case 4:
-                    cislo = rand() % 100;
+                    cislo = rand() % MAX_VALUE_IN_LIST;
                     SimpleTest::startStopwatch();
-                    list.getIndexOf(cislo);
+                    int najdene = list.getIndexOf(cislo);
                     SimpleTest::stopStopwatch();
                     durationGetIndexOf += SimpleTest::getElapsedTime();
+
+                    /*
+                    std::stringstream stringBuilder;
+                    if (najdene >= 0) {
+                        stringBuilder << oznacenie << " " << najdene << " " << list.at(najdene) << " " << cislo
+                                  << std::endl;
+                    } else {
+                        stringBuilder << oznacenie << " " << najdene << " " << -1 << " " << cislo
+                                  << std::endl;
+                    }
+                    structures::Logger::getInstance().logInfo(stringBuilder.str());*/
                     break;
             }
 
