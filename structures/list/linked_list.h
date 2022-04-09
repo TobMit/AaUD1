@@ -113,7 +113,7 @@ namespace structures
         /// <remarks> Zabezpecuje polymorfizmus. </remarks>
         Iterator<T>* getEndIterator() override;
 
-    private:
+    protected:
         /// <summary> Pocet prvkov v zozname. </summary>
         size_t size_;
         /// <summary> Prvy prvok zoznamu. </summary>
@@ -183,6 +183,7 @@ namespace structures
     inline LinkedListItem<T>::~LinkedListItem()
     {
         next_ = nullptr;
+        //todo skontrolovat ci nemam memleaky
     }
 
     template<typename T>
@@ -206,7 +207,8 @@ namespace structures
     }
 
     template<typename T>
-    inline LinkedList<T>::LinkedList(LinkedList<T>& other)
+    inline LinkedList<T>::LinkedList(LinkedList<T>& other):
+		size_(0)
     {
         assign(other);
     }
@@ -226,7 +228,7 @@ namespace structures
     template<typename T>
     inline Structure& LinkedList<T>::assign(Structure& other)
     {
-       
+
         // test identyty
         // clear()
         // vsetky data v ll@
@@ -321,7 +323,7 @@ namespace structures
         //          newLLI->setNext(pred-> getnNext())
         //          pred ->setNext(novyLLI)
         // size++
-        
+
         if (index == size_) {
             add(data);
         }
@@ -391,7 +393,7 @@ namespace structures
             }
         }
         else {
-            auto pred = getItemAtIndex(index-1);
+            auto pred = getItemAtIndex(index - 1);
             delItem = pred->getNext();
             pred->setNext(delItem->getNext());
             if (last_ == delItem) {
@@ -462,7 +464,7 @@ namespace structures
         }
         else {
             auto current = first_;
-            for (size_t i = 0; i < index; i++) {
+            for (int i = 0; i < index; i++) {
                 current = current->getNext();
             }
             return current;

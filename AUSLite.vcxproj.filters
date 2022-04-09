@@ -335,6 +335,9 @@
     <ClInclude Include="tests\matrix\matrix_test.h">
       <Filter>tests\matrix</Filter>
     </ClInclude>
+    <ClInclude Include="structures\list\double_linked_list.h">
+      <Filter>structures\list</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\debug.png">

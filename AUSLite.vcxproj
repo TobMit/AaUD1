@@ -155,6 +155,7 @@
     <ClInclude Include="structures\data_item.h" />
     <ClInclude Include="structures\heap_monitor.h" />
     <ClInclude Include="structures\list\array_list.h" />
+    <ClInclude Include="structures\list\double_linked_list.h" />
     <ClInclude Include="structures\list\linked_list.h" />
     <ClInclude Include="structures\list\list.h" />
     <ClInclude Include="structures\matrix\coherent_matrix.h" />

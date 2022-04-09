@@ -4,6 +4,9 @@
 #include "../structure_iterator.h"
 #include "../array/array.h"
 
+// todo nezabudni zmazaù
+// Lambda funkcie ako bÛnus, pozrieù nepovinnÈ
+
 namespace structures
 {
 	/// <summary> Zoznam implementovany polom. </summary>
@@ -32,9 +35,9 @@ namespace structures
 		Structure& assign(Structure& other) override;
 
 		/// <summary> Porovnanie struktur. </summary>
-        /// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-        /// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		bool equals(Structure& other);
+		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		bool equals(Structure& other) override;
 
 		/// <summary> Vrati adresou prvok na indexe. </summary>
 		/// <param name = "index"> Index prvku. </param>
@@ -193,11 +196,12 @@ namespace structures
 
 		ArrayList<T>& otherArray = dynamic_cast<ArrayList<T>&> (other);
 
-		for (int i = 0; i < size_; i++) {
-			if (at(i) == otherArray.at(i)) {
-				continue;
+		for (size_t i = 0; i < size_; i++)
+		{
+			if (otherArray.at(i) != array_->at(i))
+			{
+				return false;
 			}
-			return false;
 		}
 
 		return true;
@@ -206,7 +210,7 @@ namespace structures
 	template<typename T>
 	inline T& ArrayList<T>::at(int index)
 	{
-		Utils::rangeCheckExcept(index, size_, "Invalid index!");
+		Utils::rangeCheckExcept(index, size_, "Invalid index! Except from ArrayList<T>::at()");
 		return array_->at(index);
 	}
 
@@ -240,14 +244,14 @@ namespace structures
 		//		a Array<T>::Copy(index, to iste pole, index + 1
 		//		arraz -> at(index) = data
 		//		size++;
-		
+
 
 		if (index == size_) {
 			add(data);
 
 		}
 		else {
-			Utils::rangeCheckExcept(index, size_, "Invalid index (exception from ArrayList<T>::insert())");
+			Utils::rangeCheckExcept(index, size_, "Invalid index Excep from ArrayList<T>::insert()");
 			if (size_ == array_->size()) {
 				enlarge();
 			}
@@ -334,7 +338,7 @@ namespace structures
 	template<typename T>
 	inline void ArrayList<T>::enlarge()
 	{
-		Array<T>* bigArray = new Array<T>(array_->size() + 10);
+		Array<T>* bigArray = new Array<T>(array_->size() * 2);
 		Array<T>::copy(*array_, 0, *bigArray, 0, size_);
 		delete array_;
 		array_ = bigArray;
