@@ -207,7 +207,8 @@ namespace structures
     }
 
     template<typename T>
-    inline LinkedList<T>::LinkedList(LinkedList<T>& other)
+    inline LinkedList<T>::LinkedList(LinkedList<T>& other):
+        size_(0)
     {
         assign(other);
     }
