@@ -1,10 +1,4 @@
 #include "priority_queue_test.h"
-#include "../../structures/priority_queue/heap.h"
-#include "../../structures/priority_queue/priority_queue_limited_sorted_array_list.h"
-#include "../../structures/priority_queue/priority_queue_linked_list.h"
-#include "../../structures/priority_queue/priority_queue_sorted_array_list.h"
-#include "../../structures/priority_queue/priority_queue_two_lists.h"
-#include "../../structures/priority_queue/priority_queue_unsorted_array_list.h"
 
 namespace tests
 {
@@ -84,12 +78,14 @@ namespace tests
         ComplexTest("PriorityQueueTwoLists")
     {
         addTest(new PriorityQueueTwoListsTestInterface());
+        addTest(new PriorityQueueTwoListsFunctionTest());
     }
 
     HeapTestOverall::HeapTestOverall() :
         ComplexTest("Heap")
     {
         addTest(new HeapTestInterface());
+        addTest(new HeapQueueListFunctionTest());
     }
 
     PriorityQueueTestOverall::PriorityQueueTestOverall() :
@@ -101,5 +97,15 @@ namespace tests
         addTest(new PriorityQueueLinkedListTestOverall());
         addTest(new PriorityQueueTwoListsTestOverall());
         addTest(new HeapTestOverall());
+    }
+
+    PriorityQueueTestFunctionsTest::PriorityQueueTestFunctionsTest() :
+            SimpleTest("Complex test")
+    {
+
+    }
+    void PriorityQueueTestFunctionsTest::test()
+    {
+
     }
 }

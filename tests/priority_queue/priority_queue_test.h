@@ -3,6 +3,12 @@
 #include "../test.h"
 #include "../../structures/priority_queue/priority_queue.h"
 #include "../../structures/priority_queue/priority_queue_list.h"
+#include "../../structures/priority_queue/heap.h"
+#include "../../structures/priority_queue/priority_queue_limited_sorted_array_list.h"
+#include "../../structures/priority_queue/priority_queue_linked_list.h"
+#include "../../structures/priority_queue/priority_queue_sorted_array_list.h"
+#include "../../structures/priority_queue/priority_queue_two_lists.h"
+#include "../../structures/priority_queue/priority_queue_unsorted_array_list.h"
 
 namespace tests
 {
@@ -149,5 +155,44 @@ namespace tests
     {
     public:
         PriorityQueueTestOverall();
+    };
+
+    //-------------------------------- TESTY FUNKCNOSTI --------------------------------------
+    /// <summary>
+    /// Test ktory skontroluje ci funguje add a insert v V oboch implementáciach Listu
+    /// </summary>
+    class PriorityQueueTestFunctionsTest
+            : public SimpleTest {
+    public:
+        PriorityQueueTestFunctionsTest();
+        void test() override;
+
+    protected:
+        virtual structures::PriorityQueue<int> * makePriorityQueue() const = 0;
+        virtual structures::PriorityQueue<int> * makePriorityQueue(structures::PriorityQueue<int> &other) const = 0;
+    };
+
+    class HeapQueueListFunctionTest
+            :public PriorityQueueTestFunctionsTest {
+    protected:
+        structures::PriorityQueue<int> * makePriorityQueue() const override {
+            return new structures::Heap<int>();
+        };
+        structures::PriorityQueue<int> * makePriorityQueue(structures::PriorityQueue<int> &other) const override {
+            structures::Heap<int>& priorityQueue = dynamic_cast<structures::Heap<int>&>(other);
+            return new structures::Heap<int>(priorityQueue);
+        };
+    };
+
+    class PriorityQueueTwoListsFunctionTest
+            :public PriorityQueueTestFunctionsTest {
+    protected:
+        structures::PriorityQueue<int> * makePriorityQueue() const override {
+            return new structures::PriorityQueueTwoLists<int>();
+        };
+        structures::PriorityQueue<int> * makePriorityQueue(structures::PriorityQueue<int> &other) const override {
+            structures::PriorityQueueTwoLists<int>& priorityQueue = dynamic_cast<structures::PriorityQueueTwoLists<int>&>(other);
+            return new structures::PriorityQueueTwoLists<int>(priorityQueue);
+        };
     };
 }
