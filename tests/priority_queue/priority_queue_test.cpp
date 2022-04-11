@@ -118,7 +118,22 @@ namespace tests
         }
         SimpleTest::assertTrue(queue->size() == 10,"Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(queue->size()));
 
+        structures::PriorityQueue<int>* copyQueue = this->makePriorityQueue(*queue);
+        SimpleTest::assertTrue(copyQueue->size() == 10, "Testujem ci kopirovaci konstruktor funguje spravne.");
+        SimpleTest::assertTrue(queue->peek() == 1, "Hodnota peek by mala byt 1 a je " + std::to_string(queue->peek()));
+        SimpleTest::assertTrue(queue->peekPriority() == 1, "Hodnota peekPriority by mala byt 1 a je " + std::to_string(queue->peekPriority()));
+        /*int hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 1, "Hodnota peek by mala byt 1 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 2, "Hodnota peek by mala byt 2 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 3, "Hodnota peek by mala byt 3 a je " + std::to_string(hodnota));
+        */
 
+        for (int i = 1; i <= 10; ++i) {
+            SimpleTest::logInfo(std::to_string(queue->peek()) + " " + std::to_string(queue->peekPriority()) + " " + std::to_string(queue->pop()));
+        }
+        delete copyQueue;
         delete queue;
     }
 }
