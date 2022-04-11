@@ -102,10 +102,23 @@ namespace tests
     PriorityQueueTestFunctionsTest::PriorityQueueTestFunctionsTest() :
             SimpleTest("Complex test")
     {
-
     }
     void PriorityQueueTestFunctionsTest::test()
     {
+        /*
+        queue->push(0, x);
+        queue->peek();
+        queue->peekPriority();
+        queue->pop();
+        queue->assign(*queue);
+        delete queue; */
+        structures::PriorityQueue<int>* queue = this->makePriorityQueue();
+        for (int i = 1; i <= 10; ++i) {
+            queue->push(i, i);
+        }
+        SimpleTest::assertTrue(queue->size() == 10,"Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(queue->size()));
 
+
+        delete queue;
     }
 }
