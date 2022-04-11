@@ -21,32 +21,33 @@ int main()
     auto fileLogConsumer = new structures::FileLogConsumer("log.csv");
     structures::Logger::getInstance().registerConsumer(fileLogConsumer);
 
-	// TODO 01: Vector
-	keeper.registerTest(new tests::VectorTestOverall());
+    // TODO 01: Vector
+    keeper.registerTest(new tests::VectorTestOverall());
 
-	// TODO 02: Array
-	keeper.registerTest(new tests::ArrayTestOverall());
-
-	// TODO 03: List
-	keeper.registerTest(new tests::ListTestOverall());
-
-	// TODO 05: Stack
-	keeper.registerTest(new tests::StackTestOverall());
-
-	// TODO 05: Queue
-	//keeper.registerTest(new tests::QueueTestOverall());
-
-	// TODO 06: PriorityQueue
-	//keeper.registerTest(new tests::PriorityQueueTestOverall());
-
-	// TODO 07: Tree
-	//keeper.registerTest(new tests::TreeTestOverall());
-
-	// TODO 08: Table
-	//keeper.registerTest(new tests::TableTestOverall());
+    // TODO 02: Array
+    keeper.registerTest(new tests::ArrayTestOverall());
 
     // TODO Zadanie na doma 01
     keeper.registerTest(new tests::MatrixTestOverall());
+
+    // TODO 03: List
+    keeper.registerTest(new tests::ListTestOverall());
+
+    // TODO 05: Stack
+    keeper.registerTest(new tests::StackTestOverall());
+
+    // TODO 05: Queue
+    //keeper.registerTest(new tests::QueueTestOverall());
+
+    // TODO 06: PriorityQueue
+    keeper.registerTest(new tests::PriorityQueueTestOverall());
+
+    // TODO 07: Tree
+    //keeper.registerTest(new tests::TreeTestOverall());
+
+    // TODO 08: Table
+    //keeper.registerTest(new tests::TableTestOverall());
+
 
 	bool run = true;
 	do
