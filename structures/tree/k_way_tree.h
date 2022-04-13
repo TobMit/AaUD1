@@ -114,14 +114,24 @@ namespace structures
 	template<typename T, int K>
 	inline KWayTreeNode<T, K>::~KWayTreeNode()
 	{
-		//TODO 07: KWayTreeNode<T>
+		// musíme ísť post order
+        // spracuj množinu synov
+        // for (i = 0, i < K i++)
+        //      delete children at(i)
+        // spracuj seba - delete childerem_
+        // children_ = nullptr
+
+        for (int i = 0; i < K; ++i) {
+            delete children_->at(i);
+        }
+        delete children_;
+        children_ = nullptr;
 	}
 
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::shallowCopy()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::shallowCopy: Not implemented yet.");
+        return new KWayTreeNode<T, K> (*this);
 	}
 
 	template<typename T, int K>
