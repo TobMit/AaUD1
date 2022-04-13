@@ -8,7 +8,7 @@ namespace structures
 	/// <summary> Vrchol K-cestneho stromu. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
 	/// <typeparam name = "K"> Kardinalita vrchola. </typeparam>
-	template <typename T, int K>
+	template <typename T, int K> //kde koľvek použieme K compiler tam doplní to čo sme pri K dávali pri vytváraní
 	class KWayTreeNode : public TreeNode<T>
 	{
 	public:
@@ -127,8 +127,12 @@ namespace structures
 	template<typename T, int K>
 	inline bool KWayTreeNode<T, K>::isLeaf()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::isLeaf: Not implemented yet.");
+        for (int i = 0; i < K; ++i) {
+            if (children_->at(i) != nullptr) {
+                return false;
+            }
+        }
+        return true;
 	}
 
 	template<typename T, int K>
@@ -162,8 +166,13 @@ namespace structures
 	template<typename T, int K>
 	inline int KWayTreeNode<T, K>::degree()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::degree: Not implemented yet.");
+        int pocet = 0;
+        for (int i = 0; i < K; ++i) {
+            if (children_->at(i) != nullptr) {
+                pocet++;
+            }
+        }
+        return pocet;
 	}
 
 	template<typename T, int K>
