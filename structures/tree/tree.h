@@ -538,8 +538,19 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::PostOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: Tree<T>::PostOrderTreeIterator
-		throw std::runtime_error("Tree<T>::PostOrderTreeIterator::populatePath: Not implemented yet.");
+        //todo skontrolovat ci to mam správane
+        if (current != nullptr) {
+
+            int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+            for (int i = 0; nuberOfProcessedSons < current->degree(); ++i) {
+                auto son = current->getSon(i);
+                if (son != nullptr) {
+                    populatePath(son);
+                    nuberOfProcessedSons++;
+                }
+            }
+            TreeIterator::path_->push(current);
+        }
 	}
 
 	template<typename T>
