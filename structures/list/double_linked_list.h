@@ -102,6 +102,7 @@ namespace structures
         /// <returns> Adresa prvku na danom indexe. </returns>
         /// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>
         //Rieši dedičnost
+        //todo dalo by sa to poriešiť aj rýchlejšie bez dedičnosti
         //T& at(int index) override;
 
         /// <summary> Prida prvok do zoznamu. </summary>
@@ -262,7 +263,6 @@ namespace structures
         if (index == 0) {
             delItem = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
             this->first_ = this->first_->getNext();
-            //todo skontrolovat spravanie keď je prvok posledny a maze sa
             if (this->last_ == delItem) {
                 this->last_ = nullptr;
             } else {
