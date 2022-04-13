@@ -4,6 +4,8 @@
 #include "../list/list.h"
 #include "../list/array_list.h"
 
+// pozri sa do k_way_Tree a to je copy paste dá sa to použiť v semestralke
+
 namespace structures
 {
 	/// <summary> Vrchol viaccestneho stromu. </summary>
