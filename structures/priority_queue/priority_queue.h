@@ -4,6 +4,7 @@
 #include "../data_item.h"
 #include <stdexcept>
 
+
 namespace structures
 {
 	/// <summary> Prvok prioritneho frontu. </summary>
