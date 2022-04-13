@@ -251,8 +251,13 @@ namespace structures
 	template<typename T>
 	inline void BinaryTree<T>::InOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: BinaryTree<T>::InOrderTreeIterator
-		throw std::runtime_error("BinaryTree<T>::InOrderTreeIterator::populatePath: Not implemented yet.");
+
+		if (current != nullptr) {
+            BinaryTreeNode<T>* currentBTN = dynamic_cast<BinaryTreeNode<T>*>(current);
+            populatePath(currentBTN->getLeftSon());
+            Tree<T>::TreeIterator::path_->push(current);
+            populatePath(currentBTN->getRightSon());
+        }
 	}
 
 }
