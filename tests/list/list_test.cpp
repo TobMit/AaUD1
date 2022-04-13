@@ -236,6 +236,7 @@ namespace tests
     void ListUloha2::cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,
                             structures::List<int> &list)
     {
+        //da sa na define int... alebo static const int ...
         const int OPAKOVANIA = 100000;
         const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
 
