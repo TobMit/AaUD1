@@ -189,29 +189,25 @@ namespace structures
 	template<typename T>
 	inline bool BinaryTreeNode<T>::isLeftSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::isLeftSon: Not implemented yet.");
+        return TreeNode<T>::getBrother(LEFT_SON) == this;
 	}
 
 	template<typename T>
 	inline bool BinaryTreeNode<T>::isRightSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::isRightSon: Not implemented yet.");
+        return TreeNode<T>::getBrother(RIGHT_SON) == this;
 	}
 
 	template<typename T>
 	inline bool BinaryTreeNode<T>::hasLeftSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::hasLeftSon: Not implemented yet.");
+        return getLeftSon() != nullptr;
 	}
 
 	template<typename T>
 	inline bool BinaryTreeNode<T>::hasRightSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::hasRightSon: Not implemented yet.");
+        return getRightSon() != nullptr;
 	}
 
 	template<typename T>
