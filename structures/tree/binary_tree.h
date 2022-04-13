@@ -85,7 +85,7 @@ namespace structures
 	/// <summary> Binary strom. </summary>
 	/// <typeparam name = "T"> Typ dat ukladanych v strome. </typepram>
 	template <typename T>
-	class BinaryTree : public KWayTree<T,2>
+	class BinaryTree : public KWayTree<T,2> // ma 2 na tvrdo, lebo je to binarny strom
 	{
 	public:
 		/// <summary> Konstruktor. </summary>
@@ -140,57 +140,50 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* BinaryTreeNode<T>::shallowCopy()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::shallowCopy: Not implemented yet.");
+        return new BinaryTreeNode<T>(*this);
 	}
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::getParent()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::getParent: Not implemented yet.");
+        return dynamic_cast<BinaryTreeNode<T>*>(TreeNode<T>::getParent());
 	}
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::getLeftSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::getLeftSon: Not implemented yet.");
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::getSon(LEFT_SON)); // KWayTreeNode<T,2>:: <- volanie predka
 	}
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::getRightSon()
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::getRightSon: Not implemented yet.");
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::getSon(RIGHT_SON));
 	}
 
 	template<typename T>
 	inline void BinaryTreeNode<T>::setLeftSon(BinaryTreeNode<T>* leftSon)
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::setLeftSon: Not implemented yet.");
+		KWayTreeNode<T,2>::insertSon(leftSon,LEFT_SON); // ked v insete nie je vínimka
+        //delete KWayTreeNode<T,2>::replaceSon(leftSon,LEFT_SON); // ked hádzžeme v insertre vínimku v K_wayTree
 	}
 
 	template<typename T>
 	inline void BinaryTreeNode<T>::setRightSon(BinaryTreeNode<T>* rightSon)
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::setRightSon: Not implemented yet.");
-	}
+        KWayTreeNode<T,2>::insertSon(rightSon,RIGHT_SON);
+    }
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::changeLeftSon(BinaryTreeNode<T>* leftSon)
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::changeLeftSon: Not implemented yet.");
-	}
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(leftSon,LEFT_SON));
+    }
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::changeRightSon(BinaryTreeNode<T>* rightSon)
 	{
-		//TODO 07: BinaryTreeNode<T>
-		throw std::runtime_error("BinaryTreeNode<T>::changeRightSon: Not implemented yet.");
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(rightSon,RIGHT_SON));
 	}
 
 	template<typename T>
