@@ -138,7 +138,6 @@ namespace structures
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::getSon(int order)
 	{
-
         try {
             return children_->at(order);
         } catch (std::out_of_range) {
@@ -156,8 +155,16 @@ namespace structures
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::replaceSon(TreeNode<T>* son, int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::replaceSon: Not implemented yet.");
+        KWayTreeNode<T,K>* oldSon = children_->at(order);
+        children_->at(order) = dynamic_cast<KWayTreeNode<T,K>*>(son);
+
+        if (son != nullptr) {
+            son->setParent(this);
+        }
+        if (oldSon != nullptr) {
+            oldSon->resetParent();
+        }
+        return oldSon;
 	}
 
 	template<typename T, int K>
