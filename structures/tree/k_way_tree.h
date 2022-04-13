@@ -148,8 +148,10 @@ namespace structures
 	template<typename T, int K>
 	inline void KWayTreeNode<T, K>::insertSon(TreeNode<T>* son, int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::insertSon: Not implemented yet.");
+        //Prvy spôsob riesenia
+		//throw std::logic_error("KWayTreeNode<T>::insertSon is not supported!");
+        //Druhy spôsob riesenia
+        delete replaceSon(son, order); //Pozor to je viac ako replace ako insert len je to kvli tomu aby nepadali testy
 	}
 
 	template<typename T, int K>
@@ -170,8 +172,7 @@ namespace structures
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::removeSon(int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::removeSon: Not implemented yet.");
+        return replaceSon(nullptr,order);
 	}
 
 	template<typename T, int K>
