@@ -467,42 +467,41 @@ namespace structures
 	template<typename T>
 	inline Tree<T>::TreeIterator::TreeIterator():
 		Iterator<T>(),
-		path_(new std::queue<TreeNode<T>*>())
+		path_(new std::queue<TreeNode<T>*>()) //jedený príklad kedy môžemer používať inú knižnicu ako to čo sme programovali
 	{
 	}
 
 	template<typename T>
 	inline Tree<T>::TreeIterator::~TreeIterator()
 	{
-		//TODO 07: Tree<T>::TreeIterator
+		delete path_;
+        path_ = nullptr;
 	}
 
 	template<typename T>
 	inline Iterator<T>& Tree<T>::TreeIterator::operator=(Iterator<T>& other)
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator=: Not implemented yet.");
+        *path_ = *dynamic_cast<TreeIterator&>(other.path_);
+        return this;
 	}
 
 	template<typename T>
 	inline bool Tree<T>::TreeIterator::operator!=(Iterator<T>& other)
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator!=: Not implemented yet.");
+        return *path_ != *dynamic_cast<Tree<T>::TreeIterator&>(other.path_);
 	}
 
 	template<typename T>
 	inline T Tree<T>::TreeIterator::operator*()
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator*: Not implemented yet.");
+        return path_->front()->accessData();
 	}
 
 	template<typename T>
 	inline Iterator<T>& Tree<T>::TreeIterator::operator++()
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator++: Not implemented yet.");
+		path_->pop();
+        return *this;
 	}
 
 	template<typename T>
@@ -515,8 +514,18 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::PreOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: Tree<T>::PreOrderTreeIterator
-		throw std::runtime_error("Tree<T>::PreOrderTreeIterator::populatePath: Not implemented yet.");
+        if (current != nullptr) {
+            TreeIterator::path_->push(current);
+
+            int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+            for (int i = 0; nuberOfProcessedSons < current->degree(); ++i) {
+                auto son = current->getSon(i);
+                if (son != nullptr) {
+                    populatePath(son);
+                    nuberOfProcessedSons++;
+                }
+            }
+        }
 	}
 
 	template<typename T>
