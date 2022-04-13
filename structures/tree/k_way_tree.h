@@ -138,8 +138,12 @@ namespace structures
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::getSon(int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::getSon: Not implemented yet.");
+
+        try {
+            return children_->at(order);
+        } catch (std::out_of_range) {
+            throw std::logic_error("Invalid index! Except from KWayTreeNode<T, K>::getSon() ");
+        }
 	}
 
 	template<typename T, int K>
