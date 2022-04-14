@@ -106,7 +106,7 @@ namespace tests
 	};
 //--------------------------------TESTY FUNKCNOSTI --------------------------------------
 	/// <summary>
-	/// Test ktory skontroluje ci funguje add a insert v V oboch implementáciach Listu
+	/// Test ktorý overí správnu implementáciu testu
 	/// </summary>
 	class ListTestFunctionsTest
 		: public SimpleTest {
