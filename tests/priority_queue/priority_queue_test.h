@@ -208,7 +208,7 @@ namespace tests
         void test() override;
     private:
         void
-        cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek, structures::PriorityQueue<int> &queue);
+        cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek, structures::PriorityQueue<int> &pQueue);
         int getPomer(int const OPAKOVANIA, int pomer);
     protected:
         virtual structures::PriorityQueue<int> *makePriorityQueue() const = 0;
@@ -255,18 +255,18 @@ namespace tests
         void test() override;
     private:
         Microseconds cyklusPush(int size, const int POC_OPAKOVANI);
-        Microseconds durationPush(int cislo, int index, structures::PriorityQueue<int> &queue);
+        Microseconds durationPush(int cislo, int index, structures::PriorityQueue<int> &pQueue);
 
         Microseconds cyklusPop(int size, const int POC_OPAKOVANI);
-        Microseconds durationPop(int index, structures::PriorityQueue<int> &queue);
+        Microseconds durationPop(int index, structures::PriorityQueue<int> &pQueue);
 
         Microseconds cyklusPeek(int size, const int POC_OPAKOVANI);
-        Microseconds durationPeek(int index, structures::PriorityQueue<int> &queue);
+        Microseconds durationPeek(int index, structures::PriorityQueue<int> &pQueue);
 
         /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
-        /// \param queue - list kotry sa ma opravit
-        void repairList(int SIZE, structures::PriorityQueue<int> &queue);
+        /// \param pQueue - list kotry sa ma opravit
+        void repairQueue(int SIZE, int MAX_PRIOR, structures::PriorityQueue<int> &pQueue);
     protected:
         virtual structures::PriorityQueue<int> *makePriorityQueue() const = 0;
         virtual void infoPush() const = 0;
