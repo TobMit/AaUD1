@@ -195,4 +195,129 @@ namespace tests
             return new structures::PriorityQueueTwoLists<int>(priorityQueue);
         };
     };
+    //------------------------------------ Uloha 2 ------------------------------------------------
+
+    /// <summary>
+    /// Testovanie pre úlohu 2
+    /// </summary>
+    class QueueUloha2
+            :public SimpleTest
+    {
+    public:
+        QueueUloha2();
+        void test() override;
+    private:
+        void
+        cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek, structures::PriorityQueue<int> &queue);
+        int getPomer(int const OPAKOVANIA, int pomer);
+    protected:
+        virtual structures::PriorityQueue<int> *makePriorityQueue() const = 0;
+        virtual void info() const = 0;
+    };
+
+
+    class HeapUloha2
+            : public QueueUloha2
+    {
+    protected:
+        structures::PriorityQueue<int> *makePriorityQueue() const override
+        {
+            return new structures::Heap<int>();
+        };
+
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie Heap!");
+        }
+    };
+
+    class QueueTwoListsUloha2
+            : public QueueUloha2
+    {
+    protected:
+        structures::PriorityQueue<int> *makePriorityQueue() const override
+        {
+            return new structures::PriorityQueueTwoLists<int>();
+        };
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists!");
+        }
+    };
+
+
+    //------------------------------------------- Uloha 3 -----------------------------------------------
+    class ListUloha3
+            :public SimpleTest
+    {
+    public:
+        ListUloha3();
+        void test() override;
+    private:
+        Microseconds cyklusPush(int size, const int POC_OPAKOVANI);
+        Microseconds durationPush(int cislo, int index, structures::PriorityQueue<int> &queue);
+
+        Microseconds cyklusPop(int size, const int POC_OPAKOVANI);
+        Microseconds durationPop(int index, structures::PriorityQueue<int> &queue);
+
+        Microseconds cyklusPeek(int size, const int POC_OPAKOVANI);
+        Microseconds durationPeek(int index, structures::PriorityQueue<int> &queue);
+
+        /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
+        /// \param SIZE - velkost listu ktora sa ma udrziavat
+        /// \param queue - list kotry sa ma opravit
+        void repairList(int SIZE, structures::PriorityQueue<int> &queue);
+    protected:
+        virtual structures::PriorityQueue<int> *makePriorityQueue() const = 0;
+        virtual void infoPush() const = 0;
+        virtual void infoPop() const = 0;
+        virtual void infoPeek() const = 0;
+
+    };
+
+    class HeapUloha3
+            : public ListUloha3
+    {
+    protected:
+        structures::PriorityQueue<int> *makePriorityQueue() const override
+        {
+            return new structures::Heap<int>();
+        };
+
+        void infoPush() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie Heap - Push");
+        }
+        void infoPop() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie Heap - Pop");
+        }
+        void infoPeek() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie Heap - Peek");
+        }
+    };
+
+    class QueueTwoListsUloha3
+            : public ListUloha3
+    {
+    protected:
+        structures::PriorityQueue<int> *makePriorityQueue() const override
+        {
+            return new structures::PriorityQueueTwoLists<int>();
+        };
+
+        void infoPush() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Push");
+        }
+        void infoPop() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Pop");
+        }
+        void infoPeek() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Peek");
+        }
+    };
 }
