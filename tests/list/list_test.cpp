@@ -237,8 +237,8 @@ namespace tests
                             structures::List<int> &list)
     {
         //da sa na define int... alebo static const int ...
-        const int OPAKOVANIA = 100000;
-        const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
+        static const int OPAKOVANIA = 100000;
+        static const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
 
         // todo rozhodnúť sa či budem hladať pre getIndexOf čísla náhodné alebo ich budem ešte ukladať niekde do zoznam a z tadiaľ budem číslo vyhľadávať
 
@@ -355,10 +355,10 @@ namespace tests
     void ListUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        const int MAX = 1000000;
-        const int KROK = 10000;
-        const int POC_VELKOST = 1000;
-        const int POC_OPAKOVANI = 100;
+        static const int MAX = 1000000;
+        static const int KROK = 10000;
+        static const int POC_VELKOST = 1000;
+        static const int POC_OPAKOVANI = 100;
         int sizeOfList;
         sizeOfList = POC_VELKOST;
 
