@@ -247,21 +247,21 @@ namespace tests
 
 
     //------------------------------------------- Uloha 3 -----------------------------------------------
-    class ListUloha3
+    class PriorityQueueUloha3
             :public SimpleTest
     {
     public:
-        ListUloha3();
+        PriorityQueueUloha3();
         void test() override;
     private:
         Microseconds cyklusPush(int size, const int POC_OPAKOVANI);
-        Microseconds durationPush(int cislo, int index, structures::PriorityQueue<int> &pQueue);
+        Microseconds durationPush(int priority, int cislo, structures::PriorityQueue<int> &pQueue);
 
         Microseconds cyklusPop(int size, const int POC_OPAKOVANI);
-        Microseconds durationPop(int index, structures::PriorityQueue<int> &pQueue);
+        Microseconds durationPop(structures::PriorityQueue<int> &pQueue);
 
         Microseconds cyklusPeek(int size, const int POC_OPAKOVANI);
-        Microseconds durationPeek(int index, structures::PriorityQueue<int> &pQueue);
+        Microseconds durationPeek(structures::PriorityQueue<int> &pQueue);
 
         /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
@@ -276,7 +276,7 @@ namespace tests
     };
 
     class HeapUloha3
-            : public ListUloha3
+            : public PriorityQueueUloha3
     {
     protected:
         structures::PriorityQueue<int> *makePriorityQueue() const override
@@ -299,7 +299,7 @@ namespace tests
     };
 
     class QueueTwoListsUloha3
-            : public ListUloha3
+            : public PriorityQueueUloha3
     {
     protected:
         structures::PriorityQueue<int> *makePriorityQueue() const override

@@ -167,7 +167,7 @@ namespace tests
 
     }
     void QueueUloha2::cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek,
-                             structures::PriorityQueue<int> &queue)
+                             structures::PriorityQueue<int> &pQueue)
     {
         //da sa na define int... alebo static const int ...
         static const int OPAKOVANIA = 100000;
@@ -211,25 +211,25 @@ namespace tests
                     cislo = rand() % MAX_DATA_VALUE_IN_QUEUE;
                     priority = rand() % MAX_PRIORITY;
                     SimpleTest::startStopwatch();
-                    queue.push(priority,cislo);
+                    pQueue.push(priority, cislo);
                     SimpleTest::stopStopwatch();
                     durationPush += SimpleTest::getElapsedTime();
 
                     break;
 
                 case 2:
-                    if (queue.size() != 0) {
+                    if (pQueue.size() != 0) {
                         SimpleTest::startStopwatch();
-                        queue.pop();
+                        pQueue.pop();
                         SimpleTest::stopStopwatch();
                         durationPop += SimpleTest::getElapsedTime();
                     }
                     break;
 
                 case 3:
-                    if (queue.size() != 0) {
+                    if (pQueue.size() != 0) {
                         SimpleTest::startStopwatch();
-                        queue.peek();
+                        pQueue.peek();
                         SimpleTest::stopStopwatch();
                         durationPeek += SimpleTest::getElapsedTime();
                     }
@@ -249,129 +249,129 @@ namespace tests
     }
 
     //--------------------------------------------------- Uloha 3 ------------------------------------------------------------
-    ListUloha3::ListUloha3():
+    PriorityQueueUloha3::PriorityQueueUloha3():
             SimpleTest("Uloha3")
     {
     }
-    void ListUloha3::test()
+    void PriorityQueueUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        static const int MAX = 1000000;
-        static const int KROK = 10000;
+        static const int MAX = 100000;
+        static const int KROK = 1000;
         static const int POC_VELKOST = 1000;
         static const int POC_OPAKOVANI = 100;
-        int sizeOfList;
-        sizeOfList = POC_VELKOST;
+        int sizeOfQueue;
+        sizeOfQueue = POC_VELKOST;
 
-        structures::Logger::getInstance().logInfo("Velkost listu, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
+        structures::Logger::getInstance().logInfo("Velkost PriorityQueue, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
 
-        //--------------------Insert-----------------
+        //----------------- Push -----------------
         this->infoPush();
-        while (sizeOfList <= MAX)
+        while (sizeOfQueue <= MAX)
         {
-            structures::Logger::getInstance().logDuration(0, cyklusPush(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
-            sizeOfList += KROK;
+            structures::Logger::getInstance().logDuration(0, cyklusPush(sizeOfQueue, POC_OPAKOVANI), std::to_string(sizeOfQueue));
+            sizeOfQueue += KROK;
         }
 
-        //----------------------At-------------------
+        //------------------ Pop -----------------
 
         this->infoPop();
-        sizeOfList = POC_VELKOST;
-        while (sizeOfList <= MAX)
+        sizeOfQueue = POC_VELKOST;
+        while (sizeOfQueue <= MAX)
         {
-            structures::Logger::getInstance().logDuration(0, cyklusPop(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
-            sizeOfList += KROK;
+            structures::Logger::getInstance().logDuration(0, cyklusPop(sizeOfQueue, POC_OPAKOVANI), std::to_string(sizeOfQueue));
+            sizeOfQueue += KROK;
         }
 
-        //------------------RemoveAt-----------------
+        //---------------- Peek -----------------
         this->infoPeek();
-        sizeOfList = POC_VELKOST;
-        while (sizeOfList <= MAX)
+        sizeOfQueue = POC_VELKOST;
+        while (sizeOfQueue <= MAX)
         {
-            structures::Logger::getInstance().logDuration(0, cyklusPeek(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
-            sizeOfList += KROK;
+            structures::Logger::getInstance().logDuration(0, cyklusPeek(sizeOfQueue, POC_OPAKOVANI), std::to_string(sizeOfQueue));
+            sizeOfQueue += KROK;
         }
 
     }
 
-    void ListUloha3::repairList(int SIZE, structures::PriorityQueue<int> &queue) {
-        // zväčšujem a mažem listy na koncoch
-        while (queue.size() != SIZE) {
-            if (queue.size() < SIZE) {
-                queue.add(rand() % INT16_MAX / 2);
+    void PriorityQueueUloha3::repairQueue(int SIZE, int MAX_PRIOR, structures::PriorityQueue<int> &pQueue) {
+        // zväčšujem a mažem data v queue na koncoch
+        while (pQueue.size() != SIZE) {
+            if (pQueue.size() < SIZE) {
+                pQueue.push(rand() % MAX_PRIOR, rand() % INT16_MAX / 2);
             } else {
-                queue.removeAt(queue.size() - 1);
+                pQueue.pop();
             }
         }
     }
 
     //------------------------------------------------------------------------
-    Microseconds ListUloha3::cyklusPush(int size, const int POC_OPAKOVANI)
+    Microseconds PriorityQueueUloha3::cyklusPush(int size, const int POC_OPAKOVANI)
     {
-        structures::PriorityQueue<int>* list = this->makePriorityQueue();
+        structures::PriorityQueue<int>* pQueue = this->makePriorityQueue();
         Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            repairList(size,*list);
-            duration += durationPush(rand() % INT16_MAX / 2, rand() % list->size(), *list);
+            repairQueue(size, size, *pQueue);
+            duration += durationPush(rand() % INT16_MAX / 2, rand() % pQueue->size(), *pQueue);
         }
-        delete list;
+        delete pQueue;
         return duration / POC_OPAKOVANI;
 
     }
 
-    Microseconds ListUloha3::durationPush(int cislo, int index, structures::PriorityQueue<int> &queue)
+    Microseconds PriorityQueueUloha3::durationPush(int priority, int cislo, structures::PriorityQueue<int> &pQueue)
     {
         SimpleTest::startStopwatch();
-        queue.insert(cislo, index);
+        pQueue.push(priority, cislo);
         SimpleTest::stopStopwatch();
         return SimpleTest::getElapsedTime();
     }
 
     //------------------------------------------------------------------------
-    Microseconds ListUloha3::cyklusPop(int size, const int POC_OPAKOVANI)
+    Microseconds PriorityQueueUloha3::cyklusPop(int size, const int POC_OPAKOVANI)
     {
-        structures::PriorityQueue<int>* list = this->makePriorityQueue();
+        structures::PriorityQueue<int>* pQueue = this->makePriorityQueue();
         Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
-        repairList(size, *list); // repair list je volaná tu pretože viem že sa s listom nič pri volaní at nestane
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            duration += durationPop(rand() % size, *list);
+            repairQueue(size, size, *pQueue);
+            duration += durationPop(*pQueue);
         }
-        delete list;
+        delete pQueue;
         return duration / POC_OPAKOVANI;
     }
 
-    Microseconds ListUloha3::durationPop(int index, structures::PriorityQueue<int> &queue)
+    Microseconds PriorityQueueUloha3::durationPop(structures::PriorityQueue<int> &pQueue)
     {
         SimpleTest::startStopwatch();
-        queue.at(index) = 7;
+        pQueue.pop();
         SimpleTest::stopStopwatch();
         return SimpleTest::getElapsedTime();
     }
 
     //------------------------------------------------------------------------
-    Microseconds ListUloha3::cyklusPeek(int size, const int POC_OPAKOVANI)
+    Microseconds PriorityQueueUloha3::cyklusPeek(int size, const int POC_OPAKOVANI)
     {
-        structures::PriorityQueue<int>* list = this->makePriorityQueue();
+        structures::PriorityQueue<int>* pQueue = this->makePriorityQueue();
         Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+        repairQueue(size, size, *pQueue);
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            repairList(size,*list);
-            duration += durationPeek(rand() % size, *list);
+            duration += durationPeek(*pQueue);
         }
-        delete list;
+        delete pQueue;
         return duration / POC_OPAKOVANI;
 
     }
 
-    Microseconds ListUloha3::durationPeek(int index, structures::PriorityQueue<int> &queue)
+    Microseconds PriorityQueueUloha3::durationPeek(structures::PriorityQueue<int> &pQueue)
     {
         SimpleTest::startStopwatch();
-        queue.removeAt(index);
+        pQueue.peek();
         SimpleTest::stopStopwatch();
         return SimpleTest::getElapsedTime();
     }
