@@ -17,9 +17,6 @@ namespace structures
 	//  - ak vyuzijete dedicnost, budete moct vyuzit predkove iteratory, 
 	//    takze ich nebudete musiet implementovat.
 
-    // todo nezabudni zmazať
-    // pridatie virtualnu metódu vytvor lli item a potomok to prešije
-    // pridanie aj preportovanie ako vyrtuálnu metódu
 
     template<typename T>
     class DoubleLinkedListItem : public LinkedListItem<T>
@@ -204,7 +201,7 @@ namespace structures
     template<typename T>
     inline void DoubleLinkedList<T>::add(const T& data)
     {
-        auto newLLI = new DoubleLinkedListItem<T>(data); // c++ si to automaticky detekuje, co je na lavo tak to prida to prava
+        auto newLLI = new DoubleLinkedListItem<T>(data);
         if (this->size_ == 0) {
             this->first_ = newLLI;
         }
@@ -227,7 +224,7 @@ namespace structures
             Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except from DoubleLinkedList<T>::insert()");
             auto newLLI = new DoubleLinkedListItem<T>(data);
             if (index == 0) {
-                DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_); // stačí pridat predchadzajúci prvok iba do pôvodneho, kedže nový je na začiatu
+                DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
                 oldLLI->setPrevious(newLLI);
                 newLLI->setNext(this->first_);
                 this-> first_ = newLLI;

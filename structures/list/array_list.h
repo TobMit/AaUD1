@@ -4,8 +4,7 @@
 #include "../structure_iterator.h"
 #include "../array/array.h"
 
-// todo nezabudni zmazať
-// Lambda funkcie ako bónus, pozrieť nepovinné
+//todo zmazat komenty pred odovzdanim (sry ako som na to nakoniec zabudol :( )
 
 namespace structures
 {
