@@ -240,7 +240,7 @@ namespace tests
         static const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
 
         structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
-        structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!");
 
         int opInst = getPomer(OPAKOVANIA, podielInsert);
         int opRemoveAt = getPomer(OPAKOVANIA, podielRemoveAt);

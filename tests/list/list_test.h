@@ -168,7 +168,7 @@ namespace tests
         ListUloha2();
         void test() override;
     private:
-        void cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,structures::List<int> &list);
+        void cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf, structures::List<int> &list);
         int getPomer(int const OPAKOVANIA, int pomer);
     protected:
         virtual structures::List<int> *makeList() const = 0;
