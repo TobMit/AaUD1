@@ -2,14 +2,14 @@ sep=,
 Info!,Testovanie ArrList!
 Info!,Testovanie Uloha2!
 Info!,Zacal sa test A!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara A!
-0!,305,220,23,23896,24444
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
+0!,90,27,14,21043,21174
 Info!,Zacal sa test B!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara B!
-0!,72,60,0,25877,26009
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
+0!,149,52,3,22978,23182
 Info!,Zacal sa test C!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara C!
-0!,7,16,0,10860,10883
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
+0!,4176,226,2,10500,14904
 Info!,Testovanie Uloha3!
 Info!,Velkost listu, Priemerna dlzka na 100 opakovani
 Info!,Testovanie ArrList - Insert
@@ -318,13 +318,13 @@ Info!,Testovanie ArrList - RemoveAt
 Info!,Testovanie DoubleLinList!
 Info!,Testovanie Uloha2!
 Info!,Zacal sa test A!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara A!
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
 0!,17,11,14,2,44
 Info!,Zacal sa test B!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara B!
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
 0!,470,5,0,39,514
 Info!,Zacal sa test C!
-Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara C!
+Info!,Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!
 0!,682,10,0,14,706
 Info!,Testovanie Uloha3!
 Info!,Velkost listu, Priemerna dlzka na 100 opakovani
