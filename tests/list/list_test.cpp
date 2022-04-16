@@ -200,6 +200,7 @@ namespace tests
 	ListTestOverall::ListTestOverall() :
 		ComplexTest("List")
 	{
+        srand(time(NULL));
 		addTest(new ArrayListTestOverall());
 		addTest(new LinkedListTestOverall());
         addTest(new DoubleLinkedListOverall());
