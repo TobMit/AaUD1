@@ -355,10 +355,10 @@ namespace tests
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
         static const int MAX = 1000000;
         static const int KROK = 10000;
-        static const int POC_VELKOST = 1000;
+        static const int POCIATOCNA_VELKOST = 1000;
         static const int POC_OPAKOVANI = 100;
         int sizeOfList;
-        sizeOfList = POC_VELKOST;
+        sizeOfList = POCIATOCNA_VELKOST;
 
         structures::Logger::getInstance().logInfo("Velkost listu, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
 
@@ -373,7 +373,7 @@ namespace tests
         //----------------------At-------------------
 
         this->infoAt();
-        sizeOfList = POC_VELKOST;
+        sizeOfList = POCIATOCNA_VELKOST;
         while (sizeOfList <= MAX)
         {
             structures::Logger::getInstance().logDuration(0, cyklusAt(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
@@ -382,7 +382,7 @@ namespace tests
 
         //------------------RemoveAt-----------------
         this->infoRemoveAt();
-        sizeOfList = POC_VELKOST;
+        sizeOfList = POCIATOCNA_VELKOST;
         while (sizeOfList <= MAX)
         {
             structures::Logger::getInstance().logDuration(0, cyklusRemoveAt(sizeOfList, POC_OPAKOVANI), std::to_string(sizeOfList));
