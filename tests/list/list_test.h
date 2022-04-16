@@ -159,7 +159,7 @@ namespace tests
     //------------------------------------ Uloha 2 ------------------------------------------------
 
     /// <summary>
-    /// Testovanie pre úlohu 2
+    /// Uloha 2
     /// </summary>
     class ListUloha2
             :public SimpleTest
@@ -220,6 +220,9 @@ namespace tests
     };
 
     //------------------------------------------- Uloha 3 -----------------------------------------------
+    /// <summary>
+    /// Uloha 3
+    /// </summary>
     class ListUloha3
             :public SimpleTest
     {
@@ -236,7 +239,7 @@ namespace tests
         Microseconds cyklusRemoveAt(int size, const int POC_OPAKOVANI);
         Microseconds durationRemoveAt(int index, structures::List<int> &list);
 
-        /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
+        /// repairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
         /// \param list - list kotry sa ma opravit
         void repairList(int SIZE, structures::List<int> &list);

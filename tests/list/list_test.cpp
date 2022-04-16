@@ -65,105 +65,105 @@ namespace tests
 	}
 	void ListTestFunctionsTest::test()
 	{
-		structures::List<int>* zoznam = this->makeList();
-		SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
-		zoznam->add(10);
-		zoznam->add(20);
-		zoznam->add(30);
-		zoznam->add(40);
-		SimpleTest::assertTrue(zoznam->size() == 4, "Pole ma velkost 4");
+		structures::List<int>* list = this->makeList();
+		SimpleTest::logInfo("Vkladam 4 prvky na koniec Listu");
+		list->add(10);
+		list->add(20);
+		list->add(30);
+		list->add(40);
+		SimpleTest::assertTrue(list->size() == 4, "List ma velkost 4");
 
-		SimpleTest::logInfo("Vkladam dalsie 4 prvky na koniec zoznamu");
-		zoznam->add(100);
-		zoznam->add(200);
-		zoznam->add(300);
-		zoznam->add(400);
+		SimpleTest::logInfo("Vkladam dalsie 4 prvky na koniec Lisu");
+		list->add(100);
+		list->add(200);
+		list->add(300);
+		list->add(400);
 
 
-		//SimpleTest::logInfo("Aktualna velkost pola je: " + std::to_string(zoznam->size()));
-		SimpleTest::assertTrue(zoznam->size() == 8, "Pole ma velkost 8");
+		//SimpleTest::logInfo("Aktualna velkost pola je: " + std::to_string(list->size()));
+		SimpleTest::assertTrue(list->size() == 8, "List ma velkost 8");
 
 		SimpleTest::logInfo("Vkladam 9 prvkov pomocou insert");
 		for (int i = 0; i < 9; i++)
 		{
-			zoznam->insert(1, 0);
+			list->insert(1, 0);
 		}
-		SimpleTest::assertTrue(zoznam->size() == 17, "Pole ma velkost 17");
-		zoznam->insert(7, 0);
-		zoznam->insert(77, 4);
-		zoznam->insert(777, 18);
-		zoznam->insert(7777, 20);
-        SimpleTest::assertTrue(zoznam->size() == 21, "Pole ma velkost 21");
+		SimpleTest::assertTrue(list->size() == 17, "List ma velkost 17");
+		list->insert(7, 0);
+		list->insert(77, 4);
+		list->insert(777, 18);
+		list->insert(7777, 20);
+        SimpleTest::assertTrue(list->size() == 21, "List ma velkost 21");
 
-		SimpleTest::assertTrue(zoznam->at(0) == 7, "Mala by tam byt 7 a je tam " + std::to_string(zoznam->at(0)));
-		SimpleTest::assertTrue(zoznam->at(1) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(1)));
-		SimpleTest::assertTrue(zoznam->at(2) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(2)));
-		SimpleTest::assertTrue(zoznam->at(3) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(3)));
-		SimpleTest::assertTrue(zoznam->at(4) == 77, "Mala by tam byt 77 a je tam " + std::to_string(zoznam->at(4)));
-		SimpleTest::assertTrue(zoznam->at(5) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(5)));
-		SimpleTest::assertTrue(zoznam->at(6) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(6)));
-		SimpleTest::assertTrue(zoznam->at(7) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(7)));
-		SimpleTest::assertTrue(zoznam->at(8) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(8)));
-		SimpleTest::assertTrue(zoznam->at(9) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(9)));
-		SimpleTest::assertTrue(zoznam->at(10) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(10)));
-		SimpleTest::assertTrue(zoznam->at(11) == 10, "Mala by tam byt 10 a je tam " + std::to_string(zoznam->at(11)));
-		SimpleTest::assertTrue(zoznam->at(12) == 20, "Mala by tam byt 20 a je tam " + std::to_string(zoznam->at(12)));
-		SimpleTest::assertTrue(zoznam->at(13) == 30, "Mala by tam byt 30 a je tam " + std::to_string(zoznam->at(13)));
-		SimpleTest::assertTrue(zoznam->at(14) == 40, "Mala by tam byt 40 a je tam " + std::to_string(zoznam->at(14)));
-		SimpleTest::assertTrue(zoznam->at(15) == 100, "Mala by tam byt 100 a je tam " + std::to_string(zoznam->at(15)));
-		SimpleTest::assertTrue(zoznam->at(16) == 200, "Mala by tam byt 200 a je tam " + std::to_string(zoznam->at(16)));
-		SimpleTest::assertTrue(zoznam->at(17) == 300, "Mala by tam byt 300 a je tam " + std::to_string(zoznam->at(17)));
-		SimpleTest::assertTrue(zoznam->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(zoznam->at(18)));
-		SimpleTest::assertTrue(zoznam->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(zoznam->at(19)));
-		SimpleTest::assertTrue(zoznam->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(zoznam->at(20)));
+		SimpleTest::assertTrue(list->at(0) == 7, "Mala by tam byt 7 a je tam " + std::to_string(list->at(0)));
+		SimpleTest::assertTrue(list->at(1) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(1)));
+		SimpleTest::assertTrue(list->at(2) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(2)));
+		SimpleTest::assertTrue(list->at(3) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(3)));
+		SimpleTest::assertTrue(list->at(4) == 77, "Mala by tam byt 77 a je tam " + std::to_string(list->at(4)));
+		SimpleTest::assertTrue(list->at(5) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(5)));
+		SimpleTest::assertTrue(list->at(6) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(6)));
+		SimpleTest::assertTrue(list->at(7) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(7)));
+		SimpleTest::assertTrue(list->at(8) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(8)));
+		SimpleTest::assertTrue(list->at(9) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(9)));
+		SimpleTest::assertTrue(list->at(10) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(10)));
+		SimpleTest::assertTrue(list->at(11) == 10, "Mala by tam byt 10 a je tam " + std::to_string(list->at(11)));
+		SimpleTest::assertTrue(list->at(12) == 20, "Mala by tam byt 20 a je tam " + std::to_string(list->at(12)));
+		SimpleTest::assertTrue(list->at(13) == 30, "Mala by tam byt 30 a je tam " + std::to_string(list->at(13)));
+		SimpleTest::assertTrue(list->at(14) == 40, "Mala by tam byt 40 a je tam " + std::to_string(list->at(14)));
+		SimpleTest::assertTrue(list->at(15) == 100, "Mala by tam byt 100 a je tam " + std::to_string(list->at(15)));
+		SimpleTest::assertTrue(list->at(16) == 200, "Mala by tam byt 200 a je tam " + std::to_string(list->at(16)));
+		SimpleTest::assertTrue(list->at(17) == 300, "Mala by tam byt 300 a je tam " + std::to_string(list->at(17)));
+		SimpleTest::assertTrue(list->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(list->at(18)));
+		SimpleTest::assertTrue(list->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(list->at(19)));
+		SimpleTest::assertTrue(list->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(list->at(20)));
 
-        SimpleTest::logInfo("Cistim zoznam");
-        zoznam->clear();
-        SimpleTest::assertTrue(zoznam->size() == 0, "Velkost zoznamu by mala byt 0 a je " + std::to_string(zoznam->size()));
+        SimpleTest::logInfo("Cistim List");
+        list->clear();
+        SimpleTest::assertTrue(list->size() == 0, "Velkost listu by mala byt 0 a je " + std::to_string(list->size()));
 
-        SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
-        zoznam->add(10);
-        zoznam->add(20);
-        zoznam->add(30);
-        zoznam->add(40);
-        structures::List<int>* copyZoznam = this->makeList(*zoznam);
-        SimpleTest::assertTrue(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
+        SimpleTest::logInfo("Vkladam 4 prvky na koniec Listu");
+        list->add(10);
+        list->add(20);
+        list->add(30);
+        list->add(40);
+        SimpleTest::logInfo("Vytvaram copyList");
+        structures::List<int>* copyList = this->makeList(*list);
+        SimpleTest::assertTrue(list->equals(*copyList), "Porovnavam Listy ci su rovnake, mali by byt.");
 
-        SimpleTest::logInfo("Menim hodnotu v copyZozham");
-        //SimpleTest::logInfo(std::to_string(copyMatica->at(4, 4)));
-        copyZoznam->at(3) = 7777;
-        SimpleTest::assertTrue(copyZoznam->at(3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do zoznamu.");
-        SimpleTest::assertFalse(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, nemali by byt.");
+        SimpleTest::logInfo("Menim hodnotu v copyList");
+        copyList->at(3) = 7777;
+        SimpleTest::assertTrue(copyList->at(3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do Listu.");
+        SimpleTest::assertFalse(list->equals(*copyList), "Porovnavam listy ci su rovnake, nemali by byt.");
 
-        SimpleTest::logInfo("Vkladam copyZoznam do uplne noveho zoznamu pomocou assign");
-        structures::List<int>* newZoznam = this->makeList();
-        newZoznam->assign(*copyZoznam);
-        SimpleTest::assertTrue(newZoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
+        SimpleTest::logInfo("Vkladam copyList do uplne noveho listu pomocou assign");
+        structures::List<int>* newList = this->makeList();
+        newList->assign(*copyList);
+        SimpleTest::assertTrue(newList->equals(*copyList), "Porovnavam listy ci su rovnake, mali by byt.");
 
-        newZoznam->clear();
-        newZoznam->add(10);
-        newZoznam->add(20);
-        newZoznam->add(30);
-        newZoznam->add(40);
+        newList->clear();
+        newList->add(10);
+        newList->add(20);
+        newList->add(30);
+        newList->add(40);
         SimpleTest::logInfo("Testujem iterator");
-        for (auto polozka: *newZoznam) {
+        for (auto polozka: *newList) {
             logInfo(std::to_string(polozka));
         }
-        int zmazanyPrvok = newZoznam->removeAt(0);
+        int zmazanyPrvok = newList->removeAt(0);
         SimpleTest::assertTrue(zmazanyPrvok == 10, "Hodnota mazaneho prvku ma byt 10 a je " + std::to_string(zmazanyPrvok));
-        SimpleTest::assertTrue(newZoznam->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newZoznam->getIndexOf(40)));
-        SimpleTest::assertFalse(newZoznam->tryRemove(1), "Vymazavam pomocou tryRemove data ktoré tam niesu");
-        SimpleTest::assertTrue(newZoznam->tryRemove(20), "Vymazavam pomocou tryRemove data ktoré tam sú");
+        SimpleTest::assertTrue(newList->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newList->getIndexOf(40)));
+        SimpleTest::assertFalse(newList->tryRemove(1), "Vymazavam pomocou tryRemove data ktoré tam niesu");
+        SimpleTest::assertTrue(newList->tryRemove(20), "Vymazavam pomocou tryRemove data ktoré tam sú");
 
         SimpleTest::logInfo("Testujem iterator");
-        for (auto polozka: *newZoznam) {
+        for (auto polozka: *newList) {
             logInfo(std::to_string(polozka));
         }
 
         SimpleTest::logPass("Complet");
-        delete newZoznam;
-        delete copyZoznam;
-        delete zoznam;
+        delete newList;
+        delete copyList;
+        delete list;
 	}
 
 // ArrayListTestOverall:
@@ -193,7 +193,7 @@ namespace tests
         addTest(new DoubleLinkedListTestInterface());
         addTest(new DoubleLinkedListFunctionTest());
         addTest(new DoubleLinListUloha2());
-        addTest(new DoubleLinListUloha3);
+        addTest(new DoubleLinListUloha3());
     }
 // ListTestOverall:
 
@@ -236,11 +236,8 @@ namespace tests
     void ListUloha2::cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,
                             structures::List<int> &list)
     {
-        //da sa na define int... alebo static const int ...
         static const int OPAKOVANIA = 100000;
         static const int MAX_VALUE_IN_LIST = 50; // maximálna hodnota ktorá sa vloží do zoznamu, čím menšie číslo, tým väčšia pravdepodobnosť že to getIndexOf najde
-
-        // todo rozhodnúť sa či budem hladať pre getIndexOf čísla náhodné alebo ich budem ešte ukladať niekde do zoznam a z tadiaľ budem číslo vyhľadávať
 
         structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
         structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
@@ -417,6 +414,7 @@ namespace tests
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
 
     }
 
@@ -441,6 +439,7 @@ namespace tests
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
     }
 
     Microseconds ListUloha3::durationAt(int index, structures::List<int> &list)
@@ -464,6 +463,7 @@ namespace tests
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
 
     }
 
