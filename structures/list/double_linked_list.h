@@ -101,9 +101,7 @@ namespace structures
         /// <param name = "index"> Index prvku. </param>
         /// <returns> Adresa prvku na danom indexe. </returns>
         /// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>
-        //Rieši dedičnost
-        //todo dalo by sa to poriešiť aj rýchlejšie bez dedičnosti
-        //T& at(int index) override;
+        T& at(int index) override;
 
         /// <summary> Prida prvok do zoznamu. </summary>
         /// <param name = "data"> Pridavany prvok. </param>
@@ -195,13 +193,13 @@ namespace structures
         throw std::runtime_error("DoubleLinkedList<T>::equals: Not implemented yet.");
     }*/
 
-    //Rieši dedičnost
-    /*
+
     template<typename T>
     inline T& DoubleLinkedList<T>::at(int index)
     {
-        throw std::runtime_error("DoubleLinkedList<T>::at: Not implemented yet.");
-    }*/
+        Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except from DoubleLinkedList<T>::at()");
+        return getItemAtIndex(index)->accessData();
+    }
 
     template<typename T>
     inline void DoubleLinkedList<T>::add(const T& data)
