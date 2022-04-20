@@ -36,11 +36,12 @@ namespace structures
 		/// <exception cref="std::logic_error"> Vyhodena, ak je halda prazdna. </exception>
 		T pop() override;
 
+        /*
         void degug(){
             for(auto item : *this->list_) {
                 std::cout << item->getPriority() << std::endl;
             }
-        }
+        }*/
 
 	protected:
 		/// <summary> Vrati index v ArrayList-e, na ktorom sa nachadza prvok s najvacsou prioritou. </summary>
