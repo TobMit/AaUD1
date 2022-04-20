@@ -154,7 +154,7 @@ namespace structures
 
         }
         else {
-            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peek()");
+            throw std::logic_error("Priority queue is empty! Except from PriorityQueueList<T>::peek()");
         }
     }
 
@@ -167,7 +167,7 @@ namespace structures
 
         }
         else {
-            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peek()");
+            throw std::logic_error("Priority queue is empty! Except from PriorityQueueList<T>::peek()");
         }
     }
 
@@ -180,7 +180,7 @@ namespace structures
 
         }
         else {
-            throw std::logic_error("Prioritz qeue is empty! Except from PriorityQueueList<T>::peekPriority()");
+            throw std::logic_error("Priority qyeue is empty! Except from PriorityQueueList<T>::peekPriority()");
         }
 
     }
