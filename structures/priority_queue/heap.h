@@ -3,6 +3,7 @@
 #include "priority_queue_list.h"
 #include "../list/array_list.h"
 #include "../utils.h"
+#include "iostream"
 #include <stdexcept>
 
 namespace structures
@@ -34,6 +35,12 @@ namespace structures
 		/// <returns> Odstraneny prvok. </returns>
 		/// <exception cref="std::logic_error"> Vyhodena, ak je halda prazdna. </exception>
 		T pop() override;
+
+        void degug(){
+            for(auto item : *this->list_) {
+                std::cout << item->getPriority() << std::endl;
+            }
+        }
 
 	protected:
 		/// <summary> Vrati index v ArrayList-e, na ktorom sa nachadza prvok s najvacsou prioritou. </summary>
@@ -100,7 +107,7 @@ namespace structures
                 Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
             }
 
-            PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
+            PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(indexLast);
 
             T data = item->accessData();
             delete item;

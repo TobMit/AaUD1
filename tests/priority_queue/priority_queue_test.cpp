@@ -120,6 +120,10 @@ namespace tests
         for (int i = 1; i <= 10; ++i) {
             queue->push(i, i);
         }
+        auto newheap = dynamic_cast<structures::Heap<int>*> (queue);
+        if (newheap != nullptr) {
+            newheap->degug();
+        }
         SimpleTest::assertTrue(queue->size() == 10,"Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(queue->size()));
 
         structures::PriorityQueue<int>* copyQueue = this->makePriorityQueue(*queue);
