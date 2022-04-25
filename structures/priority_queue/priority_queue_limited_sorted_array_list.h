@@ -74,22 +74,31 @@ namespace structures
     template<typename T>
     inline Structure& PriorityQueueLimitedSortedArrayList<T>::assign(Structure& other)
     {
-        //TODO 06: PriorityQueueLimitedSortedArrayList
-        throw std::runtime_error("PriorityQueueLimitedSortedArrayList<T>::assign: Not implemented yet.");
+        PriorityQueueSortedArrayList<T>::assign(other);
+        auto newOther = dynamic_cast<PriorityQueueLimitedSortedArrayList<T>&>(other);
+        capacity_ = newOther.capacity_;
     }
 
     template<typename T>
     void PriorityQueueLimitedSortedArrayList<T>::push(int priority, const T& data)
     {
-        //TODO 06: PriorityQueueLimitedSortedArrayList
-        throw std::runtime_error("PriorityQueueLimitedSortedArrayList<T>::push: Not implemented yet.");
+        if (capacity_ = this->size()) {
+            throw std::runtime_error("Presiahnutie kapacity. Except from PriorityQueueLimitedSortedArrayList<T>::push()");
+        } else {
+            PriorityQueueSortedArrayList<T>::push(priority, data);
+        }
     }
 
     template<typename T>
     inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(int priority, T data)
     {
-        //TODO 06: PriorityQueueLimitedSortedArrayList
-        throw std::runtime_error("PriorityQueueLimitedSortedArrayList<T>::pushAndRemove: Not implemented yet.");
+        if (capacity_ = this->size()) {
+            // todo dokoncit
+            throw std::runtime_error("Presiahnutie kapacity. Except from PriorityQueueLimitedSortedArrayList<T>::push()");
+        } else {
+            PriorityQueueSortedArrayList<T>::push(priority, data);
+            return nullptr;
+        }
     }
 
     template<typename T>
