@@ -83,7 +83,7 @@ namespace structures
     void PriorityQueueLimitedSortedArrayList<T>::push(int priority, const T& data)
     {
         if (capacity_ = this->size()) {
-            throw std::runtime_error("Presiahnutie kapacity. Except from PriorityQueueLimitedSortedArrayList<T>::push()");
+            throw std::logic_error("Presiahnutie kapacity. Except from PriorityQueueLimitedSortedArrayList<T>::push()");
         } else {
             PriorityQueueSortedArrayList<T>::push(priority, data);
         }
