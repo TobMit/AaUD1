@@ -93,8 +93,9 @@ namespace structures
     inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(int priority, T data)
     {
         if (capacity_ = this->size()) {
-            // todo dokoncit
-            throw std::runtime_error("Presiahnutie kapacity. Except from PriorityQueueLimitedSortedArrayList<T>::push()");
+            auto removeData = PriorityQueueList<T>::list_.removeAt(this->size() - 1);
+            this->push(priority, data);
+            return removeData;
         } else {
             PriorityQueueSortedArrayList<T>::push(priority, data);
             return nullptr;
