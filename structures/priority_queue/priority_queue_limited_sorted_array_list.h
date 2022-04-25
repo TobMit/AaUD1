@@ -116,7 +116,10 @@ namespace structures
     template<typename T>
     inline bool PriorityQueueLimitedSortedArrayList<T>::trySetCapacity(size_t capacity)
     {
-        //TODO 06: PriorityQueueLimitedSortedArrayList
-        throw std::runtime_error("PriorityQueueLimitedSortedArrayList<T>::trySetCapacity: Not implemented yet.");
+        if (capacity < this->size()) {
+            return false;
+        } else {
+            capacity_ = capacity;
+        }
     }
 }
