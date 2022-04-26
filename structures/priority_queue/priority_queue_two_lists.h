@@ -98,8 +98,7 @@ namespace structures
 	template<typename T>
 	size_t PriorityQueueTwoLists<T>::size()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::size: Not implemented yet.");
+        return shortList_->size() + longList_->size();
 	}
 
 	template<typename T>
