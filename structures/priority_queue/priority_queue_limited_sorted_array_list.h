@@ -93,7 +93,7 @@ namespace structures
     inline PriorityQueueItem<T>* PriorityQueueLimitedSortedArrayList<T>::pushAndRemove(int priority, T data)
     {
         if (capacity_ == this->size()) {
-            auto removeData = PriorityQueueList<T>::list_.removeAt(this->size() - 1);
+            auto removeData = PriorityQueueList<T>::list_->removeAt(this->size() - 1);
             this->push(priority, data);
             return removeData;
         } else {
