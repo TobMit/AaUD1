@@ -128,14 +128,12 @@ namespace structures
 	template<typename T>
 	T& PriorityQueueTwoLists<T>::peek()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::peek: Not implemented yet.");
+        return shortList_->peek();
 	}
 
 	template<typename T>
 	int PriorityQueueTwoLists<T>::peekPriority()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::peekPriority: Not implemented yet.");
+        return shortList_->peekPriority();
 	}
 }
