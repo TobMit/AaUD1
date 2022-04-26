@@ -88,8 +88,11 @@ namespace structures
 	template<typename T>
 	Structure& PriorityQueueTwoLists<T>::assign(Structure& other)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::assign: Not implemented yet.");
+        //todo skontolovať či to roby deep copy
+		clear();
+        auto newOther = dynamic_cast<PriorityQueueTwoLists<T>&>(other);
+        shortList_->assign(newOther.shortList_);
+        longList_->assign(newOther.longList_);
 	}
 
 	template<typename T>
