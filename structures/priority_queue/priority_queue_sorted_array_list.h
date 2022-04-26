@@ -29,6 +29,12 @@ namespace structures
 		/// <param name = "data"> Vkladany prvok. </param>
 		void push(int priority, const T& data) override;
 
+        void degug(){
+            for(auto item : *this->list_) {
+                std::cout << item->getPriority() << std::endl;
+            }
+        }
+
 	protected:
 		/// <summary> Vrati index v utriedenom ArrayList-e, na ktorom sa nachadza prvok s najvacsou prioritou. </summary>
 		/// <returns> Index prvku s najvacsou prioritou. </returns>
@@ -62,7 +68,7 @@ namespace structures
             this->list_->add(new PriorityQueueItem<T>(priority, data));
         } else {
             int index = this->size()/2;
-            if (this->list_->at(index)->getPriority() > priority) {
+            if (this->list_->at(index)->getPriority() < priority) {
                 // ide do ľava smerom k nule
                 while (index < 0) {
                     int aktPrior = this->list_->at(index)->getPriority();
@@ -77,7 +83,7 @@ namespace structures
                 }
                 this->list_->insert(new PriorityQueueItem<T>(priority, data), 0);
 
-            } else if (this->list_->at(index)->getPriority() <= priority) {
+            } else if (this->list_->at(index)->getPriority() >= priority) {
                 // ide do prava dalej od nuly
                 while (index > this->size()) {
                     int aktPrior = this->list_->at(index)->getPriority();

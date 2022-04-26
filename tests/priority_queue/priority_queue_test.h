@@ -195,6 +195,18 @@ namespace tests
             return new structures::PriorityQueueTwoLists<int>(priorityQueue);
         };
     };
+
+    class PriorityQueueSortedArrayListFunctionTest
+            :public PriorityQueueTestFunctionsTest {
+    protected:
+        structures::PriorityQueue<int> * makePriorityQueue() const override {
+            return new structures::PriorityQueueSortedArrayList<int>();
+        };
+        structures::PriorityQueue<int> * makePriorityQueue(structures::PriorityQueue<int> &other) const override {
+            structures::PriorityQueueSortedArrayList<int>& priorityQueue = dynamic_cast<structures::PriorityQueueSortedArrayList<int>&>(other);
+            return new structures::PriorityQueueSortedArrayList<int>(priorityQueue);
+        };
+    };
     //------------------------------------ Uloha 2 ------------------------------------------------
 
     /// <summary>

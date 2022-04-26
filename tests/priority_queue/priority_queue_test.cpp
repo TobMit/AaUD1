@@ -60,6 +60,7 @@ namespace tests
         ComplexTest("PriorityQueueSortedArrayList")
     {
         addTest(new PriorityQueueSortedArrayListTestInterface());
+        addTest(new PriorityQueueSortedArrayListFunctionTest());
     }
 
     PriorityQueueLimitedSortedArrayListTestOverall::PriorityQueueLimitedSortedArrayListTestOverall() :
@@ -120,11 +121,11 @@ namespace tests
         for (int i = 1; i <= 10; ++i) {
             queue->push(i, i);
         }
-        /*
-        auto newheap = dynamic_cast<structures::Heap<int>*> (queue);
+
+        auto newheap = dynamic_cast<structures::PriorityQueueSortedArrayList<int>*> (queue);
         if (newheap != nullptr) {
             newheap->degug();
-        }*/
+        }
         SimpleTest::assertTrue(queue->size() == 10,"Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(queue->size()));
 
         structures::PriorityQueue<int>* copyQueue = this->makePriorityQueue(*queue);
@@ -147,6 +148,7 @@ namespace tests
         delete queue;
     }
 
+    //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
     QueueUloha2::QueueUloha2()
             : SimpleTest("Uloha2")
     {
