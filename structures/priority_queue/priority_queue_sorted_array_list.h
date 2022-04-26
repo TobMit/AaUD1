@@ -58,8 +58,41 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueSortedArrayList
-		throw std::runtime_error("PriorityQueueSortedArrayList<T>::push: Not implemented yet.");
+		if (this->size() == 0) {
+            this->list_->add(new PriorityQueueItem<T>(priority, data));
+        } else {
+            int index = this->size()/2;
+            if (this->list_->at(index)->getPriority() > priority) {
+                // ide do ľava smerom k nule
+                while (index < 0) {
+                    int aktPrior = this->list_->at(index)->getPriority();
+                    int nextPrior = this->list_->at(index - 1)-> getPriority();
+
+                    if (aktPrior <= priority && nextPrior >= priority) {
+                        //todo skontrolovať či to dalo na správnu poziciu
+                        this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
+                        return;
+                    }
+                    index--;
+                }
+                this->list_->insert(new PriorityQueueItem<T>(priority, data), 0);
+
+            } else if (this->list_->at(index)->getPriority() <= priority) {
+                // ide do prava dalej od nuly
+                while (index > this->size()) {
+                    int aktPrior = this->list_->at(index)->getPriority();
+                    int nextPrior = this->list_->at(index + 1)-> getPriority();
+
+                    if (aktPrior >= priority && nextPrior <= priority) {
+                        //todo skontrolovať či to dalo na správnu poziciu
+                        this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
+                        return;
+                    }
+                    index++;
+                }
+                this->list_->add(new PriorityQueueItem<T>(priority, data));
+            }
+        }
 	}
 
 	template<typename T>
