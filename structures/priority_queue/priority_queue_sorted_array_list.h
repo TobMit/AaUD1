@@ -74,7 +74,7 @@ namespace structures
                     int aktPrior = this->list_->at(index)->getPriority();
                     int nextPrior = this->list_->at(index - 1)-> getPriority();
 
-                    if (aktPrior <= priority && nextPrior >= priority) {
+                    if (aktPrior >= priority && nextPrior <= priority) {
                         //todo skontrolovať či to dalo na správnu poziciu
                         this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
                         return;
@@ -89,7 +89,7 @@ namespace structures
                     int aktPrior = this->list_->at(index)->getPriority();
                     int nextPrior = this->list_->at(index + 1)-> getPriority();
 
-                    if (aktPrior >= priority && nextPrior <= priority) {
+                    if (aktPrior <= priority && nextPrior >= priority) {
                         //todo skontrolovať či to dalo na správnu poziciu
                         this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
                         return;

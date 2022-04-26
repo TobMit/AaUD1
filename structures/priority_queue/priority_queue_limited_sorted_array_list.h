@@ -74,9 +74,12 @@ namespace structures
     template<typename T>
     inline Structure& PriorityQueueLimitedSortedArrayList<T>::assign(Structure& other)
     {
-        PriorityQueueSortedArrayList<T>::assign(other);
-        auto newOther = dynamic_cast<PriorityQueueLimitedSortedArrayList<T>&>(other);
-        capacity_ = newOther.capacity_;
+        if (this != &other) {
+            auto newOther = dynamic_cast<PriorityQueueLimitedSortedArrayList<T> &>(other);
+            capacity_ = newOther.capacity_;
+            PriorityQueueSortedArrayList<T>::assign(other);
+        }
+        return *this;
     }
 
     template<typename T>

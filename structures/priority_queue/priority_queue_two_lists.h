@@ -89,12 +89,15 @@ namespace structures
 	Structure& PriorityQueueTwoLists<T>::assign(Structure& other)
 	{
         //todo skontolovať či to roby deep copy
-		clear();
-        PriorityQueueTwoLists<T>& newOther = dynamic_cast<PriorityQueueTwoLists<T>&>(other);
-        shortList_->assign(*newOther.shortList_);
-        for (auto item: *newOther.longList_) {
-            longList_->add(item);
+        if (this != &other) {
+            clear();
+            PriorityQueueTwoLists<T> &newOther = dynamic_cast<PriorityQueueTwoLists<T> &>(other);
+            shortList_->assign(*newOther.shortList_);
+            for (auto item : *newOther.longList_) {
+                longList_->add(item);
+            }
         }
+        return *this;
 	}
 
 	template<typename T>
@@ -116,8 +119,8 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::push(int priority, const T& data)
 	{
-		auto tryPush = shortList_->pushAndRemove(priority, data);
-        if (tryPush == nullptr) {
+        PriorityQueueItem<T>* tryPush = shortList_->pushAndRemove(priority, data);
+        if (tryPush != nullptr) {
             longList_->add(tryPush);
         }
 	}
