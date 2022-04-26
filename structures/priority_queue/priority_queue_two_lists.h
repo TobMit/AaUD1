@@ -102,8 +102,11 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::clear()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::clear: Not implemented yet.");
+        //todo skontorlovať memory leaky
+		shortList_->clear();
+        for (auto item : *longList_) {
+            delete item;
+        }
 	}
 
 	template<typename T>
