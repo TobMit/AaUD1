@@ -81,7 +81,7 @@ namespace tests
         addTest(new PriorityQueueTwoListsTestInterface());
         addTest(new PriorityQueueTwoListsFunctionTest());
         addTest(new QueueTwoListsUloha2());
-        addTest(new QueueTwoListsUloha2());
+        addTest(new QueueTwoListsUloha3);
     }
 
     HeapTestOverall::HeapTestOverall() :
