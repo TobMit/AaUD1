@@ -55,7 +55,7 @@ namespace structures
         /// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
         /// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
         /// <summary>
-        Structure& assign(PriorityQueueList<T>& other);
+        Structure& assignPrioQueueList(PriorityQueueList<T>& other);
 
     protected:
         /// <summary> Smernik na zoznam, do ktoreho sa ukladaju prvky prioritneho frontu. </summary>
@@ -124,7 +124,7 @@ namespace structures
     }
 
     template<typename T>
-    inline Structure& PriorityQueueList<T>::assign(PriorityQueueList<T>& other)
+    inline Structure& PriorityQueueList<T>::assignPrioQueueList(PriorityQueueList<T>& other)
     {
         // test identyty
         //clear()

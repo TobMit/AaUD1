@@ -77,7 +77,7 @@ namespace structures
 	template<typename T>
 	inline Structure& Heap<T>::assign(Structure& other)
 	{
-		return PriorityQueueList<T>::assign(dynamic_cast<PriorityQueueList<T>&>(other));
+		return PriorityQueueList<T>::assignPrioQueueList(dynamic_cast<PriorityQueueList<T> &>(other));
 	}
 
 	template<typename T>
