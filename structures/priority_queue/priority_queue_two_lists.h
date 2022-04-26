@@ -94,7 +94,7 @@ namespace structures
             PriorityQueueTwoLists<T> &newOther = dynamic_cast<PriorityQueueTwoLists<T> &>(other);
             shortList_->assign(*newOther.shortList_);
             for (auto item : *newOther.longList_) {
-                longList_->add(item);
+                longList_->add(new PriorityQueueItem<T>(*item));
             }
         }
         return *this;
@@ -130,9 +130,11 @@ namespace structures
 	{
         //todo skontrolovať memleaky
         static const int DEFAULT_NAHODNOTA = 4;
-        if (shortList_->size() != 0 && longList_->size() != 0) {
-            return shortList_->pop();
-        } else {
+
+        auto dataPop = shortList_->pop();
+
+        if (shortList_->size() == 0 && longList_->size() != 0) {
+
             int newSize = sqrt(longList_->size());
             if (newSize >= DEFAULT_NAHODNOTA) {
                 shortList_->trySetCapacity(newSize);
@@ -150,9 +152,9 @@ namespace structures
             delete longList_;
             longList_ = newList;
 
-
-
         }
+
+        return dataPop;
 	}
 
 	template<typename T>
