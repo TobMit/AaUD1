@@ -149,7 +149,6 @@ namespace tests
     }
 
     //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
-    // haha toto je test
     QueueUloha2::QueueUloha2()
             : SimpleTest("Uloha2")
     {
