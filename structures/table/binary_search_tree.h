@@ -15,7 +15,7 @@ namespace structures
 	class BinarySearchTree : public Table<K, T>
 	{
 	public:
-		typedef BinaryTreeNode<TableItem<K, T>*> BSTTreeNode;
+		typedef BinaryTreeNode<TableItem<K,T>*> BSTTreeNode;
 	public:
 		/// <summary> Konstruktor. </summary>
 		BinarySearchTree();
@@ -31,9 +31,9 @@ namespace structures
 		/// <returns> Pocet prvkov v tabulke. </returns>
 		size_t size() override;
 
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
 		Structure& assign(Structure& other) override;
 
 		/// <summary> Porovnanie struktur. </summary>
@@ -88,7 +88,7 @@ namespace structures
 		/// <param name = "key"> Hladany kluc. </param>
 		/// <param name = "found"> Vystupny parameter, ktory indikuje, ci sa kluc nasiel. </param>
 		/// <returns> Vrchol binarneho vyhladavacieho stromu s danym klucom. Ak sa kluc v tabulke nenachadza, vrati otca, ktoreho by mal mat vrchol s takym klucom. </returns>
-		BSTTreeNode* findBSTNode(K key, bool& found);
+		typename BinarySearchTree::BSTTreeNode* findBSTNode(K key, bool& found);
 
 	protected:
 		/// <summary> Binarny strom s datami. </summary>
@@ -108,7 +108,7 @@ namespace structures
 	};
 
 	template<typename K, typename T>
-	inline BinarySearchTree<K, T>::BinarySearchTree():
+	inline BinarySearchTree<K, T>::BinarySearchTree() :
 		Table<K, T>(),
 		binaryTree_(new BinaryTree<TableItem<K, T>*>()),
 		size_(0)
@@ -116,7 +116,7 @@ namespace structures
 	}
 
 	template<typename K, typename T>
-	inline BinarySearchTree<K, T>::BinarySearchTree(BinarySearchTree<K, T>& other):
+	inline BinarySearchTree<K, T>::BinarySearchTree(BinarySearchTree<K, T>& other) :
 		BinarySearchTree()
 	{
 		assign(other);
@@ -145,7 +145,7 @@ namespace structures
 	template<typename K, typename T>
 	inline bool BinarySearchTree<K, T>::equals(Structure& other)
 	{
-		return Table<K, T>::equals(dynamic_cast<BinarySearchTree<K, T>*>(&other));
+		return Table<K, T>::equalsTable(dynamic_cast<BinarySearchTree<K, T>*>(&other));
 	}
 
 	template<typename K, typename T>
@@ -205,7 +205,7 @@ namespace structures
 	}
 
 	template<typename K, typename T>
-	inline typename BinarySearchTree<K,T>::BSTTreeNode* BinarySearchTree<K, T>::findBSTNode(K key, bool& found)
+	inline typename BinarySearchTree<K, T>::BSTTreeNode* BinarySearchTree<K, T>::findBSTNode(K key, bool& found)
 	{
 		//TODO 10: BinarySearchTree
 		throw std::runtime_error("BinarySearchTree<K, T>::findBSTNode: Not implemented yet.");

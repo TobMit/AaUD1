@@ -21,11 +21,6 @@ namespace structures
 		/// <returns> Pocet prvkov v tabulke. </returns>
 		size_t size() override;
 
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		Structure& assign(Structure& other) override;
-
 		/// <summary> Vrati adresou data s danym klucom. </summary>
 		/// <param name = "key"> Kluc dat. </param>
 		/// <returns> Adresa dat s danym klucom. </returns>
@@ -82,6 +77,12 @@ namespace structures
 		/// <returns> Prvok tabulky s danym klucom, ak neexistuje, vrati nullptr. </returns>
 		virtual TableItem<K, T>* findTableItem(const K& key);
 
+		/// <summary> Priradenie struktury. Pomocna metoda, ktora prebera referenciu, ktoru posle potomok. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		/// <summary>
+		SequenceTable<K, T>& assignSequenceTable(SequenceTable<K, T>& other);
+
 	protected:
 		List<TableItem<K, T>*>* list_;
 	};
@@ -97,13 +98,6 @@ namespace structures
 	{
 		//TODO 08: SequenceTable
 		throw std::runtime_error("SequenceTable<K, T>::size: Not implemented yet.");
-	}
-
-	template<typename K, typename T>
-	inline Structure& SequenceTable<K, T>::assign(Structure& other)
-	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::assign: Not implemented yet.");
 	}
 
 	template<typename K, typename T>
@@ -175,5 +169,11 @@ namespace structures
 		//TODO 08: SequenceTable
 		throw std::runtime_error("SequenceTable<K, T>::findTableItem: Not implemented yet.");
 	}
-
+	
+	template<typename K, typename T>
+	inline SequenceTable<K, T>& SequenceTable<K, T>::assignSequenceTable(SequenceTable<K, T>& other)
+	{
+		//TODO 08: SequenceTable
+		throw std::runtime_error("SequenceTable<K, T>::assignSequenceTable: Not implemented yet.");
+	}
 }

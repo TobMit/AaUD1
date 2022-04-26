@@ -185,7 +185,7 @@ namespace structures
 	template<typename K, typename T>
 	inline bool HashTable<K, T>::equals(Structure& other)
 	{
-		return Table<K, T>::equals(dynamic_cast<HashTable<K, T>*>(&other));
+		return Table<K, T>::equalsTable(dynamic_cast<HashTable<K, T>*>(&other));
 	}
 
 	template<typename K, typename T>
