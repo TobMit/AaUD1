@@ -78,7 +78,11 @@ namespace structures
 	template<typename T>
 	PriorityQueueTwoLists<T>::~PriorityQueueTwoLists()
 	{
-		//TODO 06: PriorityQueueTwoLists
+		clear();
+        delete shortList_;
+        delete longList_;
+        shortList_ = nullptr;
+        longList_ = nullptr;
 	}
 
 	template<typename T>
