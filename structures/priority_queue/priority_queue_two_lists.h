@@ -123,8 +123,31 @@ namespace structures
 	template<typename T>
 	T PriorityQueueTwoLists<T>::pop()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::pop: Not implemented yet.");
+        //todo skontrolovať memleaky
+        static const int DEFAULT_NAHODNOTA = 4;
+        if (shortList_->size() != 0 && longList_->size() != 0) {
+            return shortList_->pop();
+        } else {
+            int newSize = sqrt(longList_->size());
+            if (newSize >= DEFAULT_NAHODNOTA) {
+                shortList_->trySetCapacity(newSize);
+            }
+            LinkedList<PriorityQueueItem<T>*>* newList = new LinkedList<PriorityQueueItem<T>*>();
+
+            while (!longList_->isEmpty()) {
+                auto removeItem = longList_->removeAt(0);
+                auto tryPush = shortList_->pushAndRemove(removeItem->getPriority(),removeItem->accessData());
+                delete removeItem;
+                if (tryPush == nullptr) {
+                    newList->add(tryPush);
+                }
+            }
+            delete longList_;
+            longList_ = newList;
+
+
+
+        }
 	}
 
 	template<typename T>
