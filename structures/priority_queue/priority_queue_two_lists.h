@@ -114,8 +114,10 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::push(int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::push: Not implemented yet.");
+		auto tryPush = shortList_->pushAndRemove(priority, data);
+        if (tryPush == nullptr) {
+            longList_->add(tryPush);
+        }
 	}
 
 	template<typename T>
