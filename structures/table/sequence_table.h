@@ -171,8 +171,12 @@ namespace structures
 	template<typename K, typename T>
 	inline TableItem<K, T>* SequenceTable<K, T>::findTableItem(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::findTableItem: Not implemented yet.");
+        for (auto item: *list_) {
+            if (item->getKey() == key) {
+                return item;
+            }
+        }
+        return nullptr;
 	}
 	
 	template<typename K, typename T>
