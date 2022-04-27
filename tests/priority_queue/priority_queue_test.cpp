@@ -96,6 +96,7 @@ namespace tests
     PriorityQueueTestOverall::PriorityQueueTestOverall() :
         ComplexTest("PriorityQueue")
     {
+        srand(time(NULL));
         addTest(new PriorityQueueUnsortedArrayListTestOverall());
         addTest(new PriorityQueueSortedArrayListTestOverall());
         addTest(new PriorityQueueLimitedSortedArrayListTestOverall());
@@ -110,22 +111,17 @@ namespace tests
     }
     void PriorityQueueTestFunctionsTest::test()
     {
-        /*
-        queue->push(0, x);
-        queue->peek();
-        queue->peekPriority();
-        queue->pop();
-        queue->assign(*queue);
-        delete queue; */
         structures::PriorityQueue<int>* queue = this->makePriorityQueue();
         for (int i = 1; i <= 10; ++i) {
             queue->push(i, i);
         }
 
-        auto newheap = dynamic_cast<structures::PriorityQueueSortedArrayList<int>*> (queue);
-        if (newheap != nullptr) {
-            newheap->degug();
-        }
+        /*for (int i = 1; i <= 100; ++i) {
+            // vkladanie s nahodnou prioritov
+            int cislo = rand()%1000;
+            queue->push(cislo, cislo);
+        }*/
+
         SimpleTest::assertTrue(queue->size() == 10,"Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(queue->size()));
 
         structures::PriorityQueue<int>* copyQueue = this->makePriorityQueue(*queue);
@@ -138,10 +134,28 @@ namespace tests
         SimpleTest::assertTrue(hodnota == 2, "Hodnota pop by mala byt 2 a je " + std::to_string(hodnota));
         hodnota = queue->pop();
         SimpleTest::assertTrue(hodnota == 3, "Hodnota pop by mala byt 3 a je " + std::to_string(hodnota));
-        /*
-        for (int i = 1; i <= queue->size(); ++i) {
-            SimpleTest::logInfo(std::to_string(queue->peek()) + " " + std::to_string(queue->peekPriority()) + " " + std::to_string(queue->pop()));
-        } */
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 4, "Hodnota pop by mala byt 4 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 5, "Hodnota pop by mala byt 5 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 6, "Hodnota pop by mala byt 6 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 7, "Hodnota pop by mala byt 7 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 8, "Hodnota pop by mala byt 8 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 9, "Hodnota pop by mala byt 9 a je " + std::to_string(hodnota));
+        hodnota = queue->pop();
+        SimpleTest::assertTrue(hodnota == 10, "Hodnota pop by mala byt 10 a je " + std::to_string(hodnota));
+
+        structures::PriorityQueue<int>* assignQueue = this->makePriorityQueue();
+        assignQueue->assign(*copyQueue);
+        SimpleTest::assertTrue(assignQueue->size() == 10, "Testujem ci kopirovaci konstruktor funguje spravne.");
+        SimpleTest::logInfo(" \"Ocna\" kontrola copyQueue assign. Cisla v riadkoch maju bit rovnake a ist od 1 do 10 ");
+        for (int i = 1; i <= 10; ++i) {
+            SimpleTest::logInfo(std::to_string(copyQueue->peek()) + " " + std::to_string(copyQueue->peekPriority()) + " " + std::to_string(copyQueue->pop()));
+        }
 
         SimpleTest::logPass("Complet");
         delete copyQueue;
