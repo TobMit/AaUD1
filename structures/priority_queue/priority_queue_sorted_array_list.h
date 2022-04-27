@@ -3,6 +3,7 @@
 #include "priority_queue_list.h"
 #include "../list/array_list.h"
 #include <stdexcept>
+#include "iostream"
 
 namespace structures
 {
@@ -64,41 +65,34 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(int priority, const T& data)
 	{
-		if (this->size() == 0) {
+        if (this->isEmpty()){
             this->list_->add(new PriorityQueueItem<T>(priority, data));
-        } else {
-            int index = this->size()/2;
-            if (this->list_->at(index)->getPriority() > priority) {
-                // ide do ľava smerom k nule
-                while (index > 0) {
-                    int aktPrior = this->list_->at(index)->getPriority();
-                    int nextPrior = this->list_->at(index - 1)-> getPriority();
-
-                    if (aktPrior >= priority && nextPrior <= priority) {
-                        //todo skontrolovať či to dalo na správnu poziciu
-                        this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
-                        return;
+            return;
+        }
+        int index;
+        int hornaHranica = this->size()-1;
+        int dolnaHranica = 0;
+        while (true) {
+            index = (dolnaHranica + hornaHranica )/2;
+            if (this->list_->at(index)->getPriority() == priority) {
+                this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
+                return;
+            } else {
+                if (dolnaHranica == hornaHranica) {
+                    this->list_->insert(new PriorityQueueItem<T>(priority, data), dolnaHranica);
+                    return;
+                } else {
+                    if (this->list_->at(index)->getPriority() > priority) {
+                        dolnaHranica = index + 1;
+                    } else {
+                        hornaHranica = index;
                     }
-                    index--;
                 }
-                this->list_->insert(new PriorityQueueItem<T>(priority, data), 0);
-
-            } else if (this->list_->at(index)->getPriority() <= priority) {
-                // ide do prava dalej od nuly
-                while (index > this->size()) {
-                    int aktPrior = this->list_->at(index)->getPriority();
-                    int nextPrior = this->list_->at(index + 1)-> getPriority();
-
-                    if (aktPrior <= priority && nextPrior >= priority) {
-                        //todo skontrolovať či to dalo na správnu poziciu
-                        this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
-                        return;
-                    }
-                    index++;
-                }
-                this->list_->add(new PriorityQueueItem<T>(priority, data));
             }
         }
+
+
+
 	}
 
 	template<typename T>
