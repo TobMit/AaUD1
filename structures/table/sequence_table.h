@@ -191,6 +191,8 @@ namespace structures
         }
         return *this;
 
+        // koment na zmazanie
+
         // podobne ako pri stromoch
         // zavolame clear
         // prebehneme other list a nahrame ich do nového cez kopi konštruktor
