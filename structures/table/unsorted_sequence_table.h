@@ -7,6 +7,9 @@
 namespace structures
 {
 
+    //todo da sa vylepšiť remove, svapnúť prvok na koniec (môžem lebo neutriedena) a následne zmazať koniec
+
+
 	/// <summary> Sekvencna neutriedena tabulka. </summary>
 	/// <typeparam name = "K"> Kluc prvkov v tabulke. </typepram>
 	/// <typeparam name = "T"> Typ dat ukladanych v tabulke. </typepram>
