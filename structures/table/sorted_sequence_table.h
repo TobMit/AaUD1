@@ -80,15 +80,25 @@ namespace structures
 	template<typename K, typename T>
 	inline void SortedSequenceTable<K, T>::insert(const K& key, const T& data)
 	{
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::insert: Not implemented yet.");
+        bool found = false; // nemusí sa to volať rovnako
+        int index = indexOfKey(key, 0, this->size()-1, found);
+
+        if (!found) {
+            SequenceTable<K,T>::list_->insert(new TableItem<K, T>(key, data), index);
+        } else {
+            throw std::logic_error("Key already exist! Expect from SortedSequenceTable<K, T>::insert()");
+        }
 	}
 
 	template<typename K, typename T>
 	inline TableItem<K, T>* SortedSequenceTable<K, T>::findTableItem(const K& key)
 	{
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::findTableItem: Not implemented yet.");
+        // musi byť vytvorené ako premenná alebo indexOFKey vyžaduje pameťové miesto &found!!!
+		bool found = false; // nemusí sa to volať rovnako
+        int index = indexOfKey(key, 0, this->size()-1, found);
+
+        // je to chránena metóda, nebudem si hadzať throw lebo by mi to spomalilo a sám sebe by som si spravil zle
+        return found ? SequenceTable<K, T>::list_->at(index) : nullptr;
 	}
 
 	template<typename K, typename T>
