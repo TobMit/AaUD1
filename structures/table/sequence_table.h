@@ -180,6 +180,7 @@ namespace structures
 	{
         if (this != &other) {
             clear();
+            // tu by sa dalo aj for(auto intem: other) - pretože other má iterátor a môžeme to prechádzať aj takto
             for (auto item: *other.list_) {
                 list_->add(new TableItem<K, T>(*item));
             }
