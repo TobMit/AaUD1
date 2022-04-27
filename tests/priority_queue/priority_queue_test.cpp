@@ -191,12 +191,11 @@ namespace tests
     void QueueUloha2::cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek,
                              structures::PriorityQueue<int> &pQueue)
     {
-        //da sa na define int... alebo static const int ...
         static const int OPAKOVANIA = 100000;
         static const int MAX_DATA_VALUE_IN_QUEUE = 100;
         static const int MAX_PRIORITY = 100000;
 
-        structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
         structures::Logger::getInstance().logInfo("Celkovo Push, Celkovo Pop, Celkovo Peek, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
 
         int opPush = getPomer(OPAKOVANIA, podielPush);
@@ -240,7 +239,7 @@ namespace tests
                     break;
 
                 case 2:
-                    if (pQueue.size() != 0) {
+                    if (!pQueue.isEmpty()) {
                         SimpleTest::startStopwatch();
                         pQueue.pop();
                         SimpleTest::stopStopwatch();
@@ -249,7 +248,7 @@ namespace tests
                     break;
 
                 case 3:
-                    if (pQueue.size() != 0) {
+                    if (!pQueue.isEmpty()) {
                         SimpleTest::startStopwatch();
                         pQueue.peek();
                         SimpleTest::stopStopwatch();
