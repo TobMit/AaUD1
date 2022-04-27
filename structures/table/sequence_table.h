@@ -191,7 +191,6 @@ namespace structures
         }
         return *this;
 
-        // koment na zmazanie
 
         // podobne ako pri stromoch
         // zavolame clear
