@@ -90,14 +90,15 @@ namespace structures
 	template<typename K, typename T>
 	inline SequenceTable<K, T>::~SequenceTable()
 	{
-		//TODO 08: SequenceTable
+		clear();
+        delete list_;
+        list_ = nullptr;
 	}
 
 	template<typename K, typename T>
 	inline size_t SequenceTable<K, T>::size()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::size: Not implemented yet.");
+        return list_->size();
 	}
 
 	template<typename K, typename T>
@@ -138,22 +139,26 @@ namespace structures
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::clear()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::clear: Not implemented yet.");
+        // ukazovateľ na smernik item tam dáva auto
+        // *list_ pretože je to pointer na pointer
+        for (auto item: *list_) {
+            delete item;
+        }
+
+        list_->clear();
+        // nezabudnúť clearnuť list
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getBeginIterator()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::getBeginIterator: Not implemented yet.");
+		list_->getBeginIterator();
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getEndIterator()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::getEndIterator: Not implemented yet.");
+		list_->getEndIterator();
 	}
 
 	template<typename K, typename T>
@@ -173,7 +178,16 @@ namespace structures
 	template<typename K, typename T>
 	inline SequenceTable<K, T>& SequenceTable<K, T>::assignSequenceTable(SequenceTable<K, T>& other)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::assignSequenceTable: Not implemented yet.");
+        if (this != &other) {
+            clear();
+            for (auto item: *other.list_) {
+                list_->add(new TableItem<K, T>(*item));
+            }
+        }
+        return *this;
+
+        // podobne ako pri stromoch
+        // zavolame clear
+        // prebehneme other list a nahrame ich do nového cez kopi konštruktor
 	}
 }
