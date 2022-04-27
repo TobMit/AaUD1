@@ -71,8 +71,7 @@ namespace structures
 	template<typename K, typename T>
 	inline TableItem<K, T>& UnsortedSequenceTable<K, T>::getItemAtIndex(int index)
 	{
-		//TODO 08: UnsortedSequenceTable
-		throw std::runtime_error("UnsortedSequenceTable<K, T>::getItemAtIndex: Not implemented yet.");
+		return *SequenceTable<K,T>::list_->at(index);
 	}
 
 	template<typename K, typename T>
