@@ -112,18 +112,38 @@ namespace structures
         }
 	}
 
+    ///dá sa spraviť v semestralke preťaždnú metodu z parametrom či mám kontrolovať či sa tam nachadza key
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::insert(const K& key, const T& data)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::insert: Not implemented yet.");
+		// skontolovať či sa tam ten kluč nenachadza a ak ano tak trow excpect
+        if (!containsKey(key)) {
+            list_->add(new TableItem<K, T>(key, data));
+        } else {
+            throw std::logic_error("Key already exist! Expect from SequenceTable<K, T>::insert()");
+        }
 	}
 
 	template<typename K, typename T>
 	inline T SequenceTable<K, T>::remove(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::remove: Not implemented yet.");
+		// najdem item
+        // uložim data
+        // vymažem z listu
+        // vymažem data
+        // vrátim data z data xD
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            list_->tryRemove(item);
+            T result = item->accessData();
+            delete item;
+            return result;
+
+        } else {
+            throw std::logic_error("No such key! Expect from SequenceTable<K, T>::remove()");
+        }
+
+
 	}
 
 	template<typename K, typename T>
