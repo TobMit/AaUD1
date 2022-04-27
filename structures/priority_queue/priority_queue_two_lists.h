@@ -90,11 +90,11 @@ namespace structures
 	{
         //todo skontolovať či to roby deep copy
         if (this != &other) {
-            clear();
+            this->clear();
             PriorityQueueTwoLists<T> &newOther = dynamic_cast<PriorityQueueTwoLists<T> &>(other);
-            shortList_->assign(*newOther.shortList_);
+            this->shortList_->assign(*newOther.shortList_);
             for (auto item : *newOther.longList_) {
-                longList_->add(new PriorityQueueItem<T>(*item));
+                this->longList_->add(new PriorityQueueItem<T>(*item));
             }
         }
         return *this;
@@ -119,9 +119,13 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::push(int priority, const T& data)
 	{
-        PriorityQueueItem<T>* tryPush = shortList_->pushAndRemove(priority, data);
-        if (tryPush != nullptr) {
-            longList_->add(tryPush);
+        if (longList_->isEmpty() || priority < shortList_->minPriority()) {
+            PriorityQueueItem<T> *tryPush = shortList_->pushAndRemove(priority, data);
+            if (tryPush != nullptr) {
+                longList_->add(tryPush);
+            }
+        } else {
+            longList_->add(new PriorityQueueItem<T>(priority, data));
         }
 	}
 
@@ -133,11 +137,13 @@ namespace structures
 
         auto dataPop = shortList_->pop();
 
-        if (shortList_->size() == 0 && longList_->size() != 0) {
+        if (shortList_->isEmpty() && !longList_->isEmpty()) {
 
             int newSize = sqrt(longList_->size());
             if (newSize >= DEFAULT_NAHODNOTA) {
                 shortList_->trySetCapacity(newSize);
+            } else {
+                shortList_->trySetCapacity(DEFAULT_NAHODNOTA);
             }
             LinkedList<PriorityQueueItem<T>*>* newList = new LinkedList<PriorityQueueItem<T>*>();
 
@@ -145,7 +151,7 @@ namespace structures
                 auto removeItem = longList_->removeAt(0);
                 auto tryPush = shortList_->pushAndRemove(removeItem->getPriority(),removeItem->accessData());
                 delete removeItem;
-                if (tryPush == nullptr) {
+                if (tryPush != nullptr) {
                     newList->add(tryPush);
                 }
             }

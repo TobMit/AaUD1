@@ -65,8 +65,15 @@ namespace structures
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(int priority, const T& data)
 	{
-        if (this->isEmpty()){
+        if (this->isEmpty() || this->list_->at(indexOfPeek())->getPriority() >= priority){
+            //ak som nasiel este vcesiu prioritu ako doteraz
             this->list_->add(new PriorityQueueItem<T>(priority, data));
+            return;
+        }
+
+        if (this->list_->at(0)->getPriority() <= priority) {
+            // pozriem sa na najmensiu prioritu "najvecie cislo" a ak je prior mensia tak zaradim
+            this->list_->insert(new PriorityQueueItem<T>(priority, data),0);
             return;
         }
         int index;
@@ -90,9 +97,6 @@ namespace structures
                 }
             }
         }
-
-
-
 	}
 
 	template<typename T>
