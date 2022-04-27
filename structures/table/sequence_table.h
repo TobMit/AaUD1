@@ -104,8 +104,12 @@ namespace structures
 	template<typename K, typename T>
 	inline T& SequenceTable<K, T>::find(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::find: Not implemented yet.");
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            return item->accessData();
+        } else {
+            throw std::out_of_range("No such key! Expect from SequenceTable<K, T>::find()");
+        }
 	}
 
 	template<typename K, typename T>
@@ -125,15 +129,20 @@ namespace structures
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::tryFind(const K& key, T& data)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::tryFind: Not implemented yet.");
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            data = item->accessData();
+            return true;
+        } else {
+            return false;
+        }
+
 	}
 
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::containsKey(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::containsKey: Not implemented yet.");
+        return findTableItem(key) != nullptr;
 	}
 
 	template<typename K, typename T>
