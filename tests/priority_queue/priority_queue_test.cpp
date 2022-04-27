@@ -196,7 +196,7 @@ namespace tests
         static const int MAX_PRIORITY = 100000;
 
         structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
-        structures::Logger::getInstance().logInfo("Celkovo Push, Celkovo Pop, Celkovo Peek, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Celkovo Push, Celkovo Pop, Celkovo Peek, celkova dlzka Scenara!");
 
         int opPush = getPomer(OPAKOVANIA, podielPush);
         int opPop = getPomer(OPAKOVANIA, podielPop);
