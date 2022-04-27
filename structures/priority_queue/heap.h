@@ -100,7 +100,7 @@ namespace structures
 	template<typename T>
 	T Heap<T>::pop()
 	{
-        int index = PriorityQueueList<T>::indexOfPeek();
+        int index = indexOfPeek();
         if (index != -1) {
             int indexLast = PriorityQueueList<T>::list_->size()-1;
 
