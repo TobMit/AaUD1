@@ -157,6 +157,8 @@ namespace tests
             int peek = copyQueue->peek();
             int peekPr = copyQueue->peekPriority();
             SimpleTest::logInfo(std::to_string(peek) + " " + std::to_string(peekPr) + " " + std::to_string(copyQueue->pop()));
+            //na macos mi to zoborie aj takto ale vo visual to nefunguje správne
+            //SimpleTest::logInfo(std::to_string(copyQueue->peek()) + " " + std::to_string(copyQueue->peekPriority()) + " " + std::to_string(copyQueue->pop()));
         }
 
         SimpleTest::logPass("Complet");
