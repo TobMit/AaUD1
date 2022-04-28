@@ -154,7 +154,9 @@ namespace tests
         SimpleTest::assertTrue(assignQueue->size() == 10, "Testujem ci kopirovaci konstruktor funguje spravne.");
         SimpleTest::logInfo(" \"Ocna\" kontrola copyQueue assign. Cisla v riadkoch maju bit rovnake a ist od 1 do 10 ");
         for (int i = 1; i <= 10; ++i) {
-            SimpleTest::logInfo(std::to_string(copyQueue->peek()) + " " + std::to_string(copyQueue->peekPriority()) + " " + std::to_string(copyQueue->pop()));
+            int peek = copyQueue->peek();
+            int peekPr = copyQueue->peekPriority();
+            SimpleTest::logInfo(std::to_string(peek) + " " + std::to_string(peekPr) + " " + std::to_string(copyQueue->pop()));
         }
 
         SimpleTest::logPass("Complet");
