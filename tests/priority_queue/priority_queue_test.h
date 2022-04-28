@@ -212,11 +212,11 @@ namespace tests
     /// <summary>
     /// Testovanie pre úlohu 2
     /// </summary>
-    class QueueUloha2
+    class PriorityQueueUloha2
             :public SimpleTest
     {
     public:
-        QueueUloha2();
+        PriorityQueueUloha2();
         void test() override;
     private:
         void
@@ -229,7 +229,7 @@ namespace tests
 
 
     class HeapUloha2
-            : public QueueUloha2
+            : public PriorityQueueUloha2
     {
     protected:
         structures::PriorityQueue<int> *makePriorityQueue() const override
@@ -244,7 +244,7 @@ namespace tests
     };
 
     class QueueTwoListsUloha2
-            : public QueueUloha2
+            : public PriorityQueueUloha2
     {
     protected:
         structures::PriorityQueue<int> *makePriorityQueue() const override
@@ -253,7 +253,7 @@ namespace tests
         };
         void info() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists!");
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoList!");
         }
     };
 
@@ -269,13 +269,13 @@ namespace tests
         Microseconds cyklusPush(int size, const int POC_OPAKOVANI);
         Microseconds durationPush(int priority, int cislo, structures::PriorityQueue<int> &pQueue);
 
-        Microseconds cyklusPop(int size, const int POC_OPAKOVANI);
+        Microseconds cyklusPop(int size, const int POC_OPAKOVANI, bool extraMeranie);
         Microseconds durationPop(structures::PriorityQueue<int> &pQueue);
 
         Microseconds cyklusPeek(int size, const int POC_OPAKOVANI);
         Microseconds durationPeek(structures::PriorityQueue<int> &pQueue);
 
-        /// rapairList udrzuje velkost daného listu na potrebnej dlzke. Keď treba, tak list zväčší a naplni hodnotami a ked je velky tak zmensi
+        /// rapairQue udrzuje velkost daného frontu na potrebnej dlzke. Keď treba, tak front zväčší a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
         /// \param pQueue - list kotry sa ma opravit
         void repairQueue(int SIZE, int MAX_PRIOR, structures::PriorityQueue<int> &pQueue);
@@ -284,6 +284,7 @@ namespace tests
         virtual void infoPush() const = 0;
         virtual void infoPop() const = 0;
         virtual void infoPeek() const = 0;
+        virtual bool isPQ2L() const = 0;
 
     };
 
@@ -308,6 +309,10 @@ namespace tests
         {
             structures::Logger::getInstance().logInfo("Testovanie Heap - Peek");
         }
+        bool isPQ2L() const override
+        {
+            return false;
+        }
     };
 
     class QueueTwoListsUloha3
@@ -321,15 +326,19 @@ namespace tests
 
         void infoPush() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Push");
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoList - Push");
         }
         void infoPop() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Pop");
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoList - Pop");
         }
         void infoPeek() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoLists - Peek");
+            structures::Logger::getInstance().logInfo("Testovanie PriorityQueueTwoList - Peek");
+        }
+        bool isPQ2L() const override
+        {
+            return true;
         }
     };
 }

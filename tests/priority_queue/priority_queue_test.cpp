@@ -168,12 +168,12 @@ namespace tests
     }
 
     //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
-    QueueUloha2::QueueUloha2()
+    PriorityQueueUloha2::PriorityQueueUloha2()
             : SimpleTest("Uloha2")
     {
 
     }
-    void QueueUloha2::test()
+    void PriorityQueueUloha2::test()
     {
         this->info();
         structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
@@ -193,8 +193,8 @@ namespace tests
         delete queue;
 
     }
-    void QueueUloha2::cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek,
-                             structures::PriorityQueue<int> &pQueue)
+    void PriorityQueueUloha2::cyklus(char oznacenie, int podielPush, int podielPop, int podielPeek,
+                                     structures::PriorityQueue<int> &pQueue)
     {
         static const int OPAKOVANIA = 100000;
         static const int MAX_DATA_VALUE_IN_QUEUE = 100;
@@ -269,7 +269,7 @@ namespace tests
         structures::Logger::getInstance().logDuration(0, durationPush + durationPop + durationPeek, std::to_string(durationPush.count() ) + "," + std::to_string(durationPop.count()) + "," + std::to_string(durationPeek.count()));
     }
 
-    int QueueUloha2::getPomer(int const OPAKOVANIA, int pomer)
+    int PriorityQueueUloha2::getPomer(int const OPAKOVANIA, int pomer)
     {
         return (pomer * OPAKOVANIA) / 100;
     }
@@ -289,7 +289,7 @@ namespace tests
         int sizeOfQueue;
         sizeOfQueue = POC_VELKOST;
 
-        structures::Logger::getInstance().logInfo("Velkost PriorityQueue, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani");
+        structures::Logger::getInstance().logInfo("Velkost PriorityQueue, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani, Extra meranie pre PQ2L");
 
         //----------------- Push -----------------
         this->infoPush();
@@ -305,7 +305,7 @@ namespace tests
         sizeOfQueue = POC_VELKOST;
         while (sizeOfQueue <= MAX)
         {
-            structures::Logger::getInstance().logDuration(0, cyklusPop(sizeOfQueue, POC_OPAKOVANI), std::to_string(sizeOfQueue));
+            cyklusPop(sizeOfQueue, POC_OPAKOVANI, isPQ2L()), std::to_string(sizeOfQueue);
             sizeOfQueue += KROK;
         }
 
@@ -356,18 +356,34 @@ namespace tests
     }
 
     //------------------------------------------------------------------------
-    Microseconds PriorityQueueUloha3::cyklusPop(int size, const int POC_OPAKOVANI)
+    Microseconds PriorityQueueUloha3::cyklusPop(int size, const int POC_OPAKOVANI, bool extraMeranie)
     {
         structures::PriorityQueue<int>* pQueue = this->makePriorityQueue();
         Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+        Microseconds durationExtra = std::chrono::microseconds(0);
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
             repairQueue(size, size, *pQueue);
             duration += durationPop(*pQueue);
         }
+
+        if (extraMeranie) {
+            for (int i = 0; i < POC_OPAKOVANI; i++)
+            {
+                repairQueue(size, size, *pQueue);
+                durationExtra += durationPop(*pQueue);
+            }
+
+            structures::Logger::getInstance().logDuration(0,durationExtra, std::to_string(size) + "," +  std::to_string(duration.count()));
+
+        } else {
+            structures::Logger::getInstance().logDuration(0,duration,std::to_string(size));
+        }
+
         delete pQueue;
-        return duration / POC_OPAKOVANI;
+        //return duration / POC_OPAKOVANI;
+        return std::chrono::microseconds(0);
     }
 
     Microseconds PriorityQueueUloha3::durationPop(structures::PriorityQueue<int> &pQueue)
