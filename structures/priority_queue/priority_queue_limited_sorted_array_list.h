@@ -85,7 +85,7 @@ namespace structures
     template<typename T>
     void PriorityQueueLimitedSortedArrayList<T>::push(int priority, const T& data)
     {
-        if (capacity_ >= this->size()) {
+        if (capacity_ <= this->list_->size()) {
             throw std::logic_error("Limited queue is full! Except from PriorityQueueLimitedSortedArrayList<T>::push()");
         } else {
             PriorityQueueSortedArrayList<T>::push(priority, data);
