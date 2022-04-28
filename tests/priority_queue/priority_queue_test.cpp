@@ -158,6 +158,7 @@ namespace tests
         }
 
         SimpleTest::logPass("Complet");
+        delete assignQueue;
         delete copyQueue;
         delete queue;
     }
