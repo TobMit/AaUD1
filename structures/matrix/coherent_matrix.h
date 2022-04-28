@@ -2,6 +2,7 @@
 
 #include "matrix.h"
 #include <stdexcept>
+#include <cstring>
 #include "../utils.h"
 
 namespace structures
