@@ -375,10 +375,10 @@ namespace tests
                 durationExtra += durationPop(*pQueue);
             }
 
-            structures::Logger::getInstance().logDuration(0,durationExtra, std::to_string(size) + "," +  std::to_string(duration.count()));
+            structures::Logger::getInstance().logDuration(0,durationExtra / POC_OPAKOVANI, std::to_string(size) + "," +  std::to_string((duration / POC_OPAKOVANI).count()));
 
         } else {
-            structures::Logger::getInstance().logDuration(0,duration,std::to_string(size));
+            structures::Logger::getInstance().logDuration(0,duration / POC_OPAKOVANI,std::to_string(size));
         }
 
         delete pQueue;
