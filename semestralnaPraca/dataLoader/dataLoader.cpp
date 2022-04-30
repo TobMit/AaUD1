@@ -13,7 +13,7 @@ bool DataLoader::nextLine() {
 wstring DataLoader::getNextParameter() {
     pos = nacitane.find(delimiter);
     wstring retrunValue = nacitane.substr(0, pos);
-    nacitane.erase(0, pos + delimiter.length());
+    nacitane.erase(0, retrunValue.size() + delimiter.length());
     return retrunValue;
 
 }
