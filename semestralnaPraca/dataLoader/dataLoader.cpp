@@ -3,3 +3,11 @@
 //
 
 #include "dataLoader.h"
+
+DataLoader::DataLoader() {
+    std::cout << "its Me DataLoader" << std::endl;
+}
+
+DataLoader::~DataLoader() {
+
+}
