@@ -26,6 +26,7 @@ include_directories(tests/vector)
 include_directories(ui)
 include_directories(semestralnaPraca)
 include_directories(semestralnaPraca/dataLoader)
+include_directories(semestralnaPraca/dataStructure)
 
 add_executable(AUS_Console
         structures/_logger/file_log_consumer.cpp
@@ -116,4 +117,6 @@ add_executable(semestralnaPraca
         semestralnaPraca/main.cpp
         semestralnaPraca/dataLoader/dataLoader.cpp
         semestralnaPraca/dataLoader/dataLoader.h
+        semestralnaPraca/dataStructure/storedData.h
+        semestralnaPraca/dataStructure/kraj.h
         )
