@@ -1,13 +1,19 @@
 //
 // Created by Tobias on 30/04/2022.
 //
-
 #include "dataLoader.h"
 
-DataLoader::DataLoader() {
-    std::cout << "its Me DataLoader" << std::endl;
+bool DataLoader::nextLine() {
+    if (!getline(citac,nacitane)){
+        return false;
+    }
+    return true;
 }
 
-DataLoader::~DataLoader() {
+wstring DataLoader::getNextParameter() {
+    pos = nacitane.find(delimiter);
+    wstring retrunValue = nacitane.substr(0, pos);
+    nacitane.erase(0, pos + delimiter.length());
+    return retrunValue;
 
 }
