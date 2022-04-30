@@ -24,7 +24,8 @@ include_directories(tests/table)
 include_directories(tests/tree)
 include_directories(tests/vector)
 include_directories(ui)
-include_directories(SemestralnaPraca)
+include_directories(semestralnaPraca)
+include_directories(semestralnaPraca/dataLoader)
 
 add_executable(AUS_Console
         structures/_logger/file_log_consumer.cpp
@@ -111,5 +112,8 @@ add_executable(AUS_Console
         ui/ui_keeper.h
         main.cpp)
 
-add_executable(SemestralnaPraca
-        SemestralnaPraca/main.cpp)
+add_executable(semestralnaPraca
+        semestralnaPraca/main.cpp
+        semestralnaPraca/dataLoader/dataLoader.cpp
+        semestralnaPraca/dataLoader/dataLoader.h
+        )
