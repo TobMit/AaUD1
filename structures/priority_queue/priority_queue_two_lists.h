@@ -88,7 +88,6 @@ namespace structures
 	template<typename T>
 	Structure& PriorityQueueTwoLists<T>::assign(Structure& other)
 	{
-        //todo skontolovať či to roby deep copy
         if (this != &other) {
             this->clear();
             PriorityQueueTwoLists<T> &newOther = dynamic_cast<PriorityQueueTwoLists<T> &>(other);
@@ -109,7 +108,6 @@ namespace structures
 	template<typename T>
 	void PriorityQueueTwoLists<T>::clear()
 	{
-        //todo skontorlovať memory leaky
 		shortList_->clear();
         for (auto item : *longList_) {
             delete item;
@@ -132,7 +130,6 @@ namespace structures
 	template<typename T>
 	T PriorityQueueTwoLists<T>::pop()
 	{
-        //todo skontrolovať memleaky
         static const int DEFAULT_NAHODNOTA = 4;
 
         auto dataPop = shortList_->pop();

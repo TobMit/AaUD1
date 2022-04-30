@@ -71,7 +71,6 @@ namespace structures
     template<typename T>
     inline PriorityQueueList<T>::~PriorityQueueList()
     {
-        //TODO 06: PriorityQueueList
         clear();
         delete list_;
         list_ = nullptr;
