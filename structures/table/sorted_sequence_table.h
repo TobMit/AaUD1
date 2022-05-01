@@ -104,8 +104,21 @@ namespace structures
 	template<typename K, typename T>
 	inline int SortedSequenceTable<K, T>::indexOfKey(K key, int indexStart, int indexEnd, bool& found)
 	{
-        //bisekcia z prezentácie na cviko 9
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::indexOfKey: Not implemented yet.");
+        int stred = (indexStart + indexEnd) / 2;
+        if (SequenceTable<K,T>::list_->at(stred)->getKey() == key) {
+            found = true;
+            return stred;
+        } else {
+            if (indexEnd == indexStart) {
+                found = false;
+                return indexEnd;
+            } else {
+                if (SequenceTable<K,T>::list_->at(stred)->getKey() < key) {
+                    return SortedSequenceTable<K,T>::indexOfKey(key, stred+1, indexEnd, found);
+                } else {
+                    return SortedSequenceTable<K,T>::indexOfKey(key, indexStart, stred, found);
+                }
+            }
+        }
 	}
 }
