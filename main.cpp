@@ -46,7 +46,7 @@ int main()
     //keeper.registerTest(new tests::TreeTestOverall());
 
     // TODO 08: Table
-    //keeper.registerTest(new tests::TableTestOverall());
+    keeper.registerTest(new tests::TableTestOverall());
 
 
 	bool run = true;
