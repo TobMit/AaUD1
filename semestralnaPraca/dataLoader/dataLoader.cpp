@@ -10,10 +10,19 @@ bool DataLoader::nextLine() {
     return true;
 }
 
-wstring DataLoader::getNextParameter() {
+wstring *DataLoader::getNextParameter() {
     pos = nacitane.find(delimiter);
     wstring retrunValue = nacitane.substr(0, pos);
+    int rPos = retrunValue.find(L"\r");
+    if (rPos != 0) {
+        retrunValue = retrunValue.substr(0, rPos);
+    }
     nacitane.erase(0, retrunValue.size() + delimiter.length());
-    return retrunValue;
+    return  &retrunValue;
 
+}
+
+void DataLoader::openNew(string address) {
+    this->closeLoader();
+    this->citac.open(address);
 }

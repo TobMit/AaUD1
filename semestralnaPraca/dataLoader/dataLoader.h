@@ -20,6 +20,8 @@ public:
         citac.open(address);
     };
 
+    void openNew(string address);
+
     bool isOpen() {
         return citac.is_open();
     };
@@ -28,7 +30,7 @@ public:
         citac.close();
     };
 
-    wstring getNextParameter();
+    wstring *getNextParameter();
     bool nextLine();
 
     ~DataLoader(){
