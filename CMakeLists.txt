@@ -118,5 +118,5 @@ add_executable(semestralnaPraca
         semestralnaPraca/dataLoader/dataLoader.cpp
         semestralnaPraca/dataLoader/dataLoader.h
         semestralnaPraca/dataStructure/storedData.h
-        semestralnaPraca/dataStructure/kraj.h
+        semestralnaPraca/dataStructure/uzemnaJednotka.h
         )

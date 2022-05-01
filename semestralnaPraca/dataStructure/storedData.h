@@ -12,7 +12,9 @@ template<typename T >
 class StoredData {
 public:
     /// destruktor
-    virtual ~StoredData(){
+    StoredData();
+
+    ~StoredData(){
         delete data_;
         data_ = nullptr;
     };
@@ -27,6 +29,9 @@ public:
     /// bude nastavovať všetky paramtetre ktoré treba
     virtual void nastavDalsiParameter(T& parameter) = 0;
     /// prístup k parametrom z ulozenych dát
+    virtual int getSize() {
+        return data_->size();
+    }
     virtual T& at(int index) {
         return this->data_->at(index);
     }
@@ -35,7 +40,13 @@ public:
         return this->at(index);
     }
 
-private:
-    structures::ArrayList<T>* data_;
+protected:
+    structures::List<T> *data_;
 
 };
+
+template<typename T>
+StoredData<T>::StoredData() :
+    data_(new structures::ArrayList<T>()){
+
+}
