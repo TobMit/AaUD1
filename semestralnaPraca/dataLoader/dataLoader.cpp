@@ -10,7 +10,7 @@ bool DataLoader::nextLine() {
     return true;
 }
 
-wstring *DataLoader::getNextParameter() {
+wstring DataLoader::getNextParameter() {
     pos = nacitane.find(delimiter);
     wstring retrunValue = nacitane.substr(0, pos);
     int rPos = retrunValue.find(L"\r");
@@ -18,7 +18,7 @@ wstring *DataLoader::getNextParameter() {
         retrunValue = retrunValue.substr(0, rPos);
     }
     nacitane.erase(0, retrunValue.size() + delimiter.length());
-    return  &retrunValue;
+    return  retrunValue;
 
 }
 

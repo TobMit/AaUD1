@@ -20,11 +20,11 @@ public:
     /// vráti vráti officialny nazov
     virtual wstring& getOfficialTitle() = 0;
     /// nastavy klúč
-    virtual void setCode(wstring& code) = 0;
+    virtual void setCode(const wstring& code) = 0;
     /// nastavy officialne meno uzemnej jednotky
-    virtual void setOfficialTitle(wstring& offTitleName) = 0;
+    virtual void setOfficialTitle(const wstring& offTitleName) = 0;
     /// bude nastavovať všetky paramtetre ktoré treba
-    virtual void nastavDalsiParameter(T& parameter) = 0;
+    virtual void nastavDalsiParameter(const T& parameter) = 0;
     /// prístup k parametrom z ulozenych dát
     virtual int getSize() {
         return data_->size();

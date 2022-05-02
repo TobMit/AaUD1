@@ -10,17 +10,18 @@ class UzemnaJednotka : public StoredData<T> {
 public:
     UzemnaJednotka();
 
-    UzemnaJednotka(wstring &sortNumber, wstring &code, wstring &officialTitle, wstring &mediumTitle, wstring &shortTitle, wstring &note);
+    UzemnaJednotka(const wstring &sortNumber,const wstring &code,const wstring &officialTitle,const wstring &mediumTitle,
+                   const wstring &shortTitle,const wstring &note);
 
     wstring &getCode() override;
 
     wstring &getOfficialTitle() override;
 
-    void setCode(wstring &code) override;
+    void setCode(const wstring &code) override;
 
-    void setOfficialTitle(wstring& offTitleName) override;
+    void setOfficialTitle(const wstring& offTitleName) override;
 
-    void nastavDalsiParameter(T &parameter) override;
+    void nastavDalsiParameter(const T &parameter) override;
 
     int getSize() override;
 
@@ -33,11 +34,14 @@ private:
 template<typename T>
 UzemnaJednotka<T>::UzemnaJednotka()
 {
+    for (int i = 0; i < getSize(); ++i) {
+        StoredData<T>::data_->add(L"");
+    }
 }
 
 template<typename T>
-UzemnaJednotka<T>::UzemnaJednotka(wstring &sortNumber, wstring &code, wstring &officialTitle, wstring &mediumTitle,
-                                  wstring &shortTitle, wstring &note) {
+UzemnaJednotka<T>::UzemnaJednotka(const wstring& sortNumber, const wstring& code, const wstring& officialTitle, const wstring& mediumTitle,
+                                  const wstring& shortTitle,const wstring& note) {
     StoredData<T>::data_->add(sortNumber);
     StoredData<T>::data_->add(code);
     StoredData<T>::adata_->add(officialTitle);
@@ -57,24 +61,24 @@ wstring &UzemnaJednotka<T>::getOfficialTitle() {
 }
 
 template<typename T>
-void UzemnaJednotka<T>::setCode(wstring &code) {
+void UzemnaJednotka<T>::setCode(const wstring& code) {
     StoredData<T>::at(1) = code;
 }
 
 template<typename T>
-void UzemnaJednotka<T>::setOfficialTitle(wstring &offTitleName) {
-    StoredData<T>::at(1) = offTitleName;
+void UzemnaJednotka<T>::setOfficialTitle(const wstring& offTitleName) {
+    StoredData<T>::at(2) = offTitleName;
 }
 
 template<typename T>
-void UzemnaJednotka<T>::nastavDalsiParameter(T &parameter) {
+void UzemnaJednotka<T>::nastavDalsiParameter(const T& parameter) {
     if (dataIndex == 1 || dataIndex == 2) {
         dataIndex = 3;
-
+    }
     // ak to nepatir do rozsahu tabulky tak to budem ignorovať
     // obchádzam to takto aby som nemusel vyhadzovať vynimku
-    } else if (dataIndex < getSize()) {
-        this->at(dataIndex);
+    if (dataIndex < getSize()) {
+        this->at(dataIndex) = parameter;
         dataIndex++;
     }
 }

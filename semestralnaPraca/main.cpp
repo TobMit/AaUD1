@@ -28,23 +28,22 @@ int main()
     delete loader;
     */
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
-    //UzemnaJednotka<int> *kraj = new UzemnaJednotka<int>();
-    //auto kraj = new UzemnaJednotka<wstring>();
-    /*if (loader->isOpen()) {
+    StoredData<wstring> *kraj = new UzemnaJednotka<wstring>();
+    if (loader->isOpen()) {
         loader->nextLine();
-        kraj->nastavDalsiParameter(*loader->getNextParameter());
-        kraj->setCode(*loader->getNextParameter());
-        kraj->setOfficialTitle(*loader->getNextParameter());
-        kraj->nastavDalsiParameter(*loader->getNextParameter());
-        kraj->nastavDalsiParameter(*loader->getNextParameter());
-        kraj->nastavDalsiParameter(*loader->getNextParameter());
-        kraj->nastavDalsiParameter(*loader->getNextParameter());
+        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->setCode(loader->getNextParameter());
+        kraj->setOfficialTitle(loader->getNextParameter());
+        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->nastavDalsiParameter(loader->getNextParameter());
     }
     for (int i = 0; i < kraj->getSize(); ++i) {
-        wcout << &kraj[i] << L" ";
+        wcout << kraj->at(i) << L" ";
     }
-*/
-    //delete kraj;
+
+    delete kraj;
     delete loader;
     return 0;
 }

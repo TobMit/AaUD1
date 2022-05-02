@@ -30,7 +30,7 @@ public:
         citac.close();
     };
 
-    wstring *getNextParameter();
+    wstring getNextParameter();
     bool nextLine();
 
     ~DataLoader(){
