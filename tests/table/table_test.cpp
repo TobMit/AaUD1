@@ -64,6 +64,7 @@ namespace tests
 	{
 		addTest(new BinarySearchTreeTestInterface());
         addTest(new BSTFunctionTest());
+        addTest(new BSTUloha2());
 	}
 
 	HashTableTestOverall::HashTableTestOverall() :
@@ -83,6 +84,7 @@ namespace tests
 	{
 		addTest(new SortedSequenceTableTestInterface());
         addTest(new SSTFunctionTest());
+        addTest(new SSTUloha2());
 	}
 
 	TreapTestOverall::TreapTestOverall() :
@@ -170,6 +172,113 @@ namespace tests
         delete assignQueue;
         delete copyTable;
         delete table;*/
+    }
+
+    //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
+    TableUloha2::TableUloha2()
+            : SimpleTest("Uloha2")
+    {
+
+    }
+    void TableUloha2::test()
+    {
+        this->info();
+        structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
+        // scenár A
+        structures::Table<int, int>* table = this->makeTable();
+        cyklus('A', 35, 35, 30, *table);
+        delete table;
+
+        // Scenár B
+        table = this->makeTable();
+        cyklus('B', 50, 30, 20, *table);
+        delete table;
+
+        // Scenár C
+        table = this->makeTable();
+        cyklus('C', 70, 25, 5, *table);
+        delete table;
+
+    }
+    void TableUloha2::cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind,
+                             structures::Table<int, int> &pTable)
+    {
+        static const int OPAKOVANIA = 100000;
+        static const int MAX_DATA_VALUE_IN_QUEUE = 100;
+        static const int MAX_PRIORITY = 100000;
+
+        structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Celkovo Push, Celkovo Pop, Celkovo Peek, celkova dlzka Scenara!");
+
+        int opPush = getPomer(OPAKOVANIA, podielInsert);
+        int opPop = getPomer(OPAKOVANIA, podielRemove);
+        int opPeek = getPomer(OPAKOVANIA, podielTryFind);
+
+        std::vector<char>pool;
+        for (unsigned i = 0; i < opPush; i++)
+        {
+            pool.push_back(1);
+        }
+        for (unsigned i = 0; i < opPop; i++)
+        {
+            pool.push_back(2);
+        }
+        for (unsigned i = 0; i < opPeek; i++)
+        {
+            pool.push_back(3);
+        }
+
+
+        Microseconds durationPush = std::chrono::microseconds(0);
+        Microseconds durationPop = std::chrono::microseconds(0);
+        Microseconds durationPeek = std::chrono::microseconds(0);
+
+        while (!pool.empty())
+        {
+            int index = rand() % pool.size();
+            int cislo;
+            int priority;
+            switch (pool.at(index))
+            {
+                case 1:
+                    cislo = rand() % MAX_DATA_VALUE_IN_QUEUE;
+                    priority = rand() % MAX_PRIORITY;
+                    SimpleTest::startStopwatch();
+                    pTable.push(priority, cislo);
+                    SimpleTest::stopStopwatch();
+                    durationPush += SimpleTest::getElapsedTime();
+
+                    break;
+
+                case 2:
+                    if (!pTable.isEmpty()) {
+                        SimpleTest::startStopwatch();
+                        pTable.pop();
+                        SimpleTest::stopStopwatch();
+                        durationPop += SimpleTest::getElapsedTime();
+                    }
+                    break;
+
+                case 3:
+                    if (!pTable.isEmpty()) {
+                        SimpleTest::startStopwatch();
+                        pTable.peek();
+                        SimpleTest::stopStopwatch();
+                        durationPeek += SimpleTest::getElapsedTime();
+                    }
+                    break;
+
+            }
+
+            pool.erase(pool.begin() + index);
+        }
+
+        structures::Logger::getInstance().logDuration(0, durationPush + durationPop + durationPeek, std::to_string(durationPush.count() ) + "," + std::to_string(durationPop.count()) + "," + std::to_string(durationPeek.count()));
+    }
+
+    int TableUloha2::getPomer(int const OPAKOVANIA, int pomer)
+    {
+        return (pomer * OPAKOVANIA) / 100;
     }
 
 }

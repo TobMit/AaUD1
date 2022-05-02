@@ -190,4 +190,54 @@ namespace tests
         };
     };
 
+    //------------------------------------ Uloha 2 ------------------------------------------------
+
+    /// <summary>
+    /// Testovanie pre úlohu 2
+    /// </summary>
+    class TableUloha2
+            :public SimpleTest
+    {
+    public:
+        TableUloha2();
+        void test() override;
+    private:
+        void
+        cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind, structures::Table<int, int> &pTable);
+        int getPomer(int const OPAKOVANIA, int pomer);
+    protected:
+        virtual structures::Table<int, int> * makeTable() const = 0;
+        virtual void info() const = 0;
+    };
+
+
+    class SSTUloha2
+            : public TableUloha2
+    {
+    protected:
+        structures::Table<int, int> * makeTable() const override
+        {
+            return new structures::SortedSequenceTable<int, int>();
+        };
+
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie SST!");
+        }
+    };
+
+    class BSTUloha2
+            : public TableUloha2
+    {
+    protected:
+        structures::Table<int, int> * makeTable() const override
+        {
+            return new structures::BinarySearchTree<int, int>();
+        };
+        void info() const override
+        {
+            structures::Logger::getInstance().logInfo("Testovanie BTS!");
+        }
+    };
+
 }
