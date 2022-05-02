@@ -29,7 +29,7 @@ int main()
     */
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
     //UzemnaJednotka<int> *kraj = new UzemnaJednotka<int>();
-    auto kraj = new UzemnaJednotka<int>();
+    //auto kraj = new UzemnaJednotka<wstring>();
     /*if (loader->isOpen()) {
         loader->nextLine();
         kraj->nastavDalsiParameter(*loader->getNextParameter());
@@ -44,7 +44,7 @@ int main()
         wcout << &kraj[i] << L" ";
     }
 */
-    delete kraj;
+    //delete kraj;
     delete loader;
     return 0;
 }
