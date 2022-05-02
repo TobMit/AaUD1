@@ -185,86 +185,85 @@ namespace tests
         this->info();
         structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
         // scenár A
-        structures::Table<int, int>* table = this->makeTable();
-        cyklus('A', 35, 35, 30, *table);
-        delete table;
+        structures::Table<int, int>* pTable = this->makeTable();
+        cyklus('A', 20, 20, 60, *pTable);
+        delete pTable;
 
         // Scenár B
-        table = this->makeTable();
-        cyklus('B', 50, 30, 20, *table);
-        delete table;
-
-        // Scenár C
-        table = this->makeTable();
-        cyklus('C', 70, 25, 5, *table);
-        delete table;
+        pTable = this->makeTable();
+        cyklus('B', 40, 40, 20, *pTable);
+        delete pTable;
 
     }
     void TableUloha2::cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind,
                              structures::Table<int, int> &pTable)
     {
         static const int OPAKOVANIA = 100000;
-        static const int MAX_DATA_VALUE_IN_QUEUE = 100;
-        static const int MAX_PRIORITY = 100000;
+        static const int MAX_DATA_VALUE_IN_TABLE = 100;
 
         structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
-        structures::Logger::getInstance().logInfo("Celkovo Push, Celkovo Pop, Celkovo Peek, celkova dlzka Scenara!");
+        structures::Logger::getInstance().logInfo("Celkovo Insert, Celkovo Remove, Celkovo TryFind, celkova dlzka Scenara!");
 
-        int opPush = getPomer(OPAKOVANIA, podielInsert);
-        int opPop = getPomer(OPAKOVANIA, podielRemove);
-        int opPeek = getPomer(OPAKOVANIA, podielTryFind);
+        int opInsert = getPomer(OPAKOVANIA, podielInsert);
+        int opRemove = getPomer(OPAKOVANIA, podielRemove);
+        int opTryFind = getPomer(OPAKOVANIA, podielTryFind);
 
         std::vector<char>pool;
-        for (unsigned i = 0; i < opPush; i++)
+        for (unsigned i = 0; i < opInsert; i++)
         {
             pool.push_back(1);
         }
-        for (unsigned i = 0; i < opPop; i++)
+        for (unsigned i = 0; i < opRemove; i++)
         {
             pool.push_back(2);
         }
-        for (unsigned i = 0; i < opPeek; i++)
+        for (unsigned i = 0; i < opTryFind; i++)
         {
             pool.push_back(3);
         }
 
 
-        Microseconds durationPush = std::chrono::microseconds(0);
-        Microseconds durationPop = std::chrono::microseconds(0);
-        Microseconds durationPeek = std::chrono::microseconds(0);
+        Microseconds durationInsert = std::chrono::microseconds(0);
+        Microseconds durationRemove = std::chrono::microseconds(0);
+        Microseconds durationTryFind = std::chrono::microseconds(0);
 
         while (!pool.empty())
         {
             int index = rand() % pool.size();
-            int cislo;
-            int priority;
+            int key = rand() % pTable.size();
+            int cislo = rand() % MAX_DATA_VALUE_IN_TABLE;
             switch (pool.at(index))
             {
                 case 1:
-                    cislo = rand() % MAX_DATA_VALUE_IN_QUEUE;
-                    priority = rand() % MAX_PRIORITY;
-                    SimpleTest::startStopwatch();
-                    pTable.push(priority, cislo);
-                    SimpleTest::stopStopwatch();
-                    durationPush += SimpleTest::getElapsedTime();
+                    if (pTable.isEmpty()) {
+                        SimpleTest::startStopwatch();
+                        pTable.insert(0, cislo);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    } else {
+                        SimpleTest::startStopwatch();
+                        pTable.insert(key, cislo);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    }
 
                     break;
 
                 case 2:
                     if (!pTable.isEmpty()) {
                         SimpleTest::startStopwatch();
-                        pTable.pop();
+                        pTable.remove(key);
                         SimpleTest::stopStopwatch();
-                        durationPop += SimpleTest::getElapsedTime();
+                        durationRemove += SimpleTest::getElapsedTime();
                     }
                     break;
 
                 case 3:
                     if (!pTable.isEmpty()) {
                         SimpleTest::startStopwatch();
-                        pTable.peek();
+                        pTable.tryFind(key, cislo);
                         SimpleTest::stopStopwatch();
-                        durationPeek += SimpleTest::getElapsedTime();
+                        durationTryFind += SimpleTest::getElapsedTime();
                     }
                     break;
 
@@ -273,7 +272,7 @@ namespace tests
             pool.erase(pool.begin() + index);
         }
 
-        structures::Logger::getInstance().logDuration(0, durationPush + durationPop + durationPeek, std::to_string(durationPush.count() ) + "," + std::to_string(durationPop.count()) + "," + std::to_string(durationPeek.count()));
+        structures::Logger::getInstance().logDuration(0, durationInsert + durationRemove + durationTryFind, std::to_string(durationInsert.count() ) + "," + std::to_string(durationRemove.count()) + "," + std::to_string(durationTryFind.count()));
     }
 
     int TableUloha2::getPomer(int const OPAKOVANIA, int pomer)
