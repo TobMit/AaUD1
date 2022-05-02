@@ -14,10 +14,7 @@ public:
     /// destruktor
     StoredData();
 
-    ~StoredData(){
-        delete data_;
-        data_ = nullptr;
-    };
+    virtual ~StoredData();
     /// vrati klus ktory sa bude pouzivat v tabulke
     virtual wstring& getCode() = 0;
     /// vráti vráti officialny nazov
@@ -49,4 +46,10 @@ template<typename T>
 StoredData<T>::StoredData() :
     data_(new structures::ArrayList<T>()){
 
+}
+
+template<typename T>
+StoredData<T>::~StoredData() {
+    delete data_;
+    data_ = nullptr;
 }
