@@ -125,14 +125,15 @@ namespace structures
 	template<typename K, typename T>
 	inline BinarySearchTree<K, T>::~BinarySearchTree()
 	{
-		//TODO 10: BinarySearchTree
+		clear();
+        delete binaryTree_;
+        binaryTree_ = nullptr;
 	}
 
 	template<typename K, typename T>
 	inline size_t BinarySearchTree<K, T>::size()
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::size: Not implemented yet.");
+        return size_;
 	}
 
 	template<typename K, typename T>
@@ -186,22 +187,23 @@ namespace structures
 	template<typename K, typename T>
 	inline void BinarySearchTree<K, T>::clear()
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::clear: Not implemented yet.");
+        for (auto item: *binaryTree_) {
+            delete item;
+        }
+        binaryTree_->clear();
+        size_ = 0;
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* BinarySearchTree<K, T>::getBeginIterator()
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::getBeginIterator: Not implemented yet.");
+        return new typename BinaryTree<TableItem<K, T>*>::InOrderTreeIterator(binaryTree_->getRoot());
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* BinarySearchTree<K, T>::getEndIterator()
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::getEndIterator: Not implemented yet.");
+        return new typename BinaryTree<TableItem<K, T>*>::InOrderTreeIterator(nullptr);
 	}
 
 	template<typename K, typename T>
