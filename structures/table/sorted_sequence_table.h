@@ -104,19 +104,25 @@ namespace structures
 	template<typename K, typename T>
 	inline int SortedSequenceTable<K, T>::indexOfKey(K key, int indexStart, int indexEnd, bool& found)
 	{
-        int stred = (indexStart + indexEnd) / 2;
-        if (SequenceTable<K,T>::list_->at(stred)->getKey() == key) {
+        if (indexEnd == -1) {
+            found = false;
+            return 0;
+        }
+        int indexMiddle = (indexStart + indexEnd) / 2;
+        K keyMiddle = SequenceTable<K,T>::list_->at(indexMiddle)->getKey();
+
+        if (keyMiddle == key) {
             found = true;
-            return stred;
+            return indexMiddle;
         } else {
             if (indexEnd == indexStart) {
                 found = false;
-                return indexEnd;
+                return key < keyMiddle ? indexMiddle : indexMiddle + 1;
             } else {
-                if (SequenceTable<K,T>::list_->at(stred)->getKey() < key) {
-                    return SortedSequenceTable<K,T>::indexOfKey(key, stred+1, indexEnd, found);
+                if (keyMiddle < key) {
+                    return indexOfKey(key, indexMiddle + 1, indexEnd, found);
                 } else {
-                    return SortedSequenceTable<K,T>::indexOfKey(key, indexStart, stred, found);
+                    return SortedSequenceTable<K,T>::indexOfKey(key, indexStart, indexMiddle - 1, found);
                 }
             }
         }
