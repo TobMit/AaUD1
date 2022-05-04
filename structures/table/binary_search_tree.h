@@ -139,8 +139,43 @@ namespace structures
 	template<typename K, typename T>
 	inline Structure& BinarySearchTree<K, T>::assign(Structure& other)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::assign: Not implemented yet.");
+        if (this != &other) {
+            BinarySearchTree<K, T>& otherBST = dynamic_cast<BinarySearchTree<K, T>&>(other);
+            clear();
+
+            // nemôžeme to prechádzať iteratórom lebo, by nám to zdegenerovalo
+            // preto to musíme prechádzať level ordre, alebo preorder vlastným iterátorom
+            // potom na strom nezdegeneruje
+
+            auto itB = new typename Tree<TableItem<K, T>*>::PreOrderTreeIterator(otherBST.binaryTree_->getRoot());
+            auto itE = new typename Tree<TableItem<K, T>*>::PreOrderTreeIterator(nullptr);
+            while (*itB != *itE) {
+                TableItem<K, T>* item = **itB;
+
+                insert(item->getKey(), item->accessData());
+
+                ++*itB;
+
+            }
+            delete itB;
+            delete itE;
+
+            //-----
+            /*
+             * // takto pristupujem k staku a nemusím riešiť mazanie a memleaky
+            Tree<TableItem<K,T>*>::PreOrderTreeIterator itB(otherBST.binaryTree_->getRoot());
+            Tree<TableItem<K,T>*>::PreOrderTreeIterator itE(nullptr);
+            while (itB != itE) {
+                TableItem<K, T>* item = *itB;
+
+                insert(item->getKey(), item->accessData())
+
+                        ++itB;
+
+            }
+            */
+        }
+        return *this;
 	}
 
 	template<typename K, typename T>
