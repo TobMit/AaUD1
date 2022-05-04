@@ -244,8 +244,29 @@ namespace structures
 	template<typename K, typename T>
 	inline typename BinarySearchTree<K, T>::BSTTreeNode* BinarySearchTree<K, T>::findBSTNode(K key, bool& found)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::findBSTNode: Not implemented yet.");
+		found = false;
+        if (binaryTree_->getRoot() == nullptr) {
+            return nullptr;
+        } else {
+            auto lastTreeNote = dynamic_cast<BSTTreeNode*>(binaryTree_->getRoot());
+            while (lastTreeNote->accessData()->getKey() != key) {
+                if (key < lastTreeNote->accessData()->getKey()) {
+                    if (lastTreeNote->hasLeftSon()) {
+                        lastTreeNote = lastTreeNote->getLeftSon();
+                    } else {
+                        return lastTreeNote;
+                    }
+                } else {
+                    if (lastTreeNote->hasRightSon()) {
+                        lastTreeNote = lastTreeNote->getRightSon();
+                    } else {
+                        return lastTreeNote;
+                    }
+                }
+            }
+            found = true;
+            return lastTreeNote;
+        }
 	}
 
 	template<typename K, typename T>
