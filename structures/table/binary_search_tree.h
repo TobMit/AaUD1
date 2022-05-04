@@ -200,8 +200,13 @@ namespace structures
 	template<typename K, typename T>
 	inline void BinarySearchTree<K, T>::insert(const K& key, const T& data)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::insert: Not implemented yet.");
+		TableItem<K, T>* item = new TableItem<K, T>(key, data);
+        BSTTreeNode* node = new BSTTreeNode(item);
+        if (!tryToInsertNode(node)){
+            delete node;
+            delete item;
+            throw std::logic_error("Key already exists! Except from BinarySearchTree<K, T>::insert()");
+        }
 	}
 
 	template<typename K, typename T>
@@ -301,6 +306,7 @@ namespace structures
             } else {
                 parent->setRightSon(node);
             }
+            size_++;
             return true;
         } else {
             return false;
