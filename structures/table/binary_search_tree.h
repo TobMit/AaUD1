@@ -187,8 +187,14 @@ namespace structures
 	template<typename K, typename T>
 	inline T& BinarySearchTree<K, T>::find(const K& key)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::find: Not implemented yet.");
+        bool found = false;
+        auto node = findBSTNode(key, found);
+
+        if (node != nullptr) {
+            return  node->accessData()->accessData();
+        } else {
+            throw std::out_of_range("Key such key! Expect from BinarySearchTree<K, T>::find()");
+        }
 	}
 
 	template<typename K, typename T>
@@ -208,15 +214,23 @@ namespace structures
 	template<typename K, typename T>
 	inline bool BinarySearchTree<K, T>::tryFind(const K& key, T& data)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::tryFind: Not implemented yet.");
+        bool found = false;
+        auto node = findBSTNode(key, found);
+
+        if (node != nullptr) {
+            data = node->accessData()->accessData();
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	template<typename K, typename T>
 	inline bool BinarySearchTree<K, T>::containsKey(const K& key)
 	{
-		//TODO 10: BinarySearchTree
-		throw std::runtime_error("BinarySearchTree<K, T>::containsKey: Not implemented yet.");
+		bool found = false; // treba to priradiť aby nekvakal prekladač
+        findBSTNode(key, found);
+        return found;
 	}
 
 	template<typename K, typename T>
@@ -244,6 +258,7 @@ namespace structures
 	template<typename K, typename T>
 	inline typename BinarySearchTree<K, T>::BSTTreeNode* BinarySearchTree<K, T>::findBSTNode(K key, bool& found)
 	{
+        // veľmi dôležité treba si to zapamätať
 		found = false;
         if (binaryTree_->getRoot() == nullptr) {
             return nullptr;
