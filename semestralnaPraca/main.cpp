@@ -27,6 +27,11 @@ int main()
     //cout << "+ľščťžýáíé";
     delete loader;
     */
+    //wstring test = L"+ľščťž\n";
+    //wcout << test << endl;
+    //wcout << L"+ľščťžýáíé\n";
+    //cout << "+ľščťžýáíé\n";
+
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
     StoredData<wstring> *kraj = new UzemnaJednotka<wstring>();
     if (loader->isOpen()) {
