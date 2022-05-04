@@ -181,13 +181,13 @@ namespace structures
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getBeginIterator()
 	{
-		list_->getBeginIterator();
+		return list_->getBeginIterator();
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getEndIterator()
 	{
-		list_->getEndIterator();
+		return list_->getEndIterator();
 	}
 
 	template<typename K, typename T>
