@@ -4,6 +4,7 @@
 //#include "../../strductures/table/table.h"
 #include "../../structures/table/sorted_sequence_table.h"
 #include "../../structures/table/binary_search_tree.h"
+#include <iostream>
 
 namespace tests
 {

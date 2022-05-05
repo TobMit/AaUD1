@@ -120,60 +120,61 @@ namespace tests
     void TableFunctionsTest::test()
     {
         /*
+        table->remove(0);
+         */
+
         structures::Table<int, int>* table = this->makeTable();
         for (int i = 1; i <= 10; ++i) {
-            table->push(i, i);
+            table->insert(i, i);
         }
-        */
-        /*for (int i = 1; i <= 100; ++i) {
-            // vkladanie s nahodnou prioritov
-            int cislo = rand()%1000;
-            table->push(cislo, cislo);
+        /*for (const auto &item: *assignTable) {
+            std::cout << item->getKey() << std::endl;
         }*/
-        /*
+
+
         SimpleTest::assertTrue(table->size() == 10, "Velkost PriorityQueue by mala byt 10 a je: " + std::to_string(table->size()));
 
         structures::Table<int, int>* copyTable = this->makeTable(*table);
         SimpleTest::assertTrue(copyTable->size() == 10, "Testujem ci kopirovaci konstruktor funguje spravne.");
-        SimpleTest::assertTrue(table->peek() == 1, "Hodnota peek by mala byt 1 a je " + std::to_string(table->peek()));
-        SimpleTest::assertTrue(table->peekPriority() == 1, "Hodnota peekPriority by mala byt 1 a je " + std::to_string(table->peekPriority()));
-        int hodnota = table->pop();
+        SimpleTest::assertTrue(copyTable->equals(*table), "Testujem ci equals funguje spravne.");
+        int cislo;
+        SimpleTest::assertTrue(copyTable->tryFind(5, cislo), "Testujem ci tryFind funguje spravne.");
+        SimpleTest::assertTrue (cislo == 5, "Hodnota tryFind ma byt 5 a je " + std::to_string(cislo));
+        SimpleTest::assertFalse(copyTable->tryFind(12, cislo), "Testujem ci tryFind funguje spravne.");
+        structures::Table<int, int>* assignTable = this->makeTable();
+        assignTable->assign(*copyTable);
+        SimpleTest::assertTrue(table->equals(*assignTable), "Testujem ci assign funguje spravne.");
+        SimpleTest::assertTrue(table->containsKey(7), "Testujem ci containsKey funguje spravne.");
+        SimpleTest::assertFalse(table->containsKey(15), "Testujem ci containsKey funguje spravne.");
+        SimpleTest::assertTrue(table->find(7) == 7, "Hodnota find by mala byt 7 a je " + std::to_string(table->find(7)));
+        int hodnota = table->remove(1);
         SimpleTest::assertTrue(hodnota == 1, "Hodnota pop by mala byt 1 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(2);
         SimpleTest::assertTrue(hodnota == 2, "Hodnota pop by mala byt 2 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(3);
         SimpleTest::assertTrue(hodnota == 3, "Hodnota pop by mala byt 3 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(4);
         SimpleTest::assertTrue(hodnota == 4, "Hodnota pop by mala byt 4 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(5);
         SimpleTest::assertTrue(hodnota == 5, "Hodnota pop by mala byt 5 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(6);
         SimpleTest::assertTrue(hodnota == 6, "Hodnota pop by mala byt 6 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(7);
         SimpleTest::assertTrue(hodnota == 7, "Hodnota pop by mala byt 7 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(8);
         SimpleTest::assertTrue(hodnota == 8, "Hodnota pop by mala byt 8 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(9);
         SimpleTest::assertTrue(hodnota == 9, "Hodnota pop by mala byt 9 a je " + std::to_string(hodnota));
-        hodnota = table->pop();
+        hodnota = table->remove(10);
         SimpleTest::assertTrue(hodnota == 10, "Hodnota pop by mala byt 10 a je " + std::to_string(hodnota));
+        SimpleTest::assertTrue(table->size() == 0, "Velkost table by mala byt 0 a je " + std::to_string(table->size()));
 
-        structures::Table<int, int>* assignQueue = this->makeTable();
-        assignQueue->assign(*copyTable);
-        SimpleTest::assertTrue(assignQueue->size() == 10, "Testujem ci kopirovaci konstruktor funguje spravne.");
-        SimpleTest::logInfo(" \"Ocna\" kontrola copyTable assign. Cisla v riadkoch maju bit rovnake a ist od 1 do 10 ");
-        for (int i = 1; i <= 10; ++i) {
-            int peek = copyTable->peek();
-            int peekPr = copyTable->peekPriority();
-            SimpleTest::logInfo(std::to_string(peek) + " " + std::to_string(peekPr) + " " + std::to_string(copyTable->pop()));
-            //na macos mi to zoborie aj takto ale vo visual to nefunguje správne
-            //SimpleTest::logInfo(std::to_string(copyTable->peek()) + " " + std::to_string(copyTable->peekPriority()) + " " + std::to_string(copyTable->pop()));
-        }
+
 
         SimpleTest::logPass("Complet");
-        delete assignQueue;
+        delete assignTable;
         delete copyTable;
-        delete table;*/
+        delete table;
     }
 
     //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
@@ -260,7 +261,7 @@ namespace tests
                     break;
 
                 case 2:
-                    if (!pTable.isEmpty()) {
+                    if (!pTable.isEmpty() && !usedKey.empty()) {
                         int key = removeKey();
                         SimpleTest::startStopwatch();
                         pTable.remove(key);
@@ -270,7 +271,7 @@ namespace tests
                     break;
 
                 case 3:
-                    if (!pTable.isEmpty()) {
+                    if (!pTable.isEmpty() && !usedKey.empty()) {
                         int key = getUsedKey();
                         SimpleTest::startStopwatch();
                         pTable.tryFind(key, cislo);

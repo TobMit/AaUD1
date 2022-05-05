@@ -239,7 +239,7 @@ namespace structures
         bool found = false;
         auto node = findBSTNode(key, found);
 
-        if (node != nullptr) {
+        if (node != nullptr && found) {
             data = node->accessData()->accessData();
             return true;
         } else {
@@ -340,7 +340,33 @@ namespace structures
         switch (node->degree())
         {
             case 1:
-                replaceNode = node->hasLeftSon() ? node->changeLeftSon(nullptr) : node->changeRightSon(nullptr);
+                if (node->isRoot()) {
+                    if (node->hasRightSon()) {
+                        replaceNode = node->getRightSon();
+                        replaceNode->setParent(nullptr);
+                        binaryTree_->replaceRoot(replaceNode);
+                        node->setRightSon(nullptr);
+
+                    } else {
+                        replaceNode = node->getLeftSon();
+                        replaceNode->setParent(nullptr);
+                        binaryTree_->replaceRoot(replaceNode);
+                        node->setLeftSon(nullptr);
+                    }
+                } else {
+                    if (node->hasRightSon()) {
+                        replaceNode = node->getRightSon();
+                        replaceNode->setParent(parent);
+                        parent->setRightSon(replaceNode);
+                        node->setRightSon(nullptr);
+                    } else {
+                        replaceNode = node->getLeftSon();
+                        replaceNode->setParent(parent);
+                        binaryTree_->replaceRoot(replaceNode);
+                        node->setLeftSon(nullptr);
+                    }
+                }
+                node->setParent(nullptr);
                 break;
             case 2:
                 replaceNode = node->getRightSon();
