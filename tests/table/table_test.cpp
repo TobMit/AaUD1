@@ -65,6 +65,7 @@ namespace tests
 		addTest(new BinarySearchTreeTestInterface());
         addTest(new BSTFunctionTest());
         addTest(new BSTUloha2());
+        addTest(new BSTUloha3());
 	}
 
 	HashTableTestOverall::HashTableTestOverall() :
@@ -85,6 +86,7 @@ namespace tests
 		addTest(new SortedSequenceTableTestInterface());
         addTest(new SSTFunctionTest());
         addTest(new SSTUloha2());
+        addTest(new SSTUloha3());
 	}
 
 	TreapTestOverall::TreapTestOverall() :
@@ -122,7 +124,7 @@ namespace tests
         for (int i = 1; i <= 10; ++i) {
             table->push(i, i);
         }
-
+        */
         /*for (int i = 1; i <= 100; ++i) {
             // vkladanie s nahodnou prioritov
             int cislo = rand()%1000;
@@ -182,6 +184,9 @@ namespace tests
     }
     void TableUloha2::test()
     {
+        for (int i = 0; i < 40000; ++i) {
+            nonUsedKey.push_back(i);
+        }
         this->info();
         structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
         // scenár A
@@ -189,6 +194,11 @@ namespace tests
         cyklus('A', 20, 20, 60, *pTable);
         delete pTable;
 
+        nonUsedKey.clear();
+        usedKey.clear();
+        for (int i = 0; i < 40000; ++i) {
+            nonUsedKey.push_back(i);
+        }
         // Scenár B
         pTable = this->makeTable();
         cyklus('B', 40, 40, 20, *pTable);
@@ -230,7 +240,6 @@ namespace tests
         while (!pool.empty())
         {
             int index = rand() % pool.size();
-            int key = rand() % pTable.size();
             int cislo = rand() % MAX_DATA_VALUE_IN_TABLE;
             switch (pool.at(index))
             {
@@ -241,6 +250,7 @@ namespace tests
                         SimpleTest::stopStopwatch();
                         durationInsert += SimpleTest::getElapsedTime();
                     } else {
+                        int key = insertKey();
                         SimpleTest::startStopwatch();
                         pTable.insert(key, cislo);
                         SimpleTest::stopStopwatch();
@@ -251,6 +261,7 @@ namespace tests
 
                 case 2:
                     if (!pTable.isEmpty()) {
+                        int key = removeKey();
                         SimpleTest::startStopwatch();
                         pTable.remove(key);
                         SimpleTest::stopStopwatch();
@@ -260,6 +271,7 @@ namespace tests
 
                 case 3:
                     if (!pTable.isEmpty()) {
+                        int key = getUsedKey();
                         SimpleTest::startStopwatch();
                         pTable.tryFind(key, cislo);
                         SimpleTest::stopStopwatch();
@@ -279,5 +291,160 @@ namespace tests
     {
         return (pomer * OPAKOVANIA) / 100;
     }
+    int TableUloha2::insertKey() {
+        int index = rand() % nonUsedKey.size();
+        int key = nonUsedKey.at(index);
+        nonUsedKey.erase(nonUsedKey.begin() + index);
+        usedKey.push_back(key);
+        return key;
+    }
 
+    int TableUloha2::removeKey() {
+        int index = rand() % usedKey.size();
+        int key = usedKey.at(index);
+        usedKey.erase(usedKey.begin() + index);
+        nonUsedKey.push_back(key);
+        return key;
+    }
+
+    int TableUloha2::getUsedKey() {
+        return usedKey.at(rand() % usedKey.size());;
+    }
+
+    //--------------------------------------------------- Uloha 3 ------------------------------------------------------------
+    TableUloha3::TableUloha3():
+            SimpleTest("Uloha3")
+    {
+    }
+    void TableUloha3::test()
+    {
+        structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
+        static const int MAX = 10000;
+        static const int KROK = 1000;
+        static const int POC_VELKOST = 1000;
+        static const int POC_OPAKOVANI = 100;
+        static const int MAX_KEY = MAX;
+        int sizeOfTable = POC_VELKOST;
+
+        for (int i = 0; i < MAX_KEY; ++i) {
+            nonUsedKey.push_back(i);
+        }
+
+        structures::Logger::getInstance().logInfo("Vysledne casi sú priemerom " + std::to_string(POC_OPAKOVANI) + " opakovi");
+        structures::Logger::getInstance().logInfo("Velkost Table,Insert,Remove,TryFind");
+
+
+        structures::Table<int, int> *pTable = this->makeTable();
+        while (sizeOfTable <= MAX) {
+            //----------------- Insert ------------------
+            Microseconds insertDuration = cyklusInsert(sizeOfTable, POC_OPAKOVANI, *pTable);
+            //------------------ Remove -----------------
+            Microseconds removeDuration = cyklusRemove(sizeOfTable, POC_OPAKOVANI, *pTable);
+            //---------------- TryFind -----------------
+            Microseconds tryFindDuration = cyklusTryFind(sizeOfTable, POC_OPAKOVANI, *pTable);
+            
+            structures::Logger::getInstance().logDuration(0, tryFindDuration, std::to_string(insertDuration.count())+ " " +
+                                                                              std::to_string(removeDuration.count()));
+            sizeOfTable += KROK;
+        }
+        delete pTable;
+    }
+
+    void TableUloha3::repairTable(const int SIZE, structures::Table<int, int> &pTable) {
+        while (pTable.size() != SIZE) {
+            if (pTable.size() < SIZE) {
+                pTable.insert(insertKey(), rand() % INT_MAX / 2);
+            } else {
+                pTable.remove(removeKey());
+            }
+
+        }
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds TableUloha3::cyklusInsert(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable)
+    {
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            repairTable(size, pTable);
+            duration += durationInsert(insertKey(), rand() % INT_MAX / 2, pTable);
+        }
+
+        return duration / POC_OPAKOVANI;
+
+    }
+
+    Microseconds TableUloha3::durationInsert(int key, int cislo, structures::Table<int, int> &pTable)
+    {
+        SimpleTest::startStopwatch();
+        pTable.insert(key, cislo);
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds TableUloha3::cyklusRemove(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable)
+    {
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            repairTable(size, pTable);
+            duration += durationRemove(removeKey() , pTable);
+        }
+
+        return duration / POC_OPAKOVANI;
+    }
+
+    Microseconds TableUloha3::durationRemove(int key, structures::Table<int, int> &pTable)
+    {
+        SimpleTest::startStopwatch();
+        pTable.remove(key);
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
+
+    //------------------------------------------------------------------------
+    Microseconds TableUloha3::cyklusTryFind(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable)
+    {
+        Microseconds duration = std::chrono::microseconds(0); // nastaví premennú na nulu
+        repairTable(size, pTable);
+
+        for (int i = 0; i < POC_OPAKOVANI; i++)
+        {
+            duration += durationPeek(getUsedKey(), rand() % INT_MAX / 2, pTable);
+        }
+        return duration / POC_OPAKOVANI;
+
+    }
+
+    Microseconds TableUloha3::durationPeek(int key, int cislo, structures::Table<int, int> &pTable)
+    {
+        SimpleTest::startStopwatch();
+        pTable.tryFind(key, cislo);
+        SimpleTest::stopStopwatch();
+        return SimpleTest::getElapsedTime();
+    }
+
+    int TableUloha3::insertKey() {
+        int index = rand() % nonUsedKey.size();
+        int key = nonUsedKey.at(index);
+        nonUsedKey.erase(nonUsedKey.begin() + index);
+        usedKey.push_back(key);
+        return key;
+    }
+
+    int TableUloha3::removeKey() {
+        int index = rand() % usedKey.size();
+        int key = usedKey.at(index);
+        usedKey.erase(usedKey.begin() + index);
+        nonUsedKey.push_back(key);
+        return key;
+    }
+
+    int TableUloha3::getUsedKey() {
+        return usedKey.at(rand() % usedKey.size());;
+    }
 }

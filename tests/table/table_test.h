@@ -202,9 +202,20 @@ namespace tests
         TableUloha2();
         void test() override;
     private:
-        void
-        cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind, structures::Table<int, int> &pTable);
+        // aby som nemusel dlho hladat kluce
+        std::vector<int> usedKey;
+        std::vector<int> nonUsedKey;
+        void cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind, structures::Table<int, int> &pTable);
         int getPomer(int const OPAKOVANIA, int pomer);
+        /// Najde nepouzity kluc a presunie ho medzi pouzite
+        /// \return Kluc ktory sme este nepouzili.
+        int insertKey();
+        /// Najde pouzity kluc ktory sa moze pouzit na vymazanie v tabulke a vratiho medzi nepouzite.
+        /// \return Kluc ktory sa nachadza v tabulke.
+        int removeKey();
+        /// Najde pouzity kluc.
+        /// \return Vrati pouzity kluc
+        int getUsedKey();
     protected:
         virtual structures::Table<int, int> * makeTable() const = 0;
         virtual void info() const = 0;
@@ -236,8 +247,69 @@ namespace tests
         };
         void info() const override
         {
-            structures::Logger::getInstance().logInfo("Testovanie BTS!");
+            structures::Logger::getInstance().logInfo("Testovanie BST!");
         }
+    };
+
+    //------------------------------------------- Uloha 3 -----------------------------------------------
+    class TableUloha3
+            :public SimpleTest
+    {
+    public:
+        TableUloha3();
+        void test() override;
+    private:
+        // aby som nemusel dlho hladat kluce
+        std::vector<int> usedKey;
+        std::vector<int> nonUsedKey;
+
+        Microseconds cyklusInsert(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable);
+        Microseconds durationInsert(int key, int cislo, structures::Table<int, int> &pTable);
+
+        Microseconds cyklusRemove(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable);
+        Microseconds durationRemove(int key, structures::Table<int, int> &pTable);
+
+        Microseconds cyklusTryFind(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable);
+        Microseconds durationPeek(int key, int cislo, structures::Table<int, int> &pTable);
+
+        /// rapairQue udrzuje velkost daného frontu na potrebnej dlzke. Keď treba, tak front zväčší a naplni hodnotami a ked je velky tak zmensi
+        /// \param SIZE - velkost listu ktora sa ma udrziavat
+        /// \param pTable - list kotry sa ma opravit
+        void repairTable(const int SIZE, structures::Table<int, int> &pTable);
+
+        /// Najde nepouzity kluc a presunie ho medzi pouzite
+        /// \return Kluc ktory sme este nepouzili.
+        int insertKey();
+        /// Najde pouzity kluc ktory sa moze pouzit na vymazanie v tabulke a vratiho medzi nepouzite.
+        /// \return Kluc ktory sa nachadza v tabulke.
+        int removeKey();
+        /// Najde pouzity kluc.
+        /// \return Vrati pouzity kluc
+        int getUsedKey();
+    protected:
+        virtual structures::Table<int, int> * makeTable() const = 0;
+
+    };
+
+    class SSTUloha3
+            : public TableUloha3
+    {
+    protected:
+        structures::Table<int, int> *makeTable() const override
+        {
+            return new structures::SortedSequenceTable<int, int>();
+        }
+    };
+
+    class BSTUloha3
+            : public TableUloha3
+    {
+    protected:
+        structures::Table<int, int>* makeTable() const override
+        {
+            return new structures::BinarySearchTree<int, int>();
+        }
+
     };
 
 }
