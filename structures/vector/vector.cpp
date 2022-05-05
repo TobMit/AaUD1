@@ -57,7 +57,7 @@ namespace structures
 			Vector* otherVector = dynamic_cast<Vector*>(&other); // &other -> ukozovate¾ na structure a Vector* je pointer, ak sa nepodarí pretypova tak vratí NULL
 			if (otherVector != nullptr)
 			{
-				return size_ == otherVector->size_ && memcmp(memory_, otherVector ->memory_, size_) == 0; //na bitovej úrovni porovná dva pamäťové bloky
+				return size_ == otherVector->size_ && memcmp(memory_, otherVector->memory_, size_) == 0; //na bitovej úrovni porovná dva pamäťové bloky
 			}
 
 			else

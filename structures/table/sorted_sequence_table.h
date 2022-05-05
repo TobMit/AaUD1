@@ -122,7 +122,7 @@ namespace structures
                 if (keyMiddle < key) {
                     return indexOfKey(key, indexMiddle + 1, indexEnd, found);
                 } else {
-                    return SortedSequenceTable<K,T>::indexOfKey(key, indexStart, indexMiddle - 1, found);
+                    return indexOfKey(key, indexStart, indexMiddle - 1, found);
                 }
             }
         }

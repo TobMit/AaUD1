@@ -110,8 +110,9 @@ namespace structures
 			{
 				vector_->assign(*otherArray.vector_);  //Vector::assign potrebuje referenciu preto je tam ta *
 			}
-			else
-				throw std::invalid_argument("Array size differ!");
+			else {
+                throw std::invalid_argument("Array size differ!");
+            }
 		}
 		
 		return *this;
@@ -133,8 +134,9 @@ namespace structures
 			//return *vector_ == *otherArray->vector_;
 			//return vector_ == otherArray->vector_;  //ZLE!!!
 		}
-		else
-			return false;
+		else {
+            return false;
+        }
 	}
 
 	template<typename T>

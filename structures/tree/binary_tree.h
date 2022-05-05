@@ -146,7 +146,7 @@ namespace structures
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::getParent()
 	{
-        return dynamic_cast<BinaryTreeNode<T>*>(TreeNode<T>::getParent());
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T, 2>::getParent());
 	}
 
 	template<typename T>
@@ -164,26 +164,26 @@ namespace structures
 	template<typename T>
 	inline void BinaryTreeNode<T>::setLeftSon(BinaryTreeNode<T>* leftSon)
 	{
-		KWayTreeNode<T,2>::insertSon(leftSon,LEFT_SON); // ked v insete nie je vínimka
+		KWayTreeNode<T,2>::insertSon(leftSon, LEFT_SON); // ked v insete nie je vínimka
         //delete KWayTreeNode<T,2>::replaceSon(leftSon,LEFT_SON); // ked hádzžeme v insertre vínimku v K_wayTree
 	}
 
 	template<typename T>
 	inline void BinaryTreeNode<T>::setRightSon(BinaryTreeNode<T>* rightSon)
 	{
-        KWayTreeNode<T,2>::insertSon(rightSon,RIGHT_SON);
+        KWayTreeNode<T,2>::insertSon(rightSon, RIGHT_SON);
     }
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::changeLeftSon(BinaryTreeNode<T>* leftSon)
 	{
-        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(leftSon,LEFT_SON));
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(leftSon, LEFT_SON));
     }
 
 	template<typename T>
 	inline BinaryTreeNode<T>* BinaryTreeNode<T>::changeRightSon(BinaryTreeNode<T>* rightSon)
 	{
-        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(rightSon,RIGHT_SON));
+        return dynamic_cast<BinaryTreeNode<T>*>(KWayTreeNode<T,2>::replaceSon(rightSon, RIGHT_SON));
 	}
 
 	template<typename T>

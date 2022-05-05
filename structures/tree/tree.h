@@ -263,7 +263,7 @@ namespace structures
 
         auto result = shallowCopy();
         int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
-        for (int i = 0; nuberOfProcessedSons < degree(); ++i) {
+        for (int i = 0; nuberOfProcessedSons < degree(); i++) {
             auto son = getSon(i);
             if (son != nullptr) {
                 result->replaceSon(son->deepCopy(), i);
@@ -322,7 +322,7 @@ namespace structures
 
         int result = 1;
         int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
-        for (int i = 0; nuberOfProcessedSons < degree(); ++i) {
+        for (int i = 0; nuberOfProcessedSons < degree(); i++) {
             auto son = getSon(i);
             if (son != nullptr) {
                 result += son->sizeOfSubtree();
@@ -359,7 +359,7 @@ namespace structures
 	template<typename T>
 	inline bool Tree<T>::isEmpty()
 	{
-		return root_ == nullptr ? 0 : root_->sizeOfSubtree();
+		return root_ == nullptr;
 
 	}
 
@@ -369,7 +369,7 @@ namespace structures
 		// strom si nedrzí size_ keďže môžeme naraz viac prvkov
         // nejaké osetrenie lebo a zavoláme sizeOf subtree
 
-        return root_->sizeOfSubtree();
+        return root_ == nullptr ? 0 : root_->sizeOfSubtree();
 	}
 
 	template<typename T>
@@ -416,8 +416,8 @@ namespace structures
         auto iteratorOteher = other->begin();
         auto iteratorOterEnd = other->end();
 
-        while (iteratorEnd != iteratorEnd) {
-            if (*iteratorEnd != *iteratorEnd) {
+        while (iteratorThis != iteratorEnd) {
+            if (*iteratorThis != *iteratorOteher) {
                 return false;
             }
             ++iteratorThis;
@@ -518,7 +518,7 @@ namespace structures
             TreeIterator::path_->push(current);
 
             int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
-            for (int i = 0; nuberOfProcessedSons < current->degree(); ++i) {
+            for (int i = 0; nuberOfProcessedSons < current->degree(); i++) {
                 auto son = current->getSon(i);
                 if (son != nullptr) {
                     populatePath(son);
@@ -542,7 +542,7 @@ namespace structures
         if (current != nullptr) {
 
             int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
-            for (int i = 0; nuberOfProcessedSons < current->degree(); ++i) {
+            for (int i = 0; nuberOfProcessedSons < current->degree(); i++) {
                 auto son = current->getSon(i);
                 if (son != nullptr) {
                     populatePath(son);

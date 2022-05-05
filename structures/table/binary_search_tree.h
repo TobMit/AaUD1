@@ -282,27 +282,28 @@ namespace structures
 	{
         // veľmi dôležité treba si to zapamätať
 		found = false;
+        BSTTreeNode* lastNode;
         if (binaryTree_->getRoot() == nullptr) {
             return nullptr;
         } else {
-            auto lastTreeNote = dynamic_cast<BSTTreeNode*>(binaryTree_->getRoot());
-            while (lastTreeNote->accessData()->getKey() != key) {
-                if (key < lastTreeNote->accessData()->getKey()) {
-                    if (lastTreeNote->hasLeftSon()) {
-                        lastTreeNote = lastTreeNote->getLeftSon();
+            lastNode = dynamic_cast<BSTTreeNode*>(binaryTree_->getRoot());
+            while (lastNode->accessData()->getKey() != key) {
+                if (key < lastNode->accessData()->getKey()) {
+                    if (lastNode->hasLeftSon()) {
+                        lastNode = lastNode->getLeftSon();
                     } else {
-                        return lastTreeNote;
+                        return lastNode;
                     }
                 } else {
-                    if (lastTreeNote->hasRightSon()) {
-                        lastTreeNote = lastTreeNote->getRightSon();
+                    if (lastNode->hasRightSon()) {
+                        lastNode = lastNode->getRightSon();
                     } else {
-                        return lastTreeNote;
+                        return lastNode;
                     }
                 }
             }
             found = true;
-            return lastTreeNote;
+            return lastNode;
         }
 	}
 

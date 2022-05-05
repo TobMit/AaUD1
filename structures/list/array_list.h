@@ -306,7 +306,7 @@ namespace structures
 	inline int ArrayList<T>::getIndexOf(const T& data)
 	{
 		// ak sa nenajde tak posle -1
-		for (int i = 0; i < size_; i++) {
+		for (size_t i = 0; i < size_; i++) {
 			if (array_->at(i) == data) {
 				return i;
 			}

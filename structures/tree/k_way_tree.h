@@ -5,8 +5,8 @@
 
 namespace structures
 {
-	/// <summary> Vrchol K-cestneho stromu. </summary>
-	/// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
+    /// <summary> Vrchol K-cestneho stromu. </summary>
+    /// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
 	/// <typeparam name = "K"> Kardinalita vrchola. </typeparam>
 	template <typename T, int K> //kde koľvek použieme K compiler tam doplní to čo sme pri K dávali pri vytváraní
 	class KWayTreeNode : public TreeNode<T>
