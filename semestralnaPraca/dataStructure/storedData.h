@@ -20,7 +20,7 @@ public:
     /// vráti vráti officialny nazov
     virtual wstring& getOfficialTitle() = 0;
     /// nastavy klúč
-    virtual void setCode(const wstring& code) = 0;
+    virtual void setCode(const wstring& pCode) = 0;
     /// nastavy officialne meno uzemnej jednotky
     virtual void setOfficialTitle(const wstring& offTitleName) = 0;
     /// bude nastavovať všetky paramtetre ktoré treba
