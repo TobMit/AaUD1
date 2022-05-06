@@ -21,7 +21,7 @@ public:
 
     void setOfficialTitle(const wstring& offTitleName) override;
 
-    void nastavDalsiParameter(const T &parameter) override;
+    void setNextParameter(const T &parameter) override;
 
     int getSize() override;
 
@@ -71,7 +71,7 @@ void UzemnaJednotka<T>::setOfficialTitle(const wstring& offTitleName) {
 }
 
 template<typename T>
-void UzemnaJednotka<T>::nastavDalsiParameter(const T& parameter) {
+void UzemnaJednotka<T>::setNextParameter(const T& parameter) {
     if (dataIndex == 1 || dataIndex == 2) {
         dataIndex = 3;
     }

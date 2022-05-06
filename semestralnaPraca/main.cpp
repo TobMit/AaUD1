@@ -27,13 +27,13 @@ int main()
     StoredData<wstring> *kraj = new UzemnaJednotka<wstring>();
     if (loader->isOpen()) {
         loader->nextLine();
-        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
         kraj->setCode(loader->getNextParameter());
         kraj->setOfficialTitle(loader->getNextParameter());
-        kraj->nastavDalsiParameter(loader->getNextParameter());
-        kraj->nastavDalsiParameter(loader->getNextParameter());
-        kraj->nastavDalsiParameter(loader->getNextParameter());
-        kraj->nastavDalsiParameter(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
     }
     for (int i = 0; i < kraj->getSize(); ++i) {
         wcout << kraj->at(i) << L" ";
@@ -50,7 +50,7 @@ int main()
         vzdelanie->setOfficialTitle(loader->getNextParameter());
         for (int i = 0; loader->haveNextParameter(); i++) {
             int value = stoi(loader->getNextParameter());
-            vzdelanie->nastavDalsiParameter(value);
+            vzdelanie->setNextParameter(value);
         }
     }
         wcout << vzdelanie->getCode() << L" " << vzdelanie->getOfficialTitle() << L" ";

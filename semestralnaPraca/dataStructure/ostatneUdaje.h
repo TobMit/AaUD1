@@ -22,7 +22,7 @@ public:
 
     void setOfficialTitle(const wstring &offTitleName) override;
 
-    void nastavDalsiParameter(const T &parameter) override;
+    void setNextParameter(const T &parameter) override;
 
     int getSize() override;
 
@@ -55,7 +55,7 @@ void OstatneUdaje<T>::setOfficialTitle(const wstring &offTitleName) {
 }
 
 template<typename T>
-void OstatneUdaje<T>::nastavDalsiParameter(const T &parameter) {
+void OstatneUdaje<T>::setNextParameter(const T &parameter) {
     this->data_->add(parameter);
 }
 

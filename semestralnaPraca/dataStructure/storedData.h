@@ -24,7 +24,7 @@ public:
     /// nastavy officialne meno uzemnej jednotky
     virtual void setOfficialTitle(const wstring& offTitleName) = 0;
     /// bude nastavovať všetky paramtetre ktoré treba
-    virtual void nastavDalsiParameter(const T& parameter) = 0;
+    virtual void setNextParameter(const T& parameter) = 0;
     /// prístup k parametrom z ulozenych dát
     virtual int getSize() {
         return data_->size();
@@ -36,9 +36,19 @@ public:
     virtual T& operator[](int index) {
         return this->at(index);
     }
-
+    /// Nastavi nastavi dajsiu hlavicku, aj ked je hlavicka prazna
+    /// \param headerName Meno hlavicky
+    void setNextHeader(const wstring& headerName);
+    /// Zízkame nazov hlavicky pre Ity stlpec
+    /// \param i Stlpec ktorého chceme ziskat hlavicku
+    /// \return Nazov hlavicky
+    wstring& getHeaderAt(const int i);
+    /// Vrati aktualnu velkost hlavicky
+    /// \return Pocet stlpcov v hlavicke
+    int getSizeHeader();
 protected:
     structures::List<T> *data_;
+    structures::List<wstring> *header_;
 
 };
 
@@ -52,4 +62,19 @@ template<typename T>
 StoredData<T>::~StoredData() {
     delete data_;
     data_ = nullptr;
+}
+
+template<typename T>
+void StoredData<T>::setNextHeader(const wstring &headerName) {
+    header_->add(headerName);
+}
+
+template<typename T>
+wstring &StoredData<T>::getHeaderAt(const int i) {
+    return header_->at(i);
+}
+
+template<typename T>
+int StoredData<T>::getSizeHeader() {
+    return header_->size();
 }
