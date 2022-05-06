@@ -204,8 +204,8 @@ namespace tests
         void test() override;
     private:
         // aby som nemusel dlho hladat kluce
-        std::vector<int> usedKey;
-        std::vector<int> nonUsedKey;
+        structures::ArrayList<int> usedKey;
+        structures::ArrayList<int> unUsedKey;
         void cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind, structures::Table<int, int> &pTable);
         int getPomer(int const OPAKOVANIA, int pomer);
         /// Najde nepouzity kluc a presunie ho medzi pouzite
@@ -261,8 +261,8 @@ namespace tests
         void test() override;
     private:
         // aby som nemusel dlho hladat kluce
-        std::vector<int> usedKey;
-        std::vector<int> nonUsedKey;
+        structures::ArrayList<int> usedKey;
+        structures::ArrayList<int> unUsedKey;
 
         Microseconds cyklusInsert(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable);
         Microseconds durationInsert(int key, int cislo, structures::Table<int, int> &pTable);

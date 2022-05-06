@@ -194,8 +194,9 @@ namespace tests
     }
     void TableUloha2::test()
     {
-        for (int i = 0; i < 40000; ++i) {
-            nonUsedKey.push_back(i);
+        static const int MAX_KEY = 40000;
+        for (int i = 0; i < MAX_KEY; ++i) {
+            unUsedKey.add(i);
         }
         this->info();
         structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
@@ -204,15 +205,17 @@ namespace tests
         cyklus('A', 20, 20, 60, *pTable);
         delete pTable;
 
-        nonUsedKey.clear();
+        unUsedKey.clear();
         usedKey.clear();
-        for (int i = 0; i < 40000; ++i) {
-            nonUsedKey.push_back(i);
+        for (int i = 0; i < MAX_KEY; ++i) {
+            unUsedKey.add(i);
         }
         // Scenár B
         pTable = this->makeTable();
         cyklus('B', 40, 40, 20, *pTable);
         delete pTable;
+        unUsedKey.clear();
+        usedKey.clear();
 
     }
     void TableUloha2::cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind,
@@ -228,18 +231,18 @@ namespace tests
         int opRemove = getPomer(OPAKOVANIA, podielRemove);
         int opTryFind = getPomer(OPAKOVANIA, podielTryFind);
 
-        std::vector<char>pool;
+        structures::ArrayList<int>pool;
         for (unsigned i = 0; i < opInsert; i++)
         {
-            pool.push_back(1);
+            pool.add(1);
         }
         for (unsigned i = 0; i < opRemove; i++)
         {
-            pool.push_back(2);
+            pool.add(2);
         }
         for (unsigned i = 0; i < opTryFind; i++)
         {
-            pool.push_back(3);
+            pool.add(3);
         }
 
 
@@ -247,31 +250,24 @@ namespace tests
         Microseconds durationRemove = std::chrono::microseconds(0);
         Microseconds durationTryFind = std::chrono::microseconds(0);
 
-        while (!pool.empty())
+        while (!pool.isEmpty())
         {
-            int index = rand() % pool.size();
+            int key;
             int cislo = rand() % MAX_DATA_VALUE_IN_TABLE;
-            switch (pool.at(index))
+            int testCase = pool.removeAt(rand() % pool.size());
+            switch (testCase)
             {
                 case 1:
-                    if (pTable.isEmpty()) {
-                        SimpleTest::startStopwatch();
-                        pTable.insert(0, cislo);
-                        SimpleTest::stopStopwatch();
-                        durationInsert += SimpleTest::getElapsedTime();
-                    } else {
-                        int key = insertKey();
-                        SimpleTest::startStopwatch();
-                        pTable.insert(key, cislo);
-                        SimpleTest::stopStopwatch();
-                        durationInsert += SimpleTest::getElapsedTime();
-                    }
-
+                    key = insertKey();
+                    SimpleTest::startStopwatch();
+                    pTable.insert(key, cislo);
+                    SimpleTest::stopStopwatch();
+                    durationInsert += SimpleTest::getElapsedTime();
                     break;
 
                 case 2:
-                    if (!pTable.isEmpty() && !usedKey.empty()) {
-                        int key = removeKey();
+                    if (!pTable.isEmpty() && !usedKey.isEmpty()) {
+                        key = removeKey();
                         SimpleTest::startStopwatch();
                         pTable.remove(key);
                         SimpleTest::stopStopwatch();
@@ -280,8 +276,8 @@ namespace tests
                     break;
 
                 case 3:
-                    if (!pTable.isEmpty() && !usedKey.empty()) {
-                        int key = getUsedKey();
+                    if (!pTable.isEmpty() && !usedKey.isEmpty()) {
+                        key = getUsedKey();
                         SimpleTest::startStopwatch();
                         pTable.tryFind(key, cislo);
                         SimpleTest::stopStopwatch();
@@ -291,7 +287,6 @@ namespace tests
 
             }
 
-            pool.erase(pool.begin() + index);
         }
 
         structures::Logger::getInstance().logDuration(0, durationInsert + durationRemove + durationTryFind, std::to_string(durationInsert.count() ) + "," + std::to_string(durationRemove.count()) + "," + std::to_string(durationTryFind.count()));
@@ -302,18 +297,16 @@ namespace tests
         return (pomer * OPAKOVANIA) / 100;
     }
     int TableUloha2::insertKey() {
-        int index = rand() % nonUsedKey.size();
-        int key = nonUsedKey.at(index);
-        nonUsedKey.erase(nonUsedKey.begin() + index);
-        usedKey.push_back(key);
+        int index = rand() % unUsedKey.size();
+        int key = unUsedKey.removeAt(index);
+        usedKey.add(key);
         return key;
     }
 
     int TableUloha2::removeKey() {
         int index = rand() % usedKey.size();
-        int key = usedKey.at(index);
-        usedKey.erase(usedKey.begin() + index);
-        nonUsedKey.push_back(key);
+        int key = usedKey.removeAt(index);
+        unUsedKey.add(key);
         return key;
     }
 
@@ -337,7 +330,7 @@ namespace tests
         int sizeOfTable = POC_VELKOST;
 
         for (int i = 0; i < MAX_KEY; ++i) {
-            nonUsedKey.push_back(i);
+            unUsedKey.add(i);
         }
 
         structures::Logger::getInstance().logInfo("Vysledne casi sú priemerom " + std::to_string(POC_OPAKOVANI) + " opakovi");
@@ -439,18 +432,16 @@ namespace tests
     }
 
     int TableUloha3::insertKey() {
-        int index = rand() % nonUsedKey.size();
-        int key = nonUsedKey.at(index);
-        nonUsedKey.erase(nonUsedKey.begin() + index);
-        usedKey.push_back(key);
+        int index = rand() % unUsedKey.size();
+        int key = unUsedKey.removeAt(index);
+        usedKey.add(key);
         return key;
     }
 
     int TableUloha3::removeKey() {
         int index = rand() % usedKey.size();
-        int key = usedKey.at(index);
-        usedKey.erase(usedKey.begin() + index);
-        nonUsedKey.push_back(key);
+        int key = usedKey.removeAt(index);
+        unUsedKey.add(key);
         return key;
     }
 
