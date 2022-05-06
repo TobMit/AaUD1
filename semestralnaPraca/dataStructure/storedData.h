@@ -68,6 +68,8 @@ template<typename T>
 StoredData<T>::~StoredData() {
     delete data_;
     data_ = nullptr;
+    delete header_;
+    header_ = nullptr;
 }
 
 template<typename T>
