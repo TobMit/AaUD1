@@ -4,9 +4,8 @@
 #pragma once
 #include "storedData.h"
 
-template<typename T>
 
-class UzemnaJednotka : public StoredData<T> {
+class UzemnaJednotka : public StoredData {
 public:
     UzemnaJednotka();
 
@@ -21,7 +20,7 @@ public:
 
     void setOfficialTitle(const wstring& offTitleName) override;
 
-    void setNextParameter(const T &parameter) override;
+    void setNextParameter(const wstring &parameter) override;
 
     int getSize() override;
 
@@ -31,47 +30,46 @@ private:
 };
 
 
-template<typename T>
-UzemnaJednotka<T>::UzemnaJednotka()
+UzemnaJednotka::UzemnaJednotka()
 {
     for (int i = 0; i < getSize(); ++i) {
-        StoredData<T>::data_->add(L"");
+        StoredData::data_->add(L"");
     }
 }
 
-template<typename T>
-UzemnaJednotka<T>::UzemnaJednotka(const wstring& sortNumber, const wstring& code, const wstring& officialTitle, const wstring& mediumTitle,
+
+UzemnaJednotka::UzemnaJednotka(const wstring& sortNumber, const wstring& code, const wstring& officialTitle, const wstring& mediumTitle,
                                   const wstring& shortTitle,const wstring& note) {
-    StoredData<T>::data_->add(sortNumber);
-    StoredData<T>::data_->add(code);
-    StoredData<T>::adata_->add(officialTitle);
-    StoredData<T>::data_->add(mediumTitle);
-    StoredData<T>::data_->add(shortTitle);
-    StoredData<T>::data_->add(note);
+    StoredData::data_->add(sortNumber);
+    StoredData::data_->add(code);
+    StoredData::data_->add(officialTitle);
+    StoredData::data_->add(mediumTitle);
+    StoredData::data_->add(shortTitle);
+    StoredData::data_->add(note);
 }
 
-template<typename T>
-wstring &UzemnaJednotka<T>::getCode() {
-    return StoredData<T>::at(1);
+
+wstring &UzemnaJednotka::getCode() {
+    return StoredData::at(1);
 }
 
-template<typename T>
-wstring &UzemnaJednotka<T>::getOfficialTitle() {
-    return StoredData<T>::at(2);
+
+wstring &UzemnaJednotka::getOfficialTitle() {
+    return StoredData::at(2);
 }
 
-template<typename T>
-void UzemnaJednotka<T>::setCode(const wstring& code) {
-    StoredData<T>::at(1) = code;
+
+void UzemnaJednotka::setCode(const wstring& code) {
+    StoredData::at(1) = code;
 }
 
-template<typename T>
-void UzemnaJednotka<T>::setOfficialTitle(const wstring& offTitleName) {
-    StoredData<T>::at(2) = offTitleName;
+
+void UzemnaJednotka::setOfficialTitle(const wstring& offTitleName) {
+    StoredData::at(2) = offTitleName;
 }
 
-template<typename T>
-void UzemnaJednotka<T>::setNextParameter(const T& parameter) {
+
+void UzemnaJednotka::setNextParameter(const wstring& parameter) {
     if (dataIndex == 1 || dataIndex == 2) {
         dataIndex = 3;
     }
@@ -83,8 +81,8 @@ void UzemnaJednotka<T>::setNextParameter(const T& parameter) {
     }
 }
 
-template<typename T>
-int UzemnaJednotka<T>::getSize() {
+
+int UzemnaJednotka::getSize() {
     return 6;
 }
 

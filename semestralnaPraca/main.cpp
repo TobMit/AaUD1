@@ -6,9 +6,13 @@
 #include "uzemnaJednotka.h"
 #include "storedData.h"
 #include "ostatneUdaje.h"
+#include "../structures/table/table.h"
+
+
 
 int main()
 {
+
     /*
     DataLoader *testLoader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
     if (testLoader->isOpen()) {
@@ -24,7 +28,7 @@ int main()
 */
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
-    StoredData<wstring> *kraj = new UzemnaJednotka<wstring>();
+    StoredData *kraj = new UzemnaJednotka();
     if (loader->isOpen()) {
         loader->nextLine();
         while (loader->haveNextParameter()){

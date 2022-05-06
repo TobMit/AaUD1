@@ -4,8 +4,8 @@
 #pragma once
 #include "storedData.h"
 
-template<typename T>
-class OstatneUdaje : public StoredData<T>{
+
+class OstatneUdaje : public StoredData{
 private:
     wstring code;
     wstring offTitle;
@@ -22,45 +22,46 @@ public:
 
     void setOfficialTitle(const wstring &offTitleName) override;
 
-    void setNextParameter(const T &parameter) override;
+    void setNextParameter(const wstring &parameter) override;
 
     int getSize() override;
 
 };
 
-template<typename T>
-OstatneUdaje<T>::OstatneUdaje(const wstring &code, const wstring &offTitle) :
-        code(code), offTitle(offTitle)
+
+OstatneUdaje::OstatneUdaje(const wstring &code, const wstring &offTitle) :
+        code(code),
+        offTitle(offTitle)
 {
 }
 
-template<typename T>
-wstring &OstatneUdaje<T>::getCode() {
+
+wstring &OstatneUdaje::getCode() {
     return code;
 }
 
-template<typename T>
-wstring &OstatneUdaje<T>::getOfficialTitle() {
+
+wstring &OstatneUdaje::getOfficialTitle() {
     return offTitle;
 }
 
-template<typename T>
-void OstatneUdaje<T>::setCode(const wstring &pCode) {
+
+void OstatneUdaje::setCode(const wstring &pCode) {
     code = pCode;
 }
 
-template<typename T>
-void OstatneUdaje<T>::setOfficialTitle(const wstring &offTitleName) {
+
+void OstatneUdaje::setOfficialTitle(const wstring &offTitleName) {
     offTitle = offTitleName;
 }
 
-template<typename T>
-void OstatneUdaje<T>::setNextParameter(const T &parameter) {
+
+void OstatneUdaje::setNextParameter(const wstring &parameter) {
     this->data_->add(parameter);
 }
 
-template<typename T>
-int OstatneUdaje<T>::getSize() {
+
+int OstatneUdaje::getSize() {
     return this->data_->size();
 }
 

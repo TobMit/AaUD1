@@ -177,4 +177,4 @@ add_executable(semestralnaPraca
         structures/structure_iterator.h
         structures/types.h
         structures/utils.cpp
-        structures/utils.h)
+        structures/utils.h semestralnaPraca/tableLoader.h)
