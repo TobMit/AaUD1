@@ -2,6 +2,8 @@
 // Created by Tobias on 30. 4. 2022.
 //
 #pragma once
+
+#include <sstream>
 #include "string"
 #include "../structures/list/array_list.h"
 
@@ -46,6 +48,9 @@ public:
     /// Vrati aktualnu velkost hlavicky
     /// \return Pocet stlpcov v hlavicke
     int getSizeHeader();
+    /// Vrati nazov kazdeho stlpca oddeleného tabom
+    /// \return wstring ktory obsahuje celhu hlavciku
+    wstring& getFullHeader();
 protected:
     structures::List<T> *data_;
     structures::List<wstring> *header_;
@@ -54,7 +59,8 @@ protected:
 
 template<typename T>
 StoredData<T>::StoredData() :
-    data_(new structures::ArrayList<T>()){
+    data_(new structures::ArrayList<T>()),
+    header_(new structures::ArrayList<wstring>) {
 
 }
 
@@ -77,4 +83,14 @@ wstring &StoredData<T>::getHeaderAt(const int i) {
 template<typename T>
 int StoredData<T>::getSizeHeader() {
     return header_->size();
+}
+
+template<typename T>
+wstring &StoredData<T>::getFullHeader() {
+    wstringstream wstrignBuilder;
+    for (auto item: *header_) {
+        wstrignBuilder << item << L"\t";
+    }
+    wstring returnValue = wstrignBuilder.str();
+    return returnValue;
 }

@@ -9,7 +9,7 @@
 
 int main()
 {
-
+    /*
     DataLoader *testLoader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
     if (testLoader->isOpen()) {
         while (testLoader->nextLine()) {
@@ -21,11 +21,15 @@ int main()
     }
 
     delete testLoader;
-
+*/
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
     StoredData<wstring> *kraj = new UzemnaJednotka<wstring>();
     if (loader->isOpen()) {
+        loader->nextLine();
+        while (loader->haveNextParameter()){
+            kraj->setNextHeader(loader->getNextParameter());
+        }
         loader->nextLine();
         kraj->setNextParameter(loader->getNextParameter());
         kraj->setCode(loader->getNextParameter());
@@ -35,8 +39,9 @@ int main()
         kraj->setNextParameter(loader->getNextParameter());
         kraj->setNextParameter(loader->getNextParameter());
     }
+    wcout << kraj->getFullHeader() << endl;
     for (int i = 0; i < kraj->getSize(); ++i) {
-        wcout << kraj->at(i) << L" ";
+        wcout << kraj->at(i) << L"\t";
     }
     wcout << endl;
 
