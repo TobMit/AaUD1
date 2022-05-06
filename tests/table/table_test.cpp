@@ -122,12 +122,21 @@ namespace tests
         /*
         table->remove(0);
          */
-
         structures::Table<int, int>* table = this->makeTable();
         for (int i = 1; i <= 10; ++i) {
             table->insert(i, i);
         }
-        /*for (const auto &item: *assignTable) {
+
+        /*
+        structures::ArrayList<int> test;
+        for (int i = 0; i < 1000000; ++i) {
+            test.add(i);
+        }
+        for (int i = 1; i <= 1000; ++i) {
+            int cislo = test.removeAt(rand()%test.size());
+            table->insert(cislo, cislo);
+        }*/
+       /* for (const auto &item: *table) {
             std::cout << item->getKey() << std::endl;
         }*/
 

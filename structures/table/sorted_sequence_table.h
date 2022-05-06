@@ -108,6 +108,21 @@ namespace structures
             found = false;
             return 0;
         }
+        /*
+        if (SequenceTable<K, T>::list_->at(0)->getKey() > key) {
+            found = false;
+            return 0;
+        } else if (SequenceTable<K, T>::list_->at(0)->getKey()  == key){
+            found = true;
+            return 0;
+        }
+        if (SequenceTable<K, T>::list_->at(SequenceTable<K, T>::list_->size()-1)->getKey()  < key){
+            found = false;
+            return SequenceTable<K, T>::list_->size();
+        } else if (SequenceTable<K, T>::list_->at(SequenceTable<K, T>::list_->size() -1)->getKey()  == key){
+            found = true;
+            return SequenceTable<K, T>::list_->size()-1;
+        }*/
         int indexMiddle = (indexStart + indexEnd) / 2;
         K keyMiddle = SequenceTable<K,T>::list_->at(indexMiddle)->getKey();
 
@@ -122,7 +137,7 @@ namespace structures
                 if (keyMiddle < key) {
                     return indexOfKey(key, indexMiddle + 1, indexEnd, found);
                 } else {
-                    return indexOfKey(key, indexStart, indexMiddle - 1, found);
+                    return indexOfKey(key, indexStart, indexMiddle, found);
                 }
             }
         }
