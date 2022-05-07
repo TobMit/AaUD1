@@ -215,21 +215,20 @@ namespace structures
         //todo skontrolovať memleaky
         bool found = false;
         auto nodeToRemove = findBSTNode(key, found);
-
         if (found)
         {
             extractNode(nodeToRemove);
 
             T result = nodeToRemove->accessData()->accessData();
+            //auto removeTableItem = nodeToRemove->accessData();
+            //nodeToRemove->accessData() = nullptr;
             delete nodeToRemove->accessData();
-            nodeToRemove->accessData() = nullptr;
             delete nodeToRemove;
-            nodeToRemove = nullptr;
             size_--;
             return result;
         }
         else {
-            throw std::logic_error("Key not found!");
+            throw std::logic_error("Key not found! Except from BinarySearchTree<K, T>::remove()");
         }
 	}
 
@@ -335,82 +334,71 @@ namespace structures
 	template<typename K, typename T>
 	inline void BinarySearchTree<K, T>::extractNode(BSTTreeNode* node)
 	{
-        BSTTreeNode* parent = node->getParent();
         BSTTreeNode* replaceNode = nullptr;
 
-        switch (node->degree())
-        {
-            case 1:
-                if (node->isRoot()) {
-                    if (node->hasRightSon()) {
-                        replaceNode = node->getRightSon();
-                        replaceNode->setParent(nullptr);
-                        binaryTree_->replaceRoot(replaceNode);
-                        node->setRightSon(nullptr);
+        if (node->degree() == 0) {
+            if (node->isRoot()) {
+                binaryTree_->replaceRoot(nullptr);
+            } else {
+                if (node->isLeftSon())
+                    node->getParent()->setLeftSon(nullptr);
+                else
+                    node->getParent()->setRightSon(nullptr);
+            }
 
-                    } else {
-                        replaceNode = node->getLeftSon();
-                        replaceNode->setParent(nullptr);
-                        binaryTree_->replaceRoot(replaceNode);
-                        node->setLeftSon(nullptr);
-                    }
+            node->setParent(nullptr);
+        } else if (node->degree() == 1) {
+            if (node->isRoot()) {
+                if (node->hasLeftSon()) {
+                    node->getLeftSon()->setParent(nullptr);
+                    binaryTree_->replaceRoot(node->getLeftSon());
+                    node->setLeftSon(nullptr);
                 } else {
-                    if (node->hasRightSon()) {
-                        replaceNode = node->getRightSon();
-                        replaceNode->setParent(parent);
-                        parent->setRightSon(replaceNode);
-                        node->setRightSon(nullptr);
-                    } else {
-                        replaceNode = node->getLeftSon();
-                        replaceNode->setParent(parent);
-                        binaryTree_->replaceRoot(replaceNode);
-                        node->setLeftSon(nullptr);
-                    }
+                    node->getRightSon()->setParent(nullptr);
+                    binaryTree_->replaceRoot(node->getRightSon());
+                    node->setRightSon(nullptr);
                 }
-                node->setParent(nullptr);
-                break;
-            case 2:
-                replaceNode = node->getRightSon();
-                while (replaceNode->hasLeftSon())
-                {
-                    replaceNode = replaceNode->getLeftSon();
-                }
-
-                extractNode(replaceNode);
-                replaceNode->setLeftSon(node->changeLeftSon(nullptr));
-                replaceNode->setRightSon(node->changeRightSon(nullptr));
-
-                if (parent == nullptr)
-                {
-                    binaryTree_->replaceRoot(replaceNode);
-                }
-                else {
-                    if (node->isLeftSon())
-                    {
-                        parent->setLeftSon(replaceNode);
-                    }
-                    else {
-                        parent->setRightSon(replaceNode);
-                    }
-                }
-
-                if (replaceNode != nullptr)
-                {
-                    replaceNode->setParent(parent);
-                }
-            default:
-                if (node->isRoot()) {
+            } else {
+                if (node->hasLeftSon()) {
+                    node->getLeftSon()->setParent(node->getParent());
+                    node->getParent()->setLeftSon(node->getLeftSon());
                     node->setParent(nullptr);
-                    binaryTree_->replaceRoot(nullptr);
+                    node->setLeftSon(nullptr);
                 } else {
-                    if (node->isLeftSon()) {
-                        parent->setLeftSon(nullptr);
-                    } else {
-                        parent->setRightSon(nullptr);
-                    }
+                    node->getRightSon()->setParent(node->getParent());
+                    node->getParent()->setRightSon(node->getRightSon());
+                    node->setParent(nullptr);
+                    node->setRightSon(nullptr);
                 }
-                break;
+            }
+        } else {
+            replaceNode = node->getRightSon();
+            while (replaceNode->hasLeftSon())
+            {
+                replaceNode = replaceNode->getLeftSon();
+            }
+
+            extractNode(replaceNode);
+
+            replaceNode->setLeftSon(node->changeLeftSon(nullptr));
+            replaceNode->setRightSon(node->changeRightSon(nullptr));
+
+            if (node->isRoot()) {
+                binaryTree_->replaceRoot(replaceNode);
+            } else {
+                if (node->isLeftSon()) {
+                    node->getParent()->setLeftSon(replaceNode);
+                } else {
+                    node->getParent()->setRightSon(replaceNode);
+                }
+            }
+
+            if (replaceNode != nullptr) {
+                replaceNode->setParent(node->getParent());
+            }
         }
-	}
+
+    }
+
 
 }

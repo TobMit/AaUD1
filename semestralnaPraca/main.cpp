@@ -50,7 +50,7 @@ int main()
     wcout << endl;
 
     loader->openNew("../semestralnaPraca/dataLoader/rawData/vzdelanie.csv");
-    StoredData<int> *vzdelanie = new OstatneUdaje<int>();
+    StoredData *vzdelanie = new OstatneUdaje();
     if (loader->isOpen()) {
         loader->nextLine();
         loader->nextLine();
@@ -58,8 +58,7 @@ int main()
         vzdelanie->setCode(loader->getNextParameter());
         vzdelanie->setOfficialTitle(loader->getNextParameter());
         for (int i = 0; loader->haveNextParameter(); i++) {
-            int value = stoi(loader->getNextParameter());
-            vzdelanie->setNextParameter(value);
+            vzdelanie->setNextParameter(loader->getNextParameter());
         }
     }
         wcout << vzdelanie->getCode() << L" " << vzdelanie->getOfficialTitle() << L" ";
