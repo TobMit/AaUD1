@@ -1,1 +1,17 @@
 sep=,
+Info!,Testovanie SST!
+Info!,Testovanie Uloha2!
+Info!,Zacal sa Scenar A!
+Info!,Celkovo Insert, Celkovo Remove, Celkovo TryFind, celkova dlzka Scenara!
+0!,9390,10553,11485,31428
+Info!,Zacal sa Scenar B!
+Info!,Celkovo Insert, Celkovo Remove, Celkovo TryFind, celkova dlzka Scenara!
+0!,14205,20823,3601,38629
+Info!,Testovanie Uloha3!
+Info!,Vysledne casi sú priemerom 100 opakovi
+Info!,Velkost Table,Insert,Remove,TryFind
+0!,1000,68,1329,44
+0!,2000,82,2647,50
+0!,3000,77,4028,52
+0!,4000,82,5152,54
+0!,5000,79,6173,56

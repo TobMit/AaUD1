@@ -5,13 +5,6 @@
 
 #include <stdexcept>
 
-//startIndex + size
-// % kapacita
-
-//equals a assign
-//
-
-
 namespace structures
 {
 	/// <summary> Implicitny front. </summary>
@@ -104,7 +97,8 @@ namespace structures
 	template<typename T>
 	ImplicitQueue<T>::~ImplicitQueue()
 	{
-		//TODO 05: ImplicitQueue
+        delete array_;
+        array_ = nullptr;
 	}
 
 	template<typename T>

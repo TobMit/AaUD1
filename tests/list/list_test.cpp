@@ -2,55 +2,55 @@
 
 namespace tests
 {
-    // ListTestInterface:
+	// ListTestInterface:
 
-    ListTestInterface::ListTestInterface(std::string name) :
-        SimpleTest(std::move(name))
-    {
-    }
+	ListTestInterface::ListTestInterface(std::string name) :
+		SimpleTest(std::move(name))
+	{
+	}
 
-    void ListTestInterface::test()
-    {
-        int x = 0;
-        structures::List<int>* list = this->makeList();
-        list->add(x);
-        list->assign(*list);
-        list->clear();
-        delete list->getBeginIterator();
-        delete list->getEndIterator();
-        list->getIndexOf(x);
-        list->insert(x, x);
-        list->isEmpty();
-        list->operator[](0);
-        list->removeAt(0);
-        list->size();
-        list->tryRemove(x);
-        delete list;
-        this->logPass("Compiled.");
-    }
+	void ListTestInterface::test()
+	{
+		int x = 0;
+		structures::List<int>* list = this->makeList();
+		list->add(x);
+		list->assign(*list);
+		list->clear();
+		delete list->getBeginIterator();
+		delete list->getEndIterator();
+		list->getIndexOf(x);
+		list->insert(x, x);
+		list->isEmpty();
+		list->operator[](0);
+		list->removeAt(0);
+		list->size();
+		list->tryRemove(x);
+		delete list;
+		this->logPass("Compiled.");
+	}
 
-    // ArrayListTestInterface:
+	// ArrayListTestInterface:
 
-    ArrayListTestInterface::ArrayListTestInterface() :
-        ListTestInterface("Interface")
-    {
-    }
+	ArrayListTestInterface::ArrayListTestInterface() :
+		ListTestInterface("Interface")
+	{
+	}
 
-    structures::List<int>* ArrayListTestInterface::makeList() const
-    {
-        return new structures::ArrayList<int>();
-    }
+	structures::List<int>* ArrayListTestInterface::makeList() const
+	{
+		return new structures::ArrayList<int>();
+	}
 
-    // LinkedListTestInterface:
+	// LinkedListTestInterface:
 
-    LinkedListTestInterface::LinkedListTestInterface() :
-        ListTestInterface("Interface")
-    {
-    }
+	LinkedListTestInterface::LinkedListTestInterface() :
+		ListTestInterface("Interface")
+	{
+	}
 
     // DoubleLInkedListTestInterface
     DoubleLinkedListTestInterface::DoubleLinkedListTestInterface() :
-        ListTestInterface("Intrerface")
+            ListTestInterface("Intrerface")
     {
 
     }
@@ -59,133 +59,133 @@ namespace tests
     {
         return new structures::LinkedList<int>();
     }
-    //--------------------------- Testy funkËnosti ---------------------------------------
-    ListTestFunctionsTest::ListTestFunctionsTest() : SimpleTest("Complex test")
-    {
-    }
-    void ListTestFunctionsTest::test()
-    {
-        structures::List<int>* zoznam = this->makeList();
-        SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
-        zoznam->add(10);
-        zoznam->add(20);
-        zoznam->add(30);
-        zoznam->add(40);
-        SimpleTest::assertTrue(zoznam->size() == 4, "Pole ma velkost 4");
+    //--------------------------- Testy funkƒçnosti ---------------------------------------
+	ListTestFunctionsTest::ListTestFunctionsTest() : SimpleTest("Complex test")
+	{
+	}
+	void ListTestFunctionsTest::test()
+	{
+		structures::List<int>* list = this->makeList();
+		SimpleTest::logInfo("Vkladam 4 prvky na koniec Listu");
+		list->add(10);
+		list->add(20);
+		list->add(30);
+		list->add(40);
+		SimpleTest::assertTrue(list->size() == 4, "List ma velkost 4");
 
-        SimpleTest::logInfo("Vkladam dalsie 4 prvky na koniec zoznamu");
-        zoznam->add(100);
-        zoznam->add(200);
-        zoznam->add(300);
-        zoznam->add(400);
+		SimpleTest::logInfo("Vkladam dalsie 4 prvky na koniec Lisu");
+		list->add(100);
+		list->add(200);
+		list->add(300);
+		list->add(400);
 
-        
-        //SimpleTest::logInfo("Aktualna velkost pola je: " + std::to_string(zoznam->size()));
-        SimpleTest::assertTrue(zoznam->size() == 8, "Pole ma velkost 8");
 
-        SimpleTest::logInfo("Vkladam 9 prvkov pomocou insert");
-        for (int i = 0; i < 9; i++)
-        {
-            zoznam->insert(1, 0);
-        }
-        SimpleTest::assertTrue(zoznam->size() == 17, "Pole ma velkost 17");
-        zoznam->insert(7, 0);
-        zoznam->insert(77, 4);
-        zoznam->insert(777, 18);
-        zoznam->insert(7777, 20);
-        SimpleTest::assertTrue(zoznam->size() == 21, "Pole ma velkost 21");
-        
-        SimpleTest::assertTrue(zoznam->at(0) == 7, "Mala by tam byt 7 a je tam " + std::to_string(zoznam->at(0)));
-        SimpleTest::assertTrue(zoznam->at(1) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(1)));
-        SimpleTest::assertTrue(zoznam->at(2) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(2)));
-        SimpleTest::assertTrue(zoznam->at(3) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(3)));
-        SimpleTest::assertTrue(zoznam->at(4) == 77, "Mala by tam byt 77 a je tam " + std::to_string(zoznam->at(4)));
-        SimpleTest::assertTrue(zoznam->at(5) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(5)));
-        SimpleTest::assertTrue(zoznam->at(6) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(6)));
-        SimpleTest::assertTrue(zoznam->at(7) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(7)));
-        SimpleTest::assertTrue(zoznam->at(8) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(8)));
-        SimpleTest::assertTrue(zoznam->at(9) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(9)));
-        SimpleTest::assertTrue(zoznam->at(10) == 1, "Mala by tam byt 1 a je tam " + std::to_string(zoznam->at(10)));
-        SimpleTest::assertTrue(zoznam->at(11) == 10, "Mala by tam byt 10 a je tam " + std::to_string(zoznam->at(11)));
-        SimpleTest::assertTrue(zoznam->at(12) == 20, "Mala by tam byt 20 a je tam " + std::to_string(zoznam->at(12)));
-        SimpleTest::assertTrue(zoznam->at(13) == 30, "Mala by tam byt 30 a je tam " + std::to_string(zoznam->at(13)));
-        SimpleTest::assertTrue(zoznam->at(14) == 40, "Mala by tam byt 40 a je tam " + std::to_string(zoznam->at(14)));
-        SimpleTest::assertTrue(zoznam->at(15) == 100, "Mala by tam byt 100 a je tam " + std::to_string(zoznam->at(15)));
-        SimpleTest::assertTrue(zoznam->at(16) == 200, "Mala by tam byt 200 a je tam " + std::to_string(zoznam->at(16)));
-        SimpleTest::assertTrue(zoznam->at(17) == 300, "Mala by tam byt 300 a je tam " + std::to_string(zoznam->at(17)));
-        SimpleTest::assertTrue(zoznam->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(zoznam->at(18)));
-        SimpleTest::assertTrue(zoznam->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(zoznam->at(19)));
-        SimpleTest::assertTrue(zoznam->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(zoznam->at(20)));
-        
-        SimpleTest::logInfo("Cistim zoznam");
-        zoznam->clear();
-        SimpleTest::assertTrue(zoznam->size() == 0, "Velkost zoznamu by mala byt 0 a je " + std::to_string(zoznam->size()));
-        
-        SimpleTest::logInfo("Vkladam 4 prvky na koniec zoznamu");
-        zoznam->add(10);
-        zoznam->add(20);
-        zoznam->add(30);
-        zoznam->add(40);
-        structures::List<int>* copyZoznam = this->makeList(*zoznam);
-        
-        SimpleTest::assertTrue(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
-        SimpleTest::logInfo("Menim hodnotu v copyZozham");
-        //SimpleTest::logInfo(std::to_string(copyMatica->at(4, 4)));
-        copyZoznam->at(3) = 7777;
-        SimpleTest::assertTrue(copyZoznam->at(3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do zoznamu.");
-        SimpleTest::assertFalse(zoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, nemali by byt.");
+		//SimpleTest::logInfo("Aktualna velkost pola je: " + std::to_string(list->size()));
+		SimpleTest::assertTrue(list->size() == 8, "List ma velkost 8");
 
-        SimpleTest::logInfo("Vkladam copyZoznam do uplne noveho zoznamu pomocou assign");
-        structures::List<int>* newZoznam = this->makeList();
-        newZoznam->assign(*copyZoznam);
-        SimpleTest::assertTrue(newZoznam->equals(*copyZoznam), "Porovnavam zoznami ci su rovnake, mali by byt.");
+		SimpleTest::logInfo("Vkladam 9 prvkov pomocou insert");
+		for (int i = 0; i < 9; i++)
+		{
+			list->insert(1, 0);
+		}
+		SimpleTest::assertTrue(list->size() == 17, "List ma velkost 17");
+		list->insert(7, 0);
+		list->insert(77, 4);
+		list->insert(777, 18);
+		list->insert(7777, 20);
+        SimpleTest::assertTrue(list->size() == 21, "List ma velkost 21");
 
-        newZoznam->clear();
-        newZoznam->add(10);
-        newZoznam->add(20);
-        newZoznam->add(30);
-        newZoznam->add(40);
+		SimpleTest::assertTrue(list->at(0) == 7, "Mala by tam byt 7 a je tam " + std::to_string(list->at(0)));
+		SimpleTest::assertTrue(list->at(1) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(1)));
+		SimpleTest::assertTrue(list->at(2) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(2)));
+		SimpleTest::assertTrue(list->at(3) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(3)));
+		SimpleTest::assertTrue(list->at(4) == 77, "Mala by tam byt 77 a je tam " + std::to_string(list->at(4)));
+		SimpleTest::assertTrue(list->at(5) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(5)));
+		SimpleTest::assertTrue(list->at(6) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(6)));
+		SimpleTest::assertTrue(list->at(7) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(7)));
+		SimpleTest::assertTrue(list->at(8) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(8)));
+		SimpleTest::assertTrue(list->at(9) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(9)));
+		SimpleTest::assertTrue(list->at(10) == 1, "Mala by tam byt 1 a je tam " + std::to_string(list->at(10)));
+		SimpleTest::assertTrue(list->at(11) == 10, "Mala by tam byt 10 a je tam " + std::to_string(list->at(11)));
+		SimpleTest::assertTrue(list->at(12) == 20, "Mala by tam byt 20 a je tam " + std::to_string(list->at(12)));
+		SimpleTest::assertTrue(list->at(13) == 30, "Mala by tam byt 30 a je tam " + std::to_string(list->at(13)));
+		SimpleTest::assertTrue(list->at(14) == 40, "Mala by tam byt 40 a je tam " + std::to_string(list->at(14)));
+		SimpleTest::assertTrue(list->at(15) == 100, "Mala by tam byt 100 a je tam " + std::to_string(list->at(15)));
+		SimpleTest::assertTrue(list->at(16) == 200, "Mala by tam byt 200 a je tam " + std::to_string(list->at(16)));
+		SimpleTest::assertTrue(list->at(17) == 300, "Mala by tam byt 300 a je tam " + std::to_string(list->at(17)));
+		SimpleTest::assertTrue(list->at(18) == 777, "Mala by tam byt 777 a je tam " + std::to_string(list->at(18)));
+		SimpleTest::assertTrue(list->at(19) == 400, "Mala by tam byt 400 a je tam " + std::to_string(list->at(19)));
+		SimpleTest::assertTrue(list->at(20) == 7777, "Mala by tam byt 7777 a je tam " + std::to_string(list->at(20)));
+
+        SimpleTest::logInfo("Cistim List");
+        list->clear();
+        SimpleTest::assertTrue(list->size() == 0, "Velkost listu by mala byt 0 a je " + std::to_string(list->size()));
+
+        SimpleTest::logInfo("Vkladam 4 prvky na koniec Listu");
+        list->add(10);
+        list->add(20);
+        list->add(30);
+        list->add(40);
+        SimpleTest::logInfo("Vytvaram copyList");
+        structures::List<int>* copyList = this->makeList(*list);
+        SimpleTest::assertTrue(list->equals(*copyList), "Porovnavam Listy ci su rovnake, mali by byt.");
+
+        SimpleTest::logInfo("Menim hodnotu v copyList");
+        copyList->at(3) = 7777;
+        SimpleTest::assertTrue(copyList->at(3) == 7777, "Kontrolujem ci sa naozaj priradil prvok do Listu.");
+        SimpleTest::assertFalse(list->equals(*copyList), "Porovnavam listy ci su rovnake, nemali by byt.");
+
+        SimpleTest::logInfo("Vkladam copyList do uplne noveho listu pomocou assign");
+        structures::List<int>* newList = this->makeList();
+        newList->assign(*copyList);
+        SimpleTest::assertTrue(newList->equals(*copyList), "Porovnavam listy ci su rovnake, mali by byt.");
+
+        newList->clear();
+        newList->add(10);
+        newList->add(20);
+        newList->add(30);
+        newList->add(40);
         SimpleTest::logInfo("Testujem iterator");
-        for (auto polozka : *newZoznam) {
+        for (auto polozka: *newList) {
             logInfo(std::to_string(polozka));
         }
-        int zmazanyPrvok = newZoznam->removeAt(0);
+        int zmazanyPrvok = newList->removeAt(0);
         SimpleTest::assertTrue(zmazanyPrvok == 10, "Hodnota mazaneho prvku ma byt 10 a je " + std::to_string(zmazanyPrvok));
-        SimpleTest::assertTrue(newZoznam->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newZoznam->getIndexOf(40)));
-        SimpleTest::assertFalse(newZoznam->tryRemove(1), "Vymazavam pomocou tryRemove data ktorÈ tam niesu");
-        SimpleTest::assertTrue(newZoznam->tryRemove(20), "Vymazavam pomocou tryRemove data ktorÈ tam s˙");
+        SimpleTest::assertTrue(newList->getIndexOf(40) == 2, "Vyhladavam prvok pomocou getIndexof(40) = " + std::to_string(newList->getIndexOf(40)));
+        SimpleTest::assertFalse(newList->tryRemove(1), "Vymazavam pomocou tryRemove data ktor√© tam niesu");
+        SimpleTest::assertTrue(newList->tryRemove(20), "Vymazavam pomocou tryRemove data ktor√© tam s√∫");
 
         SimpleTest::logInfo("Testujem iterator");
-        for (auto polozka : *newZoznam) {
+        for (auto polozka: *newList) {
             logInfo(std::to_string(polozka));
         }
 
         SimpleTest::logPass("Complet");
-        delete newZoznam;
-        delete copyZoznam;
-        delete zoznam;
-    }
+        delete newList;
+        delete copyList;
+        delete list;
+	}
 
-    // ArrayListTestOverall:
+// ArrayListTestOverall:
 
-    ArrayListTestOverall::ArrayListTestOverall() :
-        ComplexTest("ArrayList")
-    {
-        addTest(new ArrayListTestInterface());
-        addTest(new ArryListFunctionTest());
+	ArrayListTestOverall::ArrayListTestOverall() :
+		ComplexTest("ArrayList")
+	{
+		addTest(new ArrayListTestInterface());
+		addTest(new ArryListFunctionTest());
         addTest(new ArrListUloha2());
         addTest(new ArrListUloha3());
-    }
+	}
 
-    // LinkedListTestOverall:
+// LinkedListTestOverall:
 
-    LinkedListTestOverall::LinkedListTestOverall() :
-        ComplexTest("LinkedList")
-    {
-        addTest(new LinkedListTestInterface());
+	LinkedListTestOverall::LinkedListTestOverall() :
+		ComplexTest("LinkedList")
+	{
+		addTest(new LinkedListTestInterface());
         addTest(new LinkedListFunctionTest());
         addTest(new LinListUloha2());
-    }
+	}
 
     DoubleLinkedListOverall::DoubleLinkedListOverall() :
         ComplexTest("DoubleLinkedList")
@@ -193,23 +193,24 @@ namespace tests
         addTest(new DoubleLinkedListTestInterface());
         addTest(new DoubleLinkedListFunctionTest());
         addTest(new DoubleLinListUloha2());
-        addTest(new DoubleLinListUloha3);
+        addTest(new DoubleLinListUloha3());
     }
-    // ListTestOverall:
+// ListTestOverall:
 
-    ListTestOverall::ListTestOverall() :
-        ComplexTest("List")
-    {
-        addTest(new ArrayListTestOverall());
-        addTest(new LinkedListTestOverall());
+	ListTestOverall::ListTestOverall() :
+		ComplexTest("List")
+	{
+        srand(time(NULL));
+		addTest(new ArrayListTestOverall());
+		addTest(new LinkedListTestOverall());
         addTest(new DoubleLinkedListOverall());
 
-    }
+	}
 
 
     //--------------------------------------------------- Uloha 2 ------------------------------------------------------------
     ListUloha2::ListUloha2()
-        : SimpleTest("Uloha2")
+            : SimpleTest("Uloha2")
     {
 
     }
@@ -217,32 +218,30 @@ namespace tests
     {
         this->info();
         structures::Logger::getInstance().logInfo("Testovanie Uloha2!");
-        // scen·r A
+        // scen√°r A
         structures::List<int>* list = this->makeList();
         cyklus('A', 20, 20, 50, 10, *list);
         delete list;
 
-        // Scen·r B
+        // Scen√°r B
         list = this->makeList();
         cyklus('B', 35, 35, 20, 10, *list);
         delete list;
 
-        // Scen·r C
+        // Scen√°r C
         list = this->makeList();
         cyklus('C', 45, 45, 5, 5, *list);
         delete list;
 
     }
     void ListUloha2::cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf,
-        structures::List<int>& list)
+                            structures::List<int> &list)
     {
-        const int OPAKOVANIA = 100000;
-        const int MAX_VALUE_IN_LIST = 50; // maxim·lna hodnota ktor· sa vloûÌ do zoznamu, ËÌm menöie ËÌslo, t˝m v‰Ëöia pravdepodobnosù ûe to getIndexOf najde
-
-        // todo rozhodn˙ù sa Ëi budem hladaù pre getIndexOf ËÌsla n·hodnÈ alebo ich budem eöte ukladaù niekde do zoznam a z tadiaæ budem ËÌslo vyhæad·vaù
+        static const int OPAKOVANIA = 100000;
+        static const int MAX_VALUE_IN_LIST = 50; // maxim√°lna hodnota ktor√° sa vlo≈æ√≠ do zoznamu, ƒç√≠m men≈°ie ƒç√≠slo, t√Ωm v√§ƒç≈°ia pravdepodobnos≈• ≈æe to getIndexOf najde
 
         structures::Logger::getInstance().logInfo("Zacal sa test " + std::string(1, oznacenie) + "!");
-        structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara " + std::string(1, oznacenie) + "!");
+        structures::Logger::getInstance().logInfo("Celkovo insert, Celkovo RemoveAt, Celkovo at, Celkovo GetIndexOf, celkova dlzka Scenara!");
 
         int opInst = getPomer(OPAKOVANIA, podielInsert);
         int opRemoveAt = getPomer(OPAKOVANIA, podielRemoveAt);
@@ -280,66 +279,65 @@ namespace tests
             int indexL;
             switch (pool.at(index))
             {
-            case 1:
-                cislo = rand() % MAX_VALUE_IN_LIST;
-                if (list.size() == 0) {
-                    SimpleTest::startStopwatch();
-                    list.insert(cislo, 0);
-                    SimpleTest::stopStopwatch();
-                    durationInsert += SimpleTest::getElapsedTime();
-                }
-                else {
-                    indexL = rand() % list.size();
-                    SimpleTest::startStopwatch();
-                    list.insert(cislo, indexL);
-                    SimpleTest::stopStopwatch();
-                    durationInsert += SimpleTest::getElapsedTime();
-                }
-                break;
+                case 1:
+                    cislo = rand() % MAX_VALUE_IN_LIST;
+                    if (list.size() == 0) {
+                        SimpleTest::startStopwatch();
+                        list.insert(cislo, 0);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    } else {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.insert(cislo, indexL);
+                        SimpleTest::stopStopwatch();
+                        durationInsert += SimpleTest::getElapsedTime();
+                    }
+                    break;
 
-            case 2:
-                if (list.size() != 0) {
-                    indexL = rand() % list.size();
-                    SimpleTest::startStopwatch();
-                    list.removeAt(indexL);
-                    SimpleTest::stopStopwatch();
-                    durationRemoveAt += SimpleTest::getElapsedTime();
-                }
-                break;
+                case 2:
+                    if (list.size() != 0) {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.removeAt(indexL);
+                        SimpleTest::stopStopwatch();
+                        durationRemoveAt += SimpleTest::getElapsedTime();
+                    }
+                    break;
 
-            case 3:
-                if (list.size() != 0) {
-                    indexL = rand() % list.size();
+                case 3:
+                    if (list.size() != 0) {
+                        indexL = rand() % list.size();
+                        SimpleTest::startStopwatch();
+                        list.at(indexL);
+                        SimpleTest::stopStopwatch();
+                        durationAt += SimpleTest::getElapsedTime();
+                    }
+                    break;
+                case 4:
+                    cislo = rand() % MAX_VALUE_IN_LIST;
                     SimpleTest::startStopwatch();
-                    list.at(indexL);
+                    int najdene = list.getIndexOf(cislo);
                     SimpleTest::stopStopwatch();
-                    durationAt += SimpleTest::getElapsedTime();
-                }
-                break;
-            case 4:
-                cislo = rand() % MAX_VALUE_IN_LIST;
-                SimpleTest::startStopwatch();
-                int najdene = list.getIndexOf(cislo);
-                SimpleTest::stopStopwatch();
-                durationGetIndexOf += SimpleTest::getElapsedTime();
+                    durationGetIndexOf += SimpleTest::getElapsedTime();
 
-                /*
-                std::stringstream stringBuilder;
-                if (najdene >= 0) {
-                    stringBuilder << oznacenie << " " << najdene << " " << list.at(najdene) << " " << cislo
-                              << std::endl;
-                } else {
-                    stringBuilder << oznacenie << " " << najdene << " " << -1 << " " << cislo
-                              << std::endl;
-                }
-                structures::Logger::getInstance().logInfo(stringBuilder.str());*/
-                break;
+                    /*
+                    std::stringstream stringBuilder;
+                    if (najdene >= 0) {
+                        stringBuilder << oznacenie << " " << najdene << " " << list.at(najdene) << " " << cislo
+                                  << std::endl;
+                    } else {
+                        stringBuilder << oznacenie << " " << najdene << " " << -1 << " " << cislo
+                                  << std::endl;
+                    }
+                    structures::Logger::getInstance().logInfo(stringBuilder.str());*/
+                    break;
             }
 
             pool.erase(pool.begin() + index);
         }
 
-        structures::Logger::getInstance().logDuration(0, durationInsert + durationRemoveAt + durationAt + durationGetIndexOf, std::to_string(durationInsert.count()) + "," + std::to_string(durationRemoveAt.count()) + "," + std::to_string(durationAt.count()) + "," + std::to_string(durationGetIndexOf.count()));
+        structures::Logger::getInstance().logDuration(0, durationInsert + durationRemoveAt + durationAt + durationGetIndexOf, std::to_string(durationInsert.count() ) + "," + std::to_string(durationRemoveAt.count()) + "," + std::to_string(durationAt.count())+ "," + std::to_string(durationGetIndexOf.count()));
     }
 
     int ListUloha2::getPomer(int const OPAKOVANIA, int pomer)
@@ -348,17 +346,17 @@ namespace tests
     }
 
     //--------------------------------------------------- Uloha 3 ------------------------------------------------------------
-    ListUloha3::ListUloha3() :
-        SimpleTest("Uloha3")
+    ListUloha3::ListUloha3():
+            SimpleTest("Uloha3")
     {
     }
     void ListUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        const int MAX = 1000000;
-        const int KROK = 10000;
-        const int POC_VELKOST = 1000;
-        const int POC_OPAKOVANI = 100;
+        static const int MAX = 1000;
+        static const int KROK = 10;
+        static const int POC_VELKOST = 10;
+        static const int POC_OPAKOVANI = 100;
         int sizeOfList;
         sizeOfList = POC_VELKOST;
 
@@ -393,13 +391,12 @@ namespace tests
 
     }
 
-    void ListUloha3::repairList(int SIZE, structures::List<int>& list) {
-        // zv‰Ëöujem a maûem listy na koncoch
+    void ListUloha3::repairList(int SIZE, structures::List<int> &list) {
+        // zv√§ƒç≈°ujem a ma≈æem listy na koncoch
         while (list.size() != SIZE) {
             if (list.size() < SIZE) {
-                list.add(rand() % INT16_MAX / 2);
-            }
-            else {
+                list.add(rand() % INT16_MAX /2);
+            } else {
                 list.removeAt(list.size() - 1);
             }
         }
@@ -409,22 +406,23 @@ namespace tests
     Milliseconds ListUloha3::cyklusInsert(int size, const int POC_OPAKOVANI)
     {
         structures::List<int>* list = this->makeList();
-        Milliseconds duration = std::chrono::microseconds(0); // nastavÌ premenn˙ na nulu
+        Milliseconds duration = std::chrono::microseconds(0); // nastav√≠ premenn√∫ na nulu
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            repairList(size, *list);
-            duration += durationInsert(rand() % INT16_MAX / 2, rand() % list->size(), *list);
+            repairList(size,*list);
+            duration += durationInsert(rand() % INT16_MAX /2 , rand() % list->size(), *list);
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
 
     }
 
-    Milliseconds ListUloha3::durationInsert(int cislo, int index, structures::List<int>& list)
+    Milliseconds ListUloha3::durationInsert(int cislo, int index, structures::List<int> &list)
     {
         SimpleTest::startStopwatch();
-        list.insert(cislo, index);
+        list.insert(cislo,index);
         SimpleTest::stopStopwatch();
         return SimpleTest::getElapsedTime();
     }
@@ -433,8 +431,8 @@ namespace tests
     Milliseconds ListUloha3::cyklusAt(int size, const int POC_OPAKOVANI)
     {
         structures::List<int>* list = this->makeList();
-        Milliseconds duration = std::chrono::microseconds(0); // nastavÌ premenn˙ na nulu
-        repairList(size, *list); // repair list je volan· tu pretoûe viem ûe sa s listom niË pri volanÌ at nestane
+        Milliseconds duration = std::chrono::microseconds(0); // nastav√≠ premenn√∫ na nulu
+        repairList(size, *list); // repair list je volan√° tu preto≈æe viem ≈æe sa s listom niƒç pri volan√≠ at nestane
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
@@ -442,9 +440,10 @@ namespace tests
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
     }
 
-    Milliseconds ListUloha3::durationAt(int index, structures::List<int>& list)
+    Milliseconds ListUloha3::durationAt(int index, structures::List<int> &list)
     {
         SimpleTest::startStopwatch();
         list.at(index) = 7;
@@ -456,19 +455,20 @@ namespace tests
     Milliseconds ListUloha3::cyklusRemoveAt(int size, const int POC_OPAKOVANI)
     {
         structures::List<int>* list = this->makeList();
-        Milliseconds duration = std::chrono::microseconds(0); // nastavÌ premenn˙ na nulu
+        Milliseconds duration = std::chrono::microseconds(0); // nastav√≠ premenn√∫ na nulu
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            repairList(size, *list);
+            repairList(size,*list);
             duration += durationRemoveAt(rand() % size, *list);
         }
         delete list;
         return duration / POC_OPAKOVANI;
+        //return duration;
 
     }
 
-    Milliseconds ListUloha3::durationRemoveAt(int index, structures::List<int>& list)
+    Milliseconds ListUloha3::durationRemoveAt(int index, structures::List<int> &list)
     {
         SimpleTest::startStopwatch();
         list.removeAt(index);

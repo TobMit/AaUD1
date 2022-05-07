@@ -20,6 +20,11 @@ namespace structures
 		/// <param name = "other"> SortedSequenceTable, z ktorej sa prevezmu vlastnosti. </param>
 		SortedSequenceTable(SortedSequenceTable<K, T>& other);
 
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assign(Structure& other) override;
+
 		/// <summary> Porovnanie struktur. </summary>
 		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
 		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
@@ -61,29 +66,80 @@ namespace structures
 	}
 
 	template<typename K, typename T>
+	inline Structure& SortedSequenceTable<K, T>::assign(Structure& other)
+	{
+		return SequenceTable<K, T>::assignSequenceTable(dynamic_cast<SortedSequenceTable<K, T>&>(other));
+	}
+
+	template<typename K, typename T>
 	inline bool SortedSequenceTable<K, T>::equals(Structure& other)
 	{
-		return Table<K, T>::equals(dynamic_cast<SortedSequenceTable<K, T>*>(&other));
+		return Table<K, T>::equalsTable(dynamic_cast<SortedSequenceTable<K, T>*>(&other));
 	}
 
 	template<typename K, typename T>
 	inline void SortedSequenceTable<K, T>::insert(const K& key, const T& data)
 	{
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::insert: Not implemented yet.");
+        bool found = false; // nemusí sa to volať rovnako
+        int index = indexOfKey(key, 0, this->size()-1, found);
+
+        if (!found) {
+            SequenceTable<K,T>::list_->insert(new TableItem<K, T>(key, data), index);
+        } else {
+            throw std::logic_error("Key already exist! Expect from SortedSequenceTable<K, T>::insert()");
+        }
 	}
 
 	template<typename K, typename T>
 	inline TableItem<K, T>* SortedSequenceTable<K, T>::findTableItem(const K& key)
 	{
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::findTableItem: Not implemented yet.");
+        // musi byť vytvorené ako premenná alebo indexOFKey vyžaduje pameťové miesto &found!!!
+		bool found = false; // nemusí sa to volať rovnako
+        int index = indexOfKey(key, 0, this->size()-1, found);
+
+        // je to chránena metóda, nebudem si hadzať throw lebo by mi to spomalilo a sám sebe by som si spravil zle
+        return found ? SequenceTable<K, T>::list_->at(index) : nullptr;
 	}
 
 	template<typename K, typename T>
 	inline int SortedSequenceTable<K, T>::indexOfKey(K key, int indexStart, int indexEnd, bool& found)
 	{
-		//TODO 08: SortedSequenceTable
-		throw std::runtime_error("SortedSequenceTable<K, T>::indexOfKey: Not implemented yet.");
+        if (indexEnd == -1) {
+            found = false;
+            return 0;
+        }
+        /*
+        if (SequenceTable<K, T>::list_->at(0)->getKey() > key) {
+            found = false;
+            return 0;
+        } else if (SequenceTable<K, T>::list_->at(0)->getKey()  == key){
+            found = true;
+            return 0;
+        }
+        if (SequenceTable<K, T>::list_->at(SequenceTable<K, T>::list_->size()-1)->getKey()  < key){
+            found = false;
+            return SequenceTable<K, T>::list_->size();
+        } else if (SequenceTable<K, T>::list_->at(SequenceTable<K, T>::list_->size() -1)->getKey()  == key){
+            found = true;
+            return SequenceTable<K, T>::list_->size()-1;
+        }*/
+        int indexMiddle = (indexStart + indexEnd) / 2;
+        K keyMiddle = SequenceTable<K,T>::list_->at(indexMiddle)->getKey();
+
+        if (keyMiddle == key) {
+            found = true;
+            return indexMiddle;
+        } else {
+            if (indexEnd == indexStart) {
+                found = false;
+                return key < keyMiddle ? indexMiddle : indexMiddle + 1;
+            } else {
+                if (keyMiddle < key) {
+                    return indexOfKey(key, indexMiddle + 1, indexEnd, found);
+                } else {
+                    return indexOfKey(key, indexStart, indexMiddle, found);
+                }
+            }
+        }
 	}
 }

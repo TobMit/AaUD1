@@ -114,16 +114,6 @@ namespace structures
 		/// <summary> Destruktor. </summary>
 		~Tree();
 
-		/// <summary> Priradenie struktury. </summary>
-		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
-		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
-		Structure& assign(Structure& other) override;
-
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		bool equals(Structure& other) override;
-
 		/// <summary> Zisti, ci je struktura prazdna. </summary>
 		/// <returns> true, ak je struktura prazdna, false inak. </returns>
 		bool isEmpty() override;
@@ -162,6 +152,17 @@ namespace structures
 		/// <returns> Iterator na koniec struktury. </returns>
 		/// <remarks> Zabezpecuje polymorfizmus. </remarks>
 		Iterator<T>* getEndIterator() override;
+
+	protected:
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assignTree(Tree<T>& other);
+
+		/// <summary> Porovnanie struktur. </summary>
+		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		bool equalsTree(Tree<T>* other);
 
 	private:
 		/// <summary> Koren stromu. </summary>
@@ -244,15 +245,39 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* TreeNode<T>::deepCopy()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::deepCopy: Not implemented yet.");
+        // Factory metod"
+        // TreeNote<T>* result = shallowCopy()
+        // int pocet spracovanych vrcholov = 0
+        // for(i = 0; pocet spracovanych vrcholov < degree(); i ++)
+        //      syn = getSon(i)
+        //      if (syn != nullptr)
+        //          result -> replaceSon(syn->deepCopy(), i)
+        //          pocet spracovanych synov++
+        // return result;
+
+        //Kopiu stromu vytváram ako shallow copy, mám jeden objek ktorý ukazuje na synov to je na začiato (shallowCopy)
+        //Druhom kroku sa replace jeden smerník tou kópiou z rekurzie ktorí nam vráti syn->deepCopy() - 253 riadok
+        //takto to prechádza pre každý prvok. vytvorí sa nová kopia "otec" ktorý ukazuje na synov smerníkmi ... a takto
+        // to ide dokiaľ sa nedostaneme niekde na spodok kde už nie sú žiadny synovia potom sa to postupne returnuje
+        // je to lepšie si nakresliť
+
+        auto result = shallowCopy();
+        int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+        for (int i = 0; nuberOfProcessedSons < degree(); i++) {
+            auto son = getSon(i);
+            if (son != nullptr) {
+                result->replaceSon(son->deepCopy(), i);
+                nuberOfProcessedSons++;
+            }
+        }
+        return result;
 	}
 
 	template<typename T>
 	inline bool TreeNode<T>::isRoot()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::isRoot: Not implemented yet.");
+		// keď nemá parenta
+        return parent_ == nullptr;
 	}
 
 	template<typename T>
@@ -276,15 +301,35 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* TreeNode<T>::getBrother(int brothersOrder)
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::getBrother: Not implemented yet.");
+        if(parent_ == nullptr) {
+            throw std::logic_error("Root has no brother! Except from TreeNode<T>::getBrother()");
+        } else {
+            return parent_->getSon(brothersOrder);
+        }
 	}
 
 	template<typename T>
 	inline size_t TreeNode<T>::sizeOfSubtree()
 	{
-		//TODO 07: TreeNode
-		throw std::runtime_error("TreeNode<T>::sizeOfSubtree: Not implemented yet.");
+        // int result =1
+        // int pocet spracovanych vrcholov = 0
+        // for(i = 0; pocet spracovanych vrcholov < degree(); i ++)
+        //      syn = getSon(i)
+        //      if (syn != nullptr)
+        //          result = syn -> sizeOfSubtree();
+        //          pocet spracovanych synov++
+        // return result;
+
+        int result = 1;
+        int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+        for (int i = 0; nuberOfProcessedSons < degree(); i++) {
+            auto son = getSon(i);
+            if (son != nullptr) {
+                result += son->sizeOfSubtree();
+                nuberOfProcessedSons++;
+            }
+        }
+        return result;
 	}
 
 	template<typename T>
@@ -304,28 +349,27 @@ namespace structures
 	template<typename T>
 	inline Tree<T>::~Tree()
 	{
-		//TODO 07: Tree
-	}
+        // Stačí zavolať deštruktor roota, a root sa postará o deštruktovanie potomka potomok svojich potomkov atď
 
-	template<typename T>
-	inline bool Tree<T>::equals(Structure& other)
-	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
+        // zavolať cleer
+
+        clear();
 	}
 
 	template<typename T>
 	inline bool Tree<T>::isEmpty()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
+		return root_ == nullptr;
+
 	}
 
 	template<typename T>
 	inline size_t Tree<T>::size()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::equals: Not implemented yet.");
+		// strom si nedrzí size_ keďže môžeme naraz viac prvkov
+        // nejaké osetrenie lebo a zavoláme sizeOf subtree
+
+        return root_ == nullptr ? 0 : root_->sizeOfSubtree();
 	}
 
 	template<typename T>
@@ -341,6 +385,49 @@ namespace structures
 	}
 
 	template<typename T>
+	inline Structure& Tree<T>::assignTree(Tree<T>& other)
+	{
+        // potom vyrieši pretypovanie a keď sú pretipované správne tak sa potom pokračuje tu
+        // todo checknút ci to mam spravne
+        if (this != &other) {
+            clear();
+            // mám zaručené že sa mi praví kópia do rootu vyuýžívanie rekurzie
+            if (other.root_ != nullptr){
+                root_ = other.root_->deepCopy();
+            }
+        }
+        return *this;
+	}
+
+	template<typename T>
+	inline bool Tree<T>::equalsTree(Tree<T>* other)
+	{
+        // potom vyrieši pretypovanie a keď sú pretipované správne tak sa potom pokračuje tu
+
+        if (other == nullptr) {
+            return false;
+        }
+        if (this == other) {
+            return true;
+        }
+
+        auto iteratorThis = Iterable<T>::begin();
+        auto iteratorEnd = Iterable<T>::end();
+        auto iteratorOteher = other->begin();
+        auto iteratorOterEnd = other->end();
+
+        while (iteratorThis != iteratorEnd) {
+            if (*iteratorThis != *iteratorOteher) {
+                return false;
+            }
+            ++iteratorThis;
+            ++iteratorOteher;
+        }
+        return !(iteratorOteher != iteratorOterEnd);
+        //return true;
+	}
+
+	template<typename T>
 	inline Tree<T>::Tree():
 		Structure(),
 		Iterable<T>(),
@@ -352,21 +439,15 @@ namespace structures
 	inline Tree<T>::Tree(Tree<T>& other):
 		Tree<T>()
 	{
-		assign(other);
-	}
-
-	template<typename T>
-	inline Structure& Tree<T>::assign(Structure& other)
-	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::assign: Not implemented yet.");
+		assignTree(other);
 	}
 
 	template<typename T>
 	inline void Tree<T>::clear()
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::clear: Not implemented yet.");
+        // nastaviť na nullptr - ostal by nam tam pointer na nejaký bordel a program by mohol spadnúť
+		delete root_;
+        root_ = nullptr;
 	}
 
 	template<typename T>
@@ -378,49 +459,49 @@ namespace structures
 	template<typename T>
 	inline TreeNode<T>* Tree<T>::replaceRoot(TreeNode<T>* newRoot)
 	{
-		//TODO 07: Tree
-		throw std::runtime_error("Tree<T>::replaceRoot: Not implemented yet.");
+		auto result = root_;
+        root_ = newRoot;
+        return result;
 	}
 
 	template<typename T>
 	inline Tree<T>::TreeIterator::TreeIterator():
 		Iterator<T>(),
-		path_(new std::queue<TreeNode<T>*>())
+		path_(new std::queue<TreeNode<T>*>()) //jedený príklad kedy môžemer používať inú knižnicu ako to čo sme programovali
 	{
 	}
 
 	template<typename T>
 	inline Tree<T>::TreeIterator::~TreeIterator()
 	{
-		//TODO 07: Tree<T>::TreeIterator
+		delete path_;
+        path_ = nullptr;
 	}
 
 	template<typename T>
 	inline Iterator<T>& Tree<T>::TreeIterator::operator=(Iterator<T>& other)
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator=: Not implemented yet.");
+        *path_ = *dynamic_cast<TreeIterator&>(other).path_;
+        return *this;
 	}
 
 	template<typename T>
 	inline bool Tree<T>::TreeIterator::operator!=(Iterator<T>& other)
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator!=: Not implemented yet.");
+        return *path_ != *dynamic_cast<TreeIterator&>(other).path_;
 	}
 
 	template<typename T>
 	inline T Tree<T>::TreeIterator::operator*()
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator*: Not implemented yet.");
+        return path_->front()->accessData();
 	}
 
 	template<typename T>
 	inline Iterator<T>& Tree<T>::TreeIterator::operator++()
 	{
-		//TODO 07: Tree<T>::TreeIterator
-		throw std::runtime_error("Tree<T>::TreeIterator::operator++: Not implemented yet.");
+		path_->pop();
+        return *this;
 	}
 
 	template<typename T>
@@ -433,8 +514,18 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::PreOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: Tree<T>::PreOrderTreeIterator
-		throw std::runtime_error("Tree<T>::PreOrderTreeIterator::populatePath: Not implemented yet.");
+        if (current != nullptr) {
+            TreeIterator::path_->push(current);
+
+            int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+            for (int i = 0; nuberOfProcessedSons < current->degree(); i++) {
+                auto son = current->getSon(i);
+                if (son != nullptr) {
+                    populatePath(son);
+                    nuberOfProcessedSons++;
+                }
+            }
+        }
 	}
 
 	template<typename T>
@@ -447,8 +538,19 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::PostOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: Tree<T>::PostOrderTreeIterator
-		throw std::runtime_error("Tree<T>::PostOrderTreeIterator::populatePath: Not implemented yet.");
+        //todo skontrolovat ci to mam správane
+        if (current != nullptr) {
+
+            int nuberOfProcessedSons = 0; // pocet spracovanych vrcholov
+            for (int i = 0; nuberOfProcessedSons < current->degree(); i++) {
+                auto son = current->getSon(i);
+                if (son != nullptr) {
+                    populatePath(son);
+                    nuberOfProcessedSons++;
+                }
+            }
+            TreeIterator::path_->push(current);
+        }
 	}
 
 	template<typename T>

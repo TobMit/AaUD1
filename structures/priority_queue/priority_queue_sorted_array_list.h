@@ -3,6 +3,7 @@
 #include "priority_queue_list.h"
 #include "../list/array_list.h"
 #include <stdexcept>
+#include "iostream"
 
 namespace structures
 {
@@ -29,6 +30,12 @@ namespace structures
 		/// <param name = "data"> Vkladany prvok. </param>
 		void push(int priority, const T& data) override;
 
+        void degug(){
+            for(auto item : *this->list_) {
+                std::cout << item->getPriority() << std::endl;
+            }
+        }
+
 	protected:
 		/// <summary> Vrati index v utriedenom ArrayList-e, na ktorom sa nachadza prvok s najvacsou prioritou. </summary>
 		/// <returns> Index prvku s najvacsou prioritou. </returns>
@@ -44,27 +51,57 @@ namespace structures
 
 	template<typename T>
 	inline PriorityQueueSortedArrayList<T>::PriorityQueueSortedArrayList(PriorityQueueSortedArrayList<T>& other) :
-		PriorityQueueList<T>()
+        PriorityQueueSortedArrayList<T>()
 	{
-		assign(other);
+        assign(other);
 	}
 
 	template<typename T>
 	inline Structure& PriorityQueueSortedArrayList<T>::assign(Structure& other)
 	{
-		return PriorityQueueList<T>::assign(dynamic_cast<PriorityQueueList<T>&>(other));
+		return PriorityQueueList<T>::assignPrioQueueList(dynamic_cast<PriorityQueueList<T> &>(other));
 	}
 
 	template<typename T>
 	inline void PriorityQueueSortedArrayList<T>::push(int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueSortedArrayList
-		throw std::runtime_error("PriorityQueueSortedArrayList<T>::push: Not implemented yet.");
+        if (this->isEmpty() || this->list_->at(indexOfPeek())->getPriority() >= priority){
+            //ak som nasiel este vcesiu prioritu ako doteraz
+            this->list_->add(new PriorityQueueItem<T>(priority, data));
+            return;
+        }
+
+        if (this->list_->at(0)->getPriority() <= priority) {
+            // pozriem sa na najmensiu prioritu "najvecie cislo" a ak je prior mensia tak zaradim
+            this->list_->insert(new PriorityQueueItem<T>(priority, data),0);
+            return;
+        }
+        int index;
+        int hornaHranica = this->size()-1;
+        int dolnaHranica = 0;
+        while (true) {
+            index = (dolnaHranica + hornaHranica )/2;
+            if (this->list_->at(index)->getPriority() == priority) {
+                this->list_->insert(new PriorityQueueItem<T>(priority, data), index);
+                return;
+            } else {
+                if (dolnaHranica == hornaHranica) {
+                    this->list_->insert(new PriorityQueueItem<T>(priority, data), dolnaHranica);
+                    return;
+                } else {
+                    if (this->list_->at(index)->getPriority() > priority) {
+                        dolnaHranica = index + 1;
+                    } else {
+                        hornaHranica = index;
+                    }
+                }
+            }
+        }
 	}
 
 	template<typename T>
 	inline int PriorityQueueSortedArrayList<T>::indexOfPeek()
 	{
-		return PriorityQueueList<T>::list_->size() - 1;
+        return PriorityQueueList<T>::list_->size() - 1;
 	}
 }

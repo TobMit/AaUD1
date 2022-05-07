@@ -37,11 +37,6 @@ namespace structures
 		/// <summary> Vymaze tabulku. </summary>
 		virtual void clear() = 0;
 
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		virtual bool equals(Structure& other) = 0;
-
 		/// <summary> Vrati adresou data s danym klucom. </summary>
 		/// <param name = "key"> Kluc dat. </param>
 		/// <returns> Adresa dat s danym klucom. </returns>
@@ -73,14 +68,14 @@ namespace structures
 		virtual bool containsKey(const K& key) = 0;
 
 	protected:
-		/// <summary> Porovnanie struktur. Pomocna metoda, ktora prebera referenciu, ktoru posle potomok. </summary>
+		/// <summary> Porovnanie struktur. Pomocna metoda, ktora prebera pointer, ktoru posle potomok. </summary>
 		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
 		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		bool equals(Table<K, T>* other);
+		bool equalsTable(Table<K, T>* other);
 	};
 
 	template<typename K, typename T>
-	inline TableItem<K, T>::TableItem(const K& key, const T& data):
+	inline TableItem<K, T>::TableItem(const K& key, const T& data) :
 		DataItem<T>(data),
 		key_(key)
 	{
@@ -93,7 +88,7 @@ namespace structures
 	}
 
 	template<typename K, typename T>
-	inline bool Table<K, T>::equals(Table<K, T>* other)
+	inline bool Table<K, T>::equalsTable(Table<K, T>* other)
 	{
 		if (other == nullptr)
 		{
@@ -102,7 +97,14 @@ namespace structures
 
 		for (TableItem<K, T>* otherItem : *other)
 		{
-			if (!containsKey(otherItem->getKey()))
+			T data;
+			bool found = this->tryFind(otherItem->getKey(), data);
+			if (!found)
+			{
+				return false;
+			}
+
+			if (data != otherItem->accessData())
 			{
 				return false;
 			}

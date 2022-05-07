@@ -78,55 +78,97 @@ namespace structures
 	template<typename T>
 	PriorityQueueTwoLists<T>::~PriorityQueueTwoLists()
 	{
-		//TODO 06: PriorityQueueTwoLists
+		clear();
+        delete shortList_;
+        delete longList_;
+        shortList_ = nullptr;
+        longList_ = nullptr;
 	}
 
 	template<typename T>
 	Structure& PriorityQueueTwoLists<T>::assign(Structure& other)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::assign: Not implemented yet.");
+        if (this != &other) {
+            this->clear();
+            PriorityQueueTwoLists<T> &newOther = dynamic_cast<PriorityQueueTwoLists<T> &>(other);
+            this->shortList_->assign(*newOther.shortList_);
+            for (auto item : *newOther.longList_) {
+                this->longList_->add(new PriorityQueueItem<T>(*item));
+            }
+        }
+        return *this;
 	}
 
 	template<typename T>
 	size_t PriorityQueueTwoLists<T>::size()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::size: Not implemented yet.");
+        return shortList_->size() + longList_->size();
 	}
 
 	template<typename T>
 	void PriorityQueueTwoLists<T>::clear()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::clear: Not implemented yet.");
+		shortList_->clear();
+        for (auto item : *longList_) {
+            delete item;
+        }
 	}
 
 	template<typename T>
 	void PriorityQueueTwoLists<T>::push(int priority, const T& data)
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::push: Not implemented yet.");
+        if (longList_->isEmpty() || priority < shortList_->minPriority()) {
+            PriorityQueueItem<T> *tryPush = shortList_->pushAndRemove(priority, data);
+            if (tryPush != nullptr) {
+                longList_->add(tryPush);
+            }
+        } else {
+            longList_->add(new PriorityQueueItem<T>(priority, data));
+        }
 	}
 
 	template<typename T>
 	T PriorityQueueTwoLists<T>::pop()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::pop: Not implemented yet.");
+        static const int DEFAULT_NAHODNOTA = 4;
+
+        auto dataPop = shortList_->pop();
+
+        if (shortList_->isEmpty() && !longList_->isEmpty()) {
+
+            int newSize = sqrt(longList_->size());
+            if (newSize >= DEFAULT_NAHODNOTA) {
+                shortList_->trySetCapacity(newSize);
+            } else {
+                shortList_->trySetCapacity(DEFAULT_NAHODNOTA);
+            }
+            LinkedList<PriorityQueueItem<T>*>* newList = new LinkedList<PriorityQueueItem<T>*>();
+
+            while (!longList_->isEmpty()) {
+                auto removeItem = longList_->removeAt(0);
+                auto tryPush = shortList_->pushAndRemove(removeItem->getPriority(),removeItem->accessData());
+                delete removeItem;
+                if (tryPush != nullptr) {
+                    newList->add(tryPush);
+                }
+            }
+            delete longList_;
+            longList_ = newList;
+
+        }
+
+        return dataPop;
 	}
 
 	template<typename T>
 	T& PriorityQueueTwoLists<T>::peek()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::peek: Not implemented yet.");
+        return shortList_->peek();
 	}
 
 	template<typename T>
 	int PriorityQueueTwoLists<T>::peekPriority()
 	{
-		//TODO 06: PriorityQueueTwoLists
-		throw std::runtime_error("PriorityQueueTwoLists<T>::peekPriority: Not implemented yet.");
+        return shortList_->peekPriority();
 	}
 }

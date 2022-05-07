@@ -8,52 +8,52 @@
 
 namespace tests
 {
-    /// <summary>
-    /// Zavola vsetky metody z rozhrania listu avsak nekontroluje ich spravnost.
-    /// Zabezpeci, ze vsetky metody budu prelozene kompilatorom.
-    /// </summary>
-    class ListTestInterface
-        : public SimpleTest
-    {
-    public:
-        ListTestInterface(std::string name);
-        void test() override;
+	/// <summary>
+	/// Zavola vsetky metody z rozhrania listu avsak nekontroluje ich spravnost.
+	/// Zabezpeci, ze vsetky metody budu prelozene kompilatorom.
+	/// </summary>
+	class ListTestInterface
+		: public SimpleTest
+	{
+	public:
+		ListTestInterface(std::string name);
+		void test() override;
 
-    protected:
-        virtual structures::List<int>* makeList() const = 0;
-    };
+	protected:
+		virtual structures::List<int>* makeList() const = 0;
+	};
 
-    /// <summary>
-    /// Zavola vsetky metody ArrayListu.
-    /// </summary>
-    class ArrayListTestInterface
-        : public ListTestInterface
-    {
-    public:
-        ArrayListTestInterface();
+	/// <summary>
+	/// Zavola vsetky metody ArrayListu.
+	/// </summary>
+	class ArrayListTestInterface
+		: public ListTestInterface
+	{
+	public:
+		ArrayListTestInterface();
 
-    protected:
-        structures::List<int>* makeList() const override;
-    };
+	protected:
+		structures::List<int>* makeList() const override;
+	};
 
-    /// <summary>
-    /// Zavola vsetky metody LinkedListu.
-    /// </summary>
-    class LinkedListTestInterface
-        : public ListTestInterface
-    {
-    public:
-        LinkedListTestInterface();
+	/// <summary>
+	/// Zavola vsetky metody LinkedListu.
+	/// </summary>
+	class LinkedListTestInterface
+		: public ListTestInterface
+	{
+	public:
+		LinkedListTestInterface();
 
-    protected:
-        structures::List<int>* makeList() const override;
-    };
+	protected:
+		structures::List<int>* makeList() const override;
+	};
 
     /// <summary>
     /// Zavola vsetky metody DoubleLinkedList.
     /// </summary>
     class DoubleLinkedListTestInterface
-        : public ListTestInterface
+            : public ListTestInterface
     {
     public:
         DoubleLinkedListTestInterface();
@@ -66,66 +66,66 @@ namespace tests
     };
 
 
-    /// <summary>
-    /// Zahrna v sebe vsetky testy, ktore testuju ArrayList.
-    /// </summary>
-    class ArrayListTestOverall
-        : public ComplexTest
-    {
-    public:
-        ArrayListTestOverall();
-    };
+	/// <summary>
+	/// Zahrna v sebe vsetky testy, ktore testuju ArrayList.
+	/// </summary>
+	class ArrayListTestOverall
+		: public ComplexTest
+	{
+	public:
+		ArrayListTestOverall();
+	};
 
-    /// <summary>
-    /// Zahrna v sebe vsetky testy, ktore testuju LinkedList.
-    /// </summary>
-    class LinkedListTestOverall
-        : public ComplexTest
-    {
-    public:
-        LinkedListTestOverall();
-    };
+	/// <summary>
+	/// Zahrna v sebe vsetky testy, ktore testuju LinkedList.
+	/// </summary>
+	class LinkedListTestOverall
+		: public ComplexTest
+	{
+	public:
+		LinkedListTestOverall();
+	};
 
     /// <summary>
     /// Zahrna v sebe vsetky testy, ktore testuju DobuleLinkedList.
     /// </summary>
     class DoubleLinkedListOverall
-        : public ComplexTest
+            : public ComplexTest
     {
     public:
         DoubleLinkedListOverall();
     };
-    /// <summary>
-    /// Zahrna v sebe vsetky testy, ktore testuju ArrayList a LinkedList a DoubleLinkedList.
-    /// </summary>
-    class ListTestOverall :
-        public ComplexTest
-    {
-    public:
-        ListTestOverall();
-    };
-    //--------------------------------TESTY FUNKCNOSTI --------------------------------------
-        /// <summary>
-        /// Test ktory skontroluje ci funguje add a insert v V oboch implement·ciach Listu
-        /// </summary>
-    class ListTestFunctionsTest
-        : public SimpleTest {
-    public:
-        ListTestFunctionsTest();
-        void test() override;
+	/// <summary>
+	/// Zahrna v sebe vsetky testy, ktore testuju ArrayList a LinkedList a DoubleLinkedList.
+	/// </summary>
+	class ListTestOverall :
+		public ComplexTest
+	{
+	public:
+		ListTestOverall();
+	};
+//--------------------------------TESTY FUNKCNOSTI --------------------------------------
+	/// <summary>
+	/// Test ktor√Ω over√≠ spr√°vnu implement√°ciu testu
+	/// </summary>
+	class ListTestFunctionsTest
+		: public SimpleTest {
+	public:
+		ListTestFunctionsTest();
+		void test() override;
 
     protected:
         virtual structures::List<int>* makeList() const = 0;
         virtual structures::List<int>* makeList(structures::List<int>& other) const = 0;
-    };
+	};
 
     class ArryListFunctionTest
-        :public ListTestFunctionsTest {
+            :public ListTestFunctionsTest {
     protected:
-        structures::List<int>* makeList() const override {
+        structures::List<int> *makeList() const override {
             return new structures::ArrayList<int>();
         };
-        structures::List<int>* makeList(structures::List<int>& other) const override {
+        structures::List<int> *makeList(structures::List<int> &other) const override {
             structures::ArrayList<int>& arrayList = dynamic_cast<structures::ArrayList<int>&>(other);
             return new structures::ArrayList<int>(arrayList);
         };
@@ -133,24 +133,24 @@ namespace tests
     };
 
     class LinkedListFunctionTest
-        :public ListTestFunctionsTest {
+            :public ListTestFunctionsTest {
     protected:
-        structures::List<int>* makeList() const override {
+        structures::List<int> *makeList() const override {
             return new structures::LinkedList<int>();
         };
-        structures::List<int>* makeList(structures::List<int>& other) const override {
+        structures::List<int> *makeList(structures::List<int> &other) const override {
             structures::LinkedList<int>& linkedList = dynamic_cast<structures::LinkedList<int>&>(other);
             return new structures::LinkedList<int>(linkedList);
         };
     };
 
     class DoubleLinkedListFunctionTest
-        :public ListTestFunctionsTest {
+            :public ListTestFunctionsTest {
     protected:
-        structures::List<int>* makeList() const override {
+        structures::List<int> *makeList() const override {
             return new structures::DoubleLinkedList<int>();
         };
-        structures::List<int>* makeList(structures::List<int>& other) const override {
+        structures::List<int> *makeList(structures::List<int> &other) const override {
             structures::DoubleLinkedList<int>& doubleLinkedList = dynamic_cast<structures::DoubleLinkedList<int>&>(other);
             return new structures::DoubleLinkedList<int>(doubleLinkedList);
         };
@@ -159,28 +159,28 @@ namespace tests
     //------------------------------------ Uloha 2 ------------------------------------------------
 
     /// <summary>
-    /// Testovanie pre ˙lohu 2
+    /// Uloha 2
     /// </summary>
     class ListUloha2
-        :public SimpleTest
+            :public SimpleTest
     {
     public:
         ListUloha2();
         void test() override;
     private:
-        void cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf, structures::List<int>& list);
+        void cyklus(char oznacenie, int podielInsert, int podielRemoveAt, int podielAt, int podielGetIndexOf, structures::List<int> &list);
         int getPomer(int const OPAKOVANIA, int pomer);
     protected:
-        virtual structures::List<int>* makeList() const = 0;
+        virtual structures::List<int> *makeList() const = 0;
         virtual void info() const = 0;
     };
 
 
     class ArrListUloha2
-        : public ListUloha2
+            : public ListUloha2
     {
     protected:
-        structures::List<int>* makeList() const override
+        structures::List<int> *makeList() const override
         {
             return new structures::ArrayList<int>();
         };
@@ -192,10 +192,10 @@ namespace tests
     };
 
     class DoubleLinListUloha2
-        : public ListUloha2
+            : public ListUloha2
     {
     protected:
-        structures::List<int>* makeList() const override
+        structures::List<int> *makeList() const override
         {
             return new structures::DoubleLinkedList<int>();
         };
@@ -206,10 +206,10 @@ namespace tests
     };
 
     class LinListUloha2
-        : public ListUloha2
+            : public ListUloha2
     {
     protected:
-        structures::List<int>* makeList() const override
+        structures::List<int> *makeList() const override
         {
             return new structures::LinkedList<int>();
         };
@@ -220,28 +220,31 @@ namespace tests
     };
 
     //------------------------------------------- Uloha 3 -----------------------------------------------
+    /// <summary>
+    /// Uloha 3
+    /// </summary>
     class ListUloha3
-        :public SimpleTest
+            :public SimpleTest
     {
     public:
         ListUloha3();
         void test() override;
     private:
         Milliseconds cyklusInsert(int size, const int POC_OPAKOVANI);
-        Milliseconds durationInsert(int cislo, int index, structures::List<int>& list);
+        Milliseconds durationInsert(int cislo, int index, structures::List<int> &list);
 
         Milliseconds cyklusAt(int size, const int POC_OPAKOVANI);
-        Milliseconds durationAt(int index, structures::List<int>& list);
+        Milliseconds durationAt(int index, structures::List<int> &list);
 
         Milliseconds cyklusRemoveAt(int size, const int POC_OPAKOVANI);
-        Milliseconds durationRemoveAt(int index, structures::List<int>& list);
+        Milliseconds durationRemoveAt(int index, structures::List<int> &list);
 
-        /// rapairList udrzuje velkost danÈho listu na potrebnej dlzke. KeÔ treba, tak list zv‰ËöÌ a naplni hodnotami a ked je velky tak zmensi
+        /// repairList udrzuje velkost dan√©ho listu na potrebnej dlzke. Keƒè treba, tak list zv√§ƒç≈°√≠ a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
         /// \param list - list kotry sa ma opravit
-        void repairList(int SIZE, structures::List<int>& list);
+        void repairList(int SIZE, structures::List<int> &list);
     protected:
-        virtual structures::List<int>* makeList() const = 0;
+        virtual structures::List<int> *makeList() const = 0;
         virtual void infoInsert() const = 0;
         virtual void infoAt() const = 0;
         virtual void infoRemoveAt() const = 0;
@@ -249,10 +252,10 @@ namespace tests
     };
 
     class ArrListUloha3
-        : public ListUloha3
+            : public ListUloha3
     {
     protected:
-        structures::List<int>* makeList() const override
+        structures::List<int> *makeList() const override
         {
             return new structures::ArrayList<int>();
         };
@@ -272,10 +275,10 @@ namespace tests
     };
 
     class DoubleLinListUloha3
-        : public ListUloha3
+            : public ListUloha3
     {
     protected:
-        structures::List<int>* makeList() const override
+        structures::List<int> *makeList() const override
         {
             return new structures::DoubleLinkedList<int>();
         };

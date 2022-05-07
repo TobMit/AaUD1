@@ -7,6 +7,9 @@
 namespace structures
 {
 
+    //todo da sa vylepšiť remove, svapnúť prvok na koniec (môžem lebo neutriedena) a následne zmazať koniec
+
+
 	/// <summary> Sekvencna neutriedena tabulka. </summary>
 	/// <typeparam name = "K"> Kluc prvkov v tabulke. </typepram>
 	/// <typeparam name = "T"> Typ dat ukladanych v tabulke. </typepram>
@@ -20,6 +23,11 @@ namespace structures
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> NonortedSequenceTable, z ktorej sa prevezmu vlastnosti. </param>
 		UnsortedSequenceTable(UnsortedSequenceTable<K, T>& other);
+
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assign(Structure& other) override;
 
 		/// <summary> Porovnanie struktur. </summary>
 		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
@@ -52,16 +60,21 @@ namespace structures
 	}
 
 	template<typename K, typename T>
+	inline Structure& UnsortedSequenceTable<K, T>::assign(Structure& other)
+	{
+		return SequenceTable<K, T>::assignSequenceTable(dynamic_cast<UnsortedSequenceTable<K, T>&>(other));
+	}
+
+	template<typename K, typename T>
 	inline bool UnsortedSequenceTable<K, T>::equals(Structure& other)
 	{
-		return Table<K, T>::equals(dynamic_cast<UnsortedSequenceTable<K, T>*>(&other));
+		return Table<K, T>::equalsTable(dynamic_cast<UnsortedSequenceTable<K, T>*>(&other));
 	}
 
 	template<typename K, typename T>
 	inline TableItem<K, T>& UnsortedSequenceTable<K, T>::getItemAtIndex(int index)
 	{
-		//TODO 08: UnsortedSequenceTable
-		throw std::runtime_error("UnsortedSequenceTable<K, T>::getItemAtIndex: Not implemented yet.");
+		return *SequenceTable<K,T>::list_->at(index);
 	}
 
 	template<typename K, typename T>

@@ -21,11 +21,6 @@ namespace structures
 		/// <returns> Pocet prvkov v tabulke. </returns>
 		size_t size() override;
 
-		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
-		Structure& assign(Structure& other) override;
-
 		/// <summary> Vrati adresou data s danym klucom. </summary>
 		/// <param name = "key"> Kluc dat. </param>
 		/// <returns> Adresa dat s danym klucom. </returns>
@@ -82,6 +77,12 @@ namespace structures
 		/// <returns> Prvok tabulky s danym klucom, ak neexistuje, vrati nullptr. </returns>
 		virtual TableItem<K, T>* findTableItem(const K& key);
 
+		/// <summary> Priradenie struktury. Pomocna metoda, ktora prebera referenciu, ktoru posle potomok. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		/// <summary>
+		SequenceTable<K, T>& assignSequenceTable(SequenceTable<K, T>& other);
+
 	protected:
 		List<TableItem<K, T>*>* list_;
 	};
@@ -89,77 +90,104 @@ namespace structures
 	template<typename K, typename T>
 	inline SequenceTable<K, T>::~SequenceTable()
 	{
-		//TODO 08: SequenceTable
+		clear();
+        delete list_;
+        list_ = nullptr;
 	}
 
 	template<typename K, typename T>
 	inline size_t SequenceTable<K, T>::size()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::size: Not implemented yet.");
-	}
-
-	template<typename K, typename T>
-	inline Structure& SequenceTable<K, T>::assign(Structure& other)
-	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::assign: Not implemented yet.");
+        return list_->size();
 	}
 
 	template<typename K, typename T>
 	inline T& SequenceTable<K, T>::find(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::find: Not implemented yet.");
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            return item->accessData();
+        } else {
+            throw std::out_of_range("No such key! Expect from SequenceTable<K, T>::find()");
+        }
 	}
 
+    ///dá sa spraviť v semestralke preťaždnú metodu z parametrom či mám kontrolovať či sa tam nachadza key
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::insert(const K& key, const T& data)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::insert: Not implemented yet.");
+		// skontolovať či sa tam ten kluč nenachadza a ak ano tak trow excpect
+        if (!containsKey(key)) {
+            list_->add(new TableItem<K, T>(key, data));
+        } else {
+            throw std::logic_error("Key already exist! Expect from SequenceTable<K, T>::insert()");
+        }
 	}
 
 	template<typename K, typename T>
 	inline T SequenceTable<K, T>::remove(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::remove: Not implemented yet.");
+		// najdem item
+        // uložim data
+        // vymažem z listu
+        // vymažem data
+        // vrátim data z data xD
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            list_->tryRemove(item);
+            T result = item->accessData();
+            delete item;
+            return result;
+
+        } else {
+            throw std::logic_error("No such key! Expect from SequenceTable<K, T>::remove()");
+        }
+
+
 	}
 
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::tryFind(const K& key, T& data)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::tryFind: Not implemented yet.");
+        auto item = findTableItem(key);
+        if (item != nullptr) {
+            data = item->accessData();
+            return true;
+        } else {
+            return false;
+        }
+
 	}
 
 	template<typename K, typename T>
 	inline bool SequenceTable<K, T>::containsKey(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::containsKey: Not implemented yet.");
+        return findTableItem(key) != nullptr;
 	}
 
 	template<typename K, typename T>
 	inline void SequenceTable<K, T>::clear()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::clear: Not implemented yet.");
+        // ukazovateľ na smernik item tam dáva auto
+        // *list_ pretože je to pointer na pointer
+        for (auto item: *list_) {
+            delete item;
+        }
+
+        list_->clear();
+        // nezabudnúť clearnuť list
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getBeginIterator()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::getBeginIterator: Not implemented yet.");
+		return list_->getBeginIterator();
 	}
 
 	template<typename K, typename T>
 	inline Iterator<TableItem<K, T>*>* SequenceTable<K, T>::getEndIterator()
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::getEndIterator: Not implemented yet.");
+		return list_->getEndIterator();
 	}
 
 	template<typename K, typename T>
@@ -172,8 +200,29 @@ namespace structures
 	template<typename K, typename T>
 	inline TableItem<K, T>* SequenceTable<K, T>::findTableItem(const K& key)
 	{
-		//TODO 08: SequenceTable
-		throw std::runtime_error("SequenceTable<K, T>::findTableItem: Not implemented yet.");
+        for (auto item: *list_) {
+            if (item->getKey() == key) {
+                return item;
+            }
+        }
+        return nullptr;
 	}
+	
+	template<typename K, typename T>
+	inline SequenceTable<K, T>& SequenceTable<K, T>::assignSequenceTable(SequenceTable<K, T>& other)
+	{
+        if (this != &other) {
+            clear();
+            // tu by sa dalo aj for(auto intem: other) - pretože other má iterátor a môžeme to prechádzať aj takto
+            for (auto item: *other.list_) {
+                list_->add(new TableItem<K, T>(*item));
+            }
+        }
+        return *this;
 
+
+        // podobne ako pri stromoch
+        // zavolame clear
+        // prebehneme other list a nahrame ich do nového cez kopi konštruktor
+	}
 }

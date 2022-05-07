@@ -2,7 +2,6 @@
 
 #include "linked_list.h"
 
-// todo netestovane memleaky
 
 namespace structures
 {
@@ -17,9 +16,6 @@ namespace structures
 	//  - ak vyuzijete dedicnost, budete moct vyuzit predkove iteratory, 
 	//    takze ich nebudete musiet implementovat.
 
-    // todo nezabudni zmazať
-    // pridatie virtualnu metódu vytvor lli item a potomok to prešije
-    // pridanie aj preportovanie ako vyrtuálnu metódu
 
     template<typename T>
     class DoubleLinkedListItem : public LinkedListItem<T>
@@ -101,8 +97,7 @@ namespace structures
         /// <param name = "index"> Index prvku. </param>
         /// <returns> Adresa prvku na danom indexe. </returns>
         /// <exception cref="std::out_of_range"> Vyhodena, ak index nepatri do zoznamu. </exception>
-        //Rieši dedičnost
-        //T& at(int index) override;
+        T& at(int index) override;
 
         /// <summary> Prida prvok do zoznamu. </summary>
         /// <param name = "data"> Pridavany prvok. </param>
@@ -194,18 +189,18 @@ namespace structures
         throw std::runtime_error("DoubleLinkedList<T>::equals: Not implemented yet.");
     }*/
 
-    //Rieši dedičnost
-    /*
+
     template<typename T>
     inline T& DoubleLinkedList<T>::at(int index)
     {
-        throw std::runtime_error("DoubleLinkedList<T>::at: Not implemented yet.");
-    }*/
+        Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except from DoubleLinkedList<T>::at()");
+        return getItemAtIndex(index)->accessData();
+    }
 
     template<typename T>
     inline void DoubleLinkedList<T>::add(const T& data)
     {
-        auto newLLI = new DoubleLinkedListItem<T>(data); // c++ si to automaticky detekuje, co je na lavo tak to prida to prava
+        auto newLLI = new DoubleLinkedListItem<T>(data);
         if (this->size_ == 0) {
             this->first_ = newLLI;
         }
@@ -228,7 +223,7 @@ namespace structures
             Utils::rangeCheckExcept(index, this->size_, "Invalid index! Except from DoubleLinkedList<T>::insert()");
             auto newLLI = new DoubleLinkedListItem<T>(data);
             if (index == 0) {
-                DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_); // stačí pridat predchadzajúci prvok iba do pôvodneho, kedže nový je na začiatu
+                DoubleLinkedListItem<T>* oldLLI = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
                 oldLLI->setPrevious(newLLI);
                 newLLI->setNext(this->first_);
                 this-> first_ = newLLI;
@@ -262,7 +257,6 @@ namespace structures
         if (index == 0) {
             delItem = dynamic_cast<DoubleLinkedListItem<T>*>(this->first_);
             this->first_ = this->first_->getNext();
-            //todo skontrolovat spravanie keď je prvok posledny a maze sa
             if (this->last_ == delItem) {
                 this->last_ = nullptr;
             } else {

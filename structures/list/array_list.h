@@ -4,8 +4,6 @@
 #include "../structure_iterator.h"
 #include "../array/array.h"
 
-// todo nezabudni zmazaù
-// Lambda funkcie ako bÛnus, pozrieù nepovinnÈ
 
 namespace structures
 {
@@ -35,8 +33,8 @@ namespace structures
 		Structure& assign(Structure& other) override;
 
 		/// <summary> Porovnanie struktur. </summary>
-		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
-		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+        /// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+        /// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
 		bool equals(Structure& other) override;
 
 		/// <summary> Vrati adresou prvok na indexe. </summary>
@@ -196,13 +194,13 @@ namespace structures
 
 		ArrayList<T>& otherArray = dynamic_cast<ArrayList<T>&> (other);
 
-		for (size_t i = 0; i < size_; i++)
-		{
-			if (otherArray.at(i) != array_->at(i))
-			{
-				return false;
-			}
-		}
+        for (size_t i = 0; i < size_; i++)
+        {
+            if (otherArray.at(i) != array_->at(i))
+            {
+                return false;
+            }
+        }
 
 		return true;
 	}
@@ -244,7 +242,7 @@ namespace structures
 		//		a Array<T>::Copy(index, to iste pole, index + 1
 		//		arraz -> at(index) = data
 		//		size++;
-
+		
 
 		if (index == size_) {
 			add(data);
@@ -308,7 +306,7 @@ namespace structures
 	inline int ArrayList<T>::getIndexOf(const T& data)
 	{
 		// ak sa nenajde tak posle -1
-		for (int i = 0; i < size_; i++) {
+		for (size_t i = 0; i < size_; i++) {
 			if (array_->at(i) == data) {
 				return i;
 			}

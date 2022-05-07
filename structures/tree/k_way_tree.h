@@ -5,10 +5,10 @@
 
 namespace structures
 {
-	/// <summary> Vrchol K-cestneho stromu. </summary>
-	/// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
+    /// <summary> Vrchol K-cestneho stromu. </summary>
+    /// <typeparam name = "T"> Typ dat ukladanych vo vrchole stromu. </typepram>
 	/// <typeparam name = "K"> Kardinalita vrchola. </typeparam>
-	template <typename T, int K>
+	template <typename T, int K> //kde koľvek použieme K compiler tam doplní to čo sme pri K dávali pri vytváraní
 	class KWayTreeNode : public TreeNode<T>
 	{
 	public:
@@ -62,10 +62,6 @@ namespace structures
 		/// <returns> Vzdy K. </returns>
 		int degree() override;
 
-		/// <summary> Vrati pocet neNULLovych synov. </summary>
-		/// <returns> Pocet neNULLovych synov. </returns>
-		int numberOfSons();
-
 	protected:
 		/// <summary> Synova vrchola. </summary>
 		Array<KWayTreeNode<T, K>*>* children_;
@@ -84,6 +80,16 @@ namespace structures
 		/// <summary> Kopirovaci konstruktor. </summary>
 		/// <param name = "other"> K-cestny strom, z ktoreho sa prevezmu vlastnosti. </param>
 		KWayTree(KWayTree<T, K>& other);
+
+		/// <summary> Priradenie struktury. </summary>
+		/// <param name = "other"> Struktura, z ktorej ma prebrat vlastnosti. </param>
+		/// <returns> Adresa, na ktorej sa struktura nachadza. </returns>
+		Structure& assign(Structure& other) override;
+
+		/// <summary> Porovnanie struktur. </summary>
+		/// <param name="other">Struktura, s ktorou sa ma tato struktura porovnat. </param>
+		/// <returns>True ak su struktury zhodne typom aj obsahom. </returns>
+		bool equals(Structure& other) override;
 
 		/// <summary> Vytvori a vrati instanciu vrcholu k-cestneho stromu. </summary>
 		/// <returns> Vytvorena instancia vrcholu k-cestneho stromu. </returns>
@@ -108,68 +114,91 @@ namespace structures
 	template<typename T, int K>
 	inline KWayTreeNode<T, K>::~KWayTreeNode()
 	{
-		//TODO 07: KWayTreeNode<T>
+		// musíme ísť post order
+        // spracuj množinu synov
+        // for (i = 0, i < K i++)
+        //      delete children at(i)
+        // spracuj seba - delete childerem_
+        // children_ = nullptr
+
+        for (int i = 0; i < K; ++i) {
+            delete children_->at(i);
+        }
+        delete children_;
+        children_ = nullptr;
 	}
 
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::shallowCopy()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::shallowCopy: Not implemented yet.");
+        return new KWayTreeNode<T, K> (*this);
 	}
 
 	template<typename T, int K>
 	inline bool KWayTreeNode<T, K>::isLeaf()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::isLeaf: Not implemented yet.");
+        for (int i = 0; i < K; ++i) {
+            if (children_->at(i) != nullptr) {
+                return false;
+            }
+        }
+        return true;
 	}
 
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::getSon(int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::getSon: Not implemented yet.");
+        try {
+            return children_->at(order);
+        } catch (std::out_of_range) {
+            throw std::logic_error("Invalid index! Except from KWayTreeNode<T, K>::getSon() ");
+        }
 	}
 
 	template<typename T, int K>
 	inline void KWayTreeNode<T, K>::insertSon(TreeNode<T>* son, int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::insertSon: Not implemented yet.");
+        //Prvy spôsob riesenia
+		//throw std::logic_error("KWayTreeNode<T>::insertSon is not supported!");
+        //Druhy spôsob riesenia
+        delete replaceSon(son, order); //Pozor to je viac ako replace ako insert len je to kvli tomu aby nepadali testy
 	}
 
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::replaceSon(TreeNode<T>* son, int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::replaceSon: Not implemented yet.");
+        KWayTreeNode<T,K>* oldSon = children_->at(order);
+        children_->at(order) = dynamic_cast<KWayTreeNode<T,K>*>(son);
+
+        if (son != nullptr) {
+            son->setParent(this);
+        }
+        if (oldSon != nullptr) {
+            oldSon->resetParent();
+        }
+        return oldSon;
 	}
 
 	template<typename T, int K>
 	inline TreeNode<T>* KWayTreeNode<T, K>::removeSon(int order)
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::removeSon: Not implemented yet.");
+        return replaceSon(nullptr,order);
 	}
 
 	template<typename T, int K>
 	inline int KWayTreeNode<T, K>::degree()
 	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::degree: Not implemented yet.");
+        int pocet = 0;
+        for (int i = 0; i < K; ++i) {
+            if (children_->at(i) != nullptr) {
+                pocet++;
+            }
+        }
+        return pocet;
 	}
 
 	template<typename T, int K>
-	inline int KWayTreeNode<T, K>::numberOfSons()
-	{
-		//TODO 07: KWayTreeNode<T>
-		throw std::runtime_error("KWayTreeNode<T>::numberOfSons: Not implemented yet.");
-	}
-
-	template<typename T, int K>
-	inline KWayTree<T, K>::KWayTree():
-		Tree<T>()
+	inline KWayTree<T, K>::KWayTree()
 	{
 	}
 
@@ -177,6 +206,18 @@ namespace structures
 	inline KWayTree<T, K>::KWayTree(KWayTree<T, K>& other):
 		Tree<T>(other)
 	{
+	}
+
+	template<typename T, int K>
+	inline Structure& KWayTree<T, K>::assign(Structure& other)
+	{
+		return Tree<T>::assignTree(dynamic_cast<KWayTree<T, K>&>(other));
+	}
+
+	template<typename T, int K>
+	inline bool KWayTree<T, K>::equals(Structure& other)
+	{
+		return Tree<T>::equalsTree(dynamic_cast<KWayTree<T, K>*>(&other));
 	}
 
 	template<typename T, int K>

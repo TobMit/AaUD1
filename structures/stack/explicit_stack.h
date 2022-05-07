@@ -74,14 +74,16 @@ namespace structures
     template<typename T>
     ExplicitStack<T>::~ExplicitStack()
     {
-        //TODO 05: ExplicitStack
+        delete list_;
+        list_ = nullptr;
     }
 
     template<typename T>
     inline Structure& ExplicitStack<T>::assign(Structure& other)
     {
-        if (this != &other) {
-            auto otherStack = dynamic_cast<ExplicitStack<T>&>(other);
+        if (this != &other)
+        {
+            ExplicitStack<T>& otherStack = dynamic_cast<ExplicitStack<T>&>(other);
             list_->assign(*otherStack.list_);
         }
         return *this;
@@ -90,14 +92,11 @@ namespace structures
     template<typename T>
     inline bool ExplicitStack<T>::equals(Structure& other)
     {
-        auto otherStack = dynamic_cast<ExplicitStack<T>*>(&other);
-        if (otherStack != nullptr) {
+        ExplicitStack<T>* otherStack = dynamic_cast<ExplicitStack<T>*>(&other);
+        if (otherStack != nullptr)
             return list_->equals(*otherStack->list_);
-        }
-        else {
+        else
             return false;
-        }
-        
     }
 
     template<typename T>

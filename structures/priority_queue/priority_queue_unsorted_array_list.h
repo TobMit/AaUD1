@@ -49,7 +49,7 @@ namespace structures
 	template<typename T>
 	inline Structure& PriorityQueueUnsortedArrayList<T>::assign(Structure& other)
 	{
-		return PriorityQueueList<T>::assign(dynamic_cast<PriorityQueueList<T>&>(other));
+		return PriorityQueueList<T>::assignPrioQueueList(dynamic_cast<PriorityQueueList<T> &>(other));
 	}
 
 	template<typename T>
@@ -70,7 +70,7 @@ namespace structures
 			if (index != indexLast) {
 				Utils::swap(PriorityQueueList<T>::list_->at(index), PriorityQueueList<T>::list_->at(indexLast));
 			}
-			PriorityQueueItem<T>* item = list_->removeAt(index);
+			PriorityQueueItem<T>* item = PriorityQueueList<T>::list_->removeAt(index);
 			T data = item->accessData();
 			delete item;
 			return data;

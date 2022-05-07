@@ -75,12 +75,12 @@ namespace structures
 		/// <summary> Skontroluje, ci je haldove usporiadanie prvkov okolo vrcholu OK. </summary>
 		/// <param name = "node"> Vrchol, ktoreho susedstvo sa kontroluje. </param>
 		/// <returns> true, ak je haldove usporiadanie prvkov okolo vrcholu OK, false inak. </returns>
-		bool isHeapOK(BinarySearchTree<K, T>::BSTTreeNode* node);
+		bool isHeapOK(typename BinarySearchTree<K, T>::BSTTreeNode* node);
 
 		/// <summary> Vytiahne prioritu z vrcholu stromu. </summary>
 		/// <param name = "node"> Vrchol, ktoreho priorita ma byt zistena. </param>
 		/// <returns> Priorita vrcholu. Ak je vrchol nullptr, vrati -1. </returns>
-		int extractPriority(BinarySearchTree<K, T>::BSTTreeNode* node);
+		int extractPriority(typename BinarySearchTree<K, T>::BSTTreeNode* node);
 
 		/// <summary> Spravi lavu rotaciu vrchola okolo otca. </summary>
 		/// <param name = "node"> Vrchol, ktory sa bude rotovat. </param>
@@ -90,7 +90,7 @@ namespace structures
 		/// Otec sa stane lavym synom tohto vrchola.
 		/// Potencialny lavy syn tohto vrchola sa stane pravym synom otca.
 		/// </remarks>
-		void rotateLeftOverParent(BinarySearchTree<K, T>::BSTTreeNode* node);
+		void rotateLeftOverParent(typename BinarySearchTree<K, T>::BSTTreeNode* node);
 
 		/// <summary> Spravi pravu rotaciu vrchola okolo otca. </summary>
 		/// <param name = "node"> Vrchol, ktory sa bude rotovat. </param>
@@ -100,7 +100,7 @@ namespace structures
 		/// Otec sa stane pravym synom tohto vrchola.
 		/// Potencialny pravy syn tohto vrchola sa stane lavym synom otca.
 		/// </remarks>
-		void rotateRightOverParent(BinarySearchTree<K, T>::BSTTreeNode* node);
+		void rotateRightOverParent(typename BinarySearchTree<K, T>::BSTTreeNode* node);
 	};
 
 	template<typename K, typename T>
@@ -152,7 +152,7 @@ namespace structures
 	template<typename K, typename T>
 	inline bool Treap<K, T>::equals(Structure& other)
 	{
-		return Table<K, T>::equals(dynamic_cast<Treap<K, T>*>(&other));
+		return Table<K, T>::equalsTable(dynamic_cast<Treap<K, T>*>(&other));
 	}
 
 	template<typename K, typename T>
@@ -170,28 +170,28 @@ namespace structures
 	}
 
 	template<typename K, typename T>
-	inline bool Treap<K, T>::isHeapOK(BinarySearchTree<K, T>::BSTTreeNode* node)
+	inline bool Treap<K, T>::isHeapOK(typename BinarySearchTree<K, T>::BSTTreeNode* node)
 	{
 		//TODO 10: Treap
 		throw std::runtime_error("Treap<K, T>::isHeapOK: Not implemented yet.");
 	}
 
 	template<typename K, typename T>
-	inline int Treap<K, T>::extractPriority(BinarySearchTree<K, T>::BSTTreeNode * node)
+	inline int Treap<K, T>::extractPriority(typename BinarySearchTree<K, T>::BSTTreeNode * node)
 	{
 		//TODO 10: Treap
 		throw std::runtime_error("Treap<K, T>::extractPriority: Not implemented yet.");
 	}
 
 	template<typename K, typename T>
-	inline void Treap<K, T>::rotateLeftOverParent(BinarySearchTree<K, T>::BSTTreeNode * node)
+	inline void Treap<K, T>::rotateLeftOverParent(typename BinarySearchTree<K, T>::BSTTreeNode * node)
 	{
 		//TODO 10: Treap
 		throw std::runtime_error("Treap<K, T>::rotateLeftOverParent: Not implemented yet.");
 	}
 
 	template<typename K, typename T>
-	inline void Treap<K, T>::rotateRightOverParent(BinarySearchTree<K, T>::BSTTreeNode * node)
+	inline void Treap<K, T>::rotateRightOverParent(typename BinarySearchTree<K, T>::BSTTreeNode * node)
 	{
 		//TODO 10: Treap
 		throw std::runtime_error("Treap<K, T>::rotateRightOverParent: Not implemented yet.");

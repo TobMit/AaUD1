@@ -183,7 +183,6 @@ namespace structures
     inline LinkedListItem<T>::~LinkedListItem()
     {
         next_ = nullptr;
-        //todo skontrolovat ci nemam memleaky
     }
 
     template<typename T>
@@ -208,7 +207,7 @@ namespace structures
 
     template<typename T>
     inline LinkedList<T>::LinkedList(LinkedList<T>& other):
-		size_(0)
+        size_(0)
     {
         assign(other);
     }
@@ -228,7 +227,7 @@ namespace structures
     template<typename T>
     inline Structure& LinkedList<T>::assign(Structure& other)
     {
-
+       
         // test identyty
         // clear()
         // vsetky data v ll@
@@ -323,7 +322,7 @@ namespace structures
         //          newLLI->setNext(pred-> getnNext())
         //          pred ->setNext(novyLLI)
         // size++
-
+        
         if (index == size_) {
             add(data);
         }
@@ -393,7 +392,7 @@ namespace structures
             }
         }
         else {
-            auto pred = getItemAtIndex(index - 1);
+            auto pred = getItemAtIndex(index-1);
             delItem = pred->getNext();
             pred->setNext(delItem->getNext());
             if (last_ == delItem) {
