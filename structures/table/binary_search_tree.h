@@ -223,6 +223,7 @@ namespace structures
             //auto removeTableItem = nodeToRemove->accessData();
             //nodeToRemove->accessData() = nullptr;
             delete nodeToRemove->accessData();
+            //delete removeTableItem;
             delete nodeToRemove;
             size_--;
             return result;
@@ -334,6 +335,49 @@ namespace structures
 	template<typename K, typename T>
 	inline void BinarySearchTree<K, T>::extractNode(BSTTreeNode* node)
 	{
+        BSTTreeNode* parent = node->getParent();
+        BSTTreeNode* replaceNode = nullptr;
+
+        switch (node->degree())
+        {
+            case 1:
+                replaceNode = node->hasLeftSon() ? node->changeLeftSon(nullptr) : node->changeRightSon(nullptr);
+                break;
+
+            case 2:
+                replaceNode = node->getRightSon();
+                while (replaceNode->hasLeftSon())
+                {
+                    replaceNode = replaceNode->getLeftSon();
+                }
+
+                extractNode(replaceNode);
+
+                replaceNode->setLeftSon(node->changeLeftSon(nullptr));
+                replaceNode->setRightSon(node->changeRightSon(nullptr));
+        }
+
+        if (parent == nullptr)
+        {
+            binaryTree_->replaceRoot(replaceNode);
+        }
+        else
+        {
+            if (node->isLeftSon())
+            {
+                parent->setLeftSon(replaceNode);
+            }
+            else
+            {
+                parent->setRightSon(replaceNode);
+            }
+        }
+        if (replaceNode != nullptr)
+        {
+            replaceNode->setParent(parent);
+        }
+
+        /*
         BSTTreeNode* replaceNode = nullptr;
 
         if (node->degree() == 0) {
@@ -397,7 +441,7 @@ namespace structures
                 replaceNode->setParent(node->getParent());
             }
         }
-
+*/
     }
 
 

@@ -343,7 +343,8 @@ namespace tests
             duration += durationPush(rand() % INT_MAX / 2, rand() % pQueue->size(), *pQueue);
         }
         delete pQueue;
-        return duration / POC_OPAKOVANI;
+        //return duration / POC_OPAKOVANI;
+        return duration;
 
     }
 
@@ -406,7 +407,8 @@ namespace tests
             duration += durationPeek(*pQueue);
         }
         delete pQueue;
-        return duration / POC_OPAKOVANI;
+        //return duration / POC_OPAKOVANI;
+        return duration;
 
     }
 
