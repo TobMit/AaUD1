@@ -68,8 +68,8 @@ int main()
         }
         
 
-  //  delete kraj;
-   // delete loader;
-   // delete vzdelanie;
+   delete kraj;
+   delete loader;
+   delete vzdelanie;
     return 0;
 }
