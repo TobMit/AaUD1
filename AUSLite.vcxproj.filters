@@ -79,6 +79,9 @@
     <Filter Include="tests\matrix">
       <UniqueIdentifier>{b5f99733-7778-46ab-a24a-cc92ce66463d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="semestralnaPraca">
+      <UniqueIdentifier>{24ac2bab-9f0c-413b-bfc8-c748dfbac3c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="gui\main_form.cpp">
