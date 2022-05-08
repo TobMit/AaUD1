@@ -8,6 +8,13 @@
 #include "ostatneUdaje.h"
 #include "../structures/table/table.h"
 
+structures::ArrayList<StoredData> obce;
+structures::ArrayList<StoredData> okresov;
+structures::ArrayList<StoredData> krajov;
+
+structures::Table<nazov, list> kraj -> index okresov
+structures::Table<nazov, list> okres -> indexi obce v danom kraji list{1,7,10} -> indexi obci v ArrayListe;
+structures::Table<nazov, index> obce -> index obca podľa názvu
 
 
 int main()

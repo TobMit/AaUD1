@@ -49,6 +49,9 @@ public:
     /// Vrati nazov kazdeho stlpca oddeleného tabom
     /// \return wstring ktory obsahuje celhu hlavciku
     wstring& getFullHeader();
+
+    virtual setName(wstring name) = 0;
+
 protected:
     structures::List<wstring> *data_;
     structures::List<wstring> *header_;
