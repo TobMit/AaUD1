@@ -161,7 +161,7 @@ namespace structures
         //Prvy spôsob riesenia
 		//throw std::logic_error("KWayTreeNode<T>::insertSon is not supported!");
         //Druhy spôsob riesenia
-        delete replaceSon(son, order); //Pozor to je viac ako replace ako insert len je to kvli tomu aby nepadali testy
+        replaceSon(son, order); //Pozor to je viac ako replace ako insert len je to kvli tomu aby nepadali testy
 	}
 
 	template<typename T, int K>
