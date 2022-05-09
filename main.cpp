@@ -63,4 +63,5 @@ int main()
 		run = keeper.readShouldContinue();
 	}
 	while (run);
+    delete fileLogConsumer;
 }
