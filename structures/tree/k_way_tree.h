@@ -137,7 +137,7 @@ namespace structures
 	template<typename T, int K>
 	inline bool KWayTreeNode<T, K>::isLeaf()
 	{
-        for (int i = 0; i < K; ++i) {
+        for (int i = 0; i < K; i++) {
             if (children_->at(i) != nullptr) {
                 return false;
             }

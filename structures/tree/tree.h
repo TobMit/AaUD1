@@ -563,9 +563,24 @@ namespace structures
 	template<typename T>
 	inline void Tree<T>::LevelOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
-		//TODO 07: Tree<T>::LevelOrderTreeIterator
-		throw std::runtime_error("Tree<T>::LevelOrderTreeIterator::populatePath: Not implemented yet.");
-	}
+        std::queue<TreeNode<T>*>* processQueue = new std::queue<TreeNode<T>*>();
+
+        processQueue->push(current);
+        while (!processQueue->empty())
+        {
+            TreeNode<T>* processNode = processQueue->pop();
+
+            if (processNode != nullptr)
+            {
+                TreeIterator::path_->push(processNode);
+                for (int i = 0; i < current->degree(); i++)
+                {
+                    processQueue->push(current->getSon(i));
+                }
+            }
+        }
+        delete processQueue;
+    }
 
 }
 

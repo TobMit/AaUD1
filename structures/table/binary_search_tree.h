@@ -190,7 +190,7 @@ namespace structures
         bool found = false;
         auto node = findBSTNode(key, found);
 
-        if (node != nullptr) {
+        if (found) {
             return  node->accessData()->accessData();
         } else {
             throw std::out_of_range("Key such key! Expect from BinarySearchTree<K, T>::find()");
@@ -214,21 +214,18 @@ namespace structures
 	{
         //todo skontrolovať memleaky
         bool found = false;
-        auto nodeToRemove = findBSTNode(key, found);
+        BinaryTreeNode<TableItem<K, T>*>* nodeToRemove = findBSTNode(key, found);
         if (found)
         {
             extractNode(nodeToRemove);
-
             T result = nodeToRemove->accessData()->accessData();
-            //auto removeTableItem = nodeToRemove->accessData();
-            //nodeToRemove->accessData() = nullptr;
             delete nodeToRemove->accessData();
-            //delete removeTableItem;
             delete nodeToRemove;
             size_--;
             return result;
         }
-        else {
+        else
+        {
             throw std::logic_error("Key not found! Except from BinarySearchTree<K, T>::remove()");
         }
 	}

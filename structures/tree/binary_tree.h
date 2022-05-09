@@ -252,10 +252,10 @@ namespace structures
 	inline void BinaryTree<T>::InOrderTreeIterator::populatePath(TreeNode<T>* current)
 	{
 
-		if (current != nullptr) {
-            BinaryTreeNode<T>* currentBTN = dynamic_cast<BinaryTreeNode<T>*>(current);
+        BinaryTreeNode<T>* currentBTN = dynamic_cast<BinaryTreeNode<T>*>(current);
+        if (currentBTN != nullptr) {
             populatePath(currentBTN->getLeftSon());
-            Tree<T>::TreeIterator::path_->push(current);
+            Tree<T>::TreeIterator::path_->push(currentBTN);
             populatePath(currentBTN->getRightSon());
         }
 	}
