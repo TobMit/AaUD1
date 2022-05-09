@@ -122,8 +122,14 @@ namespace tests
         /*
         table->remove(0);
          */
+        structures::ArrayList<int> value;
         structures::Table<int, int>* table = this->makeTable();
         for (int i = 1; i <= 10; ++i) {
+            value.add(i);
+        }
+
+        while (!value.isEmpty()){
+            int i = value.removeAt(rand() % value.size());
             table->insert(i, i);
         }
 
