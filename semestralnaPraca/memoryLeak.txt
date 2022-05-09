@@ -1,0 +1,2 @@
+Týmto príklazom sa dajú testovať memory leaky.
+leaks -atExit -- ./AUS_Console
