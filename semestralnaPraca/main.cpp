@@ -7,7 +7,7 @@
 #include "storedData.h"
 #include "ostatneUdaje.h"
 #include "../structures/table/table.h"
-
+/*
 structures::ArrayList<StoredData> obce;
 structures::ArrayList<StoredData> okresov;
 structures::ArrayList<StoredData> krajov;
@@ -15,7 +15,7 @@ structures::ArrayList<StoredData> krajov;
 structures::Table<nazov, list> kraj -> index okresov
 structures::Table<nazov, list> okres -> indexi obce v danom kraji list{1,7,10} -> indexi obci v ArrayListe;
 structures::Table<nazov, index> obce -> index obca podľa názvu
-
+*/
 
 int main()
 {
@@ -35,7 +35,10 @@ int main()
 */
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
+
+
     StoredData *kraj = new UzemnaJednotka();
+
     if (loader->isOpen()) {
         loader->nextLine();
         while (loader->haveNextParameter()){
@@ -56,6 +59,7 @@ int main()
     }
     wcout << endl;
 
+/*
     loader->openNew("../semestralnaPraca/dataLoader/rawData/vzdelanie.csv");
     StoredData *vzdelanie = new OstatneUdaje();
     if (loader->isOpen()) {
@@ -73,8 +77,10 @@ int main()
             wcout << vzdelanie->at(i) << L" ";
         }
 
-
+*/
     delete kraj;
     delete loader;
+    //delete vzdelanie;
+
     return 0;
 }

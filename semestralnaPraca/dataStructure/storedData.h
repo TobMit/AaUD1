@@ -50,7 +50,7 @@ public:
     /// \return wstring ktory obsahuje celhu hlavciku
     wstring& getFullHeader();
 
-    virtual setName(wstring name) = 0;
+    //virtual setName(wstring name) = 0;
 
 protected:
     structures::List<wstring> *data_;
@@ -65,8 +65,10 @@ StoredData::StoredData() :
 }
 
 StoredData::~StoredData() {
+    data_->clear();
     delete data_;
     data_ = nullptr;
+    header_->clear();
     delete header_;
     header_ = nullptr;
 }
