@@ -328,10 +328,10 @@ namespace tests
     void TableUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        static const int MAX = 1000000;
-        static const int KROK = 10000;
+        static const int MAX = 300000;
+        static const int KROK = 5000;
         static const int POC_VELKOST = 1000;
-        static const int POC_OPAKOVANI = 100;
+        static const int POC_OPAKOVANI = 200;
         static const int MAX_KEY = MAX * 2;
         int sizeOfTable = POC_VELKOST;
 
