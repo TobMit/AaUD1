@@ -328,18 +328,20 @@ namespace tests
     void TableUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        static const int MAX = 5000000;
+        static const int MAX = 1000000;
         static const int KROK = 10000;
         static const int POC_VELKOST = 1000;
         static const int POC_OPAKOVANI = 100;
         static const int MAX_KEY = MAX * 2;
         int sizeOfTable = POC_VELKOST;
 
+        usedKey.clear();
+        unUsedKey.clear();
         for (int i = 0; i <= MAX_KEY; ++i) {
             unUsedKey.add(i);
         }
 
-        structures::Logger::getInstance().logInfo("Vysledne casi sú priemerom " + std::to_string(POC_OPAKOVANI) + " opakovi");
+        structures::Logger::getInstance().logInfo("Vysledne casi su priemerom " + std::to_string(POC_OPAKOVANI) + " opakovi");
         structures::Logger::getInstance().logInfo("Velkost Table,Insert,Remove,TryFind");
 
 
