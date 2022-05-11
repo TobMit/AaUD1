@@ -5,7 +5,6 @@
 
 namespace structures
 {
-
 	/// <summary> Triedenie Shell sort. </summary>
 	/// <typeparam name = "K"> Kluc prvkov v tabulke. </typepram>
 	/// <typeparam name = "T"> Typ dat ukladanych v tabulke. </typepram>
@@ -23,5 +22,4 @@ namespace structures
 	{
 		throw std::logic_error("Not implemented yet!");
 	}
-
 }

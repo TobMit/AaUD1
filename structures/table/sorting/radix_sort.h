@@ -5,7 +5,6 @@
 
 namespace structures
 {
-
 	/// <summary> Triedenie Radix sort. </summary>
 	/// <typeparam name = "K"> Kluc prvkov v tabulke. </typepram>
 	/// <typeparam name = "T"> Typ dat ukladanych v tabulke. </typepram>
