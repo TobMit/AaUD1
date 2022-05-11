@@ -61,7 +61,6 @@ add_executable(AUS_Console
         structures/table/sorting/select_sort.h
         structures/table/sorting/shell_sort.h
         structures/table/sorting/shuffle.h
-        structures/table/sorting/sort.cpp
         structures/table/sorting/sort.h
         structures/table/binary_search_tree.h
         structures/table/hash_table.h
@@ -152,7 +151,6 @@ add_executable(semestralnaPraca
         structures/table/sorting/select_sort.h
         structures/table/sorting/shell_sort.h
         structures/table/sorting/shuffle.h
-        structures/table/sorting/sort.cpp
         structures/table/sorting/sort.h
         structures/table/binary_search_tree.h
         structures/table/hash_table.h
