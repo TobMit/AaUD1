@@ -200,8 +200,8 @@ namespace tests
     }
     void TableUloha2::test()
     {
-        static const int MAX_KEY = 40000;
-        for (int i = 0; i < MAX_KEY; ++i) {
+        static const int MAX_KEY = 100000;
+        for (int i = 0; i <= MAX_KEY; ++i) {
             unUsedKey.add(i);
         }
         this->info();
@@ -330,10 +330,10 @@ namespace tests
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
         static const int MAX = 100000;
         static const int KROK = 1000;
-        static const int POC_VELKOST = 1000;
+        static const int POCIATOCNA_VELSKOST = 1000;
         static const int POC_OPAKOVANI = 200;
         static const int MAX_KEY = MAX * 2;
-        int sizeOfTable = POC_VELKOST;
+        int sizeOfTable = POCIATOCNA_VELSKOST;
 
         usedKey.clear();
         unUsedKey.clear();
@@ -341,7 +341,7 @@ namespace tests
             unUsedKey.add(i);
         }
 
-        structures::Logger::getInstance().logInfo("Vysledne casi su priemerom " + std::to_string(POC_OPAKOVANI) + " opakovi");
+        structures::Logger::getInstance().logInfo("Vysledne casi su priemerom " + std::to_string(POC_OPAKOVANI) + " opakovani");
         structures::Logger::getInstance().logInfo("Velkost Table,Insert,Remove,TryFind");
 
 
@@ -425,13 +425,13 @@ namespace tests
 
         for (int i = 0; i < POC_OPAKOVANI; i++)
         {
-            duration += durationPeek(getUsedKey(), rand() % INT_MAX / 2, pTable);
+            duration += durationTryFind(getUsedKey(), rand() % INT_MAX / 2, pTable);
         }
         return duration / POC_OPAKOVANI;
 
     }
 
-    Microseconds TableUloha3::durationPeek(int key, int cislo, structures::Table<int, int> &pTable)
+    Microseconds TableUloha3::durationTryFind(int key, int cislo, structures::Table<int, int> &pTable)
     {
         SimpleTest::startStopwatch();
         pTable.tryFind(key, cislo);

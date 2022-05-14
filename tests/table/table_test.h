@@ -271,7 +271,7 @@ namespace tests
         Microseconds durationRemove(int key, structures::Table<int, int> &pTable);
 
         Microseconds cyklusTryFind(int size, const int POC_OPAKOVANI, structures::Table<int, int> &pTable);
-        Microseconds durationPeek(int key, int cislo, structures::Table<int, int> &pTable);
+        Microseconds durationTryFind(int key, int cislo, structures::Table<int, int> &pTable);
 
         /// rapairQue udrzuje velkost daného frontu na potrebnej dlzke. Keď treba, tak front zväčší a naplni hodnotami a ked je velky tak zmensi
         /// \param SIZE - velkost listu ktora sa ma udrziavat
