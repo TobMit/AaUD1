@@ -227,7 +227,7 @@ namespace tests
     void TableUloha2::cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind,
                              structures::Table<int, int> &pTable)
     {
-        static const int OPAKOVANIA = 100000;
+        static const int OPAKOVANIA = 150000;
         static const int MAX_DATA_VALUE_IN_TABLE = 100;
 
         structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
