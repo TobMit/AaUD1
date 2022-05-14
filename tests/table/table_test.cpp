@@ -227,7 +227,7 @@ namespace tests
     void TableUloha2::cyklus(char oznacenie, int podielInsert, int podielRemove, int podielTryFind,
                              structures::Table<int, int> &pTable)
     {
-        static const int OPAKOVANIA = 150000;
+        static const int OPAKOVANIA = 100000;
         static const int MAX_DATA_VALUE_IN_TABLE = 100;
 
         structures::Logger::getInstance().logInfo("Zacal sa Scenar " + std::string(1, oznacenie) + "!");
@@ -328,8 +328,8 @@ namespace tests
     void TableUloha3::test()
     {
         structures::Logger::getInstance().logInfo("Testovanie Uloha3!");
-        static const int MAX = 100000;
-        static const int KROK = 1000;
+        static const int MAX = 150000;
+        static const int KROK = 2000;
         static const int POCIATOCNA_VELSKOST = 1000;
         static const int POC_OPAKOVANI = 200;
         static const int MAX_KEY = MAX * 2;
