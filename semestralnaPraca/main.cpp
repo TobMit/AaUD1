@@ -16,12 +16,14 @@
 // vytvoriť metódy na kritéria a návratova hodnota by bola to kritérim a poto ho viem využiť na viacerých miestach
 // vytvoriť kritérium pre názov , opýtať sa aký nazov chce a potom to vyhodnocuje
 #include "iostream"
+#include "sstream"
 #include "dataLoader.h"
 #include "uzemnaJednotka.h"
 #include "storedData.h"
 #include "ostatneUdaje.h"
 #include "../structures/table/table.h"
 #include "../structures/table/unsorted_sequence_table.h"
+#include "../structures/table/sorted_sequence_table.h"
 /*
 structures::ArrayList<StoredData> obce;
 structures::ArrayList<StoredData> okresov;
@@ -32,13 +34,12 @@ structures::Table<nazov, index> obce -> index obca podľa názvu
 */
 
 
-
+structures::UnsortedSequenceTable<wstring, StoredData*> *kraj  = new structures::UnsortedSequenceTable<wstring, StoredData*>;
 int main()
 {
 
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
-    structures::UnsortedSequenceTable<wstring, StoredData*> *kraj  = new structures::UnsortedSequenceTable<wstring, StoredData*>;
 
 
     if (loader->isOpen()) {
@@ -59,11 +60,13 @@ int main()
         }
         wcout << endl;
     }
-    /*
+
     cout << "test hladanie \n";
-    wstring hladanie = L"Zahraničie";
+    wstring hladanie;
+    std::getline(wcin, hladanie);
+
     auto test = kraj->find(hladanie);
-    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;*/
+    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;
 
     for (auto item: *kraj) {
         delete item->accessData();
