@@ -34,19 +34,6 @@ structures::Table<nazov, index> obce -> index obca podľa názvu
 int main()
 {
 
-    /*
-    DataLoader *testLoader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
-    if (testLoader->isOpen()) {
-        while (testLoader->nextLine()) {
-            while (testLoader->haveNextParameter()) {
-                wcout << testLoader->getNextParameter() << L" ";
-            }
-            wcout << endl;
-        }
-    }
-
-    delete testLoader;
-*/
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
 
@@ -55,46 +42,39 @@ int main()
 
     if (loader->isOpen()) {
         loader->nextLine();
-        while (loader->haveNextParameter()){
-            kraj->setNextHeader(loader->getNextParameter());
-        }
         loader->nextLine();
         kraj->setNextParameter(loader->getNextParameter());
-        kraj->setCode(loader->getNextParameter());
-        kraj->setOfficialTitle(loader->getNextParameter());
+        kraj->setNextParameter(loader->getNextParameter());
         kraj->setNextParameter(loader->getNextParameter());
         kraj->setNextParameter(loader->getNextParameter());
         kraj->setNextParameter(loader->getNextParameter());
         kraj->setNextParameter(loader->getNextParameter());
     }
-    wcout << kraj->getFullHeader() << endl;
     for (int i = 0; i < kraj->getSize(); ++i) {
         wcout << kraj->at(i) << L"\t";
     }
     wcout << endl;
 
-/*
     loader->openNew("../semestralnaPraca/dataLoader/rawData/vzdelanie.csv");
-    StoredData *vzdelanie = new OstatneUdaje();
+    OstatneUdaje *vzdelavanie = new OstatneUdaje();
+
     if (loader->isOpen()) {
         loader->nextLine();
         loader->nextLine();
-        loader->nextLine();
-        vzdelanie->setCode(loader->getNextParameter());
-        vzdelanie->setOfficialTitle(loader->getNextParameter());
-        for (int i = 0; loader->haveNextParameter(); i++) {
-            vzdelanie->setNextParameter(loader->getNextParameter());
+        vzdelavanie->setCode(loader->getNextParameter());
+        vzdelavanie->setOfficialTitle(loader->getNextParameter());
+        while (loader->hasNextParameter()) {
+            vzdelavanie->setNextParameter(loader->getNextParameter());
         }
     }
-        wcout << vzdelanie->getCode() << L" " << vzdelanie->getOfficialTitle() << L" ";
-        for (int i = 0; i < vzdelanie->getSize(); ++i) {
-            wcout << vzdelanie->at(i) << L" ";
-        }
+    wcout << vzdelavanie->getCode() << L"\t" << vzdelavanie->getOfficialTitle() << L"\t";
+    for (int i = 0; i < vzdelavanie->getSize(); ++i) {
+        wcout << vzdelavanie->intAt(i) << L"\t";
+    }
+    wcout << endl;
 
-*/
     delete kraj;
     delete loader;
-    //delete vzdelanie;
-
+    delete vzdelavanie;
     return 0;
 }

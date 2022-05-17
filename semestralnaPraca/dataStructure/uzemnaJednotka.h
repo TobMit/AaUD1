@@ -9,81 +9,131 @@ class UzemnaJednotka : public StoredData {
 public:
     UzemnaJednotka();
 
-    UzemnaJednotka(const wstring &sortNumber,const wstring &code,const wstring &officialTitle,const wstring &mediumTitle,
-                   const wstring &shortTitle,const wstring &note);
+    UzemnaJednotka(const wstring &pSortNumber, const wstring &pCode, const wstring &pOfficialTitle, const wstring &pMediumTitle,
+                   const wstring &pShortTitle, const wstring &pNote);
 
-    wstring &getCode() override;
+    wstring getCode() override;
 
-    wstring &getOfficialTitle() override;
+    wstring getOfficialTitle() override;
 
-    void setCode(const wstring &code) override;
+    void setCode(const wstring pCode) override;
 
-    void setOfficialTitle(const wstring& offTitleName) override;
+    void setOfficialTitle(const wstring pOffTitleName) override;
 
-    void setNextParameter(const wstring &parameter) override;
+    void setNextParameter(const wstring parameter) override;
 
     int getSize() override;
 
+    ~UzemnaJednotka() override;
+
+    wstring &at(int index) override;
+
 private:
     int dataIndex = 0;
+    wstring sortNumber;
+    wstring code;
+    wstring officialTitle;
+    wstring mediumTitle;
+    wstring shortTitle;
+    wstring note;
 
 };
 
 
 UzemnaJednotka::UzemnaJednotka()
 {
-    for (int i = 0; i < getSize(); ++i) {
-        StoredData::data_->add(L"");
+}
+
+
+UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode, const wstring& pOfficialTitle, const wstring& pMediumTitle,
+                               const wstring& pShortTitle, const wstring& pNote) {
+    sortNumber = pSortNumber;
+    code = pCode;
+    officialTitle = pOfficialTitle;
+    mediumTitle = pMediumTitle;
+    sortNumber = pShortTitle;
+    note = pNote;
+}
+
+
+wstring UzemnaJednotka::getCode() {
+    return code;
+}
+
+
+wstring UzemnaJednotka::getOfficialTitle() {
+    return officialTitle;
+}
+
+
+void UzemnaJednotka::setCode(const wstring pCode) {
+    code = pCode;
+}
+
+
+void UzemnaJednotka::setOfficialTitle(const wstring pOffTitleName) {
+    officialTitle = pOffTitleName;
+}
+
+
+void UzemnaJednotka::setNextParameter(const wstring parameter) {
+    switch (dataIndex) {
+        case 0:
+            sortNumber = parameter;
+            break;
+        case 1:
+            code = parameter;
+            break;
+        case 2:
+            officialTitle = parameter;
+            break;
+        case 3:
+            mediumTitle = parameter;
+            break;
+        case 4:
+            shortTitle = parameter;
+            break;
+        case 5:
+            note = parameter;
+            break;
+        default:
+            return;
+
     }
-}
-
-
-UzemnaJednotka::UzemnaJednotka(const wstring& sortNumber, const wstring& code, const wstring& officialTitle, const wstring& mediumTitle,
-                                  const wstring& shortTitle,const wstring& note) {
-    StoredData::data_->add(sortNumber);
-    StoredData::data_->add(code);
-    StoredData::data_->add(officialTitle);
-    StoredData::data_->add(mediumTitle);
-    StoredData::data_->add(shortTitle);
-    StoredData::data_->add(note);
-}
-
-
-wstring &UzemnaJednotka::getCode() {
-    return StoredData::at(1);
-}
-
-
-wstring &UzemnaJednotka::getOfficialTitle() {
-    return StoredData::at(2);
-}
-
-
-void UzemnaJednotka::setCode(const wstring& code) {
-    StoredData::at(1) = code;
-}
-
-
-void UzemnaJednotka::setOfficialTitle(const wstring& offTitleName) {
-    StoredData::at(2) = offTitleName;
-}
-
-
-void UzemnaJednotka::setNextParameter(const wstring& parameter) {
-    if (dataIndex == 1 || dataIndex == 2) {
-        dataIndex = 3;
-    }
-    // ak to nepatir do rozsahu tabulky tak to budem ignorovať
-    // obchádzam to takto aby som nemusel vyhadzovať vynimku
-    if (dataIndex < getSize()) {
-        this->at(dataIndex) = parameter;
-        dataIndex++;
-    }
+    dataIndex++;
 }
 
 
 int UzemnaJednotka::getSize() {
     return 6;
+}
+
+UzemnaJednotka::~UzemnaJednotka() {
+
+}
+
+wstring &UzemnaJednotka::at(int index) {
+    switch (index) {
+        case 0:
+            return sortNumber;
+            break;
+        case 1:
+            return code;
+            break;
+        case 2:
+            return officialTitle;
+            break;
+        case 3:
+            return mediumTitle;
+            break;
+        case 4:
+            return shortTitle;
+            break;
+        case 5:
+            return note;
+            break;
+
+    }
 }
 
 

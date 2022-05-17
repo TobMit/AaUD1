@@ -27,6 +27,6 @@ void DataLoader::openNew(string address) {
     this->citac.open(address);
 }
 
-bool DataLoader::haveNextParameter() {
+bool DataLoader::hasNextParameter() {
     return !nacitane.empty();
 }

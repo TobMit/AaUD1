@@ -37,6 +37,6 @@ public:
         closeLoader();
     };
 
-    bool haveNextParameter();
+    bool hasNextParameter();
 };
 
