@@ -59,11 +59,15 @@ int main()
         }
         wcout << endl;
     }
-
+    /*
     cout << "test hladanie \n";
     wstring hladanie = L"Zahraničie";
     auto test = kraj->find(hladanie);
-    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;
+    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;*/
+
+    for (auto item: *kraj) {
+        delete item->accessData();
+    }
     delete kraj;
     delete loader;
     return 0;
