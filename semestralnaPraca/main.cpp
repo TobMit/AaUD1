@@ -21,60 +21,50 @@
 #include "storedData.h"
 #include "ostatneUdaje.h"
 #include "../structures/table/table.h"
+#include "../structures/table/unsorted_sequence_table.h"
 /*
 structures::ArrayList<StoredData> obce;
 structures::ArrayList<StoredData> okresov;
 structures::ArrayList<StoredData> krajov;
 
-structures::Table<nazov, list> kraj -> index okresov
 structures::Table<nazov, list> okres -> indexi obce v danom kraji list{1,7,10} -> indexi obci v ArrayListe;
 structures::Table<nazov, index> obce -> index obca podľa názvu
 */
+
+
 
 int main()
 {
 
 
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
+    structures::UnsortedSequenceTable<wstring, StoredData*> *kraj  = new structures::UnsortedSequenceTable<wstring, StoredData*>;
 
-
-    StoredData *kraj = new UzemnaJednotka();
 
     if (loader->isOpen()) {
         loader->nextLine();
-        loader->nextLine();
-        kraj->setNextParameter(loader->getNextParameter());
-        kraj->setNextParameter(loader->getNextParameter());
-        kraj->setNextParameter(loader->getNextParameter());
-        kraj->setNextParameter(loader->getNextParameter());
-        kraj->setNextParameter(loader->getNextParameter());
-        kraj->setNextParameter(loader->getNextParameter());
-    }
-    for (int i = 0; i < kraj->getSize(); ++i) {
-        wcout << kraj->at(i) << L"\t";
-    }
-    wcout << endl;
-
-    loader->openNew("../semestralnaPraca/dataLoader/rawData/vzdelanie.csv");
-    OstatneUdaje *vzdelavanie = new OstatneUdaje();
-
-    if (loader->isOpen()) {
-        loader->nextLine();
-        loader->nextLine();
-        vzdelavanie->setCode(loader->getNextParameter());
-        vzdelavanie->setOfficialTitle(loader->getNextParameter());
-        while (loader->hasNextParameter()) {
-            vzdelavanie->setNextParameter(loader->getNextParameter());
+        while (loader->nextLine()){
+            auto ukladana = new UzemnaJednotka();
+            for (int i = 0; i < ukladana->getSize(); ++i) {
+                ukladana->setNextParameter(loader->getNextParameter());
+            }
+            kraj->insert(ukladana->getOfficialTitle(), ukladana);
         }
-    }
-    wcout << vzdelavanie->getCode() << L"\t" << vzdelavanie->getOfficialTitle() << L"\t";
-    for (int i = 0; i < vzdelavanie->getSize(); ++i) {
-        wcout << vzdelavanie->intAt(i) << L"\t";
-    }
-    wcout << endl;
 
+    }
+
+    for (auto item: *kraj) {
+        for (int i = 0; i < item->accessData()->getSize(); ++i) {
+            wcout << item->accessData()->at(i)<< L"\t";
+        }
+        wcout << endl;
+    }
+
+    cout << "test hladanie \n";
+    wstring hladanie = L"Zahraničie";
+    auto test = kraj->find(hladanie);
+    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;
     delete kraj;
     delete loader;
-    delete vzdelavanie;
     return 0;
 }
