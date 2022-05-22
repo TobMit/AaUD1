@@ -83,13 +83,25 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
                 nameIndex.insert(data->at(3), data);
             }
             if (data->at(3).compare(data->at(4)) != 0 && data->getOfficialTitle().compare(data->at(4))) {
-                for (int i = 0; i < data->getSize(); ++i) {
-                    wcout << data->at(i) << L",\t";
-                }
-                wcout << endl;
                 nameIndex.insert(data->at(4), data);
             }
 
+        }
+    }
+
+
+    //---------- Pridanie miest pre Okres ---------
+    for (auto item: okres) {
+        auto data = item->accessData();
+        if (data->getOfficialTitle().compare(data->at(3)) != 0 && !nameIndex.containsKey(data->at(3))) {
+            nameIndex.insert(data->at(3), data);
+        }
+        if (data->at(3).compare(data->at(4)) != 0 && data->getOfficialTitle().compare(data->at(4)) && !nameIndex.containsKey(data->at(4))) {
+            for (int i = 0; i < data->getSize(); ++i) {
+                wcout << data->at(i) << L",\t";
+            }
+            wcout << endl;
+            nameIndex.insert(data->at(4), data);
         }
     }
 
