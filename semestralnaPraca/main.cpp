@@ -15,63 +15,14 @@
 //todo filter preberie ktritérium a sptía sa či to funguje, rozširuje sa to iba potomkami
 // vytvoriť metódy na kritéria a návratova hodnota by bola to kritérim a poto ho viem využiť na viacerých miestach
 // vytvoriť kritérium pre názov , opýtať sa aký nazov chce a potom to vyhodnocuje
-#include "iostream"
-#include "sstream"
-#include "dataLoader.h"
-#include "uzemnaJednotka.h"
-#include "storedData.h"
-#include "ostatneUdaje.h"
-#include "../structures/table/table.h"
-#include "../structures/table/unsorted_sequence_table.h"
-#include "../structures/table/sorted_sequence_table.h"
-/*
-structures::ArrayList<StoredData> obce;
-structures::ArrayList<StoredData> okresov;
-structures::ArrayList<StoredData> krajov;
+#include "aplikacia.h"
 
-structures::Table<nazov, list> okres -> indexi obce v danom kraji list{1,7,10} -> indexi obci v ArrayListe;
-structures::Table<nazov, index> obce -> index obca podľa názvu
-*/
-
-
-structures::UnsortedSequenceTable<wstring, StoredData*> *kraj  = new structures::UnsortedSequenceTable<wstring, StoredData*>;
 int main()
 {
+    Aplikacia *aplikacia = new Aplikacia();
 
 
-    DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
-
-
-    if (loader->isOpen()) {
-        loader->nextLine();
-        while (loader->nextLine()){
-            auto ukladana = new UzemnaJednotka();
-            for (int i = 0; i < ukladana->getSize(); ++i) {
-                ukladana->setNextParameter(loader->getNextParameter());
-            }
-            kraj->insert(ukladana->getOfficialTitle(), ukladana);
-        }
-
-    }
-
-    for (auto item: *kraj) {
-        for (int i = 0; i < item->accessData()->getSize(); ++i) {
-            wcout << item->accessData()->at(i)<< L"\t";
-        }
-        wcout << endl;
-    }
-
-    cout << "test hladanie \n";
-    wstring hladanie;
-    std::getline(wcin, hladanie);
-
-    auto test = kraj->find(hladanie);
-    wcout << test->getOfficialTitle() << L"\t" << test->getCode() << endl;
-
-    for (auto item: *kraj) {
-        delete item->accessData();
-    }
-    delete kraj;
-    delete loader;
+    delete aplikacia;
+    aplikacia = nullptr;
     return 0;
 }

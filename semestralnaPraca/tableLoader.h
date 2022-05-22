@@ -8,11 +8,22 @@
 #include "dataLoader/dataLoader.h"
 #include "dataStructure/storedData.h"
 
+using namespace structures;
 class TableLoader {
+private:
+    DataLoader *dataLoader;
 public:
     TableLoader();
     ~TableLoader();
-    void loadData(structures::Table<std::wstring, StoredData<auto>>&tabler, DataLoader &loader);
+    void loadData(Table<wstring, StoredData*> &kraj,
+                  Table<wstring, StoredData*> &okres,
+                  Table<wstring, StoredData*> &obec,
+                  Table<wstring, StoredData*> &vzdelanie);
 };
+
+TableLoader::~TableLoader() {
+    delete dataLoader;
+    dataLoader = nullptr;
+}
 
 

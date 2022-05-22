@@ -119,6 +119,9 @@ add_executable(semestralnaPraca
         semestralnaPraca/dataStructure/storedData.h
         semestralnaPraca/dataStructure/uzemnaJednotka.h
         semestralnaPraca/dataStructure/ostatneUdaje.h
+        semestralnaPraca/aplikacia.cpp
+        semestralnaPraca/aplikacia.h
+        semestralnaPraca/tableLoader.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
@@ -175,6 +178,5 @@ add_executable(semestralnaPraca
         structures/structure_iterator.h
         structures/types.h
         structures/utils.cpp
-        structures/utils.h semestralnaPraca/tableLoader.h
-        semestralnaPraca/aplikacia.cpp
-        semestralnaPraca/aplikacia.h)
+        structures/utils.h
+        )

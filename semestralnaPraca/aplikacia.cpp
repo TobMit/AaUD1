@@ -8,7 +8,7 @@ Aplikacia::Aplikacia() :
     kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    loader(new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv"))
+    vzdelanie(new structures::UnsortedSequenceTable<wstring, StoredData*>)
 {
 
 }
@@ -17,22 +17,26 @@ Aplikacia::~Aplikacia() {
     vycistiTable(kraj);
     delete kraj;
     kraj = nullptr;
-    vycistiTable(kraj);
-    delete kraj;
-    okres = nullptr;
     vycistiTable(okres);
     delete okres;
-    obec = nullptr;
+    okres = nullptr;
     vycistiTable(obec);
     delete obec;
     obec = nullptr;
-    delete loader;
-    loader = nullptr;
+    vycistiTable(vzdelanie);
+    delete vzdelanie;
+    vzdelanie = nullptr;
 }
 
 void Aplikacia::vycistiTable(structures::UnsortedSequenceTable<wstring, StoredData *> *table) {
-    for (auto item: *table) {
-        delete item->accessData();
+    if (table->size() != 0) {
+        for (auto item: *table) {
+            delete item->accessData();
+        }
     }
+}
+
+void Aplikacia::loadTable() {
+
 }
 

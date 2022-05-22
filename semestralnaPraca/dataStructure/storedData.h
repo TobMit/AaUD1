@@ -36,13 +36,5 @@ public:
 
 };
 
-StoredData::StoredData()
-    {
-
-}
-
-StoredData::~StoredData() {
-
-}
 
 
