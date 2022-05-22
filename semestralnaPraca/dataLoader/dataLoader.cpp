@@ -4,7 +4,7 @@
 #include "dataLoader.h"
 
 bool DataLoader::nextLine() {
-    if (!getline(citac,nacitane)){
+    if (!getline(*citac,nacitane)){
         return false;
     }
     return true;
@@ -24,7 +24,10 @@ wstring DataLoader::getNextParameter() {
 
 void DataLoader::openNew(string address) {
     this->closeLoader();
-    this->citac.open(address);
+    delete citac;
+    citac = nullptr;
+    citac = new wfstream;
+    this->citac->open(address);
 }
 
 bool DataLoader::hasNextParameter() {

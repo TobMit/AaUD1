@@ -21,6 +21,7 @@ Aplikacia::Aplikacia() :
     for (int i = 0; i < testKraj->getSize(); ++i) {
         wcout << testKraj->at(i) << L"\t";
     }
+    wcout << endl << endl;
 }
 
 Aplikacia::~Aplikacia() {
