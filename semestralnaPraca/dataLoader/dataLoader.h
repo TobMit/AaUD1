@@ -19,6 +19,7 @@ public:
     DataLoader(string address) {
         citac.open(address);
     };
+    DataLoader();
 
     void openNew(string address);
 

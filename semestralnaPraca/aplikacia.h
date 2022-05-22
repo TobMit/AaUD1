@@ -16,15 +16,14 @@ private:
     structures::UnsortedSequenceTable<wstring, StoredData*> *obec;
     structures::UnsortedSequenceTable<wstring, StoredData*> *vzdelanie;
 
-    structures::UnsortedSequenceTable<wstring, StoredData*> *nameIndex;
+    structures::SortedSequenceTable<wstring, StoredData*> *nameIndex;
 
 public:
     Aplikacia();
 
     ~Aplikacia();
 private:
-    void vycistiTable(structures::UnsortedSequenceTable<wstring, StoredData*> *table);
-    void loadTable();
+    void vycistiTable(structures::Table<wstring, StoredData *> *table);
 };
 
 

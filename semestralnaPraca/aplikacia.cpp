@@ -8,7 +8,8 @@ Aplikacia::Aplikacia() :
     kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    vzdelanie(new structures::UnsortedSequenceTable<wstring, StoredData*>)
+    vzdelanie(new structures::UnsortedSequenceTable<wstring, StoredData*>),
+    nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>)
 {
 
 }
@@ -26,17 +27,14 @@ Aplikacia::~Aplikacia() {
     vycistiTable(vzdelanie);
     delete vzdelanie;
     vzdelanie = nullptr;
+    vycistiTable(nameIndex);
+    delete nameIndex;
+    nameIndex = nullptr;
 }
 
-void Aplikacia::vycistiTable(structures::UnsortedSequenceTable<wstring, StoredData *> *table) {
-    if (table->size() != 0) {
-        for (auto item: *table) {
-            delete item->accessData();
-        }
+void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
+    for (auto item: *table) {
+        delete item->accessData();
     }
-}
-
-void Aplikacia::loadTable() {
-
 }
 

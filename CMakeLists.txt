@@ -121,7 +121,6 @@ add_executable(semestralnaPraca
         semestralnaPraca/dataStructure/ostatneUdaje.h
         semestralnaPraca/aplikacia.cpp
         semestralnaPraca/aplikacia.h
-        semestralnaPraca/dataLoader/tableLoader.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
