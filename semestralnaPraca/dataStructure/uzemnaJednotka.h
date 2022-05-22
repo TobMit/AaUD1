@@ -40,12 +40,12 @@ private:
 };
 
 
-UzemnaJednotka::UzemnaJednotka()
+inline UzemnaJednotka::UzemnaJednotka()
 {
 }
 
 
-UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode, const wstring& pOfficialTitle, const wstring& pMediumTitle,
+inline UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode, const wstring& pOfficialTitle, const wstring& pMediumTitle,
                                const wstring& pShortTitle, const wstring& pNote) {
     sortNumber = pSortNumber;
     code = pCode;
@@ -56,27 +56,27 @@ UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode,
 }
 
 
-wstring UzemnaJednotka::getCode() {
+inline wstring UzemnaJednotka::getCode() {
     return code;
 }
 
 
-wstring UzemnaJednotka::getOfficialTitle() {
+inline wstring UzemnaJednotka::getOfficialTitle() {
     return officialTitle;
 }
 
 
-void UzemnaJednotka::setCode(const wstring pCode) {
+inline void UzemnaJednotka::setCode(const wstring pCode) {
     code = pCode;
 }
 
 
-void UzemnaJednotka::setOfficialTitle(const wstring pOffTitleName) {
+inline void UzemnaJednotka::setOfficialTitle(const wstring pOffTitleName) {
     officialTitle = pOffTitleName;
 }
 
 
-void UzemnaJednotka::setNextParameter(const wstring parameter) {
+inline void UzemnaJednotka::setNextParameter(const wstring parameter) {
     switch (dataIndex) {
         case 0:
             sortNumber = parameter;
@@ -104,15 +104,15 @@ void UzemnaJednotka::setNextParameter(const wstring parameter) {
 }
 
 
-int UzemnaJednotka::getSize() {
+inline int UzemnaJednotka::getSize() {
     return 6;
 }
 
-UzemnaJednotka::~UzemnaJednotka() {
+inline UzemnaJednotka::~UzemnaJednotka() {
 
 }
 
-wstring &UzemnaJednotka::at(int index) {
+inline wstring &UzemnaJednotka::at(int index) {
     switch (index) {
         case 0:
             return sortNumber;

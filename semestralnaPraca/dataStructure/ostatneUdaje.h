@@ -36,55 +36,55 @@ private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
 
 };
-OstatneUdaje::~OstatneUdaje() {
+inline OstatneUdaje::~OstatneUdaje() {
     data->clear();
     delete data;
     data = nullptr;
 }
 
-OstatneUdaje::OstatneUdaje(const wstring &code, const wstring &offTitle) :
+inline OstatneUdaje::OstatneUdaje(const wstring &code, const wstring &offTitle) :
         code(code),
         offTitle(offTitle)
 {
 }
 
 
-wstring OstatneUdaje::getCode() {
+inline wstring OstatneUdaje::getCode() {
     return code;
 }
 
 
-wstring OstatneUdaje::getOfficialTitle() {
+inline wstring OstatneUdaje::getOfficialTitle() {
     return offTitle;
 }
 
 
-void OstatneUdaje::setCode(const wstring pCode) {
+inline void OstatneUdaje::setCode(const wstring pCode) {
     code = pCode;
 }
 
 
-void OstatneUdaje::setOfficialTitle(const wstring pOffTitleName) {
+inline void OstatneUdaje::setOfficialTitle(const wstring pOffTitleName) {
     offTitle = pOffTitleName;
 }
 
 
-void OstatneUdaje::setNextParameter(const wstring parameter) {
+inline void OstatneUdaje::setNextParameter(const wstring parameter) {
     data->add(stoi(parameter));
 }
 
 
-int OstatneUdaje::getSize() {
+inline int OstatneUdaje::getSize() {
     return data->size();
 }
 
 
-wstring &OstatneUdaje::at(int index) {
+inline wstring &OstatneUdaje::at(int index) {
     wstring returnValue = L"-1";
     return returnValue;
 }
 
-int &OstatneUdaje::intAt(int index) {
+inline int &OstatneUdaje::intAt(int index) {
     return data->at(index);
 }
 

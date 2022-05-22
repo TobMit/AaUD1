@@ -36,5 +36,13 @@ public:
 
 };
 
+inline StoredData::~StoredData() {
+
+}
+
+inline StoredData::StoredData() {
+
+}
+
 
 
