@@ -12,7 +12,15 @@ Aplikacia::Aplikacia() :
     nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>)
 {
     TableLoader tableLoader;
-    tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanie);
+    tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanie, *nameIndex);
+
+    wstring test;
+    wcout << L"Zadaj nazov: ";
+    std::getline(wcin, test);
+    auto testKraj = nameIndex->find(test);
+    for (int i = 0; i < testKraj->getSize(); ++i) {
+        wcout << testKraj->at(i) << L"\t";
+    }
 }
 
 Aplikacia::~Aplikacia() {
@@ -28,7 +36,7 @@ Aplikacia::~Aplikacia() {
     vycistiTable(vzdelanie);
     delete vzdelanie;
     vzdelanie = nullptr;
-    vycistiTable(nameIndex);
+
     delete nameIndex;
     nameIndex = nullptr;
 }
