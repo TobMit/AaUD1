@@ -11,7 +11,8 @@ Aplikacia::Aplikacia() :
     vzdelanie(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>)
 {
-
+    TableLoader tableLoader;
+    tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanie);
 }
 
 Aplikacia::~Aplikacia() {

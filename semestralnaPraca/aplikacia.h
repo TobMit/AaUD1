@@ -8,6 +8,7 @@
 #include "../structures/table/table.h"
 #include "../structures/table/unsorted_sequence_table.h"
 #include "../structures/table/sorted_sequence_table.h"
+#include "tableLoader.h"
 
 class Aplikacia {
 private:
