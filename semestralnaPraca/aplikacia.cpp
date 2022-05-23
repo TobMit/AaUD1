@@ -8,7 +8,7 @@ Aplikacia::Aplikacia() :
     kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    vzdelanie(new structures::UnsortedSequenceTable<wstring, StoredData*>),
+    vzdelanie(new structures::SortedSequenceTable<wstring, StoredData*>),
     nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>)
 {
     TableLoader tableLoader;
@@ -20,6 +20,14 @@ Aplikacia::Aplikacia() :
     auto testKraj = nameIndex->find(test);
     for (int i = 0; i < testKraj->getSize(); ++i) {
         wcout << testKraj->at(i) << L"\t";
+    }
+    wcout << endl;
+    auto testVzdelanie = vzdelanie->find(testKraj->getCode());
+    auto testVzdelanieNew = dynamic_cast<OstatneUdaje*>(testVzdelanie);
+    if (testVzdelanieNew) {
+        for (int i = 0; i < testVzdelanieNew->getSize(); ++i) {
+            wcout << testVzdelanieNew->intAt(i) << L"\t";
+        }
     }
     wcout << endl << endl;
 }

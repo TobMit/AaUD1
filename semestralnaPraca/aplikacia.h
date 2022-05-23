@@ -15,7 +15,7 @@ private:
     structures::UnsortedSequenceTable<wstring, StoredData*> *kraj;
     structures::UnsortedSequenceTable<wstring, StoredData*> *okres;
     structures::UnsortedSequenceTable<wstring, StoredData*> *obec;
-    structures::UnsortedSequenceTable<wstring, StoredData*> *vzdelanie;
+    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanie;
 
     structures::SortedSequenceTable<wstring, StoredData*> *nameIndex;
 
