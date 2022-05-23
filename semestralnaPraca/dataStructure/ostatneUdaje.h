@@ -12,7 +12,7 @@ private:
 public:
     OstatneUdaje() {
     };
-    OstatneUdaje(const wstring &code, const wstring &offTitle);
+    OstatneUdaje(const wstring pCode, const wstring pOffTitle);
 
     wstring getCode() override;
 
@@ -42,9 +42,9 @@ inline OstatneUdaje::~OstatneUdaje() {
     data = nullptr;
 }
 
-inline OstatneUdaje::OstatneUdaje(const wstring &code, const wstring &offTitle) :
-        code(code),
-        offTitle(offTitle)
+inline OstatneUdaje::OstatneUdaje(const wstring pCode, const wstring pOffTitle) :
+        code(pCode),
+        offTitle(pOffTitle)
 {
 }
 
