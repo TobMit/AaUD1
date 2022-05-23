@@ -7,6 +7,7 @@
 #include "../../structures/table/table.h"
 #include "storedData.h"
 #include "uzemnaJednotka.h"
+#include "ostatneUdaje.h"
 
 class TableLoader
 {
@@ -52,8 +53,6 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     }
 
     //------------------- Okres ------------------
-    //todo pridať aj shortname do nameindex
-    loader->closeLoader();
     loader->openNew("../semestralnaPraca/dataLoader/rawData/okresy.csv");
     if (loader->isOpen()){
         loader->nextLine(); // aby sa preskočil header
@@ -68,7 +67,6 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     }
 
     //------------------- Obce ------------------
-    loader->closeLoader();
     loader->openNew("../semestralnaPraca/dataLoader/rawData/obce.csv");
     if (loader->isOpen()){
         loader->nextLine(); // aby sa preskočil header
@@ -102,6 +100,19 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
             }
             wcout << endl;
             nameIndex.insert(data->at(4), data);
+        }
+    }
+
+    //------------------- Vzdelavanie ------------------
+    loader->openNew("../semestralnaPraca/dataLoader/rawData/vzdelanie.csv");
+    if (loader->isOpen()){
+        loader->nextLine(); // aby sa preskočil header
+        while (loader->nextLine()) {
+            OstatneUdaje *data = new OstatneUdaje(loader->getNextParameter(), loader->getNextParameter());
+            while (loader->hasNextParameter()) {
+                data->setNextParameter(loader->getNextParameter());
+            }
+            vzdelanie.insert(data->getCode(), data);
         }
     }
 
