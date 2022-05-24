@@ -137,7 +137,19 @@ inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring
                                 structures::SortedSequenceTable<wstring, StoredData *> nameIndex,
                                 structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> statIndex,
                                 structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> krajIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex) {
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex)
+{
+    //---------------- Indexovanie VUC STAT --------------------------------
+    structures::ArrayList<StoredData *> *slovensko = new structures::ArrayList<StoredData *>;
+    structures::ArrayList<StoredData *> *zahranicie = new structures::ArrayList<StoredData *>;
+    for (auto item: kraj) {
+        wstring kod = item->accessData()->at(5).substr(0,2);
+        if (kod.compare(L"ZZ") != 0) {
+            slovensko->add(item->accessData());
+        } else {
+            zahranicie->add(item->accessData());
+        }
+    }
 
 }
 
