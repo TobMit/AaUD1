@@ -8,6 +8,8 @@
 #include "storedData.h"
 #include "uzemnaJednotka.h"
 #include "ostatneUdaje.h"
+#include "unsorted_sequence_table.h"
+#include "sorted_sequence_table.h"
 
 class TableLoader
 {
@@ -21,6 +23,15 @@ public:
                    structures::Table<wstring, StoredData *> &obec,
                    structures::Table<wstring, StoredData *> &vzdelanie,
                    structures::Table<wstring, StoredData *> &nameIndex);
+
+    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> kraj,
+                       structures::UnsortedSequenceTable<wstring, StoredData *> okres,
+                       structures::UnsortedSequenceTable<wstring, StoredData *> obec,
+                       structures::SortedSequenceTable<wstring, StoredData *> vzdelanie,
+                       structures::SortedSequenceTable<wstring, StoredData *> nameIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> statIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> krajIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex);
 };
 
 inline TableLoader::TableLoader() {
@@ -117,6 +128,17 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     }
 
     delete loader;
+}
+
+inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> kraj,
+                                structures::UnsortedSequenceTable<wstring, StoredData *> okres,
+                                structures::UnsortedSequenceTable<wstring, StoredData *> obec,
+                                structures::SortedSequenceTable<wstring, StoredData *> vzdelanie,
+                                structures::SortedSequenceTable<wstring, StoredData *> nameIndex,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> statIndex,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> krajIndex,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex) {
+
 }
 
 
