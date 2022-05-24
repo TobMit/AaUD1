@@ -55,11 +55,29 @@ Aplikacia::~Aplikacia() {
 
     delete nameIndex;
     nameIndex = nullptr;
+
+    vicistiIndex(statIndex);
+    delete statIndex;
+    statIndex = nullptr;
+    vicistiIndex(krajIndex);
+    delete krajIndex;
+    krajIndex = nullptr;
+    vicistiIndex(okresIndex);
+    delete okresIndex;
+    okresIndex = nullptr;
+
 }
 
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
     for (auto item: *table) {
         delete item->accessData();
+    }
+}
+
+void Aplikacia::vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable) {
+    for (auto item: *pTable) {
+        delete item->accessData();
+        item->accessData() = nullptr;
     }
 }
 

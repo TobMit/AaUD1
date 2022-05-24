@@ -29,6 +29,8 @@ public:
     ~Aplikacia();
 private:
     void vycistiTable(structures::Table<wstring, StoredData *> *table);
+
+    void vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable);
 };
 
 
