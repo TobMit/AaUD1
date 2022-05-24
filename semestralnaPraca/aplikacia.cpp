@@ -38,24 +38,37 @@ Aplikacia::Aplikacia() :
 //    }
 //    wcout << endl << endl;
 
-    for (auto ixStat: *statIndex) {
-        wcout << ixStat->getKey() << endl;
-        for (auto ixKraj: *ixStat->accessData()) {
+    for (auto arrKraj: *statIndex) {
+        wcout << "\x1B[91m"; // cislo za [nastavi farbu podla ANSI escape sequences
+        wcout << arrKraj->getKey() << endl;
+        for (auto ixKraj: *arrKraj->accessData()) {
+            wcout << "\x1B[92m";
             wcout << "\t";
             for (int i = 0; i < ixKraj->getSize(); ++i) {
                 wcout << ixKraj->at(i) << L" ";
             }
             wcout << endl;
-            auto ixOkres = krajIndex->find(ixKraj->at(5));
-            for (auto item: *ixOkres) {
+            auto arrOkres = krajIndex->find(ixKraj->at(5));
+            for (auto ixOkres: *arrOkres) {
+                wcout << "\x1B[94m";
                 wcout << "\t" << "\t";
-                for (int i = 0; i < item->getSize(); ++i) {
-                    wcout << item->at(i) << L" ";
+                for (int i = 0; i < ixOkres->getSize(); ++i) {
+                    wcout << ixOkres->at(i) << L" ";
                 }
                 wcout << endl;
+                wcout << "\x1B[0m";
+                auto arrObec = okresIndex->find(ixOkres->getCode());
+                for (auto ixObce: *arrObec) {
+                    wcout << "\t" << "\t" << "\t";
+                    for (int i = 0; i < ixObce->getSize(); ++i) {
+                        wcout << ixObce->at(i) << L" ";
+                    }
+                    wcout << endl;
+                }
             }
         }
     }
+    wcout << "\x1B[0m"; // reset farby na zakladne
 }
 
 Aplikacia::~Aplikacia() {
