@@ -151,8 +151,8 @@ inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring
         }
     }
 
-    statIndex.insert(L"SK", slovensko);
-    statIndex.insert(L"ZZ", zahranicie);
+    statIndex.insert(L"Slovensko", slovensko);
+    statIndex.insert(L"Zahranicie", zahranicie);
 
     //---------------- Indexovanie VUC KRAJ -------------------------------
     int indexOkresu = 0;
@@ -168,6 +168,21 @@ inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring
             }
             krajIndex.insert(okr->at(5), data);
         }
+    }
+
+
+    int indexObce = 0;
+    for (auto ixOkres: okres) {
+        structures::ArrayList<StoredData *> *data = new structures::ArrayList<StoredData*>;
+        for (; indexObce < obec.size(); indexObce++) {
+            //wcout << ixOkres->accessData()->getCode() << "\t" << obec.getItemAtIndex(indexObce).accessData()->getCode().substr(0,6) << endl;
+            if (obec.getItemAtIndex(indexObce).accessData()->getCode().substr(0,6).compare(ixOkres->accessData()->getCode()) == 0) {
+                data->add(obec.getItemAtIndex(indexObce).accessData());
+            } else {
+                break;
+            }
+        }
+        okresIndex.insert(ixOkres->accessData()->getCode(), data);
     }
 
 
