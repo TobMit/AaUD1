@@ -18,6 +18,10 @@ private:
     structures::SortedSequenceTable<wstring, StoredData*> *vzdelanie;
 
     structures::SortedSequenceTable<wstring, StoredData*> *nameIndex;
+    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *statIndex;
+    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *krajIndex;
+    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *okresIndex;
+
 
 public:
     Aplikacia();

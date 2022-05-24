@@ -9,10 +9,17 @@ Aplikacia::Aplikacia() :
     okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
     vzdelanie(new structures::SortedSequenceTable<wstring, StoredData*>),
-    nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>)
+    nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
+    statIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
+    krajIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
+    okresIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>)
 {
     TableLoader tableLoader;
+    cout << "Nacitavam data" << endl;
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanie, *nameIndex);
+    cout << "Indexujem" << endl;
+    tableLoader.indexingTable(*kraj, *okres, *obec, *vzdelanie, *nameIndex,
+                          *statIndex, *krajIndex, *okresIndex);
 
     wstring test;
     wcout << L"Zadaj nazov: ";
