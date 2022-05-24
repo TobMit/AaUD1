@@ -24,14 +24,14 @@ public:
                    structures::Table<wstring, StoredData *> &vzdelanie,
                    structures::Table<wstring, StoredData *> &nameIndex);
 
-    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> kraj,
-                       structures::UnsortedSequenceTable<wstring, StoredData *> okres,
-                       structures::UnsortedSequenceTable<wstring, StoredData *> obec,
-                       structures::SortedSequenceTable<wstring, StoredData *> vzdelanie,
-                       structures::SortedSequenceTable<wstring, StoredData *> nameIndex,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> statIndex,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> krajIndex,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex);
+    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
+                       structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
+                       structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
+                       structures::SortedSequenceTable<wstring, StoredData *> &vzdelanie,
+                       structures::SortedSequenceTable<wstring, StoredData *> &nameIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
+                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex);
 };
 
 inline TableLoader::TableLoader() {
@@ -130,14 +130,14 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     delete loader;
 }
 
-inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> kraj,
-                                structures::UnsortedSequenceTable<wstring, StoredData *> okres,
-                                structures::UnsortedSequenceTable<wstring, StoredData *> obec,
-                                structures::SortedSequenceTable<wstring, StoredData *> vzdelanie,
-                                structures::SortedSequenceTable<wstring, StoredData *> nameIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> statIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> krajIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> okresIndex)
+inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
+                                       structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
+                                       structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
+                                       structures::SortedSequenceTable<wstring, StoredData *> &vzdelanie,
+                                       structures::SortedSequenceTable<wstring, StoredData *> &nameIndex,
+                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
+                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
+                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex)
 {
     //---------------- Indexovanie VUC STAT --------------------------------
     structures::ArrayList<StoredData *> *slovensko = new structures::ArrayList<StoredData *>;
@@ -150,6 +150,27 @@ inline void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring
             zahranicie->add(item->accessData());
         }
     }
+
+    statIndex.insert(L"SK", slovensko);
+    statIndex.insert(L"ZZ", zahranicie);
+
+    //---------------- Indexovanie VUC KRAJ -------------------------------
+    int indexOkresu = 0;
+    for (auto arrayL: statIndex) {
+        for (auto okr: *arrayL->accessData()) {
+            structures::ArrayList<StoredData *> *data = new structures::ArrayList<StoredData*>;
+            for (; indexOkresu < okres.size(); indexOkresu++) {
+                if (okres.getItemAtIndex(indexOkresu).accessData()->at(5).substr(0,1).compare(okr->getCode()) == 0) {
+                    data->add(okres.getItemAtIndex(indexOkresu).accessData());
+                } else {
+                    break;
+                }
+            }
+            krajIndex.insert(okr->at(5), data);
+        }
+    }
+
+
 
 }
 
