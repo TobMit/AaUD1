@@ -9,6 +9,8 @@ class UzemnaJednotka : public StoredData {
 public:
     UzemnaJednotka();
 
+    UzemnaJednotka(UJTyp typ);
+
     UzemnaJednotka(const wstring &pSortNumber, const wstring &pCode, const wstring &pOfficialTitle, const wstring &pMediumTitle,
                    const wstring &pShortTitle, const wstring &pNote);
 
@@ -28,6 +30,8 @@ public:
 
     wstring &at(int index) override;
 
+    UJTyp getUJTyp() const override;
+
 private:
     int dataIndex = 0;
     wstring sortNumber;
@@ -36,6 +40,7 @@ private:
     wstring mediumTitle;
     wstring shortTitle;
     wstring note;
+    UJTyp typUJ;
 
 };
 
@@ -44,6 +49,10 @@ inline UzemnaJednotka::UzemnaJednotka()
 {
 }
 
+inline UzemnaJednotka::UzemnaJednotka(UJTyp typ)  :
+        typUJ(typ)
+{
+}
 
 inline UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode, const wstring& pOfficialTitle, const wstring& pMediumTitle,
                                const wstring& pShortTitle, const wstring& pNote) {
@@ -135,5 +144,10 @@ inline wstring &UzemnaJednotka::at(int index) {
 
     }
 }
+
+inline UJTyp UzemnaJednotka::getUJTyp() const {
+    return typUJ;
+}
+
 
 

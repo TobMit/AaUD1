@@ -10,8 +10,8 @@ private:
     wstring code;
     wstring offTitle;
 public:
-    OstatneUdaje() {
-    };
+    OstatneUdaje();
+
     OstatneUdaje(const wstring pCode, const wstring pOffTitle);
 
     wstring getCode() const override;
@@ -31,6 +31,8 @@ public:
     wstring &at(int index) override;
 
     int &intAt(int index);
+
+    UJTyp getUJTyp() const override;
 
 private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
@@ -88,3 +90,6 @@ inline int &OstatneUdaje::intAt(int index) {
     return data->at(index);
 }
 
+inline UJTyp OstatneUdaje::getUJTyp() const {
+    return UJTyp::Neoznacene;
+}

@@ -54,7 +54,7 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     if (loader->isOpen()){
         loader->nextLine(); // aby sa preskočil header
         while (loader->nextLine()) {
-            UzemnaJednotka *data = new UzemnaJednotka();
+            UzemnaJednotka *data = new UzemnaJednotka(UJTyp::Kraj);
             while (loader->hasNextParameter()) {
                 data->setNextParameter(loader->getNextParameter());
             }
@@ -68,7 +68,7 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     if (loader->isOpen()){
         loader->nextLine(); // aby sa preskočil header
         while (loader->nextLine()) {
-            UzemnaJednotka *data = new UzemnaJednotka();
+            UzemnaJednotka *data = new UzemnaJednotka(UJTyp::Okres);
             while (loader->hasNextParameter()) {
                 data->setNextParameter(loader->getNextParameter());
             }
@@ -82,7 +82,7 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     if (loader->isOpen()){
         loader->nextLine(); // aby sa preskočil header
         while (loader->nextLine()) {
-            UzemnaJednotka *data = new UzemnaJednotka();
+            UzemnaJednotka *data = new UzemnaJednotka(UJTyp::Obec);
             while (loader->hasNextParameter()) {
                 data->setNextParameter(loader->getNextParameter());
             }

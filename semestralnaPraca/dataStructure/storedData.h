@@ -7,6 +7,14 @@
 #include "string"
 #include "../structures/list/array_list.h"
 
+enum class UJTyp {
+    Stat,
+    Kraj,
+    Okres,
+    Obec,
+    Neoznacene
+};
+
 using namespace std;
 
 ///Virtualny trieda ktorú bude dedit kazda trieda ktora uchovava ulozene data
@@ -33,6 +41,8 @@ public:
     wstring operator[](int index) {
         return this->at(index);
     }
+
+    virtual UJTyp getUJTyp() const = 0;
 
 };
 
