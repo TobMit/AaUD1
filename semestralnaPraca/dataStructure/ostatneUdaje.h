@@ -34,6 +34,8 @@ public:
 
     UJTyp getUJTyp() const override;
 
+    bool belongsTo(StoredData &VUJednotka) const override;
+
 private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
 
@@ -92,4 +94,8 @@ inline int &OstatneUdaje::intAt(int index) {
 
 inline UJTyp OstatneUdaje::getUJTyp() const {
     return UJTyp::Neoznacene;
+}
+
+inline bool OstatneUdaje::belongsTo(StoredData &VUJednotka) const {
+    return false;
 }

@@ -43,6 +43,10 @@ public:
     }
 
     virtual UJTyp getUJTyp() const = 0;
+    /// Zisti ci objedk paty do zadaneho VUJ. Ak sa jedna o pomocne udaje, defaultne je false.
+    /// \param VUJednotka - StoredData s ktorym sa to bude porovnnávať.
+    /// \return True / false podla toho ci patri pod uzemnu jednotku
+    virtual bool belongsTo(StoredData &VUJednotka) const =0;
 
 };
 

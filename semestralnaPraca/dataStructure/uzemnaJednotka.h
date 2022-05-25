@@ -32,6 +32,8 @@ public:
 
     UJTyp getUJTyp() const override;
 
+    bool belongsTo(StoredData &VUJednotka) const override;
+
 private:
     int dataIndex = 0;
     wstring sortNumber;
@@ -64,6 +66,9 @@ inline UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring&
     note = pNote;
 }
 
+inline UzemnaJednotka::~UzemnaJednotka() {
+
+}
 
 inline wstring UzemnaJednotka::getCode() const {
     return code;
@@ -117,10 +122,6 @@ inline int UzemnaJednotka::getSize() {
     return 6;
 }
 
-inline UzemnaJednotka::~UzemnaJednotka() {
-
-}
-
 inline wstring &UzemnaJednotka::at(int index) {
     switch (index) {
         case 0:
@@ -147,6 +148,38 @@ inline wstring &UzemnaJednotka::at(int index) {
 
 inline UJTyp UzemnaJednotka::getUJTyp() const {
     return typUJ;
+}
+
+inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
+    if (VUJednotka.getUJTyp() == UJTyp::Neoznacene) {
+        return false;
+    }
+    if (VUJednotka.getUJTyp() == UJTyp::Obec) {
+        return false;
+    }
+    if (VUJednotka.getUJTyp() == typUJ) {
+        return false;
+    }
+    if (typUJ == UJTyp::Stat) {
+        return false;
+    }
+    if (typUJ == UJTyp::Kraj || VUJednotka.getUJTyp() == UJTyp::Okres) {
+        return false;
+    }
+    if (typUJ == UJTyp::Kraj) {
+        return VUJednotka.at(5).substr(0, 2).compare(code.substr(0, 2)) == 0;
+    } else {
+        switch (VUJednotka.getUJTyp()) {
+            case UJTyp::Stat:
+                return VUJednotka.getCode().substr(0, 2).compare(code.substr(0, 2)) == 0;
+
+            case UJTyp::Kraj:
+                return VUJednotka.at(5).substr(5, wstring::npos).compare(code.substr(0, 5)) == 0;
+
+            case UJTyp::Okres:
+                return VUJednotka.getCode().substr(0, 6).compare(code.substr(0, 6)) == 0;
+        }
+    }
 }
 
 
