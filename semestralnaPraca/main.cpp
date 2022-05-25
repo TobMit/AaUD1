@@ -20,7 +20,7 @@
 int main()
 {
     Aplikacia *aplikacia = new Aplikacia();
-
+    aplikacia->menu();
 
     delete aplikacia;
     aplikacia = nullptr;

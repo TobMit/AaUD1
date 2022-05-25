@@ -39,6 +39,8 @@ public:
     Aplikacia();
 
     ~Aplikacia();
+
+    void menu();
 private:
     void vycistiTable(structures::Table<wstring, StoredData *> *table);
 
