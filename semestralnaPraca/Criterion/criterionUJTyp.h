@@ -3,7 +3,6 @@
 //
 
 #include "criterion.h"
-#include "string"
 
 #pragma once
 class CriterionUJTyp : Criterion<UJTyp> {
