@@ -5,9 +5,9 @@
 #include "ostatneUdaje.h"
 
 #pragma once
-class CriterionUJTyp : Criterion<int> {
+class CriterionVZPocet : Criterion<int> {
 public:
-    CriterionUJTyp(const int pIndex);
+    CriterionVZPocet(const int pIndex);
 
     int evaluate(const StoredData &data) override;
 
@@ -16,12 +16,12 @@ private:
 
 };
 
-CriterionUJTyp::CriterionUJTyp(const int pIndex) :
+inline CriterionVZPocet::CriterionVZPocet(const int pIndex) :
     index(pIndex)
 {
 }
 
-int CriterionUJTyp::evaluate(const StoredData &data) {
+inline int CriterionVZPocet::evaluate(const StoredData &data) {
     auto ostatneData = dynamic_cast<const OstatneUdaje &>(data);
     return ostatneData.intAt(index);
 }

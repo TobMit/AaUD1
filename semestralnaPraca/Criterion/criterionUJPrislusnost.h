@@ -17,13 +17,13 @@ public:
 
 };
 
-CriterionUJPrislusnost::CriterionUJPrislusnost(StoredData &comparedData) :
+inline CriterionUJPrislusnost::CriterionUJPrislusnost(StoredData &comparedData) :
     dataToCompare(&comparedData)
 {
 
 }
 
-inline bool CriterionUJPrislusnost::evaluate(const StoredData &data) {
+inline inline bool CriterionUJPrislusnost::evaluate(const StoredData &data) {
     return data.belongsTo(*dataToCompare);
 }
 
