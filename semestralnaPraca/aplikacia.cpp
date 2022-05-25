@@ -39,10 +39,10 @@ Aplikacia::Aplikacia() :
 //    wcout << endl << endl;
 
     for (auto arrKraj: *statIndex) {
-        wcout << "\x1B[91m"; // cislo za [nastavi farbu podla ANSI escape sequences
+        changeColor(Color::Red);
         wcout << arrKraj->getKey() << endl;
         for (auto ixKraj: *arrKraj->accessData()) {
-            wcout << "\x1B[92m";
+            changeColor(Color::Green);
             wcout << "\t";
             for (int i = 0; i < ixKraj->getSize(); ++i) {
                 wcout << ixKraj->at(i) << L" ";
@@ -50,13 +50,13 @@ Aplikacia::Aplikacia() :
             wcout << endl;
             auto arrOkres = krajIndex->find(ixKraj->at(5));
             for (auto ixOkres: *arrOkres) {
-                wcout << "\x1B[94m";
+                changeColor(Color::Blue);
                 wcout << "\t" << "\t";
                 for (int i = 0; i < ixOkres->getSize(); ++i) {
                     wcout << ixOkres->at(i) << L" ";
                 }
                 wcout << endl;
-                wcout << "\x1B[0m";
+                resetColor();
                 auto arrObec = okresIndex->find(ixOkres->getCode());
                 for (auto ixObce: *arrObec) {
                     wcout << "\t" << "\t" << "\t";
@@ -111,5 +111,45 @@ void Aplikacia::vicistiIndex(structures::SortedSequenceTable<wstring, structures
         delete item->accessData();
         item->accessData() = nullptr;
     }
+}
+
+void Aplikacia::changeColor(Color color) {
+    switch (color) {
+        case Color::Red:
+            wcout << "\x1B[91m";
+            break;
+
+        case Color::Green:
+            wcout << "\x1B[92m";
+            break;
+
+        case Color::Blue:
+            wcout << "\x1B[94m";
+            break;
+
+        case Color::Yellow:
+            wcout << "\x1B[93m";
+            break;
+
+        case Color::Magenta:
+            wcout << "\x1B[95m";
+            break;
+
+        case Color::Cyan:
+            wcout << "\x1B[96m";
+            break;
+
+        case Color::White:
+            wcout << "\x1B[97m";
+            break;
+
+        default:
+            wcout << "\x1B[97m";
+            break;
+    }
+}
+
+void Aplikacia::resetColor() {
+    wcout << "\x1B[0m"; // reset farby na zakladne
 }
 

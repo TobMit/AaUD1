@@ -10,6 +10,18 @@
 #include "../structures/table/sorted_sequence_table.h"
 #include "tableLoader.h"
 
+enum class Color {
+    Red,
+    Green,
+    Blue,
+    Yellow,
+    Magenta,
+    Cyan,
+    White,
+    Default
+
+};
+
 class Aplikacia {
 private:
     structures::UnsortedSequenceTable<wstring, StoredData*> *kraj;
@@ -31,6 +43,10 @@ private:
     void vycistiTable(structures::Table<wstring, StoredData *> *table);
 
     void vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable);
+
+    void changeColor(Color color);
+
+    static void resetColor();
 };
 
 
