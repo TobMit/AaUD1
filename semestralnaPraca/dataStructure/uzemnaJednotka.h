@@ -12,9 +12,9 @@ public:
     UzemnaJednotka(const wstring &pSortNumber, const wstring &pCode, const wstring &pOfficialTitle, const wstring &pMediumTitle,
                    const wstring &pShortTitle, const wstring &pNote);
 
-    wstring getCode() override;
+    wstring getCode() const override;
 
-    wstring getOfficialTitle() override;
+    wstring getOfficialTitle() const override;
 
     void setCode(const wstring pCode) override;
 
@@ -56,12 +56,12 @@ inline UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring&
 }
 
 
-inline wstring UzemnaJednotka::getCode() {
+inline wstring UzemnaJednotka::getCode() const {
     return code;
 }
 
 
-inline wstring UzemnaJednotka::getOfficialTitle() {
+inline wstring UzemnaJednotka::getOfficialTitle() const {
     return officialTitle;
 }
 

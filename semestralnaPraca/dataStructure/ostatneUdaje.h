@@ -14,9 +14,9 @@ public:
     };
     OstatneUdaje(const wstring pCode, const wstring pOffTitle);
 
-    wstring getCode() override;
+    wstring getCode() const override;
 
-    wstring getOfficialTitle() override;
+    wstring getOfficialTitle() const override;
 
     void setCode(const wstring pCode) override;
 
@@ -49,12 +49,12 @@ inline OstatneUdaje::OstatneUdaje(const wstring pCode, const wstring pOffTitle) 
 }
 
 
-inline wstring OstatneUdaje::getCode() {
+inline wstring OstatneUdaje::getCode() const {
     return code;
 }
 
 
-inline wstring OstatneUdaje::getOfficialTitle() {
+inline wstring OstatneUdaje::getOfficialTitle() const {
     return offTitle;
 }
 

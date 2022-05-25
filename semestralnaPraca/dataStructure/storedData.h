@@ -16,9 +16,9 @@ public:
     /// destruktor
     virtual ~StoredData();
     /// vrati klus ktory sa bude pouzivat v tabulke
-    virtual wstring getCode() = 0;
+    virtual wstring getCode() const = 0;
     /// vráti vráti officialny nazov
-    virtual wstring getOfficialTitle() = 0;
+    virtual wstring getOfficialTitle() const = 0;
     /// nastavy klúč
     virtual void setCode(const wstring pCode) = 0;
     /// nastavy officialne meno uzemnej jednotky
@@ -30,7 +30,7 @@ public:
 
     virtual wstring& at(int index) = 0;
     /// operator prístupu
-    virtual wstring& operator[](int index) {
+    wstring operator[](int index) {
         return this->at(index);
     }
 
