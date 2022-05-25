@@ -7,6 +7,7 @@
 
 #pragma once
 class CriterionNazov : Criterion<std::wstring> {
+public:
     wstring evaluate(const StoredData &data) override;
 
 };

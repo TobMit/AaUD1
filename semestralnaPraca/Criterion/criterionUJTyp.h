@@ -7,6 +7,7 @@
 
 #pragma once
 class CriterionUJTyp : Criterion<UJTyp> {
+public:
     UJTyp evaluate(const StoredData &data) override;
 
 };
