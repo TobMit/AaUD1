@@ -11,11 +11,12 @@ TableLoader::~TableLoader() {
 
 }
 
-void TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
-                       structures::Table<wstring, StoredData *> &okres,
+void
+TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structures::Table<wstring, StoredData *> &okres,
                        structures::Table<wstring, StoredData *> &obec,
                        structures::Table<wstring, StoredData *> &vzdelanie,
-                       structures::Table<wstring, StoredData *> &nameIndex)
+                       structures::Table<wstring, StoredData *> &nameIndex,
+                       structures::Table<wstring, StoredData *> &codeIndex)
 {
     //------------------- Kraj ------------------
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
@@ -28,6 +29,7 @@ void TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
             }
             kraj.insert(data->getOfficialTitle(), data);
             nameIndex.insert(data->getOfficialTitle(), data);
+            codeIndex.insert(data->at(5), data);
         }
     }
 
@@ -42,6 +44,7 @@ void TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
             }
             okres.insert(data->getOfficialTitle(), data);
             nameIndex.insert(data->getOfficialTitle(), data);
+            codeIndex.insert(data->getCode(), data);
         }
     }
 
@@ -56,6 +59,7 @@ void TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
             }
             obec.insert(data->getOfficialTitle(), data);
             nameIndex.insert(data->getOfficialTitle(), data);
+            codeIndex.insert(data->getCode(), data);
             if (data->getOfficialTitle().compare(data->at(3)) != 0) {
                 nameIndex.insert(data->at(3), data);
             }
@@ -67,7 +71,7 @@ void TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj,
     }
 
 
-    //---------- Pridanie miest pre Okres ---------
+    //---------- Pridanie mien pre Okres ---------
     for (auto item: okres) {
         auto data = item->accessData();
         if (data->getOfficialTitle().compare(data->at(3)) != 0 && !nameIndex.containsKey(data->at(3))) {

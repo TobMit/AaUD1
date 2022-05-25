@@ -18,11 +18,10 @@ public:
 
     ~TableLoader();
 
-    void loadTable(structures::Table<wstring, StoredData *> &kraj,
-                   structures::Table<wstring, StoredData *> &okres,
-                   structures::Table<wstring, StoredData *> &obec,
-                   structures::Table<wstring, StoredData *> &vzdelanie,
-                   structures::Table<wstring, StoredData *> &nameIndex);
+    void loadTable(structures::Table<wstring, StoredData *> &kraj, structures::Table<wstring, StoredData *> &okres,
+                   structures::Table<wstring, StoredData *> &obec, structures::Table<wstring, StoredData *> &vzdelanie,
+                   structures::Table<wstring, StoredData *> &nameIndex,
+                   structures::Table<wstring, StoredData *> &codeIndex);
 
     void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
                        structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
