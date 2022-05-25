@@ -122,6 +122,7 @@ add_executable(semestralnaPraca
         semestralnaPraca/aplikacia.cpp
         semestralnaPraca/aplikacia.h
         semestralnaPraca/dataLoader/tableLoader.h
+        semestralnaPraca/dataLoader/tableLoader.cpp
         semestralnaPraca/Criterion/criterion.h
         semestralnaPraca/Criterion/criterionNazov.h
         semestralnaPraca/Criterion/criterionUJTyp.h
