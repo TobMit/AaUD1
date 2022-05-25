@@ -5,21 +5,24 @@
 #include "aplikacia.h"
 
 Aplikacia::Aplikacia() :
-    kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-    vzdelanie(new structures::SortedSequenceTable<wstring, StoredData*>),
-    nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
-    statIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
-    krajIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
-    okresIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>)
+        kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
+        okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
+        obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
+        vzdelanieObec(new structures::SortedSequenceTable<wstring, StoredData*>),
+        vzdelanieOkres(new structures::SortedSequenceTable<wstring, StoredData*>),
+        vzdelanieKraj(new structures::SortedSequenceTable<wstring, StoredData*>),
+        nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
+        codeIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
+        statIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
+        krajIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
+        okresIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>)
 {
     TableLoader tableLoader;
     cout << "Nacitavam data" << endl;
-    tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanie, *nameIndex);
+    tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex);
     cout << "Indexujem" << endl;
-    tableLoader.indexingTable(*kraj, *okres, *obec, *vzdelanie, *nameIndex,
-                          *statIndex, *krajIndex, *okresIndex);
+    tableLoader.indexingTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex,
+                              *statIndex, *krajIndex, *okresIndex);
 }
 
 Aplikacia::~Aplikacia() {
@@ -32,12 +35,20 @@ Aplikacia::~Aplikacia() {
     vycistiTable(obec);
     delete obec;
     obec = nullptr;
-    vycistiTable(vzdelanie);
-    delete vzdelanie;
-    vzdelanie = nullptr;
+    vycistiTable(vzdelanieObec);
+    delete vzdelanieObec;
+    vzdelanieObec = nullptr;
+    vycistiTable(vzdelanieOkres);
+    delete vzdelanieOkres;
+    vzdelanieOkres = nullptr;
+    vycistiTable(vzdelanieKraj);
+    delete vzdelanieKraj;
+    vzdelanieKraj = nullptr;
 
     delete nameIndex;
     nameIndex = nullptr;
+    delete codeIndex;
+    codeIndex = nullptr;
 
     vicistiIndex(statIndex);
     delete statIndex;
