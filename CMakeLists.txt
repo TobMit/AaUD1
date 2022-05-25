@@ -127,6 +127,7 @@ add_executable(semestralnaPraca
         semestralnaPraca/Criterion/criterionUJTyp.h
         semestralnaPraca/Criterion/criterionUJPrislusnost.h
         semestralnaPraca/Criterion/criterionVZPocet.h
+        semestralnaPraca/Criterion/criterionVZPodiel.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
