@@ -178,4 +178,4 @@ add_executable(semestralnaPraca
         structures/types.h
         structures/utils.cpp
         structures/utils.h
-        semestralnaPraca/dataLoader/tableLoader.h)
+        semestralnaPraca/dataLoader/tableLoader.h semestralnaPraca/Criterion/criterion.h)
