@@ -11,7 +11,8 @@ public:
 
     UzemnaJednotka(UJTyp typ);
 
-    UzemnaJednotka(const wstring &pSortNumber, const wstring &pCode, const wstring &pOfficialTitle, const wstring &pMediumTitle,
+    UzemnaJednotka(const UJTyp typ, const wstring &pSortNumber, const wstring &pCode,
+                   const wstring &pOfficialTitle, const wstring &pMediumTitle,
                    const wstring &pShortTitle, const wstring &pNote);
 
     wstring getCode() const override;
@@ -56,8 +57,9 @@ inline UzemnaJednotka::UzemnaJednotka(UJTyp typ)  :
 {
 }
 
-inline UzemnaJednotka::UzemnaJednotka(const wstring& pSortNumber, const wstring& pCode, const wstring& pOfficialTitle, const wstring& pMediumTitle,
-                               const wstring& pShortTitle, const wstring& pNote) {
+inline UzemnaJednotka::UzemnaJednotka(const UJTyp typ, const wstring &pSortNumber, const wstring &pCode,
+                                      const wstring &pOfficialTitle, const wstring &pMediumTitle,
+                                      const wstring &pShortTitle, const wstring &pNote) {
     sortNumber = pSortNumber;
     code = pCode;
     officialTitle = pOfficialTitle;
