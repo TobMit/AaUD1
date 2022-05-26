@@ -210,7 +210,8 @@ int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *
             auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*findData);
             returnValue += newVzdelanie.intAt(index);
         } catch (std::out_of_range) {
-            wcerr << L"INDEXOVANIE: \tObec: " << vzdelanie->getOfficialTitle() << L" nema zaznam v udajoch o vzdelani!!" << endl;
+            // pre prípad že by som chcel aj vypysovať chýbajúce UJ
+            //wcerr << L"INDEXOVANIE: \tObec: " << vzdelanie->getOfficialTitle() << L" nema zaznam v udajoch o vzdelani!!" << endl;
         }
     }
     return returnValue;
