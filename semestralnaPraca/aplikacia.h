@@ -12,7 +12,9 @@
 
 enum class Color {
     Red,
+    BrightGreen,
     Green,
+    DarkGren,
     Blue,
     Yellow,
     Magenta,

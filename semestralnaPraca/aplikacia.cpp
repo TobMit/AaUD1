@@ -3,6 +3,8 @@
 //
 
 #include "aplikacia.h"
+#include "Criterion/criterionNazov.h"
+#include "Criterion/criterionUJTyp.h"
 
 Aplikacia::Aplikacia() :
         stat(new structures::UnsortedSequenceTable<wstring, StoredData*>),
@@ -26,7 +28,7 @@ Aplikacia::Aplikacia() :
 
     changeColor(Color::Cyan);
     TableLoader tableLoader;
-    cout << "Nacitavam data" << endl;
+    cout << "Načitávam dáta ";
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
     nameIndex->insert(slovensko->getOfficialTitle(), slovensko);
     nameIndex->insert(slovensko->at(4), slovensko);
@@ -35,13 +37,15 @@ Aplikacia::Aplikacia() :
     codeIndex->insert(slovensko->getCode(), slovensko);
     codeIndex->insert(zahranicie->getCode(), zahranicie);
 
-    cout << "Indexujem UJ" << endl;
+    cout << " - 100%"  << endl;
+    cout << "Indexujem územne jednotky ";
     tableLoader.indexingTable(*stat, *kraj, *okres, *obec,
                               *statIndex, *krajIndex, *okresIndex);
-
-    cout << "Spracovavam data - vzdelavanie" << endl;
+    cout << " - 100%"  << endl;
+    cout << "Spracuvávam dáta - vzdelavanie ";
     tableLoader.spracujVzdelanie(*codeIndex, *statIndex, *krajIndex, *okresIndex, *vzdelanieObec,
                                  *vzdelanieOkres,*vzdelanieKraj, *vzdelanieStat);
+    cout << " - 100%"  << endl;
     resetColor();
 }
 
@@ -91,14 +95,14 @@ Aplikacia::~Aplikacia() {
 bool Aplikacia::menu() {
     changeColor(Color::Magenta);
     cout << "--------------------- SEMESTRALNA PRACA ---------------------" << endl;
-    cout << "\tBodove vyhladavanie [1]" << endl;
+    cout << "\tBodové vyhľadávanie [1]" << endl;
     cout << "\tFiltrovanie [2]" << endl;
     cout << "\tKoniec [0]" << endl;
-    cout << "Vasa volba: ";
+    cout << "Vaša voľba: ";
     resetColor();
-    int volba = 0;
-    cin >> volba;
-    switch (volba) {
+    string volba = "0";
+    std::getline(cin, volba);
+    switch (stoi(volba)) {
         case 1:
             bodoveVyhladavanie();
             break;
@@ -112,23 +116,14 @@ bool Aplikacia::menu() {
     cout << endl << endl;
     cout << "------------------------------------------" << endl;
     cout << "Opakovat? \n\tAno [1] \n\tNie [0]\nVolba: ";
-    cin >> volba;
+    std::getline(cin, volba);
     resetColor();
-    switch (volba) {
+    switch (stoi(volba)) {
         case 1:
             return true;
         default:
             return false;
     }
-//    wstring test;
-//    wcout << L"Zadaj code: ";
-//    std::getline(wcin, test);
-//    auto testData = codeIndex->find(test);
-//    for (int i = 0; i < testData->getSize(); ++i) {
-//        wcout << testData->at(i) << L"\t";
-//    }
-//
-//    wcout << endl << endl;
 
 //    for (auto arrKraj: *statIndex) {
 //        changeColor(Color::Red);
@@ -169,7 +164,71 @@ bool Aplikacia::menu() {
 }
 
 void Aplikacia::bodoveVyhladavanie() {
-    cout << "Bodove vyhladavanie" << endl;
+    changeColor(Color::BrightGreen);
+    cout << "--------------------- Bodove vyhľadávanie ---------------------" << endl;
+    resetColor();
+    cout << "Poznámka: parametre s \"*\" NIEsu povinné, ENTEROM sa preskočia." << endl;
+    cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj" << endl;
+    changeColor(Color::Green);
+    cout << "Zadaj názov: ";
+    wstring vyhladavaneMeno;
+    std::getline(wcin, vyhladavaneMeno);
+
+    changeColor(Color::DarkGren);
+    cout << "*Vzdelavanie "<< endl;
+    cout << "\t- [0] Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.)" << endl;
+    cout << "\t- [1] Základné vzdelanie (abs.)" << endl;
+    cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
+    cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
+    cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
+    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
+    cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
+    cout << "\t- [7] Nezistené (abs.)" << endl;
+    cout << "\t- [8] všetko" << endl;
+    cout << "Vaša volba: ";
+    string vyhladavanieVzdelavanie;
+    std::getline(cin, vyhladavanieVzdelavanie);
+
+    StoredData *findData;
+    try {
+        findData = nameIndex->find(vyhladavaneMeno);
+    } catch (std::out_of_range) {
+        changeColor(Color::Red);
+        cout << "Vami zadaná UJ nebola nájdena!" << endl;
+        return;
+    }
+    CriterionNazov meno;
+    CriterionUJTyp typUJ;
+    OstatneUdaje *findOstatne;
+
+    StoredData *odlozenie;
+    try {
+        switch (typUJ.evaluate(*findData)) {
+
+            case UJTyp::Stat :
+                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                break;
+            case UJTyp::Kraj :
+                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                break;
+            case UJTyp::Okres :
+                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                break;
+            case UJTyp::Obec :
+                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                break;
+        }
+        findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+
+    } catch (std::out_of_range) {
+        changeColor(Color::Red);
+        cout << "Informácie o vzdelávani nebolí nájdené." << endl;
+    }
+
+    for (int i = 0; i < findData->getSize(); ++i) {
+        wcout << findData->at(i) << L"\t";
+    }
+
 }
 
 void Aplikacia::filtrovanie() {
@@ -195,8 +254,14 @@ void Aplikacia::changeColor(Color color) {
             wcout << "\x1B[91m";
             break;
 
-        case Color::Green:
+        case Color::BrightGreen:
             wcout << "\x1B[92m";
+            break;
+        case Color::Green:
+            wcout << "\x1B[38;5;41m";
+            break;
+        case Color::DarkGren:
+            wcout << "\x1B[38;5;34m";
             break;
 
         case Color::Blue:
