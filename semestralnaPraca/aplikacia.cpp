@@ -27,7 +27,7 @@ Aplikacia::Aplikacia() :
     cout << "Nacitavam data" << endl;
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
     cout << "Indexujem" << endl;
-    tableLoader.indexingTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex,
+    tableLoader.indexingTable(*stat, *kraj, *okres, *obec,
                               *statIndex, *krajIndex, *okresIndex);
     nameIndex->insert(slovensko->getOfficialTitle(), slovensko);
     nameIndex->insert(slovensko->at(4), slovensko);
@@ -39,6 +39,9 @@ Aplikacia::Aplikacia() :
 }
 
 Aplikacia::~Aplikacia() {
+    vycistiTable(stat);
+    delete stat;
+    stat = nullptr;
     vycistiTable(kraj);
     delete kraj;
     kraj = nullptr;
