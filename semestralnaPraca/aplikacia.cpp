@@ -24,6 +24,7 @@ Aplikacia::Aplikacia() :
     auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, L"2", L"ZZ", L"Zahranicie", L"", L"", L"2");
     stat->insert(zahranicie->getCode(), zahranicie);
 
+    changeColor(Color::Cyan);
     TableLoader tableLoader;
     cout << "Nacitavam data" << endl;
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
@@ -41,7 +42,7 @@ Aplikacia::Aplikacia() :
     cout << "Spracovavam data - vzdelavanie" << endl;
     tableLoader.spracujVzdelanie(*codeIndex, *statIndex, *krajIndex, *okresIndex, *vzdelanieObec,
                                  *vzdelanieOkres,*vzdelanieKraj, *vzdelanieStat);
-
+    resetColor();
 }
 
 Aplikacia::~Aplikacia() {
@@ -87,7 +88,38 @@ Aplikacia::~Aplikacia() {
 
 }
 
-void Aplikacia::menu() {
+bool Aplikacia::menu() {
+    changeColor(Color::Magenta);
+    cout << "--------------------- SEMESTRALNA PRACA ---------------------" << endl;
+    cout << "\tBodove vyhladavanie [1]" << endl;
+    cout << "\tFiltrovanie [2]" << endl;
+    cout << "\tKoniec [0]" << endl;
+    cout << "Vasa volba: ";
+    resetColor();
+    int volba = 0;
+    cin >> volba;
+    switch (volba) {
+        case 1:
+            bodoveVyhladavanie();
+            break;
+        case 2:
+            filtrovanie();
+            break;
+        default:
+            return false;
+    }
+    changeColor(Color::Magenta);
+    cout << endl << endl;
+    cout << "------------------------------------------" << endl;
+    cout << "Opakovat? \n\tAno [1] \n\tNie [0]\nVolba: ";
+    cin >> volba;
+    resetColor();
+    switch (volba) {
+        case 1:
+            return true;
+        default:
+            return false;
+    }
 //    wstring test;
 //    wcout << L"Zadaj code: ";
 //    std::getline(wcin, test);
@@ -134,17 +166,14 @@ void Aplikacia::menu() {
 //    }
 //    resetColor();
 
-    int test = 0;
-    for (const auto item: *vzdelanieStat) {
-        auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*item->accessData());
-        wcout << newVzdelanie.getOfficialTitle() << L" ";
-        for (int i = 0; i < newVzdelanie.getSize(); ++i) {
-            wcout << newVzdelanie.intAt(i) << L" ";
-            test += newVzdelanie.intAt(i);
-        }
-        wcout << endl;
-    }
-    cout << test << endl;
+}
+
+void Aplikacia::bodoveVyhladavanie() {
+    cout << "Bodove vyhladavanie" << endl;
+}
+
+void Aplikacia::filtrovanie() {
+    cout << "Filtrovanie" << endl;
 }
 
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {

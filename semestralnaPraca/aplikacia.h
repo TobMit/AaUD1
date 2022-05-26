@@ -45,8 +45,12 @@ public:
 
     ~Aplikacia();
 
-    void menu();
+    bool menu();
 private:
+    void bodoveVyhladavanie();
+
+    void filtrovanie();
+
     void vycistiTable(structures::Table<wstring, StoredData *> *table);
 
     void vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable);

@@ -20,7 +20,10 @@
 int main()
 {
     Aplikacia *aplikacia = new Aplikacia();
-    aplikacia->menu();
+    bool opakovat = true;
+    while (opakovat) {
+        opakovat = aplikacia->menu();
+    }
 
     delete aplikacia;
     aplikacia = nullptr;
