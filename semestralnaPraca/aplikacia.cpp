@@ -5,6 +5,7 @@
 #include "aplikacia.h"
 #include "Criterion/criterionNazov.h"
 #include "Criterion/criterionUJTyp.h"
+#include "Criterion/criterionVZPocet.h"
 
 Aplikacia::Aplikacia() :
         stat(new structures::UnsortedSequenceTable<wstring, StoredData*>),
@@ -206,16 +207,16 @@ void Aplikacia::bodoveVyhladavanie() {
         switch (typUJ.evaluate(*findData)) {
 
             case UJTyp::Stat :
-                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                odlozenie = vzdelanieStat->find(findData->getCode());
                 break;
             case UJTyp::Kraj :
-                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                odlozenie = vzdelanieKraj->find(findData->getCode());
                 break;
             case UJTyp::Okres :
-                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                odlozenie = vzdelanieOkres->find(findData->getCode());
                 break;
             case UJTyp::Obec :
-                findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+                odlozenie = vzdelanieObec->find(findData->getCode());
                 break;
         }
         findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
@@ -228,7 +229,63 @@ void Aplikacia::bodoveVyhladavanie() {
     for (int i = 0; i < findData->getSize(); ++i) {
         wcout << findData->at(i) << L"\t";
     }
+    wcout << endl;
 
+    //----------- Vzdelavanie ----------------
+    if (findOstatne != nullptr) {
+        CriterionVZPocet *vzPocet;
+        if (vyhladavanieVzdelavanie.compare("") == 0) {
+            vyhladavanieVzdelavanie = "8";
+        }
+        // Aby sa nevytváralo kritérium z rozsahu ktoré nemôže vártiť
+        if (stoi(vyhladavanieVzdelavanie) <= 7 && stoi(vyhladavanieVzdelavanie) >= 0) {
+            vzPocet = new CriterionVZPocet(stoi(vyhladavanieVzdelavanie));
+        } else {
+            vzPocet = new CriterionVZPocet(0);
+        }
+        switch (stoi(vyhladavanieVzdelavanie)) {
+            case 0:
+                cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): "
+                     << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 1:
+                cout << "Základné vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 2:
+                cout << "Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.): "
+                     << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 3:
+                cout << "Úplné stredné vzdelanie (s maturitou) (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 4:
+                cout << "Vyššie odborné vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 5:
+                cout << "vysokoškolské vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 6:
+                cout << "Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.): "
+                     << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            case 7:
+                cout << "Nezistené (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                break;
+            default:
+                cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): " << findOstatne->intAt(0) << endl;
+                cout << "Základné vzdelanie (abs.): " << findOstatne->intAt(1) << endl;
+                cout << "Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.): " << findOstatne->intAt(2) << endl;
+                cout << "Úplné stredné vzdelanie (s maturitou) (abs.): " << findOstatne->intAt(3) << endl;
+                cout << "Vyššie odborné vzdelanie (abs.): " << findOstatne->intAt(4) << endl;
+                cout << "vysokoškolské vzdelanie (abs.): " << findOstatne->intAt(5) << endl;
+                cout << "Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.): " << findOstatne->intAt(6)
+                     << endl;
+                cout << "Nezistené (abs.): " << findOstatne->intAt(7) << endl;
+                break;
+        }
+
+        delete vzPocet;
+    }
 }
 
 void Aplikacia::filtrovanie() {

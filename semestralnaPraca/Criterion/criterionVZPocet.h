@@ -22,6 +22,6 @@ inline CriterionVZPocet::CriterionVZPocet(const int pIndex) :
 }
 
 inline int CriterionVZPocet::evaluate(const StoredData &data) {
-    auto ostatneData = dynamic_cast<const OstatneUdaje &>(data);
+    auto &ostatneData = dynamic_cast<const OstatneUdaje &>(data);
     return ostatneData.intAt(index);
 }

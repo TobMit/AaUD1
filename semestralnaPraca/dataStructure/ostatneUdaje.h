@@ -32,7 +32,7 @@ public:
 
     wstring &at(int index) override;
 
-    int intAt(int index);
+    int intAt(int index) const;
 
     UJTyp getUJTyp() const override;
 
@@ -93,7 +93,7 @@ inline wstring &OstatneUdaje::at(int index) {
     return returnValue;
 }
 
-inline int OstatneUdaje::intAt(int index) {
+inline int OstatneUdaje::intAt(int index) const{
     return data->at(index);
 }
 
