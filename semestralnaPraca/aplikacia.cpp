@@ -12,6 +12,7 @@ Aplikacia::Aplikacia() :
         vzdelanieObec(new structures::SortedSequenceTable<wstring, StoredData*>),
         vzdelanieOkres(new structures::SortedSequenceTable<wstring, StoredData*>),
         vzdelanieKraj(new structures::SortedSequenceTable<wstring, StoredData*>),
+        vzdelanieStat(new structures::SortedSequenceTable<wstring, StoredData*>),
         nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
         codeIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
         statIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
@@ -26,15 +27,20 @@ Aplikacia::Aplikacia() :
     TableLoader tableLoader;
     cout << "Nacitavam data" << endl;
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
-    cout << "Indexujem" << endl;
-    tableLoader.indexingTable(*stat, *kraj, *okres, *obec,
-                              *statIndex, *krajIndex, *okresIndex);
     nameIndex->insert(slovensko->getOfficialTitle(), slovensko);
     nameIndex->insert(slovensko->at(4), slovensko);
     nameIndex->insert(zahranicie->getCode(), zahranicie);
 
     codeIndex->insert(slovensko->getCode(), slovensko);
     codeIndex->insert(zahranicie->getCode(), zahranicie);
+
+    cout << "Indexujem UJ" << endl;
+    tableLoader.indexingTable(*stat, *kraj, *okres, *obec,
+                              *statIndex, *krajIndex, *okresIndex);
+
+    cout << "Spracovavam data - vzdelavanie" << endl;
+    tableLoader.spracujVzdelanie(*codeIndex, *statIndex, *krajIndex, *okresIndex, *vzdelanieObec,
+                                 *vzdelanieOkres,*vzdelanieKraj, *vzdelanieStat);
 
 }
 
@@ -60,6 +66,9 @@ Aplikacia::~Aplikacia() {
     vycistiTable(vzdelanieKraj);
     delete vzdelanieKraj;
     vzdelanieKraj = nullptr;
+    vycistiTable(vzdelanieStat);
+    delete vzdelanieStat;
+    vzdelanieStat = nullptr;
 
     delete nameIndex;
     nameIndex = nullptr;
@@ -89,41 +98,50 @@ void Aplikacia::menu() {
 //
 //    wcout << endl << endl;
 
-    for (auto arrKraj: *statIndex) {
-        changeColor(Color::Red);
-        auto ixStat = codeIndex->find(arrKraj->getKey());
-        for (int i = 0; i < ixStat->getSize(); ++i) {
-            wcout << ixStat->at(i) << L" ";
+//    for (auto arrKraj: *statIndex) {
+//        changeColor(Color::Red);
+//        auto ixStat = codeIndex->find(arrKraj->getKey());
+//        for (int i = 0; i < ixStat->getSize(); ++i) {
+//            wcout << ixStat->at(i) << L" ";
+//        }
+//        wcout << endl;
+//        for (auto ixKraj: *arrKraj->accessData()) {
+//            changeColor(Color::Green);
+//            wcout << "\t";
+//            for (int i = 0; i < ixKraj->getSize(); ++i) {
+//                wcout << ixKraj->at(i) << L" ";
+//            }
+//            wcout << endl;
+//            auto arrOkres = krajIndex->find(ixKraj->at(5));
+//            for (auto ixOkres: *arrOkres) {
+//                changeColor(Color::Magenta);
+//                wcout << "\t" << "\t";
+//                for (int i = 0; i < ixOkres->getSize(); ++i) {
+//                    wcout << ixOkres->at(i) << L" ";
+//                }
+//                wcout << endl;
+//                resetColor();
+//                auto arrObec = okresIndex->find(ixOkres->getCode());
+//                for (auto ixObce: *arrObec) {
+//                    wcout << "\t" << "\t" << "\t";
+//                    for (int i = 0; i < ixObce->getSize(); ++i) {
+//                        wcout << ixObce->at(i) << L" ";
+//                    }
+//                    wcout << endl;
+//                }
+//            }
+//        }
+//    }
+//    resetColor();
+
+    for (const auto item: *vzdelanieOkres) {
+        auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*item->accessData());
+        wcout << newVzdelanie.getOfficialTitle() << L" ";
+        for (int i = 0; i < newVzdelanie.getSize(); ++i) {
+            wcout << newVzdelanie.intAt(i) << L" ";
         }
         wcout << endl;
-        for (auto ixKraj: *arrKraj->accessData()) {
-            changeColor(Color::Green);
-            wcout << "\t";
-            for (int i = 0; i < ixKraj->getSize(); ++i) {
-                wcout << ixKraj->at(i) << L" ";
-            }
-            wcout << endl;
-            auto arrOkres = krajIndex->find(ixKraj->at(5));
-            for (auto ixOkres: *arrOkres) {
-                changeColor(Color::Magenta);
-                wcout << "\t" << "\t";
-                for (int i = 0; i < ixOkres->getSize(); ++i) {
-                    wcout << ixOkres->at(i) << L" ";
-                }
-                wcout << endl;
-                resetColor();
-                auto arrObec = okresIndex->find(ixOkres->getCode());
-                for (auto ixObce: *arrObec) {
-                    wcout << "\t" << "\t" << "\t";
-                    for (int i = 0; i < ixObce->getSize(); ++i) {
-                        wcout << ixObce->at(i) << L" ";
-                    }
-                    wcout << endl;
-                }
-            }
-        }
     }
-    resetColor();
 }
 
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {

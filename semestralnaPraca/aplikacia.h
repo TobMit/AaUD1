@@ -31,6 +31,7 @@ private:
     structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieObec;
     structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieOkres;
     structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieKraj;
+    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieStat;
 
     structures::SortedSequenceTable<wstring, StoredData*> *nameIndex;
     structures::SortedSequenceTable<wstring, StoredData*> *codeIndex;

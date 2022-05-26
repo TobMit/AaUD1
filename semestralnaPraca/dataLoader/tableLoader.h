@@ -30,6 +30,17 @@ public:
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex);
+
+    void spracujVzdelanie(structures::SortedSequenceTable<wstring, StoredData *> &codeIndex,
+                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
+                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
+                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex,
+                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec,
+                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieOkres,
+                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
+                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat);
+private:
+    int spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec);
 };
 
 

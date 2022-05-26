@@ -159,3 +159,39 @@ void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, Store
 
 
 }
+
+void TableLoader::spracujVzdelanie(
+        structures::SortedSequenceTable<wstring, StoredData *> &codeIndex,
+        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
+        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
+        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex,
+        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec,
+        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieOkres,
+        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
+        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat)
+{
+    for (auto ixOkres: okresIndex) {
+        auto findOkres = codeIndex.find(ixOkres->getKey());
+        OstatneUdaje *vzOkres = new OstatneUdaje(findOkres->getCode(), findOkres->getOfficialTitle());
+        for (int i = 0; i < 8; ++i) {
+            vzOkres->setNextIntParameter(spocitajVzdelanie(i, *ixOkres->accessData(), vzdelanieObec));
+        }
+        vzdelanieOkres.insert(vzOkres->getCode(), vzOkres);
+    }
+
+}
+
+int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec) {
+    int returnValue = 0;
+
+    for (const auto vzdelanie : data) {
+        try {
+            auto findData = vzdelanieObec.find(vzdelanie->getCode());
+            auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*findData);
+            returnValue += newVzdelanie.intAt(index);
+        } catch (std::out_of_range) {
+            wcerr << L"INDEXOVANIE: \tObec: " << vzdelanie->getOfficialTitle() << L" nema zaznam v udajoch o vzdelani!!" << endl;
+        }
+    }
+    return returnValue;
+}

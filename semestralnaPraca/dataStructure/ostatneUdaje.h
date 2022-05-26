@@ -24,13 +24,15 @@ public:
 
     void setNextParameter(const wstring parameter) override;
 
+    void setNextIntParameter(const int parameter);
+
     int getSize() override;
 
     ~OstatneUdaje() override;
 
     wstring &at(int index) override;
 
-    int &intAt(int index);
+    int intAt(int index);
 
     UJTyp getUJTyp() const override;
 
@@ -77,6 +79,9 @@ inline void OstatneUdaje::setNextParameter(const wstring parameter) {
     data->add(stoi(parameter));
 }
 
+inline void OstatneUdaje::setNextIntParameter(const int parameter) {
+    data->add(parameter);
+}
 
 inline int OstatneUdaje::getSize() {
     return data->size();
@@ -88,7 +93,7 @@ inline wstring &OstatneUdaje::at(int index) {
     return returnValue;
 }
 
-inline int &OstatneUdaje::intAt(int index) {
+inline int OstatneUdaje::intAt(int index) {
     return data->at(index);
 }
 
