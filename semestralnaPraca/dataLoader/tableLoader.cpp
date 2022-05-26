@@ -170,6 +170,7 @@ void TableLoader::spracujVzdelanie(
         structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
         structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat)
 {
+    //----------------- Vzdelanie Okresy -------------------
     for (auto ixOkres: okresIndex) {
         auto findOkres = codeIndex.find(ixOkres->getKey());
         OstatneUdaje *vzOkres = new OstatneUdaje(findOkres->getCode(), findOkres->getOfficialTitle());
@@ -179,6 +180,7 @@ void TableLoader::spracujVzdelanie(
         vzdelanieOkres.insert(vzOkres->getCode(), vzOkres);
     }
 
+    //----------------- Vzdelanie Kraje -------------------
     for (auto ixKraj: krajIndex) {
         auto findKraj = codeIndex.find(ixKraj->getKey());
         OstatneUdaje *vzKraj = new OstatneUdaje(findKraj->getCode(), findKraj->getOfficialTitle());
@@ -186,6 +188,15 @@ void TableLoader::spracujVzdelanie(
             vzKraj->setNextIntParameter(spocitajVzdelanie(i, *ixKraj->accessData(), vzdelanieOkres));
         }
         vzdelanieKraj.insert(vzKraj->getCode(), vzKraj);
+    }
+
+    for (auto ixStat: statIndex) {
+        auto findStat = codeIndex.find(ixStat->getKey());
+        OstatneUdaje *vzStat = new OstatneUdaje(findStat->getCode(), findStat->getOfficialTitle());
+        for (int i = 0; i < 8; ++i) {
+            vzStat->setNextIntParameter(spocitajVzdelanie(i, *ixStat->accessData(), vzdelanieKraj));
+        }
+        vzdelanieStat.insert(vzStat->getCode(), vzStat);
     }
 
 }

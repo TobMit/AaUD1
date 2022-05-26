@@ -134,14 +134,17 @@ void Aplikacia::menu() {
 //    }
 //    resetColor();
 
-    for (const auto item: *vzdelanieKraj) {
+    int test = 0;
+    for (const auto item: *vzdelanieStat) {
         auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*item->accessData());
         wcout << newVzdelanie.getOfficialTitle() << L" ";
         for (int i = 0; i < newVzdelanie.getSize(); ++i) {
             wcout << newVzdelanie.intAt(i) << L" ";
+            test += newVzdelanie.intAt(i);
         }
         wcout << endl;
     }
+    cout << test << endl;
 }
 
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
