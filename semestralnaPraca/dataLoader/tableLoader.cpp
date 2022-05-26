@@ -102,14 +102,13 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
     delete loader;
 }
 
-void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
-                                       structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
-                                       structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
-                                       structures::SortedSequenceTable<wstring, StoredData *> &vzdelanie,
-                                       structures::SortedSequenceTable<wstring, StoredData *> &nameIndex,
-                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
-                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
-                                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex)
+void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &stat,
+                                structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
+                                structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
+                                structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
+                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex)
 {
     //---------------- Indexovanie VUC STAT --------------------------------
     structures::ArrayList<StoredData *> *slovensko = new structures::ArrayList<StoredData *>;
@@ -123,8 +122,8 @@ void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, Store
         }
     }
 
-    statIndex.insert(L"Slovensko", slovensko);
-    statIndex.insert(L"Zahranicie", zahranicie);
+    statIndex.insert(stat.find(L"SK")->getCode(), slovensko);
+    statIndex.insert(stat.find(L"ZZ")->getCode(), zahranicie);
 
     //---------------- Indexovanie VUC KRAJ -------------------------------
     int indexOkresu = 0;

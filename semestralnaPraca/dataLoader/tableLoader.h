@@ -23,11 +23,10 @@ public:
                    structures::Table<wstring, StoredData *> &nameIndex,
                    structures::Table<wstring, StoredData *> &codeIndex);
 
-    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
+    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &stat,
+                       structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
                        structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
                        structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
-                       structures::SortedSequenceTable<wstring, StoredData *> &vzdelanie,
-                       structures::SortedSequenceTable<wstring, StoredData *> &nameIndex,
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
                        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex);
