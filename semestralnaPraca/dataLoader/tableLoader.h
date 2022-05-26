@@ -40,7 +40,7 @@ public:
                           structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
                           structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat);
 private:
-    int spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec);
+    int spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieUJ);
 };
 
 

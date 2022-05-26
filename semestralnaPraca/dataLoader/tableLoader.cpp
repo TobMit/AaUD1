@@ -179,14 +179,23 @@ void TableLoader::spracujVzdelanie(
         vzdelanieOkres.insert(vzOkres->getCode(), vzOkres);
     }
 
+    for (auto ixKraj: krajIndex) {
+        auto findKraj = codeIndex.find(ixKraj->getKey());
+        OstatneUdaje *vzKraj = new OstatneUdaje(findKraj->getCode(), findKraj->getOfficialTitle());
+        for (int i = 0; i < 8; ++i) {
+            vzKraj->setNextIntParameter(spocitajVzdelanie(i, *ixKraj->accessData(), vzdelanieOkres));
+        }
+        vzdelanieKraj.insert(vzKraj->getCode(), vzKraj);
+    }
+
 }
 
-int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec) {
+int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieUJ) {
     int returnValue = 0;
 
     for (const auto vzdelanie : data) {
         try {
-            auto findData = vzdelanieObec.find(vzdelanie->getCode());
+            auto findData = vzdelanieUJ.find(vzdelanie->getCode());
             auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*findData);
             returnValue += newVzdelanie.intAt(index);
         } catch (std::out_of_range) {

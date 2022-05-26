@@ -134,7 +134,7 @@ void Aplikacia::menu() {
 //    }
 //    resetColor();
 
-    for (const auto item: *vzdelanieOkres) {
+    for (const auto item: *vzdelanieKraj) {
         auto &newVzdelanie = dynamic_cast<OstatneUdaje &>(*item->accessData());
         wcout << newVzdelanie.getOfficialTitle() << L" ";
         for (int i = 0; i < newVzdelanie.getSize(); ++i) {
