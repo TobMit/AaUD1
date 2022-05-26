@@ -24,6 +24,7 @@ enum class Color {
 
 class Aplikacia {
 private:
+    structures::UnsortedSequenceTable<wstring, StoredData*> *stat;
     structures::UnsortedSequenceTable<wstring, StoredData*> *kraj;
     structures::UnsortedSequenceTable<wstring, StoredData*> *okres;
     structures::UnsortedSequenceTable<wstring, StoredData*> *obec;

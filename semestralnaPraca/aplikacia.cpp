@@ -5,6 +5,7 @@
 #include "aplikacia.h"
 
 Aplikacia::Aplikacia() :
+        stat(new structures::UnsortedSequenceTable<wstring, StoredData*>),
         kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
         okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
         obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
@@ -17,12 +18,24 @@ Aplikacia::Aplikacia() :
         krajIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
         okresIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>)
 {
+    auto *slovensko = new UzemnaJednotka(UJTyp::Stat, L"1", L"SK", L"Slovenska republika", L"Slovensko", L"Slovensko", L"1");
+    stat->insert(slovensko->getCode(), slovensko);
+    auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, L"2", L"ZZ", L"Zahranicie", L"", L"", L"2");
+    stat->insert(zahranicie->getCode(), zahranicie);
+
     TableLoader tableLoader;
     cout << "Nacitavam data" << endl;
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
     cout << "Indexujem" << endl;
     tableLoader.indexingTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex,
                               *statIndex, *krajIndex, *okresIndex);
+    nameIndex->insert(slovensko->getOfficialTitle(), slovensko);
+    nameIndex->insert(slovensko->at(4), slovensko);
+    nameIndex->insert(zahranicie->getCode(), zahranicie);
+
+    codeIndex->insert(slovensko->getCode(), slovensko);
+    codeIndex->insert(zahranicie->getCode(), zahranicie);
+
 }
 
 Aplikacia::~Aplikacia() {
