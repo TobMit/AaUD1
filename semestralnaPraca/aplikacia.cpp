@@ -126,42 +126,6 @@ bool Aplikacia::menu() {
             return false;
     }
 
-//    for (auto arrKraj: *statIndex) {
-//        changeColor(Color::Red);
-//        auto ixStat = codeIndex->find(arrKraj->getKey());
-//        for (int i = 0; i < ixStat->getSize(); ++i) {
-//            wcout << ixStat->at(i) << L" ";
-//        }
-//        wcout << endl;
-//        for (auto ixKraj: *arrKraj->accessData()) {
-//            changeColor(Color::Green);
-//            wcout << "\t";
-//            for (int i = 0; i < ixKraj->getSize(); ++i) {
-//                wcout << ixKraj->at(i) << L" ";
-//            }
-//            wcout << endl;
-//            auto arrOkres = krajIndex->find(ixKraj->at(5));
-//            for (auto ixOkres: *arrOkres) {
-//                changeColor(Color::Magenta);
-//                wcout << "\t" << "\t";
-//                for (int i = 0; i < ixOkres->getSize(); ++i) {
-//                    wcout << ixOkres->at(i) << L" ";
-//                }
-//                wcout << endl;
-//                resetColor();
-//                auto arrObec = okresIndex->find(ixOkres->getCode());
-//                for (auto ixObce: *arrObec) {
-//                    wcout << "\t" << "\t" << "\t";
-//                    for (int i = 0; i < ixObce->getSize(); ++i) {
-//                        wcout << ixObce->at(i) << L" ";
-//                    }
-//                    wcout << endl;
-//                }
-//            }
-//        }
-//    }
-//    resetColor();
-
 }
 
 void Aplikacia::bodoveVyhladavanie() {
@@ -334,7 +298,45 @@ void Aplikacia::vypisIformacie(StoredData *data) {
 }
 
 void Aplikacia::filtrovanie() {
-    cout << "Filtrovanie" << endl;
+    changeColor(Color::BrightGreen);
+    cout << "------------------------- Filtrovanie -------------------------" << endl;
+    resetColor();
+
+//    for (auto arrKraj: *statIndex) {
+//        changeColor(Color::Red);
+//        auto ixStat = codeIndex->find(arrKraj->getKey());
+//        for (int i = 0; i < ixStat->getSize(); ++i) {
+//            wcout << ixStat->at(i) << L" ";
+//        }
+//        wcout << endl;
+//        for (auto ixKraj: *arrKraj->accessData()) {
+//            changeColor(Color::Green);
+//            wcout << "\t";
+//            for (int i = 0; i < ixKraj->getSize(); ++i) {
+//                wcout << ixKraj->at(i) << L" ";
+//            }
+//            wcout << endl;
+//            auto arrOkres = krajIndex->find(ixKraj->at(5));
+//            for (auto ixOkres: *arrOkres) {
+//                changeColor(Color::Magenta);
+//                wcout << "\t" << "\t";
+//                for (int i = 0; i < ixOkres->getSize(); ++i) {
+//                    wcout << ixOkres->at(i) << L" ";
+//                }
+//                wcout << endl;
+//                resetColor();
+//                auto arrObec = okresIndex->find(ixOkres->getCode());
+//                for (auto ixObce: *arrObec) {
+//                    wcout << "\t" << "\t" << "\t";
+//                    for (int i = 0; i < ixObce->getSize(); ++i) {
+//                        wcout << ixObce->at(i) << L" ";
+//                    }
+//                    wcout << endl;
+//                }
+//            }
+//        }
+//    }
+//    resetColor();
 }
 
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
