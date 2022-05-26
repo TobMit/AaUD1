@@ -51,6 +51,8 @@ public:
 private:
     void bodoveVyhladavanie();
 
+    void vypisIformacie(StoredData *data);
+
     void filtrovanie();
 
     void vycistiTable(structures::Table<wstring, StoredData *> *table);

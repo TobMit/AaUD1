@@ -116,7 +116,7 @@ bool Aplikacia::menu() {
     changeColor(Color::Magenta);
     cout << endl << endl;
     cout << "------------------------------------------" << endl;
-    cout << "Opakovat? \n\tAno [1] \n\tNie [0]\nVolba: ";
+    cout << "Menu? \n\tAno [1] \n\tNie [0]\nVolba: ";
     std::getline(cin, volba);
     resetColor();
     switch (stoi(volba)) {
@@ -169,11 +169,20 @@ void Aplikacia::bodoveVyhladavanie() {
     cout << "--------------------- Bodove vyhľadávanie ---------------------" << endl;
     resetColor();
     cout << "Poznámka: parametre s \"*\" NIEsu povinné, ENTEROM sa preskočia." << endl;
-    cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj" << endl;
+    cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
     changeColor(Color::Green);
     cout << "Zadaj názov: ";
     wstring vyhladavaneMeno;
     std::getline(wcin, vyhladavaneMeno);
+
+    StoredData *findData;
+    try {
+        findData = nameIndex->find(vyhladavaneMeno);
+    } catch (std::out_of_range) {
+        changeColor(Color::Red);
+        cout << "Vami zadaná UJ nebola nájdena!" << endl;
+        return;
+    }
 
     changeColor(Color::DarkGren);
     cout << "*Vzdelavanie "<< endl;
@@ -190,14 +199,6 @@ void Aplikacia::bodoveVyhladavanie() {
     string vyhladavanieVzdelavanie;
     std::getline(cin, vyhladavanieVzdelavanie);
 
-    StoredData *findData;
-    try {
-        findData = nameIndex->find(vyhladavaneMeno);
-    } catch (std::out_of_range) {
-        changeColor(Color::Red);
-        cout << "Vami zadaná UJ nebola nájdena!" << endl;
-        return;
-    }
     CriterionNazov meno;
     CriterionUJTyp typUJ;
     OstatneUdaje *findOstatne;
@@ -226,12 +227,46 @@ void Aplikacia::bodoveVyhladavanie() {
         cout << "Informácie o vzdelávani nebolí nájdené." << endl;
     }
 
-    for (int i = 0; i < findData->getSize(); ++i) {
-        wcout << findData->at(i) << L"\t";
-    }
-    wcout << endl;
+    //----------- Informácie o UJ ----------------
+    cout << endl;
+    changeColor(Color::BrightGreen);
+    cout << "Všeobecné informácie: " << endl;
+    changeColor(Color::Green);
+    switch (typUJ.evaluate(*findData)) {
 
+        case UJTyp::Stat:
+            cout << "Typ UJ: Štát" << endl;
+            vypisIformacie(findData);
+            break;
+        case UJTyp::Kraj:
+            cout << "Typ UJ: Kraj" << endl;
+            vypisIformacie(findData);
+            wcout << "VUJ: \n\t->" << codeIndex->find(findData->at(5).substr(5,2))->getOfficialTitle();
+            cout << ", Typ UJ: Štát" << endl;
+            break;
+        case UJTyp::Okres:
+            cout << "Typ UJ: Okres" << endl;
+            vypisIformacie(findData);
+            wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
+            cout << ", Typ UJ: Kraj" << endl;
+            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
+            cout << ", Typ UJ: Štát" << endl;
+            break;
+        case UJTyp::Obec:
+            cout << "Typ UJ: Okres" << endl;
+            vypisIformacie(findData);
+            wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,6))->getOfficialTitle();
+            cout << ", Typ UJ: Okres" << endl;
+            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
+            cout << ", Typ UJ: Kraj" << endl;
+            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
+            cout << ", Typ UJ: Štát" << endl;
+            break;
+    }
     //----------- Vzdelavanie ----------------
+    changeColor(Color::BrightGreen);
+    cout << "Vzdelávanie Informácie: " << endl;
+    changeColor(Color::DarkGren);
     if (findOstatne != nullptr) {
         CriterionVZPocet *vzPocet;
         if (vyhladavanieVzdelavanie.compare("") == 0) {
@@ -286,6 +321,16 @@ void Aplikacia::bodoveVyhladavanie() {
 
         delete vzPocet;
     }
+}
+
+
+void Aplikacia::vypisIformacie(StoredData *data) {
+    wcout << L"SortNumber: " << data->at(0) << endl;
+    wcout << L"Code: " << data->at(1)<< endl;
+    wcout << L"OfficialTitle: " << data->at(2)<< endl;
+    wcout << L"MediumTitle: " << data->at(3)<< endl;
+    wcout << L"ShortTitle: " << data->at(4)<< endl;
+    wcout << L"Note: " << data->at(5)<< endl;
 }
 
 void Aplikacia::filtrovanie() {

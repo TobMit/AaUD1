@@ -30,6 +30,7 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
             kraj.insert(data->getOfficialTitle(), data);
             nameIndex.insert(data->getOfficialTitle(), data);
             codeIndex.insert(data->at(5), data);
+            codeIndex.insert(data->at(5).substr(5, wstring::npos), data);
         }
     }
 
