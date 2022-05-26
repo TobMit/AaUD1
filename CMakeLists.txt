@@ -27,6 +27,8 @@ include_directories(ui)
 include_directories(semestralnaPraca)
 include_directories(semestralnaPraca/dataLoader)
 include_directories(semestralnaPraca/dataStructure)
+include_directories(semestralnaPraca/Criterion)
+include_directories(semestralnaPraca/filtre)
 
 add_executable(AUS_Console
         structures/_logger/file_log_consumer.cpp
@@ -129,6 +131,7 @@ add_executable(semestralnaPraca
         semestralnaPraca/Criterion/criterionUJPrislusnost.h
         semestralnaPraca/Criterion/criterionVZPocet.h
         semestralnaPraca/Criterion/criterionVZPodiel.h
+        semestralnaPraca/filtre/filter.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
