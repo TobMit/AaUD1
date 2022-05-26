@@ -64,8 +64,9 @@ inline UzemnaJednotka::UzemnaJednotka(const UJTyp typ, const wstring &pSortNumbe
     code = pCode;
     officialTitle = pOfficialTitle;
     mediumTitle = pMediumTitle;
-    sortNumber = pShortTitle;
+    shortTitle = pShortTitle;
     note = pNote;
+    typUJ = typ;
 }
 
 inline UzemnaJednotka::~UzemnaJednotka() {
