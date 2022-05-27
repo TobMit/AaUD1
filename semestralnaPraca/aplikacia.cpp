@@ -476,15 +476,9 @@ wstring Aplikacia::vypocetVUJ(StoredData *data, UJTyp uroven) {
                 return data->getCode().substr(0,2);
             }
         case UJTyp::Kraj:
-            if (data->getUJTyp() == UJTyp::Kraj) {
-                return krajGetCode(data).substr(0,2);
-            } else {
-                return data->getCode().substr(0,2);
-            }
+            return data->getCode().substr(0,5);
         case UJTyp::Okres:
-            break;
-        case UJTyp::Obec:
-            break;
+            return data->getCode().substr(0,6);
     }
 }
 

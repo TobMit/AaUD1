@@ -73,7 +73,7 @@ private:
     /// Okdstráni z dát nepotrebne údaje. Pozor nekontroluje ci sa jedná naozaj o kraj
     /// \param data
     /// \return
-    wstring krajGetCode(StoredData *data);
+    static wstring krajGetCode(StoredData *data);
 };
 
 
