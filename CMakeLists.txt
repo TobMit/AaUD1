@@ -135,6 +135,7 @@ add_executable(semestralnaPraca
         semestralnaPraca/filtre/filterVZPocet.h
         semestralnaPraca/filtre/filterVZPodiel.h
         semestralnaPraca/filtre/filterUJTyp.h
+        semestralnaPraca/filtre/filterUJPrislusnost.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
