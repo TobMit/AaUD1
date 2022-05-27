@@ -6,7 +6,7 @@
 #include "filter.h"
 #include "criterionVZPocet.h"
 
-class FilterVzPocet : Filter {
+class FilterVzPocet : Filter<int> {
 private:
     int minimum = 0;
     int maximum = 0;
@@ -18,16 +18,14 @@ public:
         maximum(max)
     {
     };
-    bool pass(const StoredData &data) override;
-
+    bool pass(const StoredData &data, Criterion<int> *criterion) override;
 };
 
-inline bool FilterVzPocet::pass(const StoredData &data) {
-    CriterionVZPocet *criterium = new CriterionVZPocet(index);
+inline bool FilterVzPocet::pass(const StoredData &data, Criterion<int> *criterion) {
     bool retrunValue = false;
-    if (minimum >= criterium->evaluate(data) && criterium->evaluate(data) <= maximum) {
+    if (minimum >= criterion->evaluate(data) && criterion->evaluate(data) <= maximum) {
         retrunValue = true;
     }
-    delete criterium;
     return retrunValue;
 }
+
