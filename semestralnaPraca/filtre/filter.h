@@ -4,9 +4,11 @@
 #pragma once
 
 #include "storedData.h"
+#include "criterion.h"
 
+template <typename criterioValue>
 class Filter {
 public:
-    virtual bool pass(const StoredData &data) = 0;
+    virtual bool pass(const StoredData &data, Criterion<criterioValue> *criterion) = 0;
 };
 
