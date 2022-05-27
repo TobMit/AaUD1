@@ -315,6 +315,7 @@ void Aplikacia::filtrovanie() {
     int filtVZPodMin;
     int filtVZPodMax;
     wstring tmp;
+    //------------------- Filter Typ UJ -------------------
     changeColor(Color::BrightBlue);
     cout << "Všeobecné informácie" << endl;
     changeColor(Color::DarkBlue);
@@ -327,6 +328,7 @@ void Aplikacia::filtrovanie() {
 
     UJTyp targetTyp = prelozNaUJTyp(filtUJTyp);
 
+    //------------------- Filter príslunšnoť k UJ -------------------
     cout << "\tFilter príslušnosť k VUJ ";
     resetColor();
     cout << "(napr.: Trenčiansky kraj, Okres Trenčín, Slovensko...)";
@@ -334,6 +336,28 @@ void Aplikacia::filtrovanie() {
     cout <<": ";
     std::getline(wcin, filtUJPrisl);
 
+    StoredData *targetUJ;
+    if (filtUJPrisl.compare(L"") == 0) {
+        // dávam natvordo slovensko, kedže pod slovenskom patrí všetko
+        targetUJ = codeIndex->find(L"SK");
+    } else {
+        try {
+            targetUJ = nameIndex->find(filtUJPrisl);
+        } catch (std::out_of_range) {
+            changeColor(Color::Red);
+            cout << "!! Zadaná UJ nebol nájdena, Budem ju ignorovať!!" << endl;
+            // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
+            targetUJ = codeIndex->find(L"SK");
+        }
+    }
+    if (targetTyp == targetUJ->getUJTyp()) {
+        changeColor(Color::Red);
+        cout << "!! Zadaná UJ má rovnaký UJ typ ako zadaný filtrovany UJ. Filter budem ignorovať!!" << endl;
+        // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
+        targetUJ = codeIndex->find(L"SK");
+    }
+
+    //-------------------------------------- VZDELAVANIE --------------------------------------
     changeColor(Color::BrightBlue);
     cout << "Vzdelávanie" << endl;
     changeColor(Color::Red);
@@ -349,6 +373,7 @@ void Aplikacia::filtrovanie() {
     cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
     cout << "\t- [7] Nezistené (abs.)" << endl;
 
+    //------------------- Filter počet v danej VZ skupine -------------------
     wstring filtPocIndex;
     changeColor(Color::DarkBlue);
     cout << "Filter Počet v zadanej skupine \n\t-> zadajte index: ";
@@ -365,6 +390,7 @@ void Aplikacia::filtrovanie() {
         std::getline(wcin, tmp);
     }
 
+    //------------------- Filter Podiel v danej VZ skupine -------------------
     wstring filtPodIndex;
     changeColor(Color::DarkBlue);
     cout << "Filter Podiel v zadanej skupine \n\t-> zadajte index: ";
@@ -382,6 +408,7 @@ void Aplikacia::filtrovanie() {
     }
 
 
+    //------------------------------------------ Jadro filtrovania ------------------------------------------
     for (auto arrKraj: *statIndex) {
         changeColor(Color::Red);
         auto ixStat = codeIndex->find(arrKraj->getKey());
@@ -428,14 +455,43 @@ void Aplikacia::filtrovanie() {
                                 }
                             }
                         }
+
                     }
                 }
+
             }
         }
+
     }
     resetColor();
 }
 
+wstring Aplikacia::vypocetVUJ(StoredData *data, UJTyp uroven) {
+    switch (uroven) {
+
+        case UJTyp::Stat:
+            if (data->getUJTyp() == UJTyp::Kraj) {
+                return krajGetCode(data).substr(0,2);
+            } else {
+                return data->getCode().substr(0,2);
+            }
+        case UJTyp::Kraj:
+            if (data->getUJTyp() == UJTyp::Kraj) {
+                return krajGetCode(data).substr(0,2);
+            } else {
+                return data->getCode().substr(0,2);
+            }
+        case UJTyp::Okres:
+            break;
+        case UJTyp::Obec:
+            break;
+    }
+}
+
+
+wstring Aplikacia::krajGetCode(StoredData *data) {
+    return data->at(5).substr(5, wstring::npos);
+}
 void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
     for (auto item: *table) {
         delete item->accessData();

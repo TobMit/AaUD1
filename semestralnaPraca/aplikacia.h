@@ -65,6 +65,15 @@ private:
     static void resetColor();
 
     UJTyp prelozNaUJTyp(wstring naPreklad);
+    /// Vypočitava predka, nekotroluje, či sa dá predok vypočítať. (Napr keď z kraja chceme získať okres)
+    /// \param data
+    /// \param uroven
+    /// \return
+    wstring vypocetVUJ(StoredData *data, UJTyp uroven);
+    /// Okdstráni z dát nepotrebne údaje. Pozor nekontroluje ci sa jedná naozaj o kraj
+    /// \param data
+    /// \return
+    wstring krajGetCode(StoredData *data);
 };
 
 
