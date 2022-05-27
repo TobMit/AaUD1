@@ -63,6 +63,8 @@ private:
     void changeColor(Color color);
 
     static void resetColor();
+
+    UJTyp prelozNaUJTyp(wstring naPreklad);
 };
 
 
