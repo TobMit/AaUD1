@@ -200,17 +200,17 @@ void Aplikacia::bodoveVyhladavanie() {
 
         case UJTyp::Stat:
             cout << "Typ UJ: Štát" << endl;
-            vypisIformacie(findData);
+            vypisIformacie(findData, L"");
             break;
         case UJTyp::Kraj:
             cout << "Typ UJ: Kraj" << endl;
-            vypisIformacie(findData);
+            vypisIformacie(findData, L"");
             wcout << "VUJ: \n\t->" << codeIndex->find(findData->at(5).substr(5,2))->getOfficialTitle();
             cout << ", Typ UJ: Štát" << endl;
             break;
         case UJTyp::Okres:
             cout << "Typ UJ: Okres" << endl;
-            vypisIformacie(findData);
+            vypisIformacie(findData, L"");
             wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
             cout << ", Typ UJ: Kraj" << endl;
             wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
@@ -218,7 +218,7 @@ void Aplikacia::bodoveVyhladavanie() {
             break;
         case UJTyp::Obec:
             cout << "Typ UJ: Okres" << endl;
-            vypisIformacie(findData);
+            vypisIformacie(findData, L"");
             wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,6))->getOfficialTitle();
             cout << ", Typ UJ: Okres" << endl;
             wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
@@ -292,19 +292,92 @@ void Aplikacia::bodoveVyhladavanie() {
 }
 
 
-void Aplikacia::vypisIformacie(StoredData *data) {
-    wcout << L"SortNumber: " << data->at(0) << endl;
-    wcout << L"Code: " << data->at(1)<< endl;
-    wcout << L"OfficialTitle: " << data->at(2)<< endl;
-    wcout << L"MediumTitle: " << data->at(3)<< endl;
-    wcout << L"ShortTitle: " << data->at(4)<< endl;
-    wcout << L"Note: " << data->at(5)<< endl;
+void Aplikacia::vypisIformacie(StoredData *data, wstring odsadenie) {
+    wcout << odsadenie << L"SortNumber: " << data->at(0) << endl;
+    wcout << odsadenie << L"Code: " << data->at(1)<< endl;
+    wcout << odsadenie << L"OfficialTitle: " << data->at(2)<< endl;
+    wcout << odsadenie << L"MediumTitle: " << data->at(3)<< endl;
+    wcout << odsadenie << L"ShortTitle: " << data->at(4)<< endl;
+    wcout << odsadenie << L"Note: " << data->at(5)<< endl;
 }
 
 void Aplikacia::filtrovanie() {
-    changeColor(Color::BrightGreen);
+    changeColor(Color::BrightBlue);
     cout << "------------------------- Filtrovanie -------------------------" << endl;
     resetColor();
+    cout << "Poznámka: Filtre sa dajú preskočiť s Enterom" << endl;
+    //cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
+
+    wstring filtUJPrisl;
+    wstring filtUJTyp;
+    int filtVZPocMin;
+    int filtVZPocMax;
+    int filtVZPodMin;
+    int filtVZPodMax;
+    wstring tmp;
+    changeColor(Color::BrightBlue);
+    cout << "Všeobecné informácie" << endl;
+    changeColor(Color::DarkBlue);
+    cout << "\tFilter typ UJ ";
+    resetColor();
+    cout << "(Štát, Kraj, Okres, Obec)";
+    changeColor(Color::DarkBlue);
+    cout <<": ";
+    std::getline(wcin, filtUJTyp);
+
+    cout << "\tFilter príslušnosť k VUJ ";
+    resetColor();
+    cout << "(napr.: Trenčiansky kraj, Okres Trenčín, Slovensko...)";
+    changeColor(Color::DarkBlue);
+    cout <<": ";
+    std::getline(wcin, filtUJPrisl);
+
+    changeColor(Color::BrightBlue);
+    cout << "Vzdelávanie" << endl;
+    changeColor(Color::Red);
+    cout << "!! Ak sa rozhodnete aplikovať filter, MUSIA byť vyplnéne všetky parametre !!" << endl;
+    changeColor(Color::Cyan);
+    cout << "Filtrovať podľa:" << endl;
+    cout << "\t- [0] Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.)" << endl;
+    cout << "\t- [1] Základné vzdelanie (abs.)" << endl;
+    cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
+    cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
+    cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
+    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
+    cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
+    cout << "\t- [7] Nezistené (abs.)" << endl;
+
+    wstring filtPocIndex;
+    changeColor(Color::DarkBlue);
+    cout << "Filter Počet v zadanej skupine \n\t-> zadajte index: ";
+    std::getline(wcin, filtPocIndex);
+    if (filtPocIndex.compare(L"") != 0) {
+        resetColor();
+        cout << "\t(Roz sah pre filter je určený <min, max>)" << endl;
+        changeColor(Color::DarkBlue);
+        cout << "\t-> zadajte min: ";
+        cin >> filtVZPocMin;
+        cout << "\t-> zadajte max: ";
+        cin >> filtVZPocMax;
+        // služi na odchitenie enteru ktorý wcin nezachil predtým
+        std::getline(wcin, tmp);
+    }
+
+    wstring filtPodIndex;
+    changeColor(Color::DarkBlue);
+    cout << "Filter Podiel v zadanej skupine \n\t-> zadajte index: ";
+    std::getline(wcin, filtPodIndex);
+    if (filtPodIndex.compare(L"") != 0) {
+        resetColor();
+        cout << "\t(Roz sah pre filter je určený <min, max>)" << endl;
+        changeColor(Color::DarkBlue);
+        cout << "\t-> zadajte min: ";
+        cin >> filtVZPodMin;
+        cout << "\t-> zadajte max: ";
+        cin >> filtVZPodMax;
+        // služi na odchitenie enteru ktorý wcin nezachil predtým
+        std::getline(wcin, tmp);
+    }
 
 //    for (auto arrKraj: *statIndex) {
 //        changeColor(Color::Red);
@@ -372,8 +445,12 @@ void Aplikacia::changeColor(Color color) {
             wcout << "\x1B[38;5;34m";
             break;
 
-        case Color::Blue:
+        case Color::BrightBlue:
             wcout << "\x1B[94m";
+            break;
+
+        case Color::DarkBlue:
+            wcout << "\x1B[38;5;27m";
             break;
 
         case Color::Yellow:

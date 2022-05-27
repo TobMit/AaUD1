@@ -15,7 +15,8 @@ enum class Color {
     BrightGreen,
     Green,
     DarkGren,
-    Blue,
+    BrightBlue,
+    DarkBlue,
     Yellow,
     Magenta,
     Cyan,
@@ -51,7 +52,7 @@ public:
 private:
     void bodoveVyhladavanie();
 
-    void vypisIformacie(StoredData *data);
+    void vypisIformacie(StoredData *data, wstring odsadenie);
 
     void filtrovanie();
 
