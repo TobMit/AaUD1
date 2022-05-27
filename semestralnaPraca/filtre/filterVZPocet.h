@@ -12,8 +12,7 @@ private:
     int maximum = 0;
     int index = 0;
 public:
-    FilterVzPocet(int pIndex, int min, int max) :
-        index(pIndex),
+    FilterVzPocet(int min, int max) :
         minimum(min),
         maximum(max)
     {
