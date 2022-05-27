@@ -381,7 +381,7 @@ void Aplikacia::filtrovanie() {
         std::getline(wcin, tmp);
     }
 
-//todo dokončiť tak že keď sa narazí na targetTyp tak sa daľej v stromne nepokračuje
+
     for (auto arrKraj: *statIndex) {
         changeColor(Color::Red);
         auto ixStat = codeIndex->find(arrKraj->getKey());
@@ -391,34 +391,43 @@ void Aplikacia::filtrovanie() {
             }
             wcout << endl;
         }
-        for (auto ixKraj: *arrKraj->accessData()) {
-            changeColor(Color::Green);
-            if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) {
-                wcout << "\t";
-                for (int i = 0; i < ixKraj->getSize(); ++i) {
-                    wcout << ixKraj->at(i) << L" ";
-                }
-                wcout << endl;
-            }
-            auto arrOkres = krajIndex->find(ixKraj->at(5));
-            for (auto ixOkres: *arrOkres) {
-                changeColor(Color::Magenta);
-                if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) {
-                    wcout << "\t" << "\t";
-                    for (int i = 0; i < ixOkres->getSize(); ++i) {
-                        wcout << ixOkres->at(i) << L" ";
+
+        if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+            for (auto ixKraj: *arrKraj->accessData()) {
+                changeColor(Color::Green);
+                if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) {
+                    wcout << "\t";
+                    for (int i = 0; i < ixKraj->getSize(); ++i) {
+                        wcout << ixKraj->at(i) << L" ";
                     }
                     wcout << endl;
                 }
-                resetColor();
-                auto arrObec = okresIndex->find(ixOkres->getCode());
-                for (auto ixObce: *arrObec) {
-                    if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-                        wcout << "\t" << "\t" << "\t";
-                        for (int i = 0; i < ixObce->getSize(); ++i) {
-                            wcout << ixObce->at(i) << L" ";
+
+                if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                    auto arrOkres = krajIndex->find(ixKraj->at(5));
+                    for (auto ixOkres: *arrOkres) {
+                        changeColor(Color::Magenta);
+                        if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) {
+                            wcout << "\t" << "\t";
+                            for (int i = 0; i < ixOkres->getSize(); ++i) {
+                                wcout << ixOkres->at(i) << L" ";
+                            }
+                            wcout << endl;
                         }
-                        wcout << endl;
+
+                        if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                            resetColor();
+                            auto arrObec = okresIndex->find(ixOkres->getCode());
+                            for (auto ixObce: *arrObec) {
+                                if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                                    wcout << "\t" << "\t" << "\t";
+                                    for (int i = 0; i < ixObce->getSize(); ++i) {
+                                        wcout << ixObce->at(i) << L" ";
+                                    }
+                                    wcout << endl;
+                                }
+                            }
+                        }
                     }
                 }
             }
