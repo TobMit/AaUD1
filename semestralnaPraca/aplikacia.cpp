@@ -357,6 +357,25 @@ void Aplikacia::filtrovanie() {
         targetUJ = codeIndex->find(L"SK");
     }
 
+    if (UJTyp::Kraj == targetUJ->getUJTyp() && targetTyp == UJTyp::Stat) {
+        changeColor(Color::Red);
+        cout << "!! Filter Príslušnosť k UJ musí mať väčšiu UJ ako bola zadaná vo filtri typUJ. Filter budem ignorovať!!" << endl;
+        // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
+        targetUJ = codeIndex->find(L"SK");
+    }
+    if (UJTyp::Okres == targetUJ->getUJTyp() && (targetTyp == UJTyp::Stat || targetTyp == UJTyp::Kraj)) {
+        changeColor(Color::Red);
+        cout << "!! Filter Príslušnosť k UJ musí mať väčšiu UJ ako bola zadaná vo filtri typUJ. Filter budem ignorovať!!" << endl;
+        // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
+        targetUJ = codeIndex->find(L"SK");
+    }
+    if (targetUJ->getUJTyp() == UJTyp::Obec) {
+        changeColor(Color::Red);
+        cout << "!! Nemôže byť zadaná obec. Filter budem ignorovať!!" << endl;
+        // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
+        targetUJ = codeIndex->find(L"SK");
+    }
+
     //-------------------------------------- VZDELAVANIE --------------------------------------
     changeColor(Color::BrightBlue);
     cout << "Vzdelávanie" << endl;
