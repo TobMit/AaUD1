@@ -45,9 +45,13 @@ public:
     virtual UJTyp getUJTyp() const = 0;
     /// Zisti ci objedk paty do zadaneho VUJ. Ak sa jedna o pomocne udaje, defaultne je false.
     /// \param VUJednotka - StoredData s ktorym sa to bude porovnnávať.
-    /// \return True / false podla toho ci patri pod uzemnu jednotku
+    /// \return True / false podla toho ci patri pod uzemnu jednotku.
     virtual bool belongsTo(StoredData &VUJednotka) const =0;
 
+    /// Zisťujem či mi patrí nejaká územná územna jednotka, pre pomocne údaje defaultne false.
+    /// \param NUJednotka nižšia územná jednotka.
+    /// \return True / false podla toho či patrí podo mňa.
+    virtual bool belongsMe(StoredData *NUJednotka) const =0;
 };
 
 inline StoredData::~StoredData() {

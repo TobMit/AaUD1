@@ -35,6 +35,8 @@ public:
 
     bool belongsTo(StoredData &VUJednotka) const override;
 
+    bool belongsMe(StoredData *NUJednotka) const override;
+
 private:
     int dataIndex = 0;
     wstring sortNumber;
@@ -154,6 +156,12 @@ inline UJTyp UzemnaJednotka::getUJTyp() const {
 }
 
 inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
+    wstring porovnavanie;
+    if (typUJ == UJTyp::Kraj) {
+        porovnavanie = note.substr(5, wstring::npos);
+    } else {
+        porovnavanie = code;
+    }
     if (VUJednotka.getUJTyp() == UJTyp::Neoznacene) {
         return false;
     }
@@ -166,21 +174,58 @@ inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
     if (typUJ == UJTyp::Stat) {
         return false;
     }
-    if (typUJ == UJTyp::Kraj || VUJednotka.getUJTyp() == UJTyp::Okres) {
+    if (typUJ == UJTyp::Kraj && VUJednotka.getUJTyp() == UJTyp::Okres) {
         return false;
     }
+
+    switch (VUJednotka.getUJTyp()) {
+        case UJTyp::Stat:
+            return VUJednotka.getCode().substr(0, 2).compare(porovnavanie.substr(0, 2)) == 0;
+
+        case UJTyp::Kraj:
+            return VUJednotka.at(5).substr(5, wstring::npos).compare(porovnavanie.substr(0, 5)) == 0;
+
+        case UJTyp::Okres:
+            return VUJednotka.getCode().substr(0, 6).compare(porovnavanie.substr(0, 6)) == 0;
+    }
+
+}
+
+inline bool UzemnaJednotka::belongsMe(StoredData *NUJednotka) const {
+    wstring porovnavanie;
     if (typUJ == UJTyp::Kraj) {
-        return VUJednotka.at(5).substr(0, 2).compare(code.substr(0, 2)) == 0;
+        porovnavanie = note.substr(5, wstring::npos);
     } else {
-        switch (VUJednotka.getUJTyp()) {
-            case UJTyp::Stat:
-                return VUJednotka.getCode().substr(0, 2).compare(code.substr(0, 2)) == 0;
-
-            case UJTyp::Kraj:
-                return VUJednotka.at(5).substr(5, wstring::npos).compare(code.substr(0, 5)) == 0;
-
+        porovnavanie = code;
+    }
+    if (NUJednotka->getUJTyp() == UJTyp::Stat) {
+        return false;
+    }
+    // ak som ja štát tak všetko podo mňa patrí
+    if (typUJ == UJTyp::Stat) {
+        return true;
+    }
+    // ak sme rovnaký typ tak false
+    if (typUJ == NUJednotka->getUJTyp()) {
+        return false;
+    }
+    // ak som kraj tak spracuvavam iba okresi a obce inak false
+    if (typUJ == UJTyp::Kraj) {
+        switch (NUJednotka->getUJTyp()) {
             case UJTyp::Okres:
-                return VUJednotka.getCode().substr(0, 6).compare(code.substr(0, 6)) == 0;
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,5));
+            case UJTyp::Obec:
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,5));
+            default:
+                return false;
+        }
+    }
+    if (typUJ == UJTyp::Okres) {
+        switch (NUJednotka->getUJTyp()) {
+            case UJTyp::Obec:
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,6));
+            default:
+                return false;
         }
     }
 }

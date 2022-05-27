@@ -38,6 +38,8 @@ public:
 
     bool belongsTo(StoredData &VUJednotka) const override;
 
+    bool belongsMe(StoredData *NUJednotka) const override;
+
 private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
 
@@ -95,6 +97,10 @@ inline wstring &OstatneUdaje::at(int index) {
 
 inline int OstatneUdaje::intAt(int index) const{
     return data->at(index);
+}
+
+inline bool OstatneUdaje::belongsMe(StoredData *NUJednotka) const {
+    return false;
 }
 
 inline UJTyp OstatneUdaje::getUJTyp() const {

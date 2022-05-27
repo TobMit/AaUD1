@@ -393,6 +393,8 @@ void Aplikacia::filtrovanie() {
     cout << "\t- [7] Nezistené (abs.)" << endl;
 
     //------------------- Filter počet v danej VZ skupine -------------------
+    // todo ak nie je zadaný žiaden predchádzajúci filter tak kvôli zložitosti treba prechádzať iba dáta zo vzdelávani
+    // todo lepšie by bolo zrejme pridať pointer do UJ a potom iba z tadiaľ ťahať, tak sa obíde zbytočné vyhľadávanie
     wstring filtPocIndex;
     changeColor(Color::DarkBlue);
     cout << "Filter Počet v zadanej skupine \n\t-> zadajte index: ";
@@ -428,60 +430,84 @@ void Aplikacia::filtrovanie() {
 
 
     //------------------------------------------ Jadro filtrovania ------------------------------------------
-    for (auto arrKraj: *statIndex) {
-        changeColor(Color::Red);
-        auto ixStat = codeIndex->find(arrKraj->getKey());
-        if (targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) {
-            for (int i = 0; i < ixStat->getSize(); ++i) {
-                wcout << ixStat->at(i) << L" ";
-            }
-            wcout << endl;
+
+
+    changeColor(Color::Red);
+    auto ixStat = codeIndex->find(L"SK");
+    if (targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) {
+        for (int i = 0; i < ixStat->getSize(); ++i) {
+            wcout << ixStat->at(i) << L" ";
         }
-
-        if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-            for (auto ixKraj: *arrKraj->accessData()) {
-                changeColor(Color::Green);
-                if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) {
-                    wcout << "\t";
-                    for (int i = 0; i < ixKraj->getSize(); ++i) {
-                        wcout << ixKraj->at(i) << L" ";
-                    }
-                    wcout << endl;
-                }
-
-                if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-                    auto arrOkres = krajIndex->find(ixKraj->at(5));
-                    for (auto ixOkres: *arrOkres) {
-                        changeColor(Color::Magenta);
-                        if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) {
-                            wcout << "\t" << "\t";
-                            for (int i = 0; i < ixOkres->getSize(); ++i) {
-                                wcout << ixOkres->at(i) << L" ";
-                            }
-                            wcout << endl;
-                        }
-
-                        if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-                            resetColor();
-                            auto arrObec = okresIndex->find(ixOkres->getCode());
-                            for (auto ixObce: *arrObec) {
-                                if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-                                    wcout << "\t" << "\t" << "\t";
-                                    for (int i = 0; i < ixObce->getSize(); ++i) {
-                                        wcout << ixObce->at(i) << L" ";
-                                    }
-                                    wcout << endl;
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-            }
-        }
-
+        wcout << endl;
     }
+    auto arrKraj = statIndex->find(L"SK");
+    if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+        for (auto ixKraj: *arrKraj) {
+            // overí sa či kraj nepatrí do targetu
+            // alebo target nepatrí do kraju
+            if (ixKraj->getCode().compare(targetUJ->getCode()) != 0 && targetUJ->getUJTyp() == UJTyp::Kraj) {
+                continue;
+            }
+            if (targetUJ->getUJTyp() == UJTyp::Stat && !ixKraj->belongsTo(*targetUJ)) {
+                continue;
+            }
+            if (targetUJ->getUJTyp() == UJTyp::Okres && ixKraj->belongsMe(targetUJ)) {
+                continue;
+            }
+            changeColor(Color::Green);
+            if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) {
+                wcout << "\t";
+                for (int i = 0; i < ixKraj->getSize(); ++i) {
+                    wcout << ixKraj->at(i) << L" ";
+                }
+                wcout << endl;
+            }
+
+            if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                auto arrOkres = krajIndex->find(ixKraj->at(5));
+                for (auto ixOkres: *arrOkres) {
+                    // overí sa či kraj nepatrí do targetu
+                    // alebo target nepatrí do kraju
+                    if (ixOkres->getCode().compare(targetUJ->getCode()) != 0 && targetUJ->getUJTyp() == UJTyp::Okres) {
+                        continue;
+                    }
+                    if (targetUJ->getUJTyp() == UJTyp::Stat && !ixOkres->belongsTo(*targetUJ)) {
+                        continue;
+                    }
+
+                    changeColor(Color::Magenta);
+                    if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) {
+                        wcout << "\t" << "\t";
+                        for (int i = 0; i < ixOkres->getSize(); ++i) {
+                            wcout << ixOkres->at(i) << L" ";
+                        }
+                        wcout << endl;
+                    }
+
+                    if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                        resetColor();
+                        auto arrObec = okresIndex->find(ixOkres->getCode());
+                        for (auto ixObce: *arrObec) {
+                            if (ixObce->belongsTo(*targetUJ) == false) {
+                                continue;
+                            }
+                            if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                                wcout << "\t" << "\t" << "\t";
+                                for (int i = 0; i < ixObce->getSize(); ++i) {
+                                    wcout << ixObce->at(i) << L" ";
+                                }
+                                wcout << endl;
+                            }
+                        }
+                    }
+
+                }
+            }
+
+        }
+    }
+
+
     resetColor();
 }
 
@@ -581,7 +607,7 @@ UJTyp Aplikacia::prelozNaUJTyp(wstring naPreklad) {
         return UJTyp::Neoznacene;
     } else {
         changeColor(Color::Red);
-        cout << "Zle zadany parameter UJ typu, budem tento filter ignorovať!";
+        cout << "Zle zadany parameter UJ typu, budem tento filter ignorovať!" << endl;
         resetColor();
         return UJTyp::Neoznacene;
     }
