@@ -132,7 +132,8 @@ add_executable(semestralnaPraca
         semestralnaPraca/Criterion/criterionVZPocet.h
         semestralnaPraca/Criterion/criterionVZPodiel.h
         semestralnaPraca/filtre/filter.h
-        semestralnaPraca/filtre/filterVzdelavaniePocet.h
+        semestralnaPraca/filtre/filterVZPocet.h
+        semestralnaPraca/filtre/filterVZPodiel.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
