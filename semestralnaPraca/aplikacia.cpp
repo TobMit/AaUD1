@@ -228,13 +228,10 @@ void Aplikacia::bodoveVyhladavanie() {
             break;
     }
     //----------- Vzdelavanie ----------------
-    changeColor(Color::BrightGreen);
-    cout << "Vzdelávanie Informácie: " << endl;
-    changeColor(Color::DarkGren);
     if (findOstatne != nullptr) {
         CriterionVZPocet *vzPocet;
         if (vyhladavanieVzdelavanie.compare("") == 0) {
-            vyhladavanieVzdelavanie = "8";
+            vyhladavanieVzdelavanie = "9";
         }
         // Aby sa nevytváralo kritérium z rozsahu ktoré nemôže vártiť
         if (stoi(vyhladavanieVzdelavanie) <= 7 && stoi(vyhladavanieVzdelavanie) >= 0) {
@@ -242,6 +239,11 @@ void Aplikacia::bodoveVyhladavanie() {
         } else {
             vzPocet = new CriterionVZPocet(0);
         }
+        if (stoi(vyhladavanieVzdelavanie) <= 8 && stoi(vyhladavanieVzdelavanie) >= 0) {
+            changeColor(Color::BrightGreen);
+            cout << "Vzdelávanie Informácie: " << endl;
+        }
+        changeColor(Color::DarkGren);
         switch (stoi(vyhladavanieVzdelavanie)) {
             case 0:
                 cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): "
@@ -270,7 +272,7 @@ void Aplikacia::bodoveVyhladavanie() {
             case 7:
                 cout << "Nezistené (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
                 break;
-            default:
+            case 8:
                 cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): " << findOstatne->intAt(0) << endl;
                 cout << "Základné vzdelanie (abs.): " << findOstatne->intAt(1) << endl;
                 cout << "Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.): " << findOstatne->intAt(2) << endl;
@@ -280,6 +282,8 @@ void Aplikacia::bodoveVyhladavanie() {
                 cout << "Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.): " << findOstatne->intAt(6)
                      << endl;
                 cout << "Nezistené (abs.): " << findOstatne->intAt(7) << endl;
+                break;
+            default:
                 break;
         }
 
