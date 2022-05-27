@@ -1,6 +1,7 @@
 //
 // Created by Tobias on 27/05/2022.
 //
+#pragma once
 #include "filter.h"
 
 class FilterUJTyp : Filter<UJTyp> {
