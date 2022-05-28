@@ -5,7 +5,7 @@
 #include "storedData.h"
 
 
-class OstatneUdaje : public StoredData{
+class OstatneUdaje : public StoredData {
 private:
     wstring code;
     wstring offTitle;
@@ -24,6 +24,8 @@ public:
 
     void setNextParameter(const wstring parameter) override;
 
+    /// Služí na nastovovanie Int prametrov, podobne ako pre setNextParameter.
+    /// \param parameter - parameter ktory sa ma uložiť do ArrListu
     void setNextIntParameter(const int parameter);
 
     int getSize() override;
@@ -32,6 +34,9 @@ public:
 
     wstring &at(int index) override;
 
+    /// Podobne ako pri At sprístupňuje dáta s int hodnotou
+    /// \param index ktorý chceme sprístupniť
+    /// \return int hodnotu príslušného indexu
     int intAt(int index) const;
 
     UJTyp getUJTyp() const override;
@@ -39,6 +44,10 @@ public:
     bool belongsTo(StoredData &VUJednotka) const override;
 
     bool belongsMe(StoredData *NUJednotka) const override;
+
+    void setVzdelavanie(const StoredData *pVzdelanie) const override;
+
+    StoredData *getVzdelavanie() const override;
 
 private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
@@ -109,4 +118,11 @@ inline UJTyp OstatneUdaje::getUJTyp() const {
 
 inline bool OstatneUdaje::belongsTo(StoredData &VUJednotka) const {
     return false;
+}
+
+inline void OstatneUdaje::setVzdelavanie(const StoredData *pVzdelanie) const {
+}
+
+inline StoredData *OstatneUdaje::getVzdelavanie() const {
+    return nullptr;
 }

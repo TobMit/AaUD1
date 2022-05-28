@@ -37,6 +37,10 @@ public:
 
     bool belongsMe(StoredData *NUJednotka) const override;
 
+    void setVzdelavanie(const StoredData *pVzdelanie) const override;
+
+    StoredData *getVzdelavanie() const override;
+
 private:
     int dataIndex = 0;
     wstring sortNumber;
@@ -46,6 +50,7 @@ private:
     wstring shortTitle;
     wstring note;
     UJTyp typUJ;
+    StoredData *vzdelavanie;
 
 };
 
@@ -228,6 +233,14 @@ inline bool UzemnaJednotka::belongsMe(StoredData *NUJednotka) const {
                 return false;
         }
     }
+}
+
+inline void UzemnaJednotka::setVzdelavanie(const StoredData *pVzdelanie) const {
+    *vzdelavanie = *pVzdelanie;
+}
+
+inline StoredData *UzemnaJednotka::getVzdelavanie() const {
+    return vzdelavanie;
 }
 
 

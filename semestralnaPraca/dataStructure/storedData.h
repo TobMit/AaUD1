@@ -33,15 +33,24 @@ public:
     virtual void setOfficialTitle(const wstring pOffTitleName) = 0;
     /// bude nastavovať všetky paramtetre ktoré treba
     virtual void setNextParameter(const wstring parameter) = 0;
-    /// prístup k parametrom z ulozenych dát
+    /// Vráti veľkosť ktorá sa dá prechádzať pomocou At()
     virtual int getSize() = 0;
-
+    /// Nastavi pointer na vzdelávanie danej UJ. Pre OstatneUdaje je to null ptr.
+    /// \param pVzdelanie - Vzdelávanie danej územnej jednotky.
+    virtual void setVzdelavanie(const StoredData *pVzdelanie) const= 0;
+    /// Vráti príslušné vzdlávanie ak je nastavené
+    /// \return - Pointer na vzedlávanie.
+    virtual StoredData* getVzdelavanie() const =0;
+    /// Viem prechádzať všetky údaje ktoré boli zadané. V prípade OstatnyUdajov prechadzam všetky data ktore su ulozene v ArrListe
+    /// \param index - Index položky ktorú chcem sprístupniť.
+    /// \return Vráti wstring& danej položky.
     virtual wstring& at(int index) = 0;
     /// operator prístupu
     wstring operator[](int index) {
         return this->at(index);
     }
-
+    /// Typ ktorým je objekt
+    /// \return Vráti UJTyp ktorým je objekt
     virtual UJTyp getUJTyp() const = 0;
     /// Zisti ci objedk paty do zadaneho VUJ. Ak sa jedna o pomocne udaje, defaultne je false.
     /// \param VUJednotka - StoredData s ktorym sa to bude porovnnávať.
