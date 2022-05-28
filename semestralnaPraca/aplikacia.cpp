@@ -395,7 +395,7 @@ void Aplikacia::filtrovanie() {
 
     //------------------- Filter počet v danej VZ skupine -------------------
     CriterionVZPocet *criVzPoc = nullptr;
-    FilterVzPocet *filtVzPoc = nullptr;
+    FilterVzPodiel *filtVzPoc = nullptr;
 
     wstring filtPocIndex;
     changeColor(Color::DarkBlue);

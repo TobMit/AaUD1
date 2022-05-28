@@ -5,7 +5,7 @@
 #include "criterion.h"
 
 #pragma once
-class CriterionUJPrislusnost : Criterion<bool> {
+class CriterionUJPrislusnost : public Criterion<bool> {
 private:
     //todo skontrolovat ci to nerobí mem leaks
     StoredData * dataToCompare;

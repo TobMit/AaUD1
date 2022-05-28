@@ -5,7 +5,7 @@
 #include "criterionVZPocet.h"
 
 #pragma once
-class CriterionVZPodiel : Criterion<double> {
+class CriterionVZPodiel : public Criterion<double> {
 public:
     CriterionVZPodiel(const int pIndex);
 

@@ -2,7 +2,7 @@
 // Created by Tobias on 26/05/2022.
 //
 #pragma once
-
+/*
 #include "filter.h"
 
 class FilterVzPocet : Filter<int> {
@@ -26,3 +26,4 @@ inline bool FilterVzPocet::pass(int criterionValue) {
     }
     return retrunValue;
 }
+*/

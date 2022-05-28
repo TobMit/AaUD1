@@ -3,25 +3,11 @@
 //
 #pragma once
 #include "filter.h"
+#include "criterionVZPodiel.h"
 
-class FilterVzPodiel : Filter<double> {
-private:
-    int index = 0;
-    double minimum = 0;
-    double maximum = 0;
+class FilterVzPodiel : Filter_FI<double> {
 public:
-    FilterVzPodiel(double min, double max) :
-        minimum(min),
-        maximum(max)
-    {};
-    bool pass(double criterionValue) override;
+    FilterVzPodiel(Criterion<double> *criterion, double pMin, double pMax) : Filter_FI(criterion, pMin, pMax) {}
+
 
 };
-
-inline bool FilterVzPodiel::pass(double criterionValue) {
-    bool retrunValue = false;
-    if (minimum <= criterionValue && criterionValue <= maximum) {
-        retrunValue = true;
-    }
-    return retrunValue;
-}

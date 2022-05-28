@@ -5,7 +5,7 @@
 #include "ostatneUdaje.h"
 
 #pragma once
-class CriterionVZPocet : Criterion<int> {
+class CriterionVZPocet : public Criterion<int> {
 public:
     CriterionVZPocet(const int pIndex);
 

@@ -5,7 +5,7 @@
 #include "criterion.h"
 
 #pragma once
-class CriterionUJTyp : Criterion<UJTyp> {
+class CriterionUJTyp : public Criterion<UJTyp> {
 public:
     UJTyp evaluate(const StoredData &data) override;
 
