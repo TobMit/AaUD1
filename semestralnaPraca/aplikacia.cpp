@@ -45,6 +45,9 @@ Aplikacia::Aplikacia() :
                                  *vzdelanieOkres,*vzdelanieKraj, *vzdelanieStat);
     cout << " - 100%"  << endl;
     resetColor();
+
+    ShellSort sort;
+
 }
 
 Aplikacia::~Aplikacia() {

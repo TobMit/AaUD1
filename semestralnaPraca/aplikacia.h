@@ -16,6 +16,7 @@
 #include "Criterion/criterionUJTyp.h"
 #include "Criterion/criterionVZPocet.h"
 #include "criterionVZPodiel.h"
+#include "shellSort.h"
 
 enum class Color {
     Red,
