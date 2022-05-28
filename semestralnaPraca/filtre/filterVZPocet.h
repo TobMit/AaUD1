@@ -2,28 +2,12 @@
 // Created by Tobias on 26/05/2022.
 //
 #pragma once
-/*
+
 #include "filter.h"
+#include "criterionVZPocet.h"
 
-class FilterVzPocet : Filter<int> {
-private:
-    int minimum = 0;
-    int maximum = 0;
-    int index = 0;
+class FilterVzPocet : public Filter_FI<int>{
 public:
-    FilterVzPocet(int min, int max) :
-        minimum(min),
-        maximum(max)
-    {
-    };
-    bool pass(int criterionValue) override;
+    FilterVzPocet(int pIndex, int pMin, int pMax) :
+        Filter_FI(new CriterionVZPocet(pIndex), pMin, pMax) {}
 };
-
-inline bool FilterVzPocet::pass(int criterionValue) {
-    bool retrunValue = false;
-    if (minimum <= criterionValue && criterionValue <= maximum) {
-        retrunValue = true;
-    }
-    return retrunValue;
-}
-*/

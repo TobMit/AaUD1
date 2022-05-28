@@ -394,8 +394,11 @@ void Aplikacia::filtrovanie() {
     cout << "\t- [7] Nezistené (abs.)" << endl;
 
     //------------------- Filter počet v danej VZ skupine -------------------
-    CriterionVZPocet *criVzPoc = nullptr;
-    FilterVzPodiel *filtVzPoc = nullptr;
+
+    //cout << "Aplikovať filtre pre vzdelavanie? \n"
+
+
+    AND_Filter andFilter;
 
     wstring filtPocIndex;
     changeColor(Color::DarkBlue);
@@ -407,7 +410,6 @@ void Aplikacia::filtrovanie() {
             if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
                 throw std::exception();
             }
-            criVzPoc = new CriterionVZPocet(indexFilter);
             int min;
             int max;
             resetColor();
@@ -421,7 +423,12 @@ void Aplikacia::filtrovanie() {
             cin >> max;
             // služi na odchitenie enteru ktorý wcin nezachil predtým
             std::getline(wcin, tmp);
-            filtVzPoc = new FilterVzPocet(min, max);
+            auto filter = new FilterVzPocet(indexFilter, min, max);
+            andFilter.registerFilter(filter);
+
+
+
+
         } catch (std::exception) {
             changeColor(Color::Red);
             cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
@@ -431,8 +438,6 @@ void Aplikacia::filtrovanie() {
 
     //------------------- Filter Podiel v danej VZ skupine -------------------
     wstring filtPodIndex;
-    CriterionVZPodiel *criVzPod = nullptr;
-    FilterVzPodiel *filtVzPod = nullptr;
     changeColor(Color::DarkBlue);
     cout << "Filter Podiel v zadanej skupine \n\t-> zadajte index: ";
     std::getline(wcin, filtPodIndex);
@@ -442,7 +447,6 @@ void Aplikacia::filtrovanie() {
             if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
                 throw std::exception();
             }
-            criVzPod = new CriterionVZPodiel(indexFilter);
             int min;
             int max;
             resetColor();
@@ -456,7 +460,9 @@ void Aplikacia::filtrovanie() {
             cin >> max;
             // služi na odchitenie enteru ktorý wcin nezachil predtým
             std::getline(wcin, tmp);
-            filtVzPod = new FilterVzPodiel(min, max);
+            auto filter = new FilterVzPodiel (indexFilter, min, max);
+            andFilter.registerFilter(filter);
+
         } catch (std::exception) {
             changeColor(Color::Red);
             cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
@@ -471,27 +477,12 @@ void Aplikacia::filtrovanie() {
     auto ixStat = codeIndex->find(L"SK");
     // ------------------- Filtre vzdelávanie -------------------
     bool zozbrazStat = true;
-    if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod == nullptr && criVzPod == nullptr) {
-        zozbrazStat = filtVzPoc->pass(criVzPoc->evaluate(*ixStat));
-    }
-    if (filtVzPoc == nullptr && criVzPoc == nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-        zozbrazStat = filtVzPod->pass(criVzPod->evaluate(*ixStat));
-    }
-    if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-        zozbrazStat = filtVzPod->pass(criVzPod->evaluate(*ixStat))
-                && filtVzPoc->pass(criVzPoc->evaluate(*ixStat));
-    }
 
-    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && zozbrazStat) {
+    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixStat)) {
         for (int i = 0; i < ixStat->getSize(); ++i) {
             wcout << ixStat->at(i) << L" ";
         }
-        if (criVzPoc != nullptr) {
-            cout << "Počet v zadanej skupine: " << criVzPoc->evaluate(*ixStat);
-        }
-        if (criVzPod != nullptr) {
-            cout << "Podiel v zadanej skupine: " << criVzPod->evaluate(*ixStat);
-        }
+
         wcout << endl;
     }
     auto arrKraj = statIndex->find(L"SK");
@@ -511,27 +502,13 @@ void Aplikacia::filtrovanie() {
             changeColor(Color::Green);
             // ------------------- Filtre vzdelávanie -------------------
             bool zozbrazKraj = true;
-            if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod == nullptr && criVzPod == nullptr) {
-                zozbrazKraj = filtVzPoc->pass(criVzPoc->evaluate(*ixKraj));
-            }
-            if (filtVzPoc == nullptr && criVzPoc == nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                zozbrazKraj = filtVzPod->pass(criVzPod->evaluate(*ixKraj));
-            }
-            if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                zozbrazKraj = filtVzPod->pass(criVzPod->evaluate(*ixKraj))
-                              && filtVzPoc->pass(criVzPoc->evaluate(*ixKraj));
-            }
-            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && zozbrazKraj) {
+
+            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixKraj)) {
                 wcout << "\t";
                 for (int i = 0; i < ixKraj->getSize(); ++i) {
                     wcout << ixKraj->at(i) << L" ";
                 }
-                if (criVzPoc != nullptr) {
-                    cout << "Počet v zadanej skupine: " << criVzPoc->evaluate(*ixKraj);
-                }
-                if (criVzPod != nullptr) {
-                    cout << "Podiel v zadanej skupine: " << criVzPod->evaluate(*ixKraj);
-                }
+                andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                 wcout << endl;
             }
 
@@ -550,27 +527,12 @@ void Aplikacia::filtrovanie() {
                     changeColor(Color::Magenta);
                     // ------------------- Filtre vzdelávanie -------------------
                     bool zozbrazOkres = true;
-                    if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod == nullptr && criVzPod == nullptr) {
-                        zozbrazOkres = filtVzPoc->pass(criVzPoc->evaluate(*ixOkres));
-                    }
-                    if (filtVzPoc == nullptr && criVzPoc == nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                        zozbrazOkres = filtVzPod->pass(criVzPod->evaluate(*ixOkres));
-                    }
-                    if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                        zozbrazOkres = filtVzPod->pass(criVzPod->evaluate(*ixOkres))
-                                      && filtVzPoc->pass(criVzPoc->evaluate(*ixOkres));
-                    }
-                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && zozbrazOkres) {
+                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixOkres)) {
                         wcout << "\t" << "\t";
                         for (int i = 0; i < ixOkres->getSize(); ++i) {
                             wcout << ixOkres->at(i) << L" ";
                         }
-                        if (criVzPoc != nullptr) {
-                            cout << "Počet v zadanej skupine: " << criVzPoc->evaluate(*ixOkres);
-                        }
-                        if (criVzPod != nullptr) {
-                            cout << "Podiel v zadanej skupine: " << criVzPod->evaluate(*ixOkres);
-                        }
+                        andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                         wcout << endl;
                     }
 
@@ -582,27 +544,13 @@ void Aplikacia::filtrovanie() {
                                 continue;
                             }
                             bool zozbrazObec = true;
-                            if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod == nullptr && criVzPod == nullptr) {
-                                zozbrazObec = filtVzPoc->pass(criVzPoc->evaluate(*ixObce));
-                            }
-                            if (filtVzPoc == nullptr && criVzPoc == nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                                zozbrazObec = filtVzPod->pass(criVzPod->evaluate(*ixObce));
-                            }
-                            if (filtVzPoc != nullptr && criVzPoc != nullptr && filtVzPod != nullptr && criVzPod != nullptr) {
-                                zozbrazObec = filtVzPod->pass(criVzPod->evaluate(*ixObce))
-                                               && filtVzPoc->pass(criVzPoc->evaluate(*ixObce));
-                            }
-                            if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && zozbrazObec) {
+
+                            if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixObce)) {
                                 wcout << "\t" << "\t" << "\t";
                                 for (int i = 0; i < ixObce->getSize(); ++i) {
                                     wcout << ixObce->at(i) << L" ";
                                 }
-                                if (criVzPoc != nullptr) {
-                                    cout << "Počet v zadanej skupine: " << criVzPoc->evaluate(*ixObce);
-                                }
-                                if (criVzPod != nullptr) {
-                                    cout << "Podiel v zadanej skupine: " << criVzPod->evaluate(*ixObce);
-                                }
+                                andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                                 wcout << endl;
                             }
                         }
@@ -614,10 +562,6 @@ void Aplikacia::filtrovanie() {
         }
     }
 
-    delete criVzPoc;
-    delete filtVzPoc;
-    delete criVzPod;
-    delete filtVzPod;
     resetColor();
 }
 

@@ -5,9 +5,9 @@
 #include "filter.h"
 #include "criterionVZPodiel.h"
 
-class FilterVzPodiel : Filter_FI<double> {
+class FilterVzPodiel : public Filter_FI<double> {
 public:
-    FilterVzPodiel(Criterion<double> *criterion, double pMin, double pMax) : Filter_FI(criterion, pMin, pMax) {}
-
+    FilterVzPodiel(int pIndex, double pMin, double pMax) :
+        Filter_FI<double>(new CriterionVZPodiel(pIndex), pMin, pMax) {}
 
 };

@@ -11,6 +11,7 @@
 #include "tableLoader.h"
 #include "filterVZPocet.h"
 #include "filterVZPodiel.h"
+#include "advFilter.h"
 #include "Criterion/criterionNazov.h"
 #include "Criterion/criterionUJTyp.h"
 #include "Criterion/criterionVZPocet.h"

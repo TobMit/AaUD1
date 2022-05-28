@@ -8,7 +8,9 @@
 
 class Filter {
 public:
-    virtual bool pass(const StoredData *data) = 0;
+    virtual bool pass(const StoredData &data) = 0;
+    virtual void coutEvaluate(const StoredData &data, string text) = 0;
+    virtual double filterEvaluate(const StoredData &data) = 0;
     virtual ~Filter() = default;
 };
 
@@ -24,8 +26,15 @@ public:
         delete criterion;
         criterion = nullptr;
     }
-    inline bool pass (const StoredData* data) override {
+    inline bool pass(const StoredData& data) override {
         return passFilter(criterion->evaluate(data));
+    }
+    inline void coutEvaluate(const StoredData& data, string text) override{
+        cout << text << criterion->evaluate(data);
+    }
+
+    inline double filterEvaluate(const StoredData &data) override {
+        return criterion->evaluate(data);
     }
 };
 
