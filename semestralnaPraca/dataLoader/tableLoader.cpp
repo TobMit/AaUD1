@@ -97,6 +97,10 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
                 data->setNextParameter(loader->getNextParameter());
             }
             vzdelanie.insert(data->getCode(), data);
+            auto test = codeIndex.find(data->getCode());
+            test->setVzdelavanie(data);
+            test->getCode();
+
         }
     }
 
@@ -179,6 +183,7 @@ void TableLoader::spracujVzdelanie(
             vzOkres->setNextIntParameter(spocitajVzdelanie(i, *ixOkres->accessData(), vzdelanieObec));
         }
         vzdelanieOkres.insert(vzOkres->getCode(), vzOkres);
+        findOkres->setVzdelavanie(vzOkres);
     }
 
     //----------------- Vzdelanie Kraje -------------------
@@ -189,8 +194,10 @@ void TableLoader::spracujVzdelanie(
             vzKraj->setNextIntParameter(spocitajVzdelanie(i, *ixKraj->accessData(), vzdelanieOkres));
         }
         vzdelanieKraj.insert(vzKraj->getCode(), vzKraj);
+        findKraj->setVzdelavanie(vzKraj);
     }
 
+    //----------------- Vzdelanie Stat -------------------
     for (auto ixStat: statIndex) {
         auto findStat = codeIndex.find(ixStat->getKey());
         OstatneUdaje *vzStat = new OstatneUdaje(findStat->getCode(), findStat->getOfficialTitle());
@@ -198,6 +205,7 @@ void TableLoader::spracujVzdelanie(
             vzStat->setNextIntParameter(spocitajVzdelanie(i, *ixStat->accessData(), vzdelanieKraj));
         }
         vzdelanieStat.insert(vzStat->getCode(), vzStat);
+        findStat->setVzdelavanie(vzStat);
     }
 
 }

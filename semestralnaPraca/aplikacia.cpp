@@ -165,31 +165,37 @@ void Aplikacia::bodoveVyhladavanie() {
 
     CriterionNazov meno;
     CriterionUJTyp typUJ;
-    OstatneUdaje *findOstatne;
+    OstatneUdaje *findOstatne = nullptr;
 
-    StoredData *odlozenie;
-    try {
-        switch (typUJ.evaluate(*findData)) {
-
-            case UJTyp::Stat :
-                odlozenie = vzdelanieStat->find(findData->getCode());
-                break;
-            case UJTyp::Kraj :
-                odlozenie = vzdelanieKraj->find(findData->getCode());
-                break;
-            case UJTyp::Okres :
-                odlozenie = vzdelanieOkres->find(findData->getCode());
-                break;
-            case UJTyp::Obec :
-                odlozenie = vzdelanieObec->find(findData->getCode());
-                break;
-        }
+    StoredData *odlozenie = findData->getVzdelavanie();
+    if (odlozenie != nullptr) {
         findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
-
-    } catch (std::out_of_range) {
+    } else {
         changeColor(Color::Red);
-        cout << "Informácie o vzdelávani nebolí nájdené." << endl;
+        cout << "Informácie o vzdelávani neboly nájdené." << endl;
     }
+//    try {
+//        switch (typUJ.evaluate(*findData)) {
+//
+//            case UJTyp::Stat :
+//                odlozenie = vzdelanieStat->find(findData->getCode());
+//                break;
+//            case UJTyp::Kraj :
+//                odlozenie = vzdelanieKraj->find(findData->getCode());
+//                break;
+//            case UJTyp::Okres :
+//                odlozenie = vzdelanieOkres->find(findData->getCode());
+//                break;
+//            case UJTyp::Obec :
+//                odlozenie = vzdelanieObec->find(findData->getCode());
+//                break;
+//        }
+//        findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
+//
+//    } catch (std::out_of_range) {
+//        changeColor(Color::Red);
+//        cout << "Informácie o vzdelávani neboly nájdené." << endl;
+//    }
 
     //----------- Informácie o UJ ----------------
     cout << endl;

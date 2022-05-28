@@ -37,7 +37,7 @@ public:
     virtual int getSize() = 0;
     /// Nastavi pointer na vzdelávanie danej UJ. Pre OstatneUdaje je to null ptr.
     /// \param pVzdelanie - Vzdelávanie danej územnej jednotky.
-    virtual void setVzdelavanie(const StoredData *pVzdelanie) const= 0;
+    virtual void setVzdelavanie(StoredData *pVzdelanie) = 0;
     /// Vráti príslušné vzdlávanie ak je nastavené
     /// \return - Pointer na vzedlávanie.
     virtual StoredData* getVzdelavanie() const =0;

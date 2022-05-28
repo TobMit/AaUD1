@@ -45,7 +45,7 @@ public:
 
     bool belongsMe(StoredData *NUJednotka) const override;
 
-    void setVzdelavanie(const StoredData *pVzdelanie) const override;
+    void setVzdelavanie(StoredData *pVzdelanie) override;
 
     StoredData *getVzdelavanie() const override;
 
@@ -120,7 +120,7 @@ inline bool OstatneUdaje::belongsTo(StoredData &VUJednotka) const {
     return false;
 }
 
-inline void OstatneUdaje::setVzdelavanie(const StoredData *pVzdelanie) const {
+inline void OstatneUdaje::setVzdelavanie(StoredData *pVzdelanie) {
 }
 
 inline StoredData *OstatneUdaje::getVzdelavanie() const {
