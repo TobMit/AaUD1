@@ -522,13 +522,14 @@ void Aplikacia::filtrovanie() {
 
 
     //------------------------------------------ Jadro filtrovania ------------------------------------------
+    //------------------ Stat ------------------
     auto ixStat = codeIndex->find("SK");
-
     if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
         dataToSort->insert(ixStat->getCode(), ixStat);
     }
     auto arrKraj = statIndex->find("SK");
     if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+        //------------------ Kraj ------------------
         for (auto ixKraj: *arrKraj) {
             // overí sa či kraj nepatrí do targetu
             // alebo target nepatrí do kraju
@@ -547,6 +548,7 @@ void Aplikacia::filtrovanie() {
             }
 
             if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                //------------------ Okres ------------------
                 auto arrOkres = krajIndex->find(ixKraj->at(5));
                 for (auto ixOkres: *arrOkres) {
                     // overí sa či kraj nepatrí do targetu
@@ -563,6 +565,7 @@ void Aplikacia::filtrovanie() {
                     }
 
                     if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
+                        //------------------ Obec ------------------
                         auto arrObec = okresIndex->find(ixOkres->getCode());
                         for (auto ixObce: *arrObec) {
                             if (ixObce->belongsTo(*targetUJ) == false) {
