@@ -9,6 +9,12 @@
 #include "../structures/table/unsorted_sequence_table.h"
 #include "../structures/table/sorted_sequence_table.h"
 #include "tableLoader.h"
+#include "filterVZPocet.h"
+#include "filterVZPodiel.h"
+#include "Criterion/criterionNazov.h"
+#include "Criterion/criterionUJTyp.h"
+#include "Criterion/criterionVZPocet.h"
+#include "criterionVZPodiel.h"
 
 enum class Color {
     Red,

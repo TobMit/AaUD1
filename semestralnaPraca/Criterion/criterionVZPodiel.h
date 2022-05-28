@@ -25,14 +25,13 @@ inline double CriterionVZPodiel::evaluate(const StoredData &data) {
     //todo skontrolovat memleaky
     double retunrValue = 0;
     if (data.getVzdelavanie() != nullptr) {
-        auto ostatneData = dynamic_cast<const OstatneUdaje &>(*data.getVzdelavanie());
-        CriterionVZPocet *pocet = new CriterionVZPocet(index);
+        auto *ostatneData = dynamic_cast<OstatneUdaje *>(data.getVzdelavanie());
         int pocetObyvatelov = 0;
-        for (int i = 0; i < ostatneData.getSize(); ++i) {
-            pocetObyvatelov += ostatneData.intAt(i);
+        for (int i = 0; i < ostatneData->getSize(); ++i) {
+            pocetObyvatelov += ostatneData->intAt(i);
         }
-        retunrValue = 100 * (pocet->evaluate(data) / pocetObyvatelov);
-        delete pocet;
+        double medcziPocet = ostatneData->intAt(index);
+        retunrValue = 100 * (medcziPocet/ pocetObyvatelov);
     }
     return retunrValue;
 }
