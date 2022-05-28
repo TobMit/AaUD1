@@ -46,8 +46,6 @@ Aplikacia::Aplikacia() :
     cout << " - 100%"  << endl;
     resetColor();
 
-    ShellSort sort;
-
 }
 
 Aplikacia::~Aplikacia() {
