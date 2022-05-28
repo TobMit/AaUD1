@@ -29,6 +29,7 @@ include_directories(semestralnaPraca/dataLoader)
 include_directories(semestralnaPraca/dataStructure)
 include_directories(semestralnaPraca/Criterion)
 include_directories(semestralnaPraca/filtre)
+include_directories(semestralnaPraca/filtre/sort)
 
 add_executable(AUS_Console
         structures/_logger/file_log_consumer.cpp
@@ -134,6 +135,8 @@ add_executable(semestralnaPraca
         semestralnaPraca/filtre/filter.h
         semestralnaPraca/filtre/filterVZPocet.h
         semestralnaPraca/filtre/filterVZPodiel.h
+        semestralnaPraca/filtre/advFilter.h
+        semestralnaPraca/filtre/sort/shellSort.h
         structures/_logger/file_log_consumer.cpp
         structures/_logger/file_log_consumer.h
         structures/_logger/logger.cpp
@@ -191,4 +194,4 @@ add_executable(semestralnaPraca
         structures/types.h
         structures/utils.cpp
         structures/utils.h
-        semestralnaPraca/filtre/advFilter.h)
+        )
