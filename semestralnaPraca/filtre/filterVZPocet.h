@@ -4,7 +4,6 @@
 #pragma once
 
 #include "filter.h"
-#include "criterionVZPocet.h"
 
 class FilterVzPocet : Filter<int> {
 private:
@@ -17,14 +16,13 @@ public:
         maximum(max)
     {
     };
-    bool pass(const StoredData &data, Criterion<int> *criterion) override;
+    bool pass(const StoredData &data, int criterionValue) override;
 };
 
-inline bool FilterVzPocet::pass(const StoredData &data, Criterion<int> *criterion) {
+inline bool FilterVzPocet::pass(const StoredData &data, int criterionValue) {
     bool retrunValue = false;
-    if (minimum >= criterion->evaluate(data) && criterion->evaluate(data) <= maximum) {
+    if (minimum >= criterionValue && criterionValue <= maximum) {
         retrunValue = true;
     }
     return retrunValue;
 }
-
