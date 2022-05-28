@@ -11,12 +11,14 @@ public:
     virtual bool pass(const StoredData &data) = 0;
     virtual void coutEvaluate(const StoredData &data, string text) = 0;
     virtual double filterEvaluate(const StoredData &data) = 0;
+    virtual void id(int pId) = 0;
     virtual ~Filter() = default;
 };
 
 template <typename  ValueType>
 class FilterWithCriterion : public Filter {
     Criterion<ValueType> *criterion;
+    int idFiltra;
 protected:
     virtual bool passFilter(ValueType pValue) = 0;
 public:
@@ -30,12 +32,17 @@ public:
         return passFilter(criterion->evaluate(data));
     }
     inline void coutEvaluate(const StoredData& data, string text) override{
-        cout << text << criterion->evaluate(data);
+        cout << "Filter " << idFiltra << ". " << text << criterion->evaluate(data);
     }
 
     inline double filterEvaluate(const StoredData &data) override {
         return criterion->evaluate(data);
     }
+
+    inline void id(int pId) override {
+        idFiltra = pId;
+    }
+
 };
 
 template <typename ValueType>
