@@ -306,6 +306,8 @@ void Aplikacia::vypisIformacie(StoredData *data, string odsadenie) {
 }
 
 void Aplikacia::filtrovanie() {
+    structures::UnsortedSequenceTable<string, StoredData *> *dataToSort = new structures::UnsortedSequenceTable<string, StoredData *>;
+
     changeColor(Color::BrightBlue);
     cout << "------------------------- Filtrovanie -------------------------" << endl;
     resetColor();
@@ -526,11 +528,7 @@ void Aplikacia::filtrovanie() {
     bool zozbrazStat = true;
 
     if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
-        for (int i = 0; i < ixStat->getSize(); ++i) {
-            cout << ixStat->at(i) << " ";
-        }
-        compositeFilter->coutEvaluate(*ixStat, "Filter počet v zadanej skupine: ");
-        cout << endl;
+        dataToSort->insert(ixStat->getCode(), ixStat);
     }
     auto arrKraj = statIndex->find("SK");
     if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
@@ -551,12 +549,7 @@ void Aplikacia::filtrovanie() {
             bool zozbrazKraj = true;
 
             if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj)) {
-                cout << "\t";
-                for (int i = 0; i < ixKraj->getSize(); ++i) {
-                    cout << ixKraj->at(i) << " ";
-                }
-                compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
-                cout << endl;
+                dataToSort->insert(ixKraj->getCode(), ixKraj);
             }
 
             if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
@@ -575,12 +568,7 @@ void Aplikacia::filtrovanie() {
                     // ------------------- Filtre vzdelávanie -------------------
                     bool zozbrazOkres = true;
                     if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres)) {
-                        cout << "\t" << "\t";
-                        for (int i = 0; i < ixOkres->getSize(); ++i) {
-                            cout << ixOkres->at(i) << " ";
-                        }
-                        compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
-                        cout << endl;
+                        dataToSort->insert(ixOkres->getCode(), ixOkres);
                     }
 
                     if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
@@ -593,11 +581,7 @@ void Aplikacia::filtrovanie() {
                             bool zozbrazObec = true;
 
                             if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixObce)) {
-                                cout << "\t" << "\t" << "\t";
-                                for (int i = 0; i < ixObce->getSize(); ++i) {
-                                    cout << ixObce->at(i) << " ";
-                                }
-                                compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
+                                dataToSort->insert(ixObce->getCode(), ixObce);
                                 cout << endl;
                             }
                         }
@@ -608,6 +592,12 @@ void Aplikacia::filtrovanie() {
 
         }
     }
+
+
+    for (auto item: *dataToSort) {
+        cout << item->accessData()->at(0) << " " << item->accessData()->getOfficialTitle() << endl;
+    }
+    delete dataToSort;
     delete compositeFilter;
     resetColor();
 }
