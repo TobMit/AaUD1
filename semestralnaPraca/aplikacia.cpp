@@ -582,7 +582,6 @@ void Aplikacia::filtrovanie() {
 
                             if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixObce)) {
                                 dataToSort->insert(ixObce->getCode(), ixObce);
-                                cout << endl;
                             }
                         }
                     }
@@ -593,10 +592,14 @@ void Aplikacia::filtrovanie() {
         }
     }
 
+    ShellSort<string> sort;
+    CriterionNazov  *nazov = new CriterionNazov;
+    sort.sordData(*dataToSort, nazov, true);
 
     for (auto item: *dataToSort) {
         cout << item->accessData()->at(0) << " " << item->accessData()->getOfficialTitle() << endl;
     }
+    delete nazov;
     delete dataToSort;
     delete compositeFilter;
     resetColor();

@@ -12,9 +12,11 @@ class ShellSort {
 public:
     ShellSort();
 
-    void sortData(int krok, structures::UnsortedSequenceTable<string, StoredData *> &pTable,
+    void sordData(structures::UnsortedSequenceTable<string, StoredData *> &pTable,
                   Criterion<critVal> *criterion, bool zozstupne);
 private:
+    void sortData(int krok, structures::UnsortedSequenceTable<string, StoredData *> &pTable,
+                  Criterion<critVal> *criterion, bool zozstupne);
     void printTable(structures::UnsortedSequenceTable<string, StoredData *> &pTable, int size);
 
 };
@@ -32,6 +34,16 @@ inline ShellSort<critVal>::ShellSort() {
 //    delete data;
 }
 
+
+template<typename critVal>
+inline void ShellSort<critVal>::sordData(structures::UnsortedSequenceTable<string, StoredData *> &pTable,
+                                  Criterion<critVal> *criterion, bool zozstupne) {
+    if (pTable.size() < 10) {
+        sortData(pTable.size()/2, pTable, criterion, zozstupne);
+    } else {
+        sortData(log10(pTable.size()), pTable, criterion, zozstupne);
+    }
+}
 template<typename critVal>
 inline void ShellSort<critVal>::sortData(int krok, structures::UnsortedSequenceTable<string, StoredData *> &pTable,
                                          Criterion<critVal> *criterion, bool zozstupne) {
