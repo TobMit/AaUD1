@@ -32,6 +32,7 @@ public:
     inline void coutEvaluate(const StoredData &data, string text) override {
         for (auto filter: registredFilters) {
             filter->coutEvaluate(data, text);
+            cout << " ";
         }
     }
 
@@ -56,6 +57,7 @@ public:
     inline void coutEvaluate(const StoredData &data, string text) override {
         for (auto filter: registredFilters) {
             filter->coutEvaluate(data, text);
+            cout << " ";
         }
     }
 

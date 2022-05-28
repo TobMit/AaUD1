@@ -83,8 +83,8 @@ private:
     /// \return
     static string krajGetCode(StoredData *data);
 
-    Filter *filterPocet(int filterId, Criterion<int> *criterion, bool &findCrit);
-    Filter *filterPodiel(int filterId, Criterion<double> *criterion, bool &findCrit);
+    Filter *filterPocet(int filterId, int &pIndex, bool &findCrit, bool &itsCritPoc);
+    Filter *filterPodiel(int filterId, int &pIndex, bool &findCrit, bool &itsCritPod);
     void vypisVZmenu();
 };
 
