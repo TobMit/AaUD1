@@ -391,6 +391,7 @@ void Aplikacia::filtrovanie() {
     int vzVolbaAplikovat;
     cin >> vzVolbaAplikovat;
 
+    int cislovanieFitrlov = 0;
     if (vzVolbaAplikovat == 1) {
         cout << "Ktory typ chete použiť? " << endl;
         cout << "\t[0] Filter počet VZ" << endl;
@@ -420,7 +421,9 @@ void Aplikacia::filtrovanie() {
             changeColor(Color::Cyan);
             vypisVZmenu();
             while (true) {
-                pocet->registerFilter(filterPocet());
+                cislovanieFitrlov++;
+                cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                pocet->registerFilter(filterPocet(0, nullptr, false));
                 cout << "Chcete zadat znovu Filter?" << endl;
                 cout << "\t[1] Ano" << endl;
                 cout << "\t[0] Nie" << endl;
@@ -450,7 +453,9 @@ void Aplikacia::filtrovanie() {
             changeColor(Color::Cyan);
             vypisVZmenu();
             while (true) {
-                podiel->registerFilter(filterPodiel());
+                cislovanieFitrlov++;
+                cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                podiel->registerFilter(filterPodiel(0, nullptr, false));
                 cout << "Chcete zadat znovu Filter?" << endl;
                 cout << "\t[1] Ano" << endl;
                 cout << "\t[0] Nie" << endl;
@@ -496,10 +501,12 @@ void Aplikacia::filtrovanie() {
             changeColor(Color::Cyan);
             vypisVZmenu();
             while (true) {
+                cislovanieFitrlov++;
+                cout << "Filter cislo: " << cislovanieFitrlov << endl;
                 if (volbaTypu == 0) {
-                    compositeFilter->registerFilter(filterPocet());
+                    compositeFilter->registerFilter(filterPocet(0, nullptr, false));
                 } else if (volbaTypu == 1) {
-                    compositeFilter->registerFilter(filterPodiel());
+                    compositeFilter->registerFilter(filterPodiel(0, nullptr, false));
                 }
 
                 cout << "Chcete zadat znovu Filter?" << endl;
@@ -699,7 +706,7 @@ UJTyp Aplikacia::prelozNaUJTyp(string naPreklad) {
     }
 }
 
-Filter *Aplikacia::filterPocet() {
+Filter *Aplikacia::filterPocet(int filterId, Criterion<int> *criterion, bool &findCrit) {
     int maxVZmenu = 7;
     int minVZmenu = 0;
     string tmp;
@@ -727,12 +734,24 @@ Filter *Aplikacia::filterPocet() {
     // služi na odchitenie enteru ktorý cin nezachil predtým
     std::getline(cin, tmp);
     auto filter = new FilterVzPocet(indexFilter, min, max);
+    filter->id(filterId);
+    if (!findCrit && criterion == nullptr) {
+        changeColor(Color::Yellow);
+        cout << "Chcete Triediť podľa tohto filtra?" << endl;
+        cout << "\tAno [1] \n\tNie [0]\nVaša volba: ";
+        int volba;
+        cin >> volba;
+        if  (volba == 1) {
+            criterion = new CriterionVZPocet(indexFilter);
+            findCrit = true;
+        }
+    }
     return filter;
 
 
 }
 
-Filter *Aplikacia::filterPodiel() {
+Filter *Aplikacia::filterPodiel(int filterId, Criterion<double> *criterion, bool &findCrit) {
     int maxVZmenu = 7;
     int minVZmenu = 0;
     string tmp;
@@ -759,6 +778,18 @@ Filter *Aplikacia::filterPodiel() {
     // služi na odchitenie enteru ktorý cin nezachil predtým
     std::getline(cin, tmp);
     auto filter = new FilterVzPodiel(indexFilter, min, max);
+    filter->id(filterId);
+    if (!findCrit && criterion == nullptr) {
+        changeColor(Color::Yellow);
+        cout << "Chcete Triediť podľa tohto filtra?" << endl;
+        cout << "\tAno [1] \n\tNie [0]\nVaša volba: ";
+        int volba;
+        cin >> volba;
+        if  (volba == 1) {
+            criterion = new CriterionVZPodiel(indexFilter);
+            findCrit = true;
+        }
+    }
     return filter;
 
 }
