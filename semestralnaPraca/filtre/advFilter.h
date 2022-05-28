@@ -50,4 +50,15 @@ public:
         }
         return returnValue;
     }
+
+    inline void coutEvaluate(const StoredData &data, string text) override {
+        for (int i = 1; i <= registredFilters.size(); ++i) {
+            cout << i << ". " << text;
+            registredFilters.at(i-1)->coutEvaluate(data, "");
+        }
+    }
+
+    double filterEvaluate(const StoredData &data) override {
+        return 0;
+    }
 };

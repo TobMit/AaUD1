@@ -376,100 +376,85 @@ void Aplikacia::filtrovanie() {
     }
 
     //-------------------------------------- VZDELAVANIE --------------------------------------
-    static const int maxVZmenu = 7;
-    static const int minVZmenu = 0;
+    CompositeFilter *compositeFilter = nullptr;
+
     changeColor(Color::BrightBlue);
     cout << "Vzdelávanie" << endl;
     changeColor(Color::Red);
     cout << "!! Ak sa rozhodnete aplikovať filter, MUSIA byť vyplnéne všetky parametre !!" << endl;
-    changeColor(Color::Cyan);
-    cout << "Filtrovať podľa:" << endl;
-    cout << "\t- [0] Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.)" << endl;
-    cout << "\t- [1] Základné vzdelanie (abs.)" << endl;
-    cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
-    cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
-    cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
-    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
-    cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
-    cout << "\t- [7] Nezistené (abs.)" << endl;
 
-    //------------------- Filter počet v danej VZ skupine -------------------
-
-    //cout << "Aplikovať filtre pre vzdelavanie? \n"
-
-
-    AND_Filter andFilter;
-
-    wstring filtPocIndex;
     changeColor(Color::DarkBlue);
-    cout << "Filter Počet v zadanej skupine \n\t-> zadajte index: ";
-    std::getline(wcin, filtPocIndex);
-    if (filtPocIndex.compare(L"") != 0) {
-        try {
-            int indexFilter = stoi(filtPocIndex);
-            if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
-                throw std::exception();
+    cout << "Aplikovať filtre pre vzdelavanie? \n\t[1] Ano \n\t[0] Nie \nVoľba: ";
+    int vzVolbaAplikovat;
+    cin >> vzVolbaAplikovat;
+
+    if (vzVolbaAplikovat == 1) {
+        cout << "Ktory typ chete použiť? " << endl;
+        cout << "\t[0] Filter počet VZ" << endl;
+        cout << "\t[1] Filter podiel VZ" << endl;
+        cout << "\t[2] Oba" << endl;
+        cout << "Voľba: ";
+        int volbaTypu;
+        cin >> volbaTypu;
+
+        int volbaSpojenia;
+        if (volbaTypu == 2) {
+            cout << "\t\tAko chcete spájať filter Počet?" << endl;
+            cout << "\t\t\t[0] filter AND filter" << endl;
+            cout << "\t\t\t[1] filter OR filter" << endl;
+            cout << "\t\tVoľba: ";
+
+
+            cout << "\t\tAko chcete spájať filter Podiel?" << endl;
+            cout << "\t\t\t[0] filter AND filter" << endl;
+            cout << "\t\t\t[1] filter OR filter" << endl;
+            cout << "\t\tVoľba: ";
+
+            cout << "\t\tAko chcete spájať oba filtre?" << endl;
+            cout << "\t\t\t[0] filter1 AND filter2" << endl;
+            cout << "\t\t\t[1] filter1 OR filter2" << endl;
+            cout << "\t\tVoľba: ";
+
+        } else {
+            cout << "\t\tAko chcete spájať filtre?" << endl;
+            cout << "\t\t\t[0] filter AND filter" << endl;
+            cout << "\t\t\t[1] filter OR filter" << endl;
+            cout << "\t\tVoľba: ";
+            cin >> volbaSpojenia;
+            switch (volbaSpojenia) {
+                case 0:
+                    compositeFilter = new AND_Filter;
+                    break;
+                default:
+                    compositeFilter = new OR_Filter;
+                    break;
             }
-            int min;
-            int max;
-            resetColor();
-            cout << "\t(Roz sah pre filter je určený <0, 2 000 000>)";
-            changeColor(Color::Red);
-            cout << "!!Zadavajte iba čísla!!" << endl;
-            changeColor(Color::DarkBlue);
-            cout << "\t-> zadajte min: ";
-            cin >> min;
-            cout << "\t-> zadajte max: ";
-            cin >> max;
-            // služi na odchitenie enteru ktorý wcin nezachil predtým
-            std::getline(wcin, tmp);
-            auto filter = new FilterVzPocet(indexFilter, min, max);
-            andFilter.registerFilter(filter);
+            changeColor(Color::Cyan);
+            vypisVZmenu();
+            while (true) {
+                if (volbaTypu == 0) {
+                    compositeFilter->registerFilter(filterPocet());
+                } else if (volbaTypu == 1) {
+                    compositeFilter->registerFilter(filterPodiel());
+                }
 
-
-
-
-        } catch (std::exception) {
-            changeColor(Color::Red);
-            cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
-        }
-
-    }
-
-    //------------------- Filter Podiel v danej VZ skupine -------------------
-    wstring filtPodIndex;
-    changeColor(Color::DarkBlue);
-    cout << "Filter Podiel v zadanej skupine \n\t-> zadajte index: ";
-    std::getline(wcin, filtPodIndex);
-    if (filtPodIndex.compare(L"") != 0) {
-        try {
-            int indexFilter = stoi(filtPodIndex);
-            if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
-                throw std::exception();
+                cout << "Chcete zadat znovu Filter?" << endl;
+                cout << "\t[1] Ano" << endl;
+                cout << "\t[0] Nie" << endl;
+                cout << "Voľba: ";
+                int pokracovanie;
+                cin >> pokracovanie;
+                if (pokracovanie != 1 ) {
+                    break;
+                }
             }
-            int min;
-            int max;
-            resetColor();
-            cout << "\t(Roz sah pre filter je určený <0, 100>)";
-            changeColor(Color::Red);
-            cout << "!!Zadavajte iba čísla!!" << endl;
-            changeColor(Color::DarkBlue);
-            cout << "\t-> zadajte min: ";
-            cin >> min;
-            cout << "\t-> zadajte max: ";
-            cin >> max;
-            // služi na odchitenie enteru ktorý wcin nezachil predtým
-            std::getline(wcin, tmp);
-            auto filter = new FilterVzPodiel (indexFilter, min, max);
-            andFilter.registerFilter(filter);
-
-        } catch (std::exception) {
-            changeColor(Color::Red);
-            cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
         }
     }
 
-
+    getline(wcin, tmp);
+    if (compositeFilter == nullptr) {
+        compositeFilter = new AND_Filter;
+    }
     //------------------------------------------ Jadro filtrovania ------------------------------------------
 
 
@@ -478,11 +463,11 @@ void Aplikacia::filtrovanie() {
     // ------------------- Filtre vzdelávanie -------------------
     bool zozbrazStat = true;
 
-    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixStat)) {
+    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
         for (int i = 0; i < ixStat->getSize(); ++i) {
             wcout << ixStat->at(i) << L" ";
         }
-
+        compositeFilter->coutEvaluate(*ixStat, "Filter počet v zadanej skupine: ");
         wcout << endl;
     }
     auto arrKraj = statIndex->find(L"SK");
@@ -503,12 +488,12 @@ void Aplikacia::filtrovanie() {
             // ------------------- Filtre vzdelávanie -------------------
             bool zozbrazKraj = true;
 
-            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixKraj)) {
+            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj)) {
                 wcout << "\t";
                 for (int i = 0; i < ixKraj->getSize(); ++i) {
                     wcout << ixKraj->at(i) << L" ";
                 }
-                andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
+                compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                 wcout << endl;
             }
 
@@ -527,12 +512,12 @@ void Aplikacia::filtrovanie() {
                     changeColor(Color::Magenta);
                     // ------------------- Filtre vzdelávanie -------------------
                     bool zozbrazOkres = true;
-                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixOkres)) {
+                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres)) {
                         wcout << "\t" << "\t";
                         for (int i = 0; i < ixOkres->getSize(); ++i) {
                             wcout << ixOkres->at(i) << L" ";
                         }
-                        andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
+                        compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                         wcout << endl;
                     }
 
@@ -545,12 +530,12 @@ void Aplikacia::filtrovanie() {
                             }
                             bool zozbrazObec = true;
 
-                            if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && andFilter.pass(*ixObce)) {
+                            if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixObce)) {
                                 wcout << "\t" << "\t" << "\t";
                                 for (int i = 0; i < ixObce->getSize(); ++i) {
                                     wcout << ixObce->at(i) << L" ";
                                 }
-                                andFilter.coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
+                                compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
                                 wcout << endl;
                             }
                         }
@@ -561,7 +546,7 @@ void Aplikacia::filtrovanie() {
 
         }
     }
-
+    delete compositeFilter;
     resetColor();
 }
 
@@ -665,4 +650,82 @@ UJTyp Aplikacia::prelozNaUJTyp(wstring naPreklad) {
         resetColor();
         return UJTyp::Neoznacene;
     }
+}
+
+Filter *Aplikacia::filterPocet() {
+    int maxVZmenu = 7;
+    int minVZmenu = 0;
+    string tmp;
+    changeColor(Color::DarkBlue);
+    cout << "Filter Počet v zadanej skupine \n\t-> zadajte index: ";
+    int indexFilter;
+    cin >> indexFilter;
+
+    if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
+        changeColor(Color::Red);
+        cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
+        return nullptr;
+    }
+    int min;
+    int max;
+    resetColor();
+    cout << "\t(Rozsah pre filter je určený <0, 2 000 000>)";
+    changeColor(Color::Red);
+    cout << "!!Zadavajte iba čísla!!" << endl;
+    changeColor(Color::DarkBlue);
+    cout << "\t-> zadajte min: ";
+    cin >> min;
+    cout << "\t-> zadajte max: ";
+    cin >> max;
+    // služi na odchitenie enteru ktorý wcin nezachil predtým
+    std::getline(cin, tmp);
+    auto filter = new FilterVzPocet(indexFilter, min, max);
+    return filter;
+
+
+}
+
+Filter *Aplikacia::filterPodiel() {
+    int maxVZmenu = 7;
+    int minVZmenu = 0;
+    string tmp;
+    changeColor(Color::DarkBlue);
+    cout << "Filter Podiel v zadanej skupine \n\t-> zadajte index: ";
+    int indexFilter;
+    cin >> indexFilter;
+    if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
+        changeColor(Color::Red);
+        cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
+        return nullptr;
+    }
+    double min;
+    double max;
+    resetColor();
+    cout << "\t(Rozsah pre filter je určený <0, 100>)";
+    changeColor(Color::Red);
+    cout << "!!Zadavajte iba čísla!!" << endl;
+    changeColor(Color::DarkBlue);
+    cout << "\t-> zadajte min: ";
+    cin >> min;
+    cout << "\t-> zadajte max: ";
+    cin >> max;
+    // služi na odchitenie enteru ktorý wcin nezachil predtým
+    std::getline(cin, tmp);
+    auto filter = new FilterVzPodiel(indexFilter, min, max);
+    return filter;
+
+}
+
+
+
+void Aplikacia::vypisVZmenu() {
+    cout << "Filtrovať podľa:" << endl;
+    cout << "\t- [0] Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.)" << endl;
+    cout << "\t- [1] Základné vzdelanie (abs.)" << endl;
+    cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
+    cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
+    cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
+    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
+    cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
+    cout << "\t- [7] Nezistené (abs.)" << endl;
 }

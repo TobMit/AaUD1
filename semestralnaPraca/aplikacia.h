@@ -81,6 +81,10 @@ private:
     /// \param data
     /// \return
     static wstring krajGetCode(StoredData *data);
+
+    Filter* filterPocet();
+    Filter* filterPodiel();
+    void vypisVZmenu();
 };
 
 
