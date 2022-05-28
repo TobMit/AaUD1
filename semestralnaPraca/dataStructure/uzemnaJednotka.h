@@ -11,25 +11,25 @@ public:
 
     UzemnaJednotka(UJTyp typ);
 
-    UzemnaJednotka(const UJTyp typ, const wstring &pSortNumber, const wstring &pCode,
-                   const wstring &pOfficialTitle, const wstring &pMediumTitle,
-                   const wstring &pShortTitle, const wstring &pNote);
+    UzemnaJednotka(const UJTyp typ, const string &pSortNumber, const string &pCode,
+                   const string &pOfficialTitle, const string &pMediumTitle,
+                   const string &pShortTitle, const string &pNote);
 
-    wstring getCode() const override;
+    string getCode() const override;
 
-    wstring getOfficialTitle() const override;
+    string getOfficialTitle() const override;
 
-    void setCode(const wstring pCode) override;
+    void setCode(const string pCode) override;
 
-    void setOfficialTitle(const wstring pOffTitleName) override;
+    void setOfficialTitle(const string pOffTitleName) override;
 
-    void setNextParameter(const wstring parameter) override;
+    void setNextParameter(const string parameter) override;
 
     int getSize() override;
 
     ~UzemnaJednotka() override;
 
-    wstring &at(int index) override;
+    string &at(int index) override;
 
     UJTyp getUJTyp() const override;
 
@@ -43,12 +43,12 @@ public:
 
 private:
     int dataIndex = 0;
-    wstring sortNumber;
-    wstring code;
-    wstring officialTitle;
-    wstring mediumTitle;
-    wstring shortTitle;
-    wstring note;
+    string sortNumber;
+    string code;
+    string officialTitle;
+    string mediumTitle;
+    string shortTitle;
+    string note;
     UJTyp typUJ;
     StoredData *vzdelavanie;
 
@@ -64,9 +64,9 @@ inline UzemnaJednotka::UzemnaJednotka(UJTyp typ)  :
 {
 }
 
-inline UzemnaJednotka::UzemnaJednotka(const UJTyp typ, const wstring &pSortNumber, const wstring &pCode,
-                                      const wstring &pOfficialTitle, const wstring &pMediumTitle,
-                                      const wstring &pShortTitle, const wstring &pNote) {
+inline UzemnaJednotka::UzemnaJednotka(const UJTyp typ, const string &pSortNumber, const string &pCode,
+                                      const string &pOfficialTitle, const string &pMediumTitle,
+                                      const string &pShortTitle, const string &pNote) {
     sortNumber = pSortNumber;
     code = pCode;
     officialTitle = pOfficialTitle;
@@ -80,27 +80,27 @@ inline UzemnaJednotka::~UzemnaJednotka() {
 
 }
 
-inline wstring UzemnaJednotka::getCode() const {
+inline string UzemnaJednotka::getCode() const {
     return code;
 }
 
 
-inline wstring UzemnaJednotka::getOfficialTitle() const {
+inline string UzemnaJednotka::getOfficialTitle() const {
     return officialTitle;
 }
 
 
-inline void UzemnaJednotka::setCode(const wstring pCode) {
+inline void UzemnaJednotka::setCode(const string pCode) {
     code = pCode;
 }
 
 
-inline void UzemnaJednotka::setOfficialTitle(const wstring pOffTitleName) {
+inline void UzemnaJednotka::setOfficialTitle(const string pOffTitleName) {
     officialTitle = pOffTitleName;
 }
 
 
-inline void UzemnaJednotka::setNextParameter(const wstring parameter) {
+inline void UzemnaJednotka::setNextParameter(const string parameter) {
     switch (dataIndex) {
         case 0:
             sortNumber = parameter;
@@ -132,7 +132,7 @@ inline int UzemnaJednotka::getSize() {
     return 6;
 }
 
-inline wstring &UzemnaJednotka::at(int index) {
+inline string &UzemnaJednotka::at(int index) {
     switch (index) {
         case 0:
             return sortNumber;
@@ -161,9 +161,9 @@ inline UJTyp UzemnaJednotka::getUJTyp() const {
 }
 
 inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
-    wstring porovnavanie;
+    string porovnavanie;
     if (typUJ == UJTyp::Kraj) {
-        porovnavanie = note.substr(5, wstring::npos);
+        porovnavanie = note.substr(5, string::npos);
     } else {
         porovnavanie = code;
     }
@@ -188,7 +188,7 @@ inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
             return VUJednotka.getCode().substr(0, 2).compare(porovnavanie.substr(0, 2)) == 0;
 
         case UJTyp::Kraj:
-            return VUJednotka.at(5).substr(5, wstring::npos).compare(porovnavanie.substr(0, 5)) == 0;
+            return VUJednotka.at(5).substr(5, string::npos).compare(porovnavanie.substr(0, 5)) == 0;
 
         case UJTyp::Okres:
             return VUJednotka.getCode().substr(0, 6).compare(porovnavanie.substr(0, 6)) == 0;
@@ -197,9 +197,9 @@ inline bool UzemnaJednotka::belongsTo(StoredData &VUJednotka) const {
 }
 
 inline bool UzemnaJednotka::belongsMe(StoredData *NUJednotka) const {
-    wstring porovnavanie;
+    string porovnavanie;
     if (typUJ == UJTyp::Kraj) {
-        porovnavanie = note.substr(5, wstring::npos);
+        porovnavanie = note.substr(5, string::npos);
     } else {
         porovnavanie = code;
     }

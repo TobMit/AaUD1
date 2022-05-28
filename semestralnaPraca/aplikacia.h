@@ -35,20 +35,20 @@ enum class Color {
 
 class Aplikacia {
 private:
-    structures::UnsortedSequenceTable<wstring, StoredData*> *stat;
-    structures::UnsortedSequenceTable<wstring, StoredData*> *kraj;
-    structures::UnsortedSequenceTable<wstring, StoredData*> *okres;
-    structures::UnsortedSequenceTable<wstring, StoredData*> *obec;
-    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieObec;
-    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieOkres;
-    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieKraj;
-    structures::SortedSequenceTable<wstring, StoredData*> *vzdelanieStat;
+    structures::UnsortedSequenceTable<string, StoredData*> *stat;
+    structures::UnsortedSequenceTable<string, StoredData*> *kraj;
+    structures::UnsortedSequenceTable<string, StoredData*> *okres;
+    structures::UnsortedSequenceTable<string, StoredData*> *obec;
+    structures::SortedSequenceTable<string, StoredData*> *vzdelanieObec;
+    structures::SortedSequenceTable<string, StoredData*> *vzdelanieOkres;
+    structures::SortedSequenceTable<string, StoredData*> *vzdelanieKraj;
+    structures::SortedSequenceTable<string, StoredData*> *vzdelanieStat;
 
-    structures::SortedSequenceTable<wstring, StoredData*> *nameIndex;
-    structures::SortedSequenceTable<wstring, StoredData*> *codeIndex;
-    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *statIndex;
-    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *krajIndex;
-    structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*> *okresIndex;
+    structures::SortedSequenceTable<string, StoredData*> *nameIndex;
+    structures::SortedSequenceTable<string, StoredData*> *codeIndex;
+    structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*> *statIndex;
+    structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*> *krajIndex;
+    structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*> *okresIndex;
 
 
 public:
@@ -60,28 +60,28 @@ public:
 private:
     void bodoveVyhladavanie();
 
-    void vypisIformacie(StoredData *data, wstring odsadenie);
+    void vypisIformacie(StoredData *data, string odsadenie);
 
     void filtrovanie();
 
-    void vycistiTable(structures::Table<wstring, StoredData *> *table);
+    void vycistiTable(structures::Table<string, StoredData *> *table);
 
-    void vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable);
+    void vicistiIndex(structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> *pTable);
 
     void changeColor(Color color);
 
     static void resetColor();
 
-    UJTyp prelozNaUJTyp(wstring naPreklad);
+    UJTyp prelozNaUJTyp(string naPreklad);
     /// Vypočitava predka, nekotroluje, či sa dá predok vypočítať. (Napr keď z kraja chceme získať okres)
     /// \param data
     /// \param uroven
     /// \return
-    wstring vypocetVUJ(StoredData *data, UJTyp uroven);
+    string vypocetVUJ(StoredData *data, UJTyp uroven);
     /// Okdstráni z dát nepotrebne údaje. Pozor nekontroluje ci sa jedná naozaj o kraj
     /// \param data
     /// \return
-    static wstring krajGetCode(StoredData *data);
+    static string krajGetCode(StoredData *data);
 
     Filter* filterPocet();
     Filter* filterPodiel();

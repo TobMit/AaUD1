@@ -5,23 +5,23 @@
 #include "aplikacia.h"
 
 Aplikacia::Aplikacia() :
-        stat(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-        kraj(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-        okres(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-        obec(new structures::UnsortedSequenceTable<wstring, StoredData*>),
-        vzdelanieObec(new structures::SortedSequenceTable<wstring, StoredData*>),
-        vzdelanieOkres(new structures::SortedSequenceTable<wstring, StoredData*>),
-        vzdelanieKraj(new structures::SortedSequenceTable<wstring, StoredData*>),
-        vzdelanieStat(new structures::SortedSequenceTable<wstring, StoredData*>),
-        nameIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
-        codeIndex(new structures::SortedSequenceTable<wstring, StoredData*>),
-        statIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
-        krajIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>),
-        okresIndex(new structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData*>*>)
+        stat(new structures::UnsortedSequenceTable<string, StoredData*>),
+        kraj(new structures::UnsortedSequenceTable<string, StoredData*>),
+        okres(new structures::UnsortedSequenceTable<string, StoredData*>),
+        obec(new structures::UnsortedSequenceTable<string, StoredData*>),
+        vzdelanieObec(new structures::SortedSequenceTable<string, StoredData*>),
+        vzdelanieOkres(new structures::SortedSequenceTable<string, StoredData*>),
+        vzdelanieKraj(new structures::SortedSequenceTable<string, StoredData*>),
+        vzdelanieStat(new structures::SortedSequenceTable<string, StoredData*>),
+        nameIndex(new structures::SortedSequenceTable<string, StoredData*>),
+        codeIndex(new structures::SortedSequenceTable<string, StoredData*>),
+        statIndex(new structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*>),
+        krajIndex(new structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*>),
+        okresIndex(new structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*>)
 {
-    auto *slovensko = new UzemnaJednotka(UJTyp::Stat, L"1", L"SK", L"Slovenska republika", L"Slovensko", L"Slovensko", L"1");
+    auto *slovensko = new UzemnaJednotka(UJTyp::Stat, "1", "SK", "Slovenska republika", "Slovensko", "Slovensko", "1");
     stat->insert(slovensko->getCode(), slovensko);
-    auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, L"2", L"ZZ", L"Zahranicie", L"", L"", L"2");
+    auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, "2", "ZZ", "Zahranicie", "", "", "2");
     stat->insert(zahranicie->getCode(), zahranicie);
 
     changeColor(Color::Cyan);
@@ -46,7 +46,7 @@ Aplikacia::Aplikacia() :
     cout << " - 100%"  << endl;
     resetColor();
 
-    ShellSort sort;
+    //ShellSort sort;
 
 }
 
@@ -136,8 +136,8 @@ void Aplikacia::bodoveVyhladavanie() {
     cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
     changeColor(Color::Green);
     cout << "Zadaj názov: ";
-    wstring vyhladavaneMeno;
-    std::getline(wcin, vyhladavaneMeno);
+    string vyhladavaneMeno;
+    std::getline(cin, vyhladavaneMeno);
 
     StoredData *findData;
     try {
@@ -155,7 +155,7 @@ void Aplikacia::bodoveVyhladavanie() {
     cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
     cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
     cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
-    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
+    cout << "\t- [5] Vysokoškolské vzdelanie (abs.)" << endl;
     cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
     cout << "\t- [7] Nezistené (abs.)" << endl;
     cout << "\t- [8] všetko" << endl;
@@ -206,30 +206,30 @@ void Aplikacia::bodoveVyhladavanie() {
 
         case UJTyp::Stat:
             cout << "Typ UJ: Štát" << endl;
-            vypisIformacie(findData, L"");
+            vypisIformacie(findData, "");
             break;
         case UJTyp::Kraj:
             cout << "Typ UJ: Kraj" << endl;
-            vypisIformacie(findData, L"");
-            wcout << "VUJ: \n\t->" << codeIndex->find(findData->at(5).substr(5,2))->getOfficialTitle();
+            vypisIformacie(findData, "");
+            cout << "VUJ: \n\t->" << codeIndex->find(findData->at(5).substr(5,2))->getOfficialTitle();
             cout << ", Typ UJ: Štát" << endl;
             break;
         case UJTyp::Okres:
             cout << "Typ UJ: Okres" << endl;
-            vypisIformacie(findData, L"");
-            wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
+            vypisIformacie(findData, "");
+            cout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
             cout << ", Typ UJ: Kraj" << endl;
-            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
+            cout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
             cout << ", Typ UJ: Štát" << endl;
             break;
         case UJTyp::Obec:
             cout << "Typ UJ: Okres" << endl;
-            vypisIformacie(findData, L"");
-            wcout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,6))->getOfficialTitle();
+            vypisIformacie(findData, "");
+            cout << "VUJ: \n\t->" << codeIndex->find(findData->getCode().substr(0,6))->getOfficialTitle();
             cout << ", Typ UJ: Okres" << endl;
-            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
+            cout << "\t->" << codeIndex->find(findData->getCode().substr(0,5))->getOfficialTitle();
             cout << ", Typ UJ: Kraj" << endl;
-            wcout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
+            cout << "\t->" << codeIndex->find(findData->getCode().substr(0,2))->getOfficialTitle();
             cout << ", Typ UJ: Štát" << endl;
             break;
     }
@@ -253,30 +253,30 @@ void Aplikacia::bodoveVyhladavanie() {
         switch (stoi(vyhladavanieVzdelavanie)) {
             case 0:
                 cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): "
-                     << vzPocet->evaluate(*odlozenie) << endl;
+                     << vzPocet->evaluate(*findData) << endl;
                 break;
             case 1:
-                cout << "Základné vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                cout << "Základné vzdelanie (abs.): " << vzPocet->evaluate(*findData) << endl;
                 break;
             case 2:
                 cout << "Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.): "
-                     << vzPocet->evaluate(*odlozenie) << endl;
+                     << vzPocet->evaluate(*findData) << endl;
                 break;
             case 3:
-                cout << "Úplné stredné vzdelanie (s maturitou) (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                cout << "Úplné stredné vzdelanie (s maturitou) (abs.): " << vzPocet->evaluate(*findData) << endl;
                 break;
             case 4:
-                cout << "Vyššie odborné vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                cout << "Vyššie odborné vzdelanie (abs.): " << vzPocet->evaluate(*findData) << endl;
                 break;
             case 5:
-                cout << "vysokoškolské vzdelanie (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                cout << "Vysokoškolské vzdelanie (abs.): " << vzPocet->evaluate(*findData) << endl;
                 break;
             case 6:
                 cout << "Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.): "
                      << vzPocet->evaluate(*odlozenie) << endl;
                 break;
             case 7:
-                cout << "Nezistené (abs.): " << vzPocet->evaluate(*odlozenie) << endl;
+                cout << "Nezistené (abs.): " << vzPocet->evaluate(*findData) << endl;
                 break;
             case 8:
                 cout << "Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.): " << findOstatne->intAt(0) << endl;
@@ -298,13 +298,13 @@ void Aplikacia::bodoveVyhladavanie() {
 }
 
 
-void Aplikacia::vypisIformacie(StoredData *data, wstring odsadenie) {
-    wcout << odsadenie << L"SortNumber: " << data->at(0) << endl;
-    wcout << odsadenie << L"Code: " << data->at(1)<< endl;
-    wcout << odsadenie << L"OfficialTitle: " << data->at(2)<< endl;
-    wcout << odsadenie << L"MediumTitle: " << data->at(3)<< endl;
-    wcout << odsadenie << L"ShortTitle: " << data->at(4)<< endl;
-    wcout << odsadenie << L"Note: " << data->at(5)<< endl;
+void Aplikacia::vypisIformacie(StoredData *data, string odsadenie) {
+    cout << odsadenie << "SortNumber: " << data->at(0) << endl;
+    cout << odsadenie << "Code: " << data->at(1)<< endl;
+    cout << odsadenie << "OfficialTitle: " << data->at(2)<< endl;
+    cout << odsadenie << "MediumTitle: " << data->at(3)<< endl;
+    cout << odsadenie << "ShortTitle: " << data->at(4)<< endl;
+    cout << odsadenie << "Note: " << data->at(5)<< endl;
 }
 
 void Aplikacia::filtrovanie() {
@@ -314,9 +314,9 @@ void Aplikacia::filtrovanie() {
     cout << "Poznámka: Filtre sa dajú preskočiť s Enterom" << endl;
     //cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
 
-    wstring filtUJPrisl;
-    wstring filtUJTyp;
-    wstring tmp;
+    string filtUJPrisl;
+    string filtUJTyp;
+    string tmp;
     //------------------- Filter Typ UJ -------------------
     changeColor(Color::BrightBlue);
     cout << "Všeobecné informácie" << endl;
@@ -326,7 +326,7 @@ void Aplikacia::filtrovanie() {
     cout << "(Stat, Kraj, Okres, Obec)";
     changeColor(Color::DarkBlue);
     cout <<": ";
-    std::getline(wcin, filtUJTyp);
+    std::getline(cin, filtUJTyp);
 
     UJTyp targetTyp = prelozNaUJTyp(filtUJTyp);
 
@@ -336,12 +336,12 @@ void Aplikacia::filtrovanie() {
     cout << "(napr.: Trenčiansky kraj, Okres Trenčín, Slovensko...)";
     changeColor(Color::DarkBlue);
     cout <<": ";
-    std::getline(wcin, filtUJPrisl);
+    std::getline(cin, filtUJPrisl);
 
     StoredData *targetUJ;
-    if (filtUJPrisl.compare(L"") == 0) {
+    if (filtUJPrisl.compare("") == 0) {
         // dávam natvordo slovensko, kedže pod slovenskom patrí všetko
-        targetUJ = codeIndex->find(L"SK");
+        targetUJ = codeIndex->find("SK");
     } else {
         try {
             targetUJ = nameIndex->find(filtUJPrisl);
@@ -349,33 +349,33 @@ void Aplikacia::filtrovanie() {
             changeColor(Color::Red);
             cout << "!! Zadaná UJ nebol nájdena, Budem ju ignorovať!!" << endl;
             // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
-            targetUJ = codeIndex->find(L"SK");
+            targetUJ = codeIndex->find("SK");
         }
     }
     if (targetTyp == targetUJ->getUJTyp()) {
         changeColor(Color::Red);
         cout << "!! Zadaná UJ má rovnaký UJ typ ako zadaný filtrovany UJ. Filter budem ignorovať!!" << endl;
         // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
-        targetUJ = codeIndex->find(L"SK");
+        targetUJ = codeIndex->find("SK");
     }
 
     if (UJTyp::Kraj == targetUJ->getUJTyp() && targetTyp == UJTyp::Stat) {
         changeColor(Color::Red);
         cout << "!! Filter Príslušnosť k UJ musí mať väčšiu UJ ako bola zadaná vo filtri typUJ. Filter budem ignorovať!!" << endl;
         // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
-        targetUJ = codeIndex->find(L"SK");
+        targetUJ = codeIndex->find("SK");
     }
     if (UJTyp::Okres == targetUJ->getUJTyp() && (targetTyp == UJTyp::Stat || targetTyp == UJTyp::Kraj)) {
         changeColor(Color::Red);
         cout << "!! Filter Príslušnosť k UJ musí mať väčšiu UJ ako bola zadaná vo filtri typUJ. Filter budem ignorovať!!" << endl;
         // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
-        targetUJ = codeIndex->find(L"SK");
+        targetUJ = codeIndex->find("SK");
     }
     if (targetUJ->getUJTyp() == UJTyp::Obec) {
         changeColor(Color::Red);
         cout << "!! Nemôže byť zadaná obec. Filter budem ignorovať!!" << endl;
         // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
-        targetUJ = codeIndex->find(L"SK");
+        targetUJ = codeIndex->find("SK");
     }
 
     //-------------------------------------- VZDELAVANIE --------------------------------------
@@ -515,7 +515,7 @@ void Aplikacia::filtrovanie() {
         }
     }
 
-    getline(wcin, tmp);
+    getline(cin, tmp);
     if (compositeFilter == nullptr) {
         compositeFilter = new AND_Filter;
     }
@@ -523,18 +523,18 @@ void Aplikacia::filtrovanie() {
 
 
     changeColor(Color::Red);
-    auto ixStat = codeIndex->find(L"SK");
+    auto ixStat = codeIndex->find("SK");
     // ------------------- Filtre vzdelávanie -------------------
     bool zozbrazStat = true;
 
     if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
         for (int i = 0; i < ixStat->getSize(); ++i) {
-            wcout << ixStat->at(i) << L" ";
+            cout << ixStat->at(i) << " ";
         }
         compositeFilter->coutEvaluate(*ixStat, "Filter počet v zadanej skupine: ");
-        wcout << endl;
+        cout << endl;
     }
-    auto arrKraj = statIndex->find(L"SK");
+    auto arrKraj = statIndex->find("SK");
     if (targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
         for (auto ixKraj: *arrKraj) {
             // overí sa či kraj nepatrí do targetu
@@ -553,12 +553,12 @@ void Aplikacia::filtrovanie() {
             bool zozbrazKraj = true;
 
             if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj)) {
-                wcout << "\t";
+                cout << "\t";
                 for (int i = 0; i < ixKraj->getSize(); ++i) {
-                    wcout << ixKraj->at(i) << L" ";
+                    cout << ixKraj->at(i) << " ";
                 }
                 compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
-                wcout << endl;
+                cout << endl;
             }
 
             if (targetTyp == UJTyp::Okres || targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
@@ -577,12 +577,12 @@ void Aplikacia::filtrovanie() {
                     // ------------------- Filtre vzdelávanie -------------------
                     bool zozbrazOkres = true;
                     if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres)) {
-                        wcout << "\t" << "\t";
+                        cout << "\t" << "\t";
                         for (int i = 0; i < ixOkres->getSize(); ++i) {
-                            wcout << ixOkres->at(i) << L" ";
+                            cout << ixOkres->at(i) << " ";
                         }
                         compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
-                        wcout << endl;
+                        cout << endl;
                     }
 
                     if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
@@ -595,12 +595,12 @@ void Aplikacia::filtrovanie() {
                             bool zozbrazObec = true;
 
                             if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixObce)) {
-                                wcout << "\t" << "\t" << "\t";
+                                cout << "\t" << "\t" << "\t";
                                 for (int i = 0; i < ixObce->getSize(); ++i) {
-                                    wcout << ixObce->at(i) << L" ";
+                                    cout << ixObce->at(i) << " ";
                                 }
                                 compositeFilter->coutEvaluate(*ixKraj, "Filter počet v zadanej skupine: ");
-                                wcout << endl;
+                                cout << endl;
                             }
                         }
                     }
@@ -614,7 +614,7 @@ void Aplikacia::filtrovanie() {
     resetColor();
 }
 
-wstring Aplikacia::vypocetVUJ(StoredData *data, UJTyp uroven) {
+string Aplikacia::vypocetVUJ(StoredData *data, UJTyp uroven) {
     switch (uroven) {
 
         case UJTyp::Stat:
@@ -631,16 +631,16 @@ wstring Aplikacia::vypocetVUJ(StoredData *data, UJTyp uroven) {
 }
 
 
-wstring Aplikacia::krajGetCode(StoredData *data) {
-    return data->at(5).substr(5, wstring::npos);
+string Aplikacia::krajGetCode(StoredData *data) {
+    return data->at(5).substr(5, string::npos);
 }
-void Aplikacia::vycistiTable(structures::Table<wstring, StoredData *> *table) {
+void Aplikacia::vycistiTable(structures::Table<string, StoredData *> *table) {
     for (auto item: *table) {
         delete item->accessData();
     }
 }
 
-void Aplikacia::vicistiIndex(structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> *pTable) {
+void Aplikacia::vicistiIndex(structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> *pTable) {
     for (auto item: *pTable) {
         delete item->accessData();
         item->accessData() = nullptr;
@@ -650,63 +650,63 @@ void Aplikacia::vicistiIndex(structures::SortedSequenceTable<wstring, structures
 void Aplikacia::changeColor(Color color) {
     switch (color) {
         case Color::Red:
-            wcout << "\x1B[91m";
+            cout << "\x1B[91m";
             break;
 
         case Color::BrightGreen:
-            wcout << "\x1B[92m";
+            cout << "\x1B[92m";
             break;
         case Color::Green:
-            wcout << "\x1B[38;5;41m";
+            cout << "\x1B[38;5;41m";
             break;
         case Color::DarkGren:
-            wcout << "\x1B[38;5;34m";
+            cout << "\x1B[38;5;34m";
             break;
 
         case Color::BrightBlue:
-            wcout << "\x1B[94m";
+            cout << "\x1B[94m";
             break;
 
         case Color::DarkBlue:
-            wcout << "\x1B[38;5;27m";
+            cout << "\x1B[38;5;27m";
             break;
 
         case Color::Yellow:
-            wcout << "\x1B[93m";
+            cout << "\x1B[93m";
             break;
 
         case Color::Magenta:
-            wcout << "\x1B[95m";
+            cout << "\x1B[95m";
             break;
 
         case Color::Cyan:
-            wcout << "\x1B[96m";
+            cout << "\x1B[96m";
             break;
 
         case Color::White:
-            wcout << "\x1B[97m";
+            cout << "\x1B[97m";
             break;
 
         default:
-            wcout << "\x1B[97m";
+            cout << "\x1B[97m";
             break;
     }
 }
 
 void Aplikacia::resetColor() {
-    wcout << "\x1B[0m"; // reset farby na zakladne
+    cout << "\x1B[0m"; // reset farby na zakladne
 }
 
-UJTyp Aplikacia::prelozNaUJTyp(wstring naPreklad) {
-    if (naPreklad.compare(L"Stat") == 0) {
+UJTyp Aplikacia::prelozNaUJTyp(string naPreklad) {
+    if (naPreklad.compare("Stat") == 0) {
         return UJTyp::Stat;
-    } else if (naPreklad.compare(L"Kraj") == 0) {
+    } else if (naPreklad.compare("Kraj") == 0) {
         return UJTyp::Kraj;
-    } else if (naPreklad.compare(L"Okres") == 0) {
+    } else if (naPreklad.compare("Okres") == 0) {
         return UJTyp::Okres;
-    } else if (naPreklad.compare(L"Obec") == 0) {
+    } else if (naPreklad.compare("Obec") == 0) {
         return UJTyp::Obec;
-    } else if (naPreklad.compare(L"") == 0){
+    } else if (naPreklad.compare("") == 0){
         return UJTyp::Neoznacene;
     } else {
         changeColor(Color::Red);
@@ -741,7 +741,7 @@ Filter *Aplikacia::filterPocet() {
     cin >> min;
     cout << "\t-> zadajte max: ";
     cin >> max;
-    // služi na odchitenie enteru ktorý wcin nezachil predtým
+    // služi na odchitenie enteru ktorý cin nezachil predtým
     std::getline(cin, tmp);
     auto filter = new FilterVzPocet(indexFilter, min, max);
     return filter;
@@ -773,7 +773,7 @@ Filter *Aplikacia::filterPodiel() {
     cin >> min;
     cout << "\t-> zadajte max: ";
     cin >> max;
-    // služi na odchitenie enteru ktorý wcin nezachil predtým
+    // služi na odchitenie enteru ktorý cin nezachil predtým
     std::getline(cin, tmp);
     auto filter = new FilterVzPodiel(indexFilter, min, max);
     return filter;
@@ -789,7 +789,7 @@ void Aplikacia::vypisVZmenu() {
     cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
     cout << "\t- [3] Úplné stredné vzdelanie (s maturitou) (abs.)" << endl;
     cout << "\t- [4] Vyššie odborné vzdelanie (abs.)" << endl;
-    cout << "\t- [5] vysokoškolské vzdelanie (abs.)" << endl;
+    cout << "\t- [5] Vysokoškolské vzdelanie (abs.)" << endl;
     cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
     cout << "\t- [7] Nezistené (abs.)" << endl;
 }

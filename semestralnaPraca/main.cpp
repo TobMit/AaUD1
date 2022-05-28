@@ -20,7 +20,7 @@
 int main()
 {
     Aplikacia *aplikacia = new Aplikacia();
-    bool opakovat = false;
+    bool opakovat = true;
     while (opakovat) {
         opakovat = aplikacia->menu();
     }

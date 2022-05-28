@@ -12,11 +12,11 @@ TableLoader::~TableLoader() {
 }
 
 void
-TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structures::Table<wstring, StoredData *> &okres,
-                       structures::Table<wstring, StoredData *> &obec,
-                       structures::Table<wstring, StoredData *> &vzdelanie,
-                       structures::Table<wstring, StoredData *> &nameIndex,
-                       structures::Table<wstring, StoredData *> &codeIndex)
+TableLoader::loadTable(structures::Table<string, StoredData *> &kraj, structures::Table<string, StoredData *> &okres,
+                       structures::Table<string, StoredData *> &obec,
+                       structures::Table<string, StoredData *> &vzdelanie,
+                       structures::Table<string, StoredData *> &nameIndex,
+                       structures::Table<string, StoredData *> &codeIndex)
 {
     //------------------- Kraj ------------------
     DataLoader *loader = new DataLoader("../semestralnaPraca/dataLoader/rawData/kraje.csv");
@@ -30,7 +30,7 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
             kraj.insert(data->getOfficialTitle(), data);
             nameIndex.insert(data->getOfficialTitle(), data);
             codeIndex.insert(data->at(5), data);
-            codeIndex.insert(data->at(5).substr(5, wstring::npos), data);
+            codeIndex.insert(data->at(5).substr(5, string::npos), data);
         }
     }
 
@@ -80,9 +80,9 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
         }
         if (data->at(3).compare(data->at(4)) != 0 && data->getOfficialTitle().compare(data->at(4)) && !nameIndex.containsKey(data->at(4))) {
             for (int i = 0; i < data->getSize(); ++i) {
-                wcout << data->at(i) << L",\t";
+                cout << data->at(i) << ",\t";
             }
-            wcout << endl;
+            cout << endl;
             nameIndex.insert(data->at(4), data);
         }
     }
@@ -107,28 +107,28 @@ TableLoader::loadTable(structures::Table<wstring, StoredData *> &kraj, structure
     delete loader;
 }
 
-void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &stat,
-                                structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
-                                structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
-                                structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
-                                structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex)
+void TableLoader::indexingTable(structures::UnsortedSequenceTable<string, StoredData *> &stat,
+                                structures::UnsortedSequenceTable<string, StoredData *> &kraj,
+                                structures::UnsortedSequenceTable<string, StoredData *> &okres,
+                                structures::UnsortedSequenceTable<string, StoredData *> &obec,
+                                structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &statIndex,
+                                structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &krajIndex,
+                                structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &okresIndex)
 {
     //---------------- Indexovanie VUC STAT --------------------------------
     structures::ArrayList<StoredData *> *slovensko = new structures::ArrayList<StoredData *>;
     structures::ArrayList<StoredData *> *zahranicie = new structures::ArrayList<StoredData *>;
     for (auto item: kraj) {
-        wstring kod = item->accessData()->at(5).substr(0,2);
-        if (kod.compare(L"ZZ") != 0) {
+        string kod = item->accessData()->at(5).substr(0,2);
+        if (kod.compare("ZZ") != 0) {
             slovensko->add(item->accessData());
         } else {
             zahranicie->add(item->accessData());
         }
     }
 
-    statIndex.insert(stat.find(L"SK")->getCode(), slovensko);
-    statIndex.insert(stat.find(L"ZZ")->getCode(), zahranicie);
+    statIndex.insert(stat.find("SK")->getCode(), slovensko);
+    statIndex.insert(stat.find("ZZ")->getCode(), zahranicie);
 
     //---------------- Indexovanie VUC KRAJ -------------------------------
     int indexOkresu = 0;
@@ -151,7 +151,7 @@ void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, Store
     for (auto ixOkres: okres) {
         structures::ArrayList<StoredData *> *data = new structures::ArrayList<StoredData*>;
         for (; indexObce < obec.size(); indexObce++) {
-            //wcout << ixOkres->accessData()->getCode() << "\t" << obec.getItemAtIndex(indexObce).accessData()->getCode().substr(0,6) << endl;
+            //cout << ixOkres->accessData()->getCode() << "\t" << obec.getItemAtIndex(indexObce).accessData()->getCode().substr(0,6) << endl;
             if (obec.getItemAtIndex(indexObce).accessData()->getCode().substr(0,6).compare(ixOkres->accessData()->getCode()) == 0) {
                 data->add(obec.getItemAtIndex(indexObce).accessData());
             } else {
@@ -166,14 +166,14 @@ void TableLoader::indexingTable(structures::UnsortedSequenceTable<wstring, Store
 }
 
 void TableLoader::spracujVzdelanie(
-        structures::SortedSequenceTable<wstring, StoredData *> &codeIndex,
-        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
-        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
-        structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex,
-        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec,
-        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieOkres,
-        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
-        structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat)
+        structures::SortedSequenceTable<string, StoredData *> &codeIndex,
+        structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &statIndex,
+        structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &krajIndex,
+        structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &okresIndex,
+        structures::SortedSequenceTable<string, StoredData *> &vzdelanieObec,
+        structures::SortedSequenceTable<string, StoredData *> &vzdelanieOkres,
+        structures::SortedSequenceTable<string, StoredData *> &vzdelanieKraj,
+        structures::SortedSequenceTable<string, StoredData *> &vzdelanieStat)
 {
     //----------------- Vzdelanie Okresy -------------------
     for (auto ixOkres: okresIndex) {
@@ -210,7 +210,7 @@ void TableLoader::spracujVzdelanie(
 
 }
 
-int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieUJ) {
+int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<string, StoredData *> &vzdelanieUJ) {
     int returnValue = 0;
 
     for (const auto vzdelanie : data) {
@@ -220,7 +220,7 @@ int TableLoader::spocitajVzdelanie(int index, structures::ArrayList<StoredData *
             returnValue += newVzdelanie.intAt(index);
         } catch (std::out_of_range) {
             // pre prípad že by som chcel aj vypysovať chýbajúce UJ
-            //wcerr << L"INDEXOVANIE: \tObec: " << vzdelanie->getOfficialTitle() << L" nema zaznam v udajoch o vzdelani!!" << endl;
+            //wcerr << "INDEXOVANIE: \tObec: " << vzdelanie->getOfficialTitle() << " nema zaznam v udajoch o vzdelani!!" << endl;
         }
     }
     return returnValue;

@@ -10,10 +10,10 @@ bool DataLoader::nextLine() {
     return true;
 }
 
-wstring DataLoader::getNextParameter() {
+string DataLoader::getNextParameter() {
     pos = nacitane.find(delimiter);
-    wstring retrunValue = nacitane.substr(0, pos);
-    int rPos = retrunValue.find(L"\r");
+    string retrunValue = nacitane.substr(0, pos);
+    int rPos = retrunValue.find("\r");
     if (rPos != 0) {
         retrunValue = retrunValue.substr(0, rPos);
     }
@@ -26,7 +26,7 @@ void DataLoader::openNew(string address) {
     this->closeLoader();
     delete citac;
     citac = nullptr;
-    citac = new wfstream;
+    citac = new fstream;
     this->citac->open(address);
 }
 

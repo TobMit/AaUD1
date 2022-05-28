@@ -10,14 +10,14 @@ using namespace std;
 
 class DataLoader {
 private:
-    wfstream *citac;
-    wstring delimiter = L";";
-    wstring nacitane;
+    fstream *citac;
+    string delimiter = ";";
+    string nacitane;
     size_t pos = 0;
 
 public:
     DataLoader(string address) :
-        citac(new wfstream())
+        citac(new fstream())
     {
         citac->open(address);
     };
@@ -35,7 +35,7 @@ public:
         citac->close();
     };
 
-    wstring getNextParameter();
+    string getNextParameter();
     bool nextLine();
 
     ~DataLoader(){

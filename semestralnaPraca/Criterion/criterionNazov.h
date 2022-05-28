@@ -6,12 +6,12 @@
 #include "string"
 
 #pragma once
-class CriterionNazov : public Criterion<std::wstring> {
+class CriterionNazov : public Criterion<std::string> {
 public:
-    wstring evaluate(const StoredData &data) override;
+    string evaluate(const StoredData &data) override;
 
 };
 
-inline wstring CriterionNazov::evaluate(const StoredData &data) {
+inline string CriterionNazov::evaluate(const StoredData &data) {
     return data.getOfficialTitle();
 }

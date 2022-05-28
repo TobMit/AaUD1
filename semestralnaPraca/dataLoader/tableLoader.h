@@ -18,29 +18,29 @@ public:
 
     ~TableLoader();
 
-    void loadTable(structures::Table<wstring, StoredData *> &kraj, structures::Table<wstring, StoredData *> &okres,
-                   structures::Table<wstring, StoredData *> &obec, structures::Table<wstring, StoredData *> &vzdelanie,
-                   structures::Table<wstring, StoredData *> &nameIndex,
-                   structures::Table<wstring, StoredData *> &codeIndex);
+    void loadTable(structures::Table<string, StoredData *> &kraj, structures::Table<string, StoredData *> &okres,
+                   structures::Table<string, StoredData *> &obec, structures::Table<string, StoredData *> &vzdelanie,
+                   structures::Table<string, StoredData *> &nameIndex,
+                   structures::Table<string, StoredData *> &codeIndex);
 
-    void indexingTable(structures::UnsortedSequenceTable<wstring, StoredData *> &stat,
-                       structures::UnsortedSequenceTable<wstring, StoredData *> &kraj,
-                       structures::UnsortedSequenceTable<wstring, StoredData *> &okres,
-                       structures::UnsortedSequenceTable<wstring, StoredData *> &obec,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
-                       structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex);
+    void indexingTable(structures::UnsortedSequenceTable<string, StoredData *> &stat,
+                       structures::UnsortedSequenceTable<string, StoredData *> &kraj,
+                       structures::UnsortedSequenceTable<string, StoredData *> &okres,
+                       structures::UnsortedSequenceTable<string, StoredData *> &obec,
+                       structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &statIndex,
+                       structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &krajIndex,
+                       structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &okresIndex);
 
-    void spracujVzdelanie(structures::SortedSequenceTable<wstring, StoredData *> &codeIndex,
-                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &statIndex,
-                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &krajIndex,
-                          structures::SortedSequenceTable<wstring, structures::ArrayList<StoredData *> *> &okresIndex,
-                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieObec,
-                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieOkres,
-                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieKraj,
-                          structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieStat);
+    void spracujVzdelanie(structures::SortedSequenceTable<string, StoredData *> &codeIndex,
+                          structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &statIndex,
+                          structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &krajIndex,
+                          structures::SortedSequenceTable<string, structures::ArrayList<StoredData *> *> &okresIndex,
+                          structures::SortedSequenceTable<string, StoredData *> &vzdelanieObec,
+                          structures::SortedSequenceTable<string, StoredData *> &vzdelanieOkres,
+                          structures::SortedSequenceTable<string, StoredData *> &vzdelanieKraj,
+                          structures::SortedSequenceTable<string, StoredData *> &vzdelanieStat);
 private:
-    int spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<wstring, StoredData *> &vzdelanieUJ);
+    int spocitajVzdelanie(int index, structures::ArrayList<StoredData *> &data, structures::SortedSequenceTable<string, StoredData *> &vzdelanieUJ);
 };
 
 

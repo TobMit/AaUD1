@@ -289,7 +289,7 @@ namespace tests
         int sizeOfQueue;
         sizeOfQueue = POC_VELKOST;
 
-        structures::Logger::getInstance().logInfo("Velkost PriorityQueue, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani, Extra meranie pre PQ2L");
+        structures::Logger::getInstance().logInfo("Velkost PriorityQueue, Priemerna dlzka na " + std::to_string(POC_OPAKOVANI) + " opakovani, Extra meranie pre PQ2");
 
         //----------------- Push -----------------
         this->infoPush();

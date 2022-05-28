@@ -55,6 +55,6 @@ inline void ShellSort::sortData(structures::UnsortedSequenceTable<int, StoredDat
 inline void ShellSort::printArray(structures::UnsortedSequenceTable<int, StoredData *> &pTable, int size) {
     int i;
     for (i = 0; i < size; i++)
-        wcout << pTable.getItemAtIndex(i).getKey() << " ";
+        cout << pTable.getItemAtIndex(i).getKey() << " ";
     cout << endl;
 }

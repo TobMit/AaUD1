@@ -7,22 +7,22 @@
 
 class OstatneUdaje : public StoredData {
 private:
-    wstring code;
-    wstring offTitle;
+    string code;
+    string offTitle;
 public:
     OstatneUdaje();
 
-    OstatneUdaje(const wstring pCode, const wstring pOffTitle);
+    OstatneUdaje(const string pCode, const string pOffTitle);
 
-    wstring getCode() const override;
+    string getCode() const override;
 
-    wstring getOfficialTitle() const override;
+    string getOfficialTitle() const override;
 
-    void setCode(const wstring pCode) override;
+    void setCode(const string pCode) override;
 
-    void setOfficialTitle(const wstring pOffTitleName) override;
+    void setOfficialTitle(const string pOffTitleName) override;
 
-    void setNextParameter(const wstring parameter) override;
+    void setNextParameter(const string parameter) override;
 
     /// Služí na nastovovanie Int prametrov, podobne ako pre setNextParameter.
     /// \param parameter - parameter ktory sa ma uložiť do ArrListu
@@ -32,7 +32,7 @@ public:
 
     ~OstatneUdaje() override;
 
-    wstring &at(int index) override;
+    string &at(int index) override;
 
     /// Podobne ako pri At sprístupňuje dáta s int hodnotou
     /// \param index ktorý chceme sprístupniť
@@ -59,34 +59,34 @@ inline OstatneUdaje::~OstatneUdaje() {
     data = nullptr;
 }
 
-inline OstatneUdaje::OstatneUdaje(const wstring pCode, const wstring pOffTitle) :
+inline OstatneUdaje::OstatneUdaje(const string pCode, const string pOffTitle) :
         code(pCode),
         offTitle(pOffTitle)
 {
 }
 
 
-inline wstring OstatneUdaje::getCode() const {
+inline string OstatneUdaje::getCode() const {
     return code;
 }
 
 
-inline wstring OstatneUdaje::getOfficialTitle() const {
+inline string OstatneUdaje::getOfficialTitle() const {
     return offTitle;
 }
 
 
-inline void OstatneUdaje::setCode(const wstring pCode) {
+inline void OstatneUdaje::setCode(const string pCode) {
     code = pCode;
 }
 
 
-inline void OstatneUdaje::setOfficialTitle(const wstring pOffTitleName) {
+inline void OstatneUdaje::setOfficialTitle(const string pOffTitleName) {
     offTitle = pOffTitleName;
 }
 
 
-inline void OstatneUdaje::setNextParameter(const wstring parameter) {
+inline void OstatneUdaje::setNextParameter(const string parameter) {
     data->add(stoi(parameter));
 }
 
@@ -99,8 +99,8 @@ inline int OstatneUdaje::getSize() {
 }
 
 
-inline wstring &OstatneUdaje::at(int index) {
-    wstring returnValue = L"-1";
+inline string &OstatneUdaje::at(int index) {
+    string returnValue = "-1";
     return returnValue;
 }
 

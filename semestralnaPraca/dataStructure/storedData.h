@@ -24,15 +24,15 @@ public:
     /// destruktor
     virtual ~StoredData();
     /// vrati klus ktory sa bude pouzivat v tabulke
-    virtual wstring getCode() const = 0;
+    virtual string getCode() const = 0;
     /// vráti vráti officialny nazov
-    virtual wstring getOfficialTitle() const = 0;
+    virtual string getOfficialTitle() const = 0;
     /// nastavy klúč
-    virtual void setCode(const wstring pCode) = 0;
+    virtual void setCode(const string pCode) = 0;
     /// nastavy officialne meno uzemnej jednotky
-    virtual void setOfficialTitle(const wstring pOffTitleName) = 0;
+    virtual void setOfficialTitle(const string pOffTitleName) = 0;
     /// bude nastavovať všetky paramtetre ktoré treba
-    virtual void setNextParameter(const wstring parameter) = 0;
+    virtual void setNextParameter(const string parameter) = 0;
     /// Vráti veľkosť ktorá sa dá prechádzať pomocou At()
     virtual int getSize() = 0;
     /// Nastavi pointer na vzdelávanie danej UJ. Pre OstatneUdaje je to null ptr.
@@ -43,10 +43,10 @@ public:
     virtual StoredData* getVzdelavanie() const =0;
     /// Viem prechádzať všetky údaje ktoré boli zadané. V prípade OstatnyUdajov prechadzam všetky data ktore su ulozene v ArrListe
     /// \param index - Index položky ktorú chcem sprístupniť.
-    /// \return Vráti wstring& danej položky.
-    virtual wstring& at(int index) = 0;
+    /// \return Vráti string& danej položky.
+    virtual string& at(int index) = 0;
     /// operator prístupu
-    wstring operator[](int index) {
+    string operator[](int index) {
         return this->at(index);
     }
     /// Typ ktorým je objekt
