@@ -399,21 +399,82 @@ void Aplikacia::filtrovanie() {
 
         int volbaSpojenia;
         if (volbaTypu == 2) {
+            int volba;
             cout << "\t\tAko chcete spájať filter Počet?" << endl;
             cout << "\t\t\t[0] filter AND filter" << endl;
             cout << "\t\t\t[1] filter OR filter" << endl;
             cout << "\t\tVoľba: ";
-
+            cin >> volba;
+            CompositeFilter *pocet;
+            switch (volbaSpojenia) {
+                case 0:
+                    pocet = new AND_Filter;
+                    break;
+                default:
+                    pocet = new OR_Filter;
+                    break;
+            }
+            changeColor(Color::Cyan);
+            vypisVZmenu();
+            while (true) {
+                pocet->registerFilter(filterPocet());
+                cout << "Chcete zadat znovu Filter?" << endl;
+                cout << "\t[1] Ano" << endl;
+                cout << "\t[0] Nie" << endl;
+                cout << "Voľba: ";
+                int pokracovanie;
+                cin >> pokracovanie;
+                if (pokracovanie != 1 ) {
+                    break;
+                }
+            }
 
             cout << "\t\tAko chcete spájať filter Podiel?" << endl;
             cout << "\t\t\t[0] filter AND filter" << endl;
             cout << "\t\t\t[1] filter OR filter" << endl;
             cout << "\t\tVoľba: ";
 
+            cin >> volba;
+            CompositeFilter *podiel;
+            switch (volbaSpojenia) {
+                case 0:
+                    podiel = new AND_Filter;
+                    break;
+                default:
+                    podiel = new OR_Filter;
+                    break;
+            }
+            changeColor(Color::Cyan);
+            vypisVZmenu();
+            while (true) {
+                podiel->registerFilter(filterPodiel());
+                cout << "Chcete zadat znovu Filter?" << endl;
+                cout << "\t[1] Ano" << endl;
+                cout << "\t[0] Nie" << endl;
+                cout << "Voľba: ";
+                int pokracovanie;
+                cin >> pokracovanie;
+                if (pokracovanie != 1 ) {
+                    break;
+                }
+            }
+
             cout << "\t\tAko chcete spájať oba filtre?" << endl;
             cout << "\t\t\t[0] filter1 AND filter2" << endl;
             cout << "\t\t\t[1] filter1 OR filter2" << endl;
             cout << "\t\tVoľba: ";
+            cin >> volba;
+            switch (volba) {
+                case 0:
+                    compositeFilter = new AND_Filter;
+                    break;
+                default:
+                    compositeFilter = new OR_Filter;
+                    break;
+            }
+
+            compositeFilter->registerFilter(pocet);
+            compositeFilter->registerFilter(podiel);
 
         } else {
             cout << "\t\tAko chcete spájať filtre?" << endl;
