@@ -10,36 +10,44 @@ public:
     ShellSort();
 
 private:
-    void sortData(structures::ArrayList<int> &arrList, int n);
+    void sortData(structures::ArrayList<int> &arrList, int nSize, bool zozstupne);
     void printArray(structures::ArrayList<int> &array, int size);
 
 };
 
 inline ShellSort::ShellSort() {
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
-    for (int i = 9; i > 0; --i) {
+    for (int i = 1; i <= 99; i++) {
         data->add(i);
     }
-    //int size = sizeof(data) / sizeof(data[0]);
     int size = data->size();
-    sortData(*data, size);
+    sortData(*data, size, true);
     cout << "Sorted array: \n";
     printArray(*data, size);
     delete data;
 }
 
 
-inline void ShellSort::sortData(structures::ArrayList<int> &arrList, int n) {
-    // Rearrange elements at each n/2, n/4, n/8, ... intervals
-    for (int interval = n / 2; interval > 0; interval /= 2) {
-        for (int i = interval; i < n; i += 1) {
-            int temp = arrList.at(i);
-            int j;
-            for (j = i; j >= interval && arrList.at(j - interval) > temp; j -= interval) {
-                arrList.at(j) = arrList.at(j - interval);
+inline void ShellSort::sortData(structures::ArrayList<int> &arrList, int nSize, bool zozstupne) {
+    for (int krok = nSize / 2; krok > 0; krok /= 2) {
+        for (int delta = 0; delta < krok ; delta++) {
+            for (int i = delta; i < nSize; i += krok) {
+                int j = i;
+                if (!zozstupne) {
+                    while (j - krok >= delta && arrList.at(j) < arrList[j - krok]) {
+                        structures::Utils::swap(arrList.at(j), arrList.at(j - krok));
+                        j -= krok;
+                    }
+                } else {
+                    while (j - krok >= delta && arrList.at(j) > arrList[j - krok]) {
+                        structures::Utils::swap(arrList.at(j), arrList.at(j - krok));
+                        j -= krok;
+                    }
+                }
             }
-            arrList.at(j) = temp;
+
         }
+
     }
 
 }
