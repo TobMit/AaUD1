@@ -14,13 +14,13 @@ public:
         minimum(min),
         maximum(max)
     {};
-    bool pass(const StoredData &data, double criterionValue) override;
+    bool pass(double criterionValue) override;
 
 };
 
-inline bool FilterVzPodiel::pass(const StoredData &data, double criterionValue) {
+inline bool FilterVzPodiel::pass(double criterionValue) {
     bool retrunValue = false;
-    if (minimum >= criterionValue && criterionValue <= maximum) {
+    if (minimum <= criterionValue && criterionValue <= maximum) {
         retrunValue = true;
     }
     return retrunValue;

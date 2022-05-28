@@ -16,12 +16,12 @@ public:
         maximum(max)
     {
     };
-    bool pass(const StoredData &data, int criterionValue) override;
+    bool pass(int criterionValue) override;
 };
 
-inline bool FilterVzPocet::pass(const StoredData &data, int criterionValue) {
+inline bool FilterVzPocet::pass(int criterionValue) {
     bool retrunValue = false;
-    if (minimum >= criterionValue && criterionValue <= maximum) {
+    if (minimum <= criterionValue && criterionValue <= maximum) {
         retrunValue = true;
     }
     return retrunValue;

@@ -9,6 +9,6 @@
 template <typename criterioValue>
 class Filter {
 public:
-    virtual bool pass(const StoredData &data, criterioValue criterionValue) = 0;
+    virtual bool pass(criterioValue criterionValue) = 0;
 };
 
