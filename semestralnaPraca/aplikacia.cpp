@@ -519,13 +519,10 @@ void Aplikacia::filtrovanie() {
     if (compositeFilter == nullptr) {
         compositeFilter = new AND_Filter;
     }
+
+
     //------------------------------------------ Jadro filtrovania ------------------------------------------
-
-
-    changeColor(Color::Red);
     auto ixStat = codeIndex->find("SK");
-    // ------------------- Filtre vzdelávanie -------------------
-    bool zozbrazStat = true;
 
     if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
         dataToSort->insert(ixStat->getCode(), ixStat);
@@ -544,9 +541,6 @@ void Aplikacia::filtrovanie() {
             if (targetUJ->getUJTyp() == UJTyp::Okres && ixKraj->belongsMe(targetUJ)) {
                 continue;
             }
-            changeColor(Color::Green);
-            // ------------------- Filtre vzdelávanie -------------------
-            bool zozbrazKraj = true;
 
             if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj)) {
                 dataToSort->insert(ixKraj->getCode(), ixKraj);
@@ -564,21 +558,16 @@ void Aplikacia::filtrovanie() {
                         continue;
                     }
 
-                    changeColor(Color::Magenta);
-                    // ------------------- Filtre vzdelávanie -------------------
-                    bool zozbrazOkres = true;
                     if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres)) {
                         dataToSort->insert(ixOkres->getCode(), ixOkres);
                     }
 
                     if (targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) {
-                        resetColor();
                         auto arrObec = okresIndex->find(ixOkres->getCode());
                         for (auto ixObce: *arrObec) {
                             if (ixObce->belongsTo(*targetUJ) == false) {
                                 continue;
                             }
-                            bool zozbrazObec = true;
 
                             if ((targetTyp == UJTyp::Obec || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixObce)) {
                                 dataToSort->insert(ixObce->getCode(), ixObce);
