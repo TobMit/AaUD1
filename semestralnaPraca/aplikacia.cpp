@@ -597,7 +597,7 @@ void Aplikacia::filtrovanie() {
     }
     if (findCriterion) {
         changeColor(Color::Yellow);
-        cout << "Chcete filtrovať podla zostupne?" << endl;
+        cout << "Chcete triediť zostupne?" << endl;
         cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
@@ -618,14 +618,14 @@ void Aplikacia::filtrovanie() {
         }
     } else {
         changeColor(Color::Yellow);
-        cout << "Chcete filtrovať podla mena?" << endl;
+        cout << "Chcete triediť podla mena?" << endl;
         cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
         if (volba == 1) {
             ShellSort<string> sort;
             CriterionNazov *nazov = new CriterionNazov;
-            cout << "Chcete usporiadať zostupne?" << endl;
+            cout << "Chcete triediť zostupne?" << endl;
             cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
             cin >> volba;
             if (volba == 1) {
