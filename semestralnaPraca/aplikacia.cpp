@@ -555,7 +555,7 @@ void Aplikacia::filtrovanie() {
                 continue;
             }
 
-            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj)) {
+            if ((targetTyp == UJTyp::Kraj || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixKraj) && targetUJ->belongsMe(ixKraj)) {
                 dataToSort->insert(ixKraj->getCode(), ixKraj);
             }
 
@@ -572,7 +572,7 @@ void Aplikacia::filtrovanie() {
                         continue;
                     }
 
-                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres)) {
+                    if ((targetTyp == UJTyp::Okres || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixOkres) && targetUJ->belongsMe(ixOkres)) {
                         dataToSort->insert(ixOkres->getCode(), ixOkres);
                     }
 

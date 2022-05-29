@@ -218,9 +218,9 @@ inline bool UzemnaJednotka::belongsMe(StoredData *NUJednotka) const {
     if (typUJ == UJTyp::Kraj) {
         switch (NUJednotka->getUJTyp()) {
             case UJTyp::Okres:
-                return porovnavanie.compare(NUJednotka->getCode().substr(0,5));
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,5)) == 0;
             case UJTyp::Obec:
-                return porovnavanie.compare(NUJednotka->getCode().substr(0,5));
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,5)) == 0;
             default:
                 return false;
         }
@@ -228,7 +228,7 @@ inline bool UzemnaJednotka::belongsMe(StoredData *NUJednotka) const {
     if (typUJ == UJTyp::Okres) {
         switch (NUJednotka->getUJTyp()) {
             case UJTyp::Obec:
-                return porovnavanie.compare(NUJednotka->getCode().substr(0,6));
+                return porovnavanie.compare(NUJednotka->getCode().substr(0,6)) == 0;
             default:
                 return false;
         }
