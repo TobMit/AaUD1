@@ -26,10 +26,7 @@ inline double CriterionVZPodiel::evaluate(const StoredData &data) {
     double retunrValue = 0;
     if (data.getVzdelavanie() != nullptr) {
         auto *ostatneData = dynamic_cast<OstatneUdaje *>(data.getVzdelavanie());
-        int pocetObyvatelov = 0;
-        for (int i = 0; i < ostatneData->getSize(); ++i) {
-            pocetObyvatelov += ostatneData->intAt(i);
-        }
+        int pocetObyvatelov = ostatneData->getPocOsob();
         double medcziPocet = ostatneData->intAt(index);
         retunrValue = 100 * (medcziPocet/ pocetObyvatelov);
     }

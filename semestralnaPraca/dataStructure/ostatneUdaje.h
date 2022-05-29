@@ -9,6 +9,7 @@ class OstatneUdaje : public StoredData {
 private:
     string code;
     string offTitle;
+    int pocetOsob = 0;
 public:
     OstatneUdaje();
 
@@ -49,6 +50,10 @@ public:
 
     StoredData *getVzdelavanie() const override;
 
+    int getPocOsob() {
+        return pocetOsob;
+    }
+
 private:
     structures::ArrayList<int> *data = new structures::ArrayList<int>;
 
@@ -88,10 +93,12 @@ inline void OstatneUdaje::setOfficialTitle(const string pOffTitleName) {
 
 inline void OstatneUdaje::setNextParameter(const string parameter) {
     data->add(stoi(parameter));
+    pocetOsob += stoi(parameter);
 }
 
 inline void OstatneUdaje::setNextIntParameter(const int parameter) {
     data->add(parameter);
+    pocetOsob += parameter;
 }
 
 inline int OstatneUdaje::getSize() {
