@@ -172,28 +172,7 @@ void Aplikacia::bodoveVyhladavanie() {
         changeColor(Color::Red);
         cout << "Informácie o vzdelávani neboly nájdené." << endl;
     }
-//    try {
-//        switch (typUJ.evaluate(*findData)) {
-//
-//            case UJTyp::Stat :
-//                odlozenie = vzdelanieStat->find(findData->getCode());
-//                break;
-//            case UJTyp::Kraj :
-//                odlozenie = vzdelanieKraj->find(findData->getCode());
-//                break;
-//            case UJTyp::Okres :
-//                odlozenie = vzdelanieOkres->find(findData->getCode());
-//                break;
-//            case UJTyp::Obec :
-//                odlozenie = vzdelanieObec->find(findData->getCode());
-//                break;
-//        }
-//        findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
-//
-//    } catch (std::out_of_range) {
-//        changeColor(Color::Red);
-//        cout << "Informácie o vzdelávani neboly nájdené." << endl;
-//    }
+
 
     //----------- Informácie o UJ ----------------
     cout << endl;
@@ -323,7 +302,7 @@ void Aplikacia::filtrovanie() {
     changeColor(Color::DarkBlue);
     cout << "\tFilter typ UJ ";
     resetColor();
-    cout << "(Stat, Kraj, Okres, Obec)";
+    cout << "(Štát, Kraj, Okres, Obec)";
     changeColor(Color::DarkBlue);
     cout <<": ";
     std::getline(cin, filtUJTyp);
@@ -331,6 +310,7 @@ void Aplikacia::filtrovanie() {
     UJTyp targetTyp = prelozNaUJTyp(filtUJTyp);
 
     //------------------- Filter príslunšnoť k UJ -------------------
+    changeColor(Color::BrightBlue);
     cout << "\tFilter príslušnosť k VUJ ";
     resetColor();
     cout << "(napr.: Trenčiansky kraj, Okres Trenčín, Slovensko...)";
@@ -352,9 +332,10 @@ void Aplikacia::filtrovanie() {
             targetUJ = codeIndex->find("SK");
         }
     }
-    if (targetTyp == targetUJ->getUJTyp()) {
+    // Keď chcem ukazať iba štát tak v tom prípade je target typ tiež štát a preto sa to musí obýsť
+    if (targetTyp == targetUJ->getUJTyp() && targetTyp != UJTyp::Stat) {
         changeColor(Color::Red);
-        cout << "!! Zadaná UJ má rovnaký UJ typ ako zadaný filtrovany UJ. Filter budem ignorovať!!" << endl;
+        cout << "!! Zadaná UJ má rovnaký UJ typ ako zadaný filter UJ. Filter budem ignorovať!!" << endl;
         // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
         targetUJ = codeIndex->find("SK");
     }
@@ -401,7 +382,7 @@ void Aplikacia::filtrovanie() {
         cout << "Ktory typ chete použiť? " << endl;
         cout << "\t[0] Filter počet VZ" << endl;
         cout << "\t[1] Filter podiel VZ" << endl;
-        cout << "\t[2] Oba" << endl;
+        cout << "\t[2] Počet a Podiel" << endl;
         cout << "Voľba: ";
         int volbaTypu;
         cin >> volbaTypu;
@@ -409,7 +390,7 @@ void Aplikacia::filtrovanie() {
         int volbaSpojenia;
         if (volbaTypu == 2) {
             int volba;
-            cout << "\t\tAko chcete spájať filter Počet?" << endl;
+            cout << "\t\tAko chcete spájať filter POČET?" << endl;
             cout << "\t\t\t[0] filter AND filter" << endl;
             cout << "\t\t\t[1] filter OR filter" << endl;
             cout << "\t\tVoľba: ";
@@ -427,8 +408,11 @@ void Aplikacia::filtrovanie() {
             vypisVZmenu();
             while (true) {
                 cislovanieFitrlov++;
+                changeColor(Color::Red);
                 cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                changeColor(Color::DarkBlue);
                 pocet->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
+                changeColor(Color::BrightBlue);
                 cout << "Chcete zadat znovu Filter?" << endl;
                 cout << "\t[1] Ano" << endl;
                 cout << "\t[0] Nie" << endl;
@@ -440,7 +424,8 @@ void Aplikacia::filtrovanie() {
                 }
             }
 
-            cout << "\t\tAko chcete spájať filter Podiel?" << endl;
+            changeColor(Color::DarkBlue);
+            cout << "\t\tAko chcete spájať filter PODIEL?" << endl;
             cout << "\t\t\t[0] filter AND filter" << endl;
             cout << "\t\t\t[1] filter OR filter" << endl;
             cout << "\t\tVoľba: ";
@@ -459,8 +444,11 @@ void Aplikacia::filtrovanie() {
             vypisVZmenu();
             while (true) {
                 cislovanieFitrlov++;
+                changeColor(Color::Red);
                 cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                changeColor(Color::DarkBlue);
                 podiel->registerFilter(filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod));
+                changeColor(Color::BrightBlue);
                 cout << "Chcete zadat znovu Filter?" << endl;
                 cout << "\t[1] Ano" << endl;
                 cout << "\t[0] Nie" << endl;
@@ -472,6 +460,7 @@ void Aplikacia::filtrovanie() {
                 }
             }
 
+            changeColor(Color::DarkBlue);
             cout << "\t\tAko chcete spájať oba filtre?" << endl;
             cout << "\t\t\t[0] filter1 AND filter2" << endl;
             cout << "\t\t\t[1] filter1 OR filter2" << endl;
@@ -507,7 +496,9 @@ void Aplikacia::filtrovanie() {
             vypisVZmenu();
             while (true) {
                 cislovanieFitrlov++;
+                changeColor(Color::Red);
                 cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                changeColor(Color::DarkBlue);
                 if (volbaTypu == 0) {
                     compositeFilter->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
                 } else if (volbaTypu == 1) {
@@ -638,12 +629,64 @@ void Aplikacia::filtrovanie() {
         }
     }
 
+    //---------------------------------------- Výpis ----------------------------------------
     for (auto item: *dataToSort) {
-        resetColor();
-        cout << item->accessData()->at(0) << " " << item->accessData()->getOfficialTitle() << endl;
-        changeColor(Color::Cyan);
-        cout << "\t";
-        compositeFilter->coutEvaluate(*item->accessData(), " hodnota: ");
+        switch (item->accessData()->getUJTyp()) {
+
+            case UJTyp::Stat:
+                changeColor(Color::Red);
+                cout << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
+                resetColor();
+                cout << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                changeColor(Color::Cyan);
+                compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
+                cout << endl;
+                break;
+            case UJTyp::Kraj:
+                changeColor(Color::Green);
+                cout << "\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
+                resetColor();
+                cout << "\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                changeColor(Color::Cyan);
+                cout << "\t";
+                compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
+                cout << endl;
+                changeColor(Color::DarkBlue);
+                cout << "\t" << "VUJ:" << endl;
+                cout << "\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Stat))->getOfficialTitle() << ". Typ UJ: Štát" << endl;
+                break;
+            case UJTyp::Okres:
+                changeColor(Color::Magenta);
+                cout << "\t\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
+                resetColor();
+                cout << "\t\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                changeColor(Color::Cyan);
+                cout << "\t\t";
+                compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
+                cout << endl;
+                changeColor(Color::DarkBlue);
+                cout << "\t\t" << "VUJ:" << endl;
+                cout << "\t\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Stat))->getOfficialTitle() << ". Typ UJ: Štát" << endl;
+                cout << "\t\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Kraj))->getOfficialTitle() << ". Typ UJ: Kraj" << endl;
+                break;
+            case UJTyp::Obec:
+                changeColor(Color::Yellow);
+                cout << "\t\t\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
+                resetColor();
+                cout << "\t\t\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                changeColor(Color::Cyan);
+                cout << "\t\t\t";
+                compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
+                cout << endl;
+                changeColor(Color::DarkBlue);
+                cout << "\t\t\t" << "VUJ:" << endl;
+                cout << "\t\t\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Stat))->getOfficialTitle() << ". Typ UJ: Štát" << endl;
+                cout << "\t\t\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Kraj))->getOfficialTitle() << ". Typ UJ: Kraj" << endl;
+                cout << "\t\t\t\t-> " << codeIndex->find(vypocetVUJ(item->accessData(), UJTyp::Okres))->getOfficialTitle() << ". Typ UJ: Okres" << endl;
+                break;
+            case UJTyp::Neoznacene:
+                break;
+        }
         cout << endl;
     }
 
@@ -738,13 +781,17 @@ void Aplikacia::resetColor() {
 }
 
 UJTyp Aplikacia::prelozNaUJTyp(string naPreklad) {
-    if (naPreklad.compare("Stat") == 0) {
+    if (naPreklad.compare("Štát") == 0) {
         return UJTyp::Stat;
     } else if (naPreklad.compare("Kraj") == 0) {
+        return UJTyp::Kraj;
+    } else if (naPreklad.compare("Kraje") == 0) {
         return UJTyp::Kraj;
     } else if (naPreklad.compare("Okres") == 0) {
         return UJTyp::Okres;
     } else if (naPreklad.compare("Obec") == 0) {
+        return UJTyp::Obec;
+    } else if (naPreklad.compare("Obce") == 0) {
         return UJTyp::Obec;
     } else if (naPreklad.compare("") == 0){
         return UJTyp::Neoznacene;
@@ -858,4 +905,19 @@ void Aplikacia::vypisVZmenu() {
     cout << "\t- [5] Vysokoškolské vzdelanie (abs.)" << endl;
     cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
     cout << "\t- [7] Nezistené (abs.)" << endl;
+}
+
+string Aplikacia::prelozUJTypNaString(UJTyp typ) {
+    switch (typ) {
+        case UJTyp::Stat:
+            return "Štát";
+        case UJTyp::Kraj:
+            return "Kraj";
+        case UJTyp::Okres:
+            return "Okres";
+        case UJTyp::Obec:
+            return "Obec";
+        case UJTyp::Neoznacene:
+            return "Neoznačené";
+    }
 }

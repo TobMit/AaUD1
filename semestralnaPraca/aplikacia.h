@@ -72,6 +72,8 @@ private:
 
     static void resetColor();
 
+    string prelozUJTypNaString(UJTyp typ);
+
     UJTyp prelozNaUJTyp(string naPreklad);
     /// Vypočitava predka, nekotroluje, či sa dá predok vypočítať. (Napr keď z kraja chceme získať okres)
     /// \param data
@@ -84,8 +86,11 @@ private:
     static string krajGetCode(StoredData *data);
 
     Filter *filterPocet(int filterId, int &pIndex, bool &findCrit, bool &itsCritPoc);
+
     Filter *filterPodiel(int filterId, int &pIndex, bool &findCrit, bool &itsCritPod);
+
     void vypisVZmenu();
+
 };
 
 
