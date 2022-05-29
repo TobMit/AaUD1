@@ -536,7 +536,7 @@ void Aplikacia::filtrovanie() {
     //------------------------------------------ Jadro filtrovania ------------------------------------------
     //------------------ Stat ------------------
     auto ixStat = codeIndex->find("SK");
-    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat)) {
+    if ((targetTyp == UJTyp::Stat || targetTyp == UJTyp::Neoznacene) && compositeFilter->pass(*ixStat) && targetUJ->getUJTyp() == UJTyp::Stat) {
         dataToSort->insert(ixStat->getCode(), ixStat);
     }
     auto arrKraj = statIndex->find("SK");
