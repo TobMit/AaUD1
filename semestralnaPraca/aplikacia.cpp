@@ -310,7 +310,7 @@ void Aplikacia::filtrovanie() {
     UJTyp targetTyp = prelozNaUJTyp(filtUJTyp);
 
     //------------------- Filter príslunšnoť k UJ -------------------
-    changeColor(Color::BrightBlue);
+    changeColor(Color::DarkBlue);
     cout << "\tFilter príslušnosť k VUJ ";
     resetColor();
     cout << "(napr.: Trenčiansky kraj, Okres Trenčín, Slovensko...)";
@@ -371,17 +371,24 @@ void Aplikacia::filtrovanie() {
     cout << "Vzdelávanie" << endl;
     changeColor(Color::Red);
     cout << "!! Ak sa rozhodnete aplikovať filter, MUSIA byť vyplnéne všetky parametre !!" << endl;
+    cout << "!! Ak chcte zadávať iba 1 filter (v skupine) pre spájanie vyberte AND !!" << endl;
 
     changeColor(Color::DarkBlue);
     cout << "Aplikovať filtre pre vzdelavanie? \n\t[1] Ano \n\t[0] Nie \nVoľba: ";
+    string vzVolbaApl;
     int vzVolbaAplikovat;
-    cin >> vzVolbaAplikovat;
+    getline(cin, vzVolbaApl);
+    if (vzVolbaApl.compare("1") == 0) {
+        vzVolbaAplikovat = 1;
+    } else {
+        vzVolbaAplikovat = 0;
+    }
 
     int cislovanieFitrlov = 0;
     if (vzVolbaAplikovat == 1) {
         cout << "Ktory typ chete použiť? " << endl;
-        cout << "\t[0] Filter počet VZ" << endl;
-        cout << "\t[1] Filter podiel VZ" << endl;
+        cout << "\t[0] Filter POČET VZ" << endl;
+        cout << "\t[1] Filter PODIEL VZ" << endl;
         cout << "\t[2] Počet a Podiel" << endl;
         cout << "Voľba: ";
         int volbaTypu;
@@ -396,7 +403,7 @@ void Aplikacia::filtrovanie() {
             cout << "\t\tVoľba: ";
             cin >> volba;
             CompositeFilter *pocet;
-            switch (volbaSpojenia) {
+            switch (volba) {
                 case 0:
                     pocet = new AND_Filter;
                     break;
@@ -409,7 +416,7 @@ void Aplikacia::filtrovanie() {
             while (true) {
                 cislovanieFitrlov++;
                 changeColor(Color::Red);
-                cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
                 pocet->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
                 changeColor(Color::BrightBlue);
@@ -432,7 +439,7 @@ void Aplikacia::filtrovanie() {
 
             cin >> volba;
             CompositeFilter *podiel;
-            switch (volbaSpojenia) {
+            switch (volba) {
                 case 0:
                     podiel = new AND_Filter;
                     break;
@@ -445,7 +452,7 @@ void Aplikacia::filtrovanie() {
             while (true) {
                 cislovanieFitrlov++;
                 changeColor(Color::Red);
-                cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
                 podiel->registerFilter(filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod));
                 changeColor(Color::BrightBlue);
@@ -497,7 +504,7 @@ void Aplikacia::filtrovanie() {
             while (true) {
                 cislovanieFitrlov++;
                 changeColor(Color::Red);
-                cout << "Filter cislo: " << cislovanieFitrlov << endl;
+                cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
                 if (volbaTypu == 0) {
                     compositeFilter->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
@@ -506,7 +513,7 @@ void Aplikacia::filtrovanie() {
                 }
 
                 changeColor(Color::BrightBlue);
-                cout << "Chcete zadat znovu Filter?" << endl;
+                cout << "Chcete zadať znovu Filter?" << endl;
                 cout << "\t[1] Ano" << endl;
                 cout << "\t[0] Nie" << endl;
                 cout << "Voľba: ";
@@ -517,9 +524,10 @@ void Aplikacia::filtrovanie() {
                 }
             }
         }
+        getline(cin, tmp);
     }
 
-    getline(cin, tmp);
+    //getline(cin, tmp);
     if (compositeFilter == nullptr) {
         compositeFilter = new AND_Filter;
     }
@@ -617,7 +625,7 @@ void Aplikacia::filtrovanie() {
         if (volba == 1) {
             ShellSort<string> sort;
             CriterionNazov *nazov = new CriterionNazov;
-            cout << "Chcete filtrovať podla zostupne?" << endl;
+            cout << "Chcete usporiadať zostupne?" << endl;
             cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
             cin >> volba;
             if (volba == 1) {
