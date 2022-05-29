@@ -551,7 +551,7 @@ void Aplikacia::filtrovanie() {
             if (targetUJ->getUJTyp() == UJTyp::Stat && !ixKraj->belongsTo(*targetUJ)) {
                 continue;
             }
-            if (targetUJ->getUJTyp() == UJTyp::Okres && ixKraj->belongsMe(targetUJ)) {
+            if (targetUJ->getUJTyp() == UJTyp::Okres && !ixKraj->belongsMe(targetUJ)) {
                 continue;
             }
 
