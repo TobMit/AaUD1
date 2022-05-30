@@ -246,7 +246,7 @@ void Aplikacia::bodoveVyhladavanie() {
                 break;
             case 6:
                 cout << "Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.): "
-                     << vzPocet->evaluate(*odlozenie) << endl;
+                     << vzPocet->evaluate(*findData) << endl;
                 break;
             case 7:
                 cout << "Nezistené (abs.): " << vzPocet->evaluate(*findData) << endl;
