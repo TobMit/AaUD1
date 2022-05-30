@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 25/05/2022.
-//
 #include "criterion.h"
 #include "criterionVZPocet.h"
 
@@ -22,7 +19,6 @@ inline CriterionVZPodiel::CriterionVZPodiel(const int pIndex) :
 }
 
 inline double CriterionVZPodiel::evaluate(const StoredData &data) {
-    //todo skontrolovat memleaky
     double retunrValue = 0;
     if (data.getVzdelavanie() != nullptr) {
         auto *ostatneData = dynamic_cast<OstatneUdaje *>(data.getVzdelavanie());

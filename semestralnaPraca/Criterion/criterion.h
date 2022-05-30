@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 25/05/2022.
-//
 #pragma once
 
 #include "storedData.h"

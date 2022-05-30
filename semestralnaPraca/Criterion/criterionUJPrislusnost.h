@@ -1,13 +1,8 @@
-//
-// Created by Tobias on 25/05/2022.
-//
-
 #include "criterion.h"
 
 #pragma once
 class CriterionUJPrislusnost : public Criterion<bool> {
 private:
-    //todo skontrolovat ci to nerobí mem leaks
     StoredData * dataToCompare;
 public:
     CriterionUJPrislusnost(StoredData &comparedData);

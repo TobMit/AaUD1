@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 21/05/2022.
-//
 #pragma once
 #include "iostream"
 #include "dataLoader/dataLoader.h"

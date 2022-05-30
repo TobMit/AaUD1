@@ -1,7 +1,3 @@
-//
-// Created by Tobias on 21/05/2022.
-//
-
 #include "aplikacia.h"
 
 Aplikacia::Aplikacia() :
@@ -19,14 +15,14 @@ Aplikacia::Aplikacia() :
         krajIndex(new structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*>),
         okresIndex(new structures::SortedSequenceTable<string, structures::ArrayList<StoredData*>*>)
 {
-    auto *slovensko = new UzemnaJednotka(UJTyp::Stat, "1", "SK", "Slovenska republika", "Slovensko", "Slovensko", "1");
+    auto *slovensko = new UzemnaJednotka(UJTyp::Stat, "1", "SK", "Slovenská republika", "Slovensko", "Slovensko", "1");
     stat->insert(slovensko->getCode(), slovensko);
-    auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, "2", "ZZ", "Zahranicie", "", "", "2");
+    auto *zahranicie = new UzemnaJednotka(UJTyp::Stat, "2", "ZZ", "Zahraničie", "", "", "2");
     stat->insert(zahranicie->getCode(), zahranicie);
 
     changeColor(Color::Cyan);
     TableLoader tableLoader;
-    cout << "Načitávam dáta ";
+    cout << "Načítavam dáta ";
     tableLoader.loadTable(*kraj, *okres, *obec, *vzdelanieObec, *nameIndex, *codeIndex);
     nameIndex->insert(slovensko->getOfficialTitle(), slovensko);
     nameIndex->insert(slovensko->at(4), slovensko);
@@ -40,7 +36,7 @@ Aplikacia::Aplikacia() :
     tableLoader.indexingTable(*stat, *kraj, *okres, *obec,
                               *statIndex, *krajIndex, *okresIndex);
     cout << " - 100%"  << endl;
-    cout << "Spracuvávam dáta - vzdelavanie ";
+    cout << "Spracovávam dáta - vzdelávanie ";
     tableLoader.spracujVzdelanie(*codeIndex, *statIndex, *krajIndex, *okresIndex, *vzdelanieObec,
                                  *vzdelanieOkres,*vzdelanieKraj, *vzdelanieStat);
     cout << " - 100%"  << endl;
@@ -93,7 +89,7 @@ Aplikacia::~Aplikacia() {
 
 bool Aplikacia::menu() {
     changeColor(Color::Magenta);
-    cout << "--------------------- SEMESTRALNA PRACA ---------------------" << endl;
+    cout << "--------------------- SEMESTRÁLNA PRÁCA ---------------------" << endl;
     cout << "\tBodové vyhľadávanie [1]" << endl;
     cout << "\tFiltrovanie [2]" << endl;
     cout << "\tKoniec [0]" << endl;
@@ -114,7 +110,7 @@ bool Aplikacia::menu() {
     changeColor(Color::Magenta);
     cout << endl << endl;
     cout << "------------------------------------------" << endl;
-    cout << "Menu? \n\tAno [1] \n\tNie [0]\nVolba: ";
+    cout << "Menu? \n\tÁno [1] \n\tNie [0]\nVoľba: ";
     std::getline(cin, volba);
     resetColor();
     switch (stoi(volba)) {
@@ -128,10 +124,10 @@ bool Aplikacia::menu() {
 
 void Aplikacia::bodoveVyhladavanie() {
     changeColor(Color::BrightGreen);
-    cout << "--------------------- Bodove vyhľadávanie ---------------------" << endl;
+    cout << "--------------------- Bodové vyhľadávanie ---------------------" << endl;
     resetColor();
-    cout << "Poznámka: parametre s \"*\" NIEsu povinné, ENTEROM sa preskočia." << endl;
-    cout << "\t \t  Keď chcte vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
+    cout << "Poznámka: parametre s \"*\" NIE sú povinné, ENTEROM sa preskočia." << endl;
+    cout << "\t \t  Keď chcete vyhľadávať KRAJ alebo OKRES, treba to tam napísať, napr.: Trenčiansky kraj, Okres Trenčín" << endl;
     changeColor(Color::Green);
     cout << "Zadaj názov: ";
     string vyhladavaneMeno;
@@ -142,12 +138,12 @@ void Aplikacia::bodoveVyhladavanie() {
         findData = nameIndex->find(vyhladavaneMeno);
     } catch (std::out_of_range) {
         changeColor(Color::Red);
-        cout << "Vami zadaná UJ nebola nájdena!" << endl;
+        cout << "Vami zadaná UJ nebola nájdená!" << endl;
         return;
     }
 
     changeColor(Color::DarkGren);
-    cout << "*Vzdelavanie "<< endl;
+    cout << "*Vzdelávanie "<< endl;
     cout << "\t- [0] Bez ukončeného vzdelania – osoby vo veku 0-14 rokov (abs.)" << endl;
     cout << "\t- [1] Základné vzdelanie (abs.)" << endl;
     cout << "\t- [2] Stredné odborné (učňovské) vzdelanie (bez maturity) (abs.)" << endl;
@@ -157,7 +153,7 @@ void Aplikacia::bodoveVyhladavanie() {
     cout << "\t- [6] Bez školského vzdelania – osoby vo veku 15 rokov a viac (abs.)" << endl;
     cout << "\t- [7] Nezistené (abs.)" << endl;
     cout << "\t- [8] všetko" << endl;
-    cout << "Vaša volba: ";
+    cout << "Vaša voľba: ";
     string vyhladavanieVzdelavanie;
     std::getline(cin, vyhladavanieVzdelavanie);
 
@@ -170,7 +166,7 @@ void Aplikacia::bodoveVyhladavanie() {
         findOstatne = dynamic_cast<OstatneUdaje *>(odlozenie);
     } else {
         changeColor(Color::Red);
-        cout << "Informácie o vzdelávani neboly nájdené." << endl;
+        cout << "Informácie o vzdelávaní neboly nájdené." << endl;
     }
 
 
@@ -327,7 +323,7 @@ void Aplikacia::filtrovanie() {
             targetUJ = nameIndex->find(filtUJPrisl);
         } catch (std::out_of_range) {
             changeColor(Color::Red);
-            cout << "!! Zadaná UJ nebol nájdena, Budem ju ignorovať!!" << endl;
+            cout << "!! Zadaná UJ nebol nájdená, Budem ju ignorovať!!" << endl;
             // keď sa nenájde nič tak sa tam natvrdo dáva slovensko, keďže pod slovensko patrí všetko ostatné
             targetUJ = codeIndex->find("SK");
         }
@@ -370,11 +366,11 @@ void Aplikacia::filtrovanie() {
     changeColor(Color::BrightBlue);
     cout << "Vzdelávanie" << endl;
     changeColor(Color::Red);
-    cout << "!! Ak sa rozhodnete aplikovať filter, MUSIA byť vyplnéne všetky parametre !!" << endl;
-    cout << "!! Ak chcte zadávať iba 1 filter (v skupine) pre spájanie vyberte AND !!" << endl;
+    cout << "!! Ak sa rozhodnete aplikovať filter, MUSIA byť vyplnené všetky parametre !!" << endl;
+    cout << "!! Ak chcete zadávať iba 1 filter (v skupine) pre spájanie vyberte AND !!" << endl;
 
     changeColor(Color::DarkBlue);
-    cout << "Aplikovať filtre pre vzdelavanie? \n\t[1] Ano \n\t[0] Nie \nVoľba: ";
+    cout << "Aplikovať filtre pre vzdelávanie? \n\t[1] Áno \n\t[0] Nie \nVoľba: ";
     string vzVolbaApl;
     int vzVolbaAplikovat;
     getline(cin, vzVolbaApl);
@@ -386,7 +382,7 @@ void Aplikacia::filtrovanie() {
 
     int cislovanieFitrlov = 0;
     if (vzVolbaAplikovat == 1) {
-        cout << "Ktory typ chete použiť? " << endl;
+        cout << "Ktorý typ chcete použiť? " << endl;
         cout << "\t[0] Filter POČET VZ" << endl;
         cout << "\t[1] Filter PODIEL VZ" << endl;
         cout << "\t[2] Počet a Podiel" << endl;
@@ -418,10 +414,13 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Red);
                 cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
-                pocet->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
+                auto newFilter = filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc);
+                if (newFilter != nullptr) {
+                    pocet->registerFilter(newFilter);
+                }
                 changeColor(Color::BrightBlue);
-                cout << "Chcete zadat znovu Filter?" << endl;
-                cout << "\t[1] Ano" << endl;
+                cout << "Chcete zadať znovu Filter?" << endl;
+                cout << "\t[1] Áno" << endl;
                 cout << "\t[0] Nie" << endl;
                 cout << "Voľba: ";
                 int pokracovanie;
@@ -454,10 +453,13 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Red);
                 cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
-                podiel->registerFilter(filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod));
+                auto newFilter = filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod);
+                if (newFilter != nullptr) {
+                    podiel->registerFilter(newFilter);
+                }
                 changeColor(Color::BrightBlue);
-                cout << "Chcete zadat znovu Filter?" << endl;
-                cout << "\t[1] Ano" << endl;
+                cout << "Chcete zadať znovu Filter?" << endl;
+                cout << "\t[1] Áno" << endl;
                 cout << "\t[0] Nie" << endl;
                 cout << "Voľba: ";
                 int pokracovanie;
@@ -506,15 +508,19 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Red);
                 cout << "Filter číslo: " << cislovanieFitrlov << endl;
                 changeColor(Color::DarkBlue);
+                Filter *newFilter;
                 if (volbaTypu == 0) {
-                    compositeFilter->registerFilter(filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc));
+                    newFilter = filterPocet(cislovanieFitrlov, pIndex, findCriterion, itsCritPoc);
                 } else if (volbaTypu == 1) {
-                    compositeFilter->registerFilter(filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod));
+                    newFilter = filterPodiel(cislovanieFitrlov, pIndex, findCriterion, itsCritPod);
+                }
+                if (newFilter != nullptr) {
+                    compositeFilter->registerFilter(newFilter);
                 }
 
                 changeColor(Color::BrightBlue);
                 cout << "Chcete zadať znovu Filter?" << endl;
-                cout << "\t[1] Ano" << endl;
+                cout << "\t[1] Áno" << endl;
                 cout << "\t[0] Nie" << endl;
                 cout << "Voľba: ";
                 int pokracovanie;
@@ -598,7 +604,7 @@ void Aplikacia::filtrovanie() {
     if (findCriterion) {
         changeColor(Color::Yellow);
         cout << "Chcete triediť zostupne?" << endl;
-        cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
+        cout << "\tÁno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
         bool zozstupne = false;
@@ -619,14 +625,14 @@ void Aplikacia::filtrovanie() {
     } else {
         changeColor(Color::Yellow);
         cout << "Chcete triediť podla mena?" << endl;
-        cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
+        cout << "\tÁno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
         if (volba == 1) {
             ShellSort<string> sort;
             CriterionNazov *nazov = new CriterionNazov;
             cout << "Chcete triediť zostupne?" << endl;
-            cout << "\tAno [1] \n\tNie [0]\nVaša voľba: ";
+            cout << "\tÁno [1] \n\tNie [0]\nVaša voľba: ";
             cin >> volba;
             if (volba == 1) {
                 sort.sordData(*dataToSort, nazov, true);
@@ -645,7 +651,7 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Red);
                 cout << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
                 resetColor();
-                cout << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                cout << "Názov UJ: " << item->accessData()->getOfficialTitle() << endl;
                 changeColor(Color::Cyan);
                 compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
                 cout << endl;
@@ -654,7 +660,7 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Green);
                 cout << "\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
                 resetColor();
-                cout << "\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                cout << "\t" << "Názov UJ: " << item->accessData()->getOfficialTitle() << endl;
                 changeColor(Color::Cyan);
                 cout << "\t";
                 compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
@@ -667,7 +673,7 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Magenta);
                 cout << "\t\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
                 resetColor();
-                cout << "\t\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                cout << "\t\t" << "Názov UJ: " << item->accessData()->getOfficialTitle() << endl;
                 changeColor(Color::Cyan);
                 cout << "\t\t";
                 compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
@@ -681,7 +687,7 @@ void Aplikacia::filtrovanie() {
                 changeColor(Color::Yellow);
                 cout << "\t\t\t" << "Typ UJ: " << prelozUJTypNaString(item->accessData()->getUJTyp()) << endl;
                 resetColor();
-                cout << "\t\t\t" << "Nazov UJ: " << item->accessData()->getOfficialTitle() << endl;
+                cout << "\t\t\t" << "Názov UJ: " << item->accessData()->getOfficialTitle() << endl;
                 changeColor(Color::Cyan);
                 cout << "\t\t\t";
                 compositeFilter->coutEvaluate(*item->accessData(),"hodnota kritéria: ");
@@ -822,7 +828,7 @@ Filter *Aplikacia::filterPocet(int filterId, int &pIndex, bool &findCrit, bool &
 
     if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
         changeColor(Color::Red);
-        cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
+        cout << "!! Zle zadaný index. Filter budem ignorovať!!" << endl;
         return nullptr;
     }
     int min;
@@ -830,7 +836,7 @@ Filter *Aplikacia::filterPocet(int filterId, int &pIndex, bool &findCrit, bool &
     resetColor();
     cout << "\t(Rozsah pre filter je určený <0, 2 000 000>)";
     changeColor(Color::Red);
-    cout << "!!Zadavajte iba čísla!!" << endl;
+    cout << "!!Zadávajte iba čísla!!" << endl;
     changeColor(Color::DarkBlue);
     cout << "\t-> zadajte min: ";
     cin >> min;
@@ -843,7 +849,7 @@ Filter *Aplikacia::filterPocet(int filterId, int &pIndex, bool &findCrit, bool &
     if (!findCrit) {
         changeColor(Color::Yellow);
         cout << "Chcete Triediť podľa tohto filtra?" << endl;
-        cout << "\tAno [1] \n\tNie [0]\nVaša volba: ";
+        cout << "\tÁno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
         if  (volba == 1) {
@@ -867,7 +873,7 @@ Filter *Aplikacia::filterPodiel(int filterId, int &pIndex, bool &findCrit, bool 
     cin >> indexFilter;
     if (indexFilter > maxVZmenu || indexFilter < minVZmenu) {
         changeColor(Color::Red);
-        cout << "!! Zle zadany index. Filter budem ignorovat!!" << endl;
+        cout << "!! Zle zadaný index. Filter budem ignorovať!!" << endl;
         return nullptr;
     }
     double min;
@@ -875,7 +881,7 @@ Filter *Aplikacia::filterPodiel(int filterId, int &pIndex, bool &findCrit, bool 
     resetColor();
     cout << "\t(Rozsah pre filter je určený <0, 100>)";
     changeColor(Color::Red);
-    cout << "!!Zadavajte iba čísla!!" << endl;
+    cout << "!!Zadávajte iba čísla!!" << endl;
     changeColor(Color::DarkBlue);
     cout << "\t-> zadajte min: ";
     cin >> min;
@@ -888,7 +894,7 @@ Filter *Aplikacia::filterPodiel(int filterId, int &pIndex, bool &findCrit, bool 
     if (!findCrit) {
         changeColor(Color::Yellow);
         cout << "Chcete Triediť podľa tohto filtra?" << endl;
-        cout << "\tAno [1] \n\tNie [0]\nVaša volba: ";
+        cout << "\tÁno [1] \n\tNie [0]\nVaša voľba: ";
         int volba;
         cin >> volba;
         if  (volba == 1) {

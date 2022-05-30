@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 25/05/2022.
-//
 #include "tableLoader.h"
 
 TableLoader::TableLoader() {

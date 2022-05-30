@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 28/05/2022.
-//
 #pragma once
 #include <iostream>
 #include <cmath>

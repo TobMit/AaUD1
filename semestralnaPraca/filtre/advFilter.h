@@ -1,6 +1,3 @@
-//
-// Created by Tobias on 28/05/2022.
-//
 #pragma once
 #include "../../structures/list/array_list.h"
 #include "filter.h"
@@ -47,7 +44,10 @@ public:
 class OR_Filter : public CompositeFilter {
 public:
     inline bool pass(const StoredData &data) override {
-        bool returnValue = true;
+        bool returnValue = false;
+        if (registredFilters.size() == 0) {
+            returnValue = true;
+        }
         for (auto filter: registredFilters) {
             returnValue = returnValue || filter->pass(data);
         }
